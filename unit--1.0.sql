@@ -1,0 +1,4 @@
+CREATE OR REPLACE FUNCTION unit()
+  RETURNS cstring
+  AS '$libdir/unit', 'unit'
+  LANGUAGE C IMMUTABLE STRICT;
