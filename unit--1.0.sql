@@ -1,4 +1,169 @@
-CREATE OR REPLACE FUNCTION unit()
-  RETURNS cstring
-  AS '$libdir/unit', 'unit'
+-- type definition
+
+CREATE TYPE unit;
+
+CREATE OR REPLACE FUNCTION unit_in(cstring)
+  RETURNS unit
+  AS '$libdir/unit'
   LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION unit_out(unit)
+  RETURNS cstring
+  AS '$libdir/unit'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE TYPE unit (
+	internallength = 16,
+	input = unit_in,
+	output = unit_out,
+	alignment = double
+);
+
+-- constructors
+
+CREATE FUNCTION meter(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_meter'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION kilogram(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_kilogram'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION second(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_second'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION ampere(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_ampere'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION kelvin(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_kelvin'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION mole(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_mole'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION candela(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_candela'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION byte(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_byte'
+	LANGUAGE C IMMUTABLE STRICT;
+
+-- operators
+
+CREATE FUNCTION unit_add(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR + (
+	leftarg = unit,
+	rightarg = unit,
+	procedure = unit_add,
+	commutator = +
+);
+
+CREATE FUNCTION unit_sub(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR - (
+	leftarg = unit,
+	rightarg = unit,
+	procedure = unit_sub
+);
+
+CREATE FUNCTION unit_mul(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR * (
+	leftarg = unit,
+	rightarg = unit,
+	procedure = unit_mul,
+	commutator = *
+);
+
+CREATE FUNCTION unit_div(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR / (
+	leftarg = unit,
+	rightarg = unit,
+	procedure = unit_div
+);
+
+-- comparisons
+
+CREATE FUNCTION unit_lt(unit, unit) RETURNS bool
+   AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION unit_le(unit, unit) RETURNS bool
+   AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION unit_eq(unit, unit) RETURNS bool
+   AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION unit_ne(unit, unit) RETURNS bool
+   AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION unit_ge(unit, unit) RETURNS bool
+   AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION unit_gt(unit, unit) RETURNS bool
+   AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR < (
+	leftarg = unit, rightarg = unit, procedure = unit_lt,
+	commutator = > , negator = >= ,
+	restrict = scalarltsel, join = scalarltjoinsel
+);
+CREATE OPERATOR <= (
+	leftarg = unit, rightarg = unit, procedure = unit_le,
+	commutator = >= , negator = > ,
+	restrict = scalarltsel, join = scalarltjoinsel
+);
+CREATE OPERATOR = (
+	leftarg = unit, rightarg = unit, procedure = unit_eq,
+	commutator = = , negator = <> ,
+	restrict = eqsel, join = eqjoinsel
+);
+CREATE OPERATOR <> (
+	leftarg = unit, rightarg = unit, procedure = unit_ne,
+	commutator = <> , negator = = ,
+	restrict = neqsel, join = neqjoinsel
+);
+CREATE OPERATOR >= (
+	leftarg = unit, rightarg = unit, procedure = unit_ge,
+	commutator = <= , negator = < ,
+	restrict = scalargtsel, join = scalargtjoinsel
+);
+CREATE OPERATOR > (
+	leftarg = unit, rightarg = unit, procedure = unit_gt,
+	commutator = < , negator = <= ,
+	restrict = scalargtsel, join = scalargtjoinsel
+);
+
+-- create the support function too
+CREATE FUNCTION unit_cmp(unit, unit) RETURNS int4
+	AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR CLASS unit_ops
+	DEFAULT FOR TYPE unit USING btree AS
+		OPERATOR 1 < ,
+		OPERATOR 2 <= ,
+		OPERATOR 3 = ,
+		OPERATOR 4 >= ,
+		OPERATOR 5 > ,
+		FUNCTION 1 unit_cmp(unit, unit);

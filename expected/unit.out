@@ -1,0 +1,253 @@
+-- test input and output
+SELECT '1'::unit;
+ unit 
+------
+ 1
+(1 row)
+
+CREATE TABLE u (u unit);
+INSERT INTO u VALUES ('1');
+SELECT * FROM u;
+ u 
+---
+ 1
+(1 row)
+
+-- test constructors
+SELECT meter();
+ meter 
+-------
+ 1 m
+(1 row)
+
+SELECT meter(2.0) AS two_meters;
+ two_meters 
+------------
+ 2 m
+(1 row)
+
+SELECT kilogram();
+ kilogram 
+----------
+ 1 kg
+(1 row)
+
+SELECT kilogram(3.0) AS three_kilogram;
+ three_kilogram 
+----------------
+ 3 kg
+(1 row)
+
+SELECT second();
+ second 
+--------
+ 1 s
+(1 row)
+
+SELECT second(4.0) AS four_seconds;
+ four_seconds 
+--------------
+ 4 s
+(1 row)
+
+SELECT ampere();
+ ampere 
+--------
+ 1 A
+(1 row)
+
+SELECT ampere(5.0) AS five_ampere;
+ five_ampere 
+-------------
+ 5 A
+(1 row)
+
+SELECT kelvin();
+ kelvin 
+--------
+ 1 K
+(1 row)
+
+SELECT kelvin(6.0) AS six_kelvin;
+ six_kelvin 
+------------
+ 6 K
+(1 row)
+
+SELECT mole();
+ mole  
+-------
+ 1 mol
+(1 row)
+
+SELECT mole(7.0) AS seven_mole;
+ seven_mole 
+------------
+ 7 mol
+(1 row)
+
+SELECT candela();
+ candela 
+---------
+ 1 cd
+(1 row)
+
+SELECT candela(8.0) AS eight_candela;
+ eight_candela 
+---------------
+ 8 cd
+(1 row)
+
+SELECT byte();
+ byte 
+------
+ 1 B
+(1 row)
+
+SELECT byte(9.0) AS nine_byte;
+ nine_byte 
+-----------
+ 9 B
+(1 row)
+
+-- test operators
+SELECT '1'::unit + '2' AS sum;
+ sum 
+-----
+ 3
+(1 row)
+
+SELECT '1'::unit - '2' AS difference;
+ difference 
+------------
+ -1
+(1 row)
+
+SELECT '2'::unit * '2' AS product;
+ product 
+---------
+ 4
+(1 row)
+
+SELECT '5'::unit / '2' AS fraction;
+ fraction 
+----------
+ 2.5
+(1 row)
+
+SELECT '5'::unit / '0' AS division_by_zero;
+FEHLER:  division by zero-valued unit: "0"
+-- test more operations
+SELECT meter() * '2' AS two_meters;
+ two_meters 
+------------
+ 2 m
+(1 row)
+
+SELECT '3' * meter() AS three_meters;
+ three_meters 
+--------------
+ 3 m
+(1 row)
+
+SELECT meter() * meter() AS square_meter;
+ square_meter 
+--------------
+ 1 m^2
+(1 row)
+
+SELECT meter() * kilogram() AS meter_kilogram;
+ meter_kilogram 
+----------------
+ 1 m kg
+(1 row)
+
+SELECT meter() + '1' AS error;
+FEHLER:  units are not the same: "1 m", "1"
+SELECT meter() + kilogram() AS error;
+FEHLER:  units are not the same: "1 m", "1 kg"
+-- test comparisons
+WITH
+  v(u) AS (VALUES ('1'::unit), ('2'::unit),
+	(meter()), (meter() * '2'),
+	(kilogram()), (kilogram() * '2')),
+  va(a) AS (SELECT * FROM v),
+  vb(b) AS (SELECT * FROM v)
+SELECT
+  a, b, unit_cmp(a, b) AS cmp,
+  a < b  AS lt, a <= b AS le,
+  a = b  AS eq, a <> b AS ne,
+  a >= b AS ge, a > b  AS ge
+FROM
+  va CROSS JOIN vb;
+  a   |  b   | cmp  | lt | le | eq | ne | ge | ge 
+------+------+------+----+----+----+----+----+----
+ 1    | 1    |    0 | f  | t  | t  | f  | t  | f
+ 1    | 2    |   -1 | t  | t  | f  | t  | f  | f
+ 1    | 1 m  |   -1 | t  | t  | f  | t  | f  | f
+ 1    | 2 m  |   -1 | t  | t  | f  | t  | f  | f
+ 1    | 1 kg | -256 | t  | t  | f  | t  | f  | f
+ 1    | 2 kg |   -1 | t  | t  | f  | t  | f  | f
+ 2    | 1    |    1 | f  | f  | f  | t  | t  | t
+ 2    | 2    |    0 | f  | t  | t  | f  | t  | f
+ 2    | 1 m  |    1 | f  | f  | f  | t  | t  | t
+ 2    | 2 m  |   -1 | t  | t  | f  | t  | f  | f
+ 2    | 1 kg |    1 | f  | f  | f  | t  | t  | t
+ 2    | 2 kg | -256 | t  | t  | f  | t  | f  | f
+ 1 m  | 1    |    1 | f  | f  | f  | t  | t  | t
+ 1 m  | 2    |   -1 | t  | t  | f  | t  | f  | f
+ 1 m  | 1 m  |    0 | f  | t  | t  | f  | t  | f
+ 1 m  | 2 m  |   -1 | t  | t  | f  | t  | f  | f
+ 1 m  | 1 kg |    1 | f  | f  | f  | t  | t  | t
+ 1 m  | 2 kg |   -1 | t  | t  | f  | t  | f  | f
+ 2 m  | 1    |    1 | f  | f  | f  | t  | t  | t
+ 2 m  | 2    |    1 | f  | f  | f  | t  | t  | t
+ 2 m  | 1 m  |    1 | f  | f  | f  | t  | t  | t
+ 2 m  | 2 m  |    0 | f  | t  | t  | f  | t  | f
+ 2 m  | 1 kg |    1 | f  | f  | f  | t  | t  | t
+ 2 m  | 2 kg |    1 | f  | f  | f  | t  | t  | t
+ 1 kg | 1    |  256 | f  | f  | f  | t  | t  | t
+ 1 kg | 2    |   -1 | t  | t  | f  | t  | f  | f
+ 1 kg | 1 m  |   -1 | t  | t  | f  | t  | f  | f
+ 1 kg | 2 m  |   -1 | t  | t  | f  | t  | f  | f
+ 1 kg | 1 kg |    0 | f  | t  | t  | f  | t  | f
+ 1 kg | 2 kg |   -1 | t  | t  | f  | t  | f  | f
+ 2 kg | 1    |    1 | f  | f  | f  | t  | t  | t
+ 2 kg | 2    |  256 | f  | f  | f  | t  | t  | t
+ 2 kg | 1 m  |    1 | f  | f  | f  | t  | t  | t
+ 2 kg | 2 m  |   -1 | t  | t  | f  | t  | f  | f
+ 2 kg | 1 kg |    1 | f  | f  | f  | t  | t  | t
+ 2 kg | 2 kg |    0 | f  | t  | t  | f  | t  | f
+(36 rows)
+
+-- test btree index
+INSERT INTO u SELECT meter(generate_series(1,10000)::double precision);
+INSERT INTO u SELECT generate_series(1,10000)::text::unit * kilogram();
+ANALYZE u;
+CREATE INDEX ON u(u);
+SELECT * FROM u WHERE u = meter(400);
+   u   
+-------
+ 400 m
+(1 row)
+
+SELECT * FROM u WHERE u = '300' * kilogram();
+   u    
+--------
+ 300 kg
+(1 row)
+
+EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = meter(400);
+             QUERY PLAN             
+------------------------------------
+ Index Only Scan using u_u_idx on u
+   Index Cond: (u = '400 m'::unit)
+(2 rows)
+
+EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = '300' * kilogram();
+             QUERY PLAN             
+------------------------------------
+ Index Only Scan using u_u_idx on u
+   Index Cond: (u = '300 kg'::unit)
+(2 rows)
+
