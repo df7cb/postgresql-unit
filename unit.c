@@ -1,5 +1,6 @@
 #include "postgres.h"
 #include "fmgr.h"
+#include <math.h>
 
 #include "unit.h"
 
@@ -8,7 +9,7 @@ PG_MODULE_MAGIC;
 /* internal functions */
 
 static inline char *
-unit_fmt (char *name, unsigned char exponent)
+unit_fmt (char *name, signed char exponent)
 {
 	if (exponent == 0)
 		return "";
@@ -256,7 +257,24 @@ unit_div(PG_FUNCTION_ARGS)
 	result = (Unit *) palloc(sizeof(Unit));
 	result->value = a->value / b->value;
 	for (i = 0; i < N_UNITS; i++)
-		result->units[i] = a->units[i] + b->units[i];
+		result->units[i] = a->units[i] - b->units[i];
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(unit_pow);
+
+Datum
+unit_pow(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	int		 b = PG_GETARG_INT32(1);
+	Unit	*result;
+	int		 i;
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = pow(a->value, b);
+	for (i = 0; i < N_UNITS; i++)
+		result->units[i] = a->units[i] * b;
 	PG_RETURN_POINTER(result);
 }
 

@@ -11,5 +11,5 @@
 
 typedef struct Unit {
 	double			value;
-	unsigned char	units[N_UNITS];
+	signed char		units[N_UNITS];
 } Unit;

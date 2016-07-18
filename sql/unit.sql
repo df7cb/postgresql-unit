@@ -29,11 +29,20 @@ SELECT '2'::unit * '2' AS product;
 SELECT '5'::unit / '2' AS fraction;
 SELECT '5'::unit / '0' AS division_by_zero;
 
+SELECT '6'::unit ^ 2 AS square;
+SELECT meter(7) ^ 2 AS square_meter;
+SELECT second(2) ^ -1 AS hertz;
+SELECT ampere(4) ^ 0 AS unity;
+SELECT '0'::unit ^ 0 AS unity;
+
 -- test more operations
 SELECT meter() * '2' AS two_meters;
 SELECT '3' * meter() AS three_meters;
 SELECT meter() * meter() AS square_meter;
 SELECT meter() * kilogram() AS meter_kilogram;
+SELECT '1' / second(.02) AS hertz;
+SELECT meter(9.81) / (second() * second()) AS acceleration;
+
 SELECT meter() + '1' AS error;
 SELECT meter() + kilogram() AS error;
 

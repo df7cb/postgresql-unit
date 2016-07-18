@@ -109,6 +109,17 @@ CREATE OPERATOR / (
 	procedure = unit_div
 );
 
+CREATE FUNCTION unit_pow(unit, int)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR ^ (
+	leftarg = unit,
+	rightarg = int,
+	procedure = unit_pow
+);
+
 -- comparisons
 
 CREATE FUNCTION unit_lt(unit, unit) RETURNS bool

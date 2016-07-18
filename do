@@ -12,4 +12,7 @@ psql -c "DROP TABLE u" || :
 psql -c "DROP EXTENSION unit CASCADE" || :
 psql -c "CREATE EXTENSION unit"
 #psql -eX -f sql/unit.sql
-make installcheck REGRESS_OPTS="--use-existing" PG_CONFIG=$PG_CONFIG
+if ! make installcheck REGRESS_OPTS="--use-existing" PG_CONFIG=$PG_CONFIG; then
+	cat regression.diffs
+	exit 1
+fi
