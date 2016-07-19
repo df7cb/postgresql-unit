@@ -1,0 +1,141 @@
+CREATE TEMP TABLE units (u) AS
+  VALUES
+	('1'::unit),
+	(meter()),
+	(kilogram()),
+	(second()),
+	(ampere()),
+	(kelvin()),
+	(mole()),
+	(candela()),
+	(byte());
+-- test multiplication
+WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('0'), ('1'), ('2'))
+SELECT
+  u, i, u * i
+FROM
+  units CROSS JOIN i
+\crosstabview
+   u   |   -2   |   -1   |   0   |   1   |   2   
+-------+--------+--------+-------+-------+-------
+ 1     | -2     | -1     | 0     | 1     | 2
+ 1 m   | -2 m   | -1 m   | 0 m   | 1 m   | 2 m
+ 1 kg  | -2 kg  | -1 kg  | 0 kg  | 1 kg  | 2 kg
+ 1 s   | -2 s   | -1 s   | 0 s   | 1 s   | 2 s
+ 1 A   | -2 A   | -1 A   | 0 A   | 1 A   | 2 A
+ 1 K   | -2 K   | -1 K   | 0 K   | 1 K   | 2 K
+ 1 mol | -2 mol | -1 mol | 0 mol | 1 mol | 2 mol
+ 1 cd  | -2 cd  | -1 cd  | 0 cd  | 1 cd  | 2 cd
+ 1 B   | -2 B   | -1 B   | 0 B   | 1 B   | 2 B
+(9 rows)
+
+SELECT
+  a.u AS a, b.u AS b, a.u * b.u AS mul
+FROM 
+  units AS a CROSS JOIN units AS b
+\crosstabview
+   a   |   1   |   1 m   |   1 kg   |   1 s   |   1 A   |   1 K   |  1 mol   |   1 cd   |   1 B   
+-------+-------+---------+----------+---------+---------+---------+----------+----------+---------
+ 1     | 1     | 1 m     | 1 kg     | 1 s     | 1 A     | 1 K     | 1 mol    | 1 cd     | 1 B
+ 1 m   | 1 m   | 1 m^2   | 1 m kg   | 1 m s   | 1 m A   | 1 m K   | 1 m mol  | 1 m cd   | 1 m B
+ 1 kg  | 1 kg  | 1 m kg  | 1 kg^2   | 1 kg s  | 1 kg A  | 1 kg K  | 1 kg mol | 1 kg cd  | 1 kg B
+ 1 s   | 1 s   | 1 m s   | 1 kg s   | 1 s^2   | 1 s A   | 1 s K   | 1 s mol  | 1 s cd   | 1 s B
+ 1 A   | 1 A   | 1 m A   | 1 kg A   | 1 s A   | 1 A^2   | 1 A K   | 1 A mol  | 1 A cd   | 1 A B
+ 1 K   | 1 K   | 1 m K   | 1 kg K   | 1 s K   | 1 A K   | 1 K^2   | 1 K mol  | 1 K cd   | 1 K B
+ 1 mol | 1 mol | 1 m mol | 1 kg mol | 1 s mol | 1 A mol | 1 K mol | 1 mol^2  | 1 mol cd | 1 mol B
+ 1 cd  | 1 cd  | 1 m cd  | 1 kg cd  | 1 s cd  | 1 A cd  | 1 K cd  | 1 mol cd | 1 cd^2   | 1 cd B
+ 1 B   | 1 B   | 1 m B   | 1 kg B   | 1 s B   | 1 A B   | 1 K B   | 1 mol B  | 1 cd B   | 1 B^2
+(9 rows)
+
+-- test division
+WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('1'), ('2'))
+SELECT
+  u, i, u / i
+FROM
+  units CROSS JOIN i
+\crosstabview
+   u   |    -2    |   -1   |   1   |    2    
+-------+----------+--------+-------+---------
+ 1     | -0.5     | -1     | 1     | 0.5
+ 1 m   | -0.5 m   | -1 m   | 1 m   | 0.5 m
+ 1 kg  | -0.5 kg  | -1 kg  | 1 kg  | 0.5 kg
+ 1 s   | -0.5 s   | -1 s   | 1 s   | 0.5 s
+ 1 A   | -0.5 A   | -1 A   | 1 A   | 0.5 A
+ 1 K   | -0.5 K   | -1 K   | 1 K   | 0.5 K
+ 1 mol | -0.5 mol | -1 mol | 1 mol | 0.5 mol
+ 1 cd  | -0.5 cd  | -1 cd  | 1 cd  | 0.5 cd
+ 1 B   | -0.5 B   | -1 B   | 1 B   | 0.5 B
+(9 rows)
+
+WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('0'), ('1'), ('2'))
+SELECT
+  i, u, i / u
+FROM
+  units CROSS JOIN i
+\crosstabview
+ i  | 1  |   1 m   |   1 kg   |   1 s   |   1 A   |   1 K   |   1 mol   |   1 cd   |   1 B   
+----+----+---------+----------+---------+---------+---------+-----------+----------+---------
+ -2 | -2 | -2 m^-1 | -2 kg^-1 | -2 s^-1 | -2 A^-1 | -2 K^-1 | -2 mol^-1 | -2 cd^-1 | -2 B^-1
+ -1 | -1 | -1 m^-1 | -1 kg^-1 | -1 s^-1 | -1 A^-1 | -1 K^-1 | -1 mol^-1 | -1 cd^-1 | -1 B^-1
+ 0  | 0  | 0 m^-1  | 0 kg^-1  | 0 s^-1  | 0 A^-1  | 0 K^-1  | 0 mol^-1  | 0 cd^-1  | 0 B^-1
+ 1  | 1  | 1 m^-1  | 1 kg^-1  | 1 s^-1  | 1 A^-1  | 1 K^-1  | 1 mol^-1  | 1 cd^-1  | 1 B^-1
+ 2  | 2  | 2 m^-1  | 2 kg^-1  | 2 s^-1  | 2 A^-1  | 2 K^-1  | 2 mol^-1  | 2 cd^-1  | 2 B^-1
+(5 rows)
+
+SELECT
+  a.u AS a, b.u AS b, a.u / b.u AS div
+FROM 
+  units AS a CROSS JOIN units AS b
+\crosstabview
+   a   |   1   |    1 m     |    1 kg     |    1 s     |    1 A     |    1 K     |    1 mol    |    1 cd     |    1 B     
+-------+-------+------------+-------------+------------+------------+------------+-------------+-------------+------------
+ 1     | 1     | 1 m^-1     | 1 kg^-1     | 1 s^-1     | 1 A^-1     | 1 K^-1     | 1 mol^-1    | 1 cd^-1     | 1 B^-1
+ 1 m   | 1 m   | 1          | 1 m kg^-1   | 1 m s^-1   | 1 m A^-1   | 1 m K^-1   | 1 m mol^-1  | 1 m cd^-1   | 1 m B^-1
+ 1 kg  | 1 kg  | 1 m^-1 kg  | 1           | 1 kg s^-1  | 1 kg A^-1  | 1 kg K^-1  | 1 kg mol^-1 | 1 kg cd^-1  | 1 kg B^-1
+ 1 s   | 1 s   | 1 m^-1 s   | 1 kg^-1 s   | 1          | 1 s A^-1   | 1 s K^-1   | 1 s mol^-1  | 1 s cd^-1   | 1 s B^-1
+ 1 A   | 1 A   | 1 m^-1 A   | 1 kg^-1 A   | 1 s^-1 A   | 1          | 1 A K^-1   | 1 A mol^-1  | 1 A cd^-1   | 1 A B^-1
+ 1 K   | 1 K   | 1 m^-1 K   | 1 kg^-1 K   | 1 s^-1 K   | 1 A^-1 K   | 1          | 1 K mol^-1  | 1 K cd^-1   | 1 K B^-1
+ 1 mol | 1 mol | 1 m^-1 mol | 1 kg^-1 mol | 1 s^-1 mol | 1 A^-1 mol | 1 K^-1 mol | 1           | 1 mol cd^-1 | 1 mol B^-1
+ 1 cd  | 1 cd  | 1 m^-1 cd  | 1 kg^-1 cd  | 1 s^-1 cd  | 1 A^-1 cd  | 1 K^-1 cd  | 1 mol^-1 cd | 1           | 1 cd B^-1
+ 1 B   | 1 B   | 1 m^-1 B   | 1 kg^-1 B   | 1 s^-1 B   | 1 A^-1 B   | 1 K^-1 B   | 1 mol^-1 B  | 1 cd^-1 B   | 1
+(9 rows)
+
+-- test comparisons
+WITH
+  v(u) AS (VALUES
+	('-2'::unit),
+	('-1'::unit),
+	(-kilogram()),
+	(-meter()),
+	('-0'::unit),
+	('0'::unit),
+	('1'::unit),
+	(kilogram()),
+	(meter()),
+	('2'::unit),
+	(kilogram(2)),
+	(meter(2))
+  ),
+  va(a) AS (SELECT * FROM v),
+  vb(b) AS (SELECT * FROM v)
+SELECT
+  a, b, unit_cmp(a, b) AS cmp
+FROM
+  va CROSS JOIN vb
+\crosstabview
+   a   | -2 | -1  | -1 kg | -1 m | -0 | 0  |  1  | 1 kg | 1 m |  2  | 2 kg | 2 m 
+-------+----+-----+-------+------+----+----+-----+------+-----+-----+------+-----
+ -2    |  0 |  -1 |    -1 |   -1 | -1 | -1 |  -1 |   -1 |  -1 |  -1 |   -1 |  -1
+ -1    |  1 |   0 |  -256 |   -1 | -1 | -1 |  -1 |   -1 |  -1 |  -1 |   -1 |  -1
+ -1 kg |  1 | 256 |     0 |   -1 | -1 | -1 |  -1 |   -1 |  -1 |  -1 |   -1 |  -1
+ -1 m  |  1 |   1 |     1 |    0 | -1 | -1 |  -1 |   -1 |  -1 |  -1 |   -1 |  -1
+ -0    |  1 |   1 |     1 |    1 |  0 |  0 |  -1 |   -1 |  -1 |  -1 |   -1 |  -1
+ 0     |  1 |   1 |     1 |    1 |  0 |  0 |  -1 |   -1 |  -1 |  -1 |   -1 |  -1
+ 1     |  1 |   1 |     1 |    1 |  1 |  1 |   0 | -256 |  -1 |  -1 |   -1 |  -1
+ 1 kg  |  1 |   1 |     1 |    1 |  1 |  1 | 256 |    0 |  -1 |  -1 |   -1 |  -1
+ 1 m   |  1 |   1 |     1 |    1 |  1 |  1 |   1 |    1 |   0 |  -1 |   -1 |  -1
+ 2     |  1 |   1 |     1 |    1 |  1 |  1 |   1 |    1 |   1 |   0 | -256 |  -1
+ 2 kg  |  1 |   1 |     1 |    1 |  1 |  1 |   1 |    1 |   1 | 256 |    0 |  -1
+ 2 m   |  1 |   1 |     1 |    1 |  1 |  1 |   1 |    1 |   1 |   1 |    1 |   0
+(12 rows)
+

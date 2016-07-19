@@ -110,7 +110,32 @@ SELECT byte(9.0) AS nine_byte;
  9 B
 (1 row)
 
--- test operators
+-- text extractors
+SELECT value('2'::unit);
+ value 
+-------
+     2
+(1 row)
+
+SELECT value(meter(2));
+ value 
+-------
+     2
+(1 row)
+
+SELECT dimension('2'::unit);
+ dimension 
+-----------
+ 1
+(1 row)
+
+SELECT dimension(kilogram(2));
+ dimension 
+-----------
+ 1 kg
+(1 row)
+
+-- test unit addition/subtraction
 SELECT '1'::unit + '2' AS sum;
  sum 
 -----
@@ -120,6 +145,17 @@ SELECT '1'::unit + '2' AS sum;
 SELECT '1'::unit - '2' AS difference;
  difference 
 ------------
+ -1
+(1 row)
+
+SELECT meter() + '1' AS error;
+ERROR:  units are not the same: "1 m", "1"
+SELECT meter() + kilogram() AS error;
+ERROR:  units are not the same: "1 m", "1 kg"
+-- test unit multiplication/division
+SELECT - '1'::unit AS negative;
+ negative 
+----------
  -1
 (1 row)
 
@@ -135,8 +171,98 @@ SELECT '5'::unit / '2' AS fraction;
  2.5
 (1 row)
 
+SELECT '0'::unit / '2' AS zero;
+ zero 
+------
+ 0
+(1 row)
+
 SELECT '5'::unit / '0' AS division_by_zero;
-FEHLER:  division by zero-valued unit: "0"
+ERROR:  division by zero-valued unit: "0"
+SELECT - second() AS minus_second;
+ minus_second 
+--------------
+ -1 s
+(1 row)
+
+SELECT meter() * '2' AS two_meters;
+ two_meters 
+------------
+ 2 m
+(1 row)
+
+SELECT '3' * meter() AS three_meters;
+ three_meters 
+--------------
+ 3 m
+(1 row)
+
+SELECT meter() * meter() AS square_meter;
+ square_meter 
+--------------
+ 1 m^2
+(1 row)
+
+SELECT meter() * kilogram() AS meter_kilogram;
+ meter_kilogram 
+----------------
+ 1 m kg
+(1 row)
+
+SELECT '1' / second(.02) AS hertz;
+  hertz  
+---------
+ 50 s^-1
+(1 row)
+
+SELECT meter(9.81) / (second() * second()) AS acceleration;
+ acceleration 
+--------------
+ 9.81 m s^-2
+(1 row)
+
+-- test unit/double operators
+SELECT 2 * meter() AS two_meters;
+ two_meters 
+------------
+ 2 m
+(1 row)
+
+SELECT ampere() * 3 AS three_ampere;
+ three_ampere 
+--------------
+ 3 A
+(1 row)
+
+SELECT 4 / second() AS four_hertz;
+ four_hertz 
+------------
+ 4 s^-1
+(1 row)
+
+SELECT kelvin() / 5 AS fifth_kelvin;
+ fifth_kelvin 
+--------------
+ 0.2 K
+(1 row)
+
+SELECT 0 / candela() AS zero_by_candela;
+ zero_by_candela 
+-----------------
+ 0 cd^-1
+(1 row)
+
+SELECT 1 / mole(0) AS error;
+ERROR:  division by zero-valued unit: "0 mol"
+SELECT byte(0) / 2 AS zero_byte;
+ zero_byte 
+-----------
+ 0 B
+(1 row)
+
+SELECT kilogram(1) / 0 AS error;
+ERROR:  division of unit by zero
+-- test exponentiation
 SELECT '6'::unit ^ 2 AS square;
  square 
 --------
@@ -167,117 +293,155 @@ SELECT '0'::unit ^ 0 AS unity;
  1
 (1 row)
 
--- test more operations
-SELECT meter() * '2' AS two_meters;
- two_meters 
-------------
- 2 m
-(1 row)
-
-SELECT '3' * meter() AS three_meters;
- three_meters 
---------------
- 3 m
-(1 row)
-
-SELECT meter() * meter() AS square_meter;
- square_meter 
---------------
- 1 m^2
-(1 row)
-
-SELECT meter() * kilogram() AS meter_kilogram;
- meter_kilogram 
-----------------
- 1 m kg
-(1 row)
-
-SELECT meter() + '1' AS error;
-FEHLER:  units are not the same: "1 m", "1"
-SELECT meter() + kilogram() AS error;
-FEHLER:  units are not the same: "1 m", "1 kg"
--- test comparisons
 WITH
-  v(u) AS (VALUES ('1'::unit), ('2'::unit),
-	(meter()), (meter() * '2'),
-	(kilogram()), (kilogram() * '2')),
+  v(u) AS (VALUES
+	(NULL),
+	('0'::unit),
+	('1'::unit),
+	('2'::unit),
+	(meter(0)),
+	(meter()),
+	(meter() * '2'),
+	(kilogram(0)),
+	(kilogram()),
+	(kilogram() * '2')
+  ),
   va(a) AS (SELECT * FROM v),
   vb(b) AS (SELECT * FROM v)
 SELECT
-  a, b, unit_cmp(a, b) AS cmp,
-  a < b  AS lt, a <= b AS le,
-  a = b  AS eq, a <> b AS ne,
-  a >= b AS ge, a > b  AS ge
+  a, b,
+  -a AS neg,
+  a * b AS mul,
+  CASE WHEN value(b) = 0 THEN NULL ELSE a / b END AS div
 FROM
   va CROSS JOIN vb;
-  a   |  b   | cmp  | lt | le | eq | ne | ge | ge 
-------+------+------+----+----+----+----+----+----
- 1    | 1    |    0 | f  | t  | t  | f  | t  | f
- 1    | 2    |   -1 | t  | t  | f  | t  | f  | f
- 1    | 1 m  |   -1 | t  | t  | f  | t  | f  | f
- 1    | 2 m  |   -1 | t  | t  | f  | t  | f  | f
- 1    | 1 kg | -256 | t  | t  | f  | t  | f  | f
- 1    | 2 kg |   -1 | t  | t  | f  | t  | f  | f
- 2    | 1    |    1 | f  | f  | f  | t  | t  | t
- 2    | 2    |    0 | f  | t  | t  | f  | t  | f
- 2    | 1 m  |    1 | f  | f  | f  | t  | t  | t
- 2    | 2 m  |   -1 | t  | t  | f  | t  | f  | f
- 2    | 1 kg |    1 | f  | f  | f  | t  | t  | t
- 2    | 2 kg | -256 | t  | t  | f  | t  | f  | f
- 1 m  | 1    |    1 | f  | f  | f  | t  | t  | t
- 1 m  | 2    |   -1 | t  | t  | f  | t  | f  | f
- 1 m  | 1 m  |    0 | f  | t  | t  | f  | t  | f
- 1 m  | 2 m  |   -1 | t  | t  | f  | t  | f  | f
- 1 m  | 1 kg |    1 | f  | f  | f  | t  | t  | t
- 1 m  | 2 kg |   -1 | t  | t  | f  | t  | f  | f
- 2 m  | 1    |    1 | f  | f  | f  | t  | t  | t
- 2 m  | 2    |    1 | f  | f  | f  | t  | t  | t
- 2 m  | 1 m  |    1 | f  | f  | f  | t  | t  | t
- 2 m  | 2 m  |    0 | f  | t  | t  | f  | t  | f
- 2 m  | 1 kg |    1 | f  | f  | f  | t  | t  | t
- 2 m  | 2 kg |    1 | f  | f  | f  | t  | t  | t
- 1 kg | 1    |  256 | f  | f  | f  | t  | t  | t
- 1 kg | 2    |   -1 | t  | t  | f  | t  | f  | f
- 1 kg | 1 m  |   -1 | t  | t  | f  | t  | f  | f
- 1 kg | 2 m  |   -1 | t  | t  | f  | t  | f  | f
- 1 kg | 1 kg |    0 | f  | t  | t  | f  | t  | f
- 1 kg | 2 kg |   -1 | t  | t  | f  | t  | f  | f
- 2 kg | 1    |    1 | f  | f  | f  | t  | t  | t
- 2 kg | 2    |  256 | f  | f  | f  | t  | t  | t
- 2 kg | 1 m  |    1 | f  | f  | f  | t  | t  | t
- 2 kg | 2 m  |   -1 | t  | t  | f  | t  | f  | f
- 2 kg | 1 kg |    1 | f  | f  | f  | t  | t  | t
- 2 kg | 2 kg |    0 | f  | t  | t  | f  | t  | f
-(36 rows)
+  a   |  b   |  neg  |  mul   |     div     
+------+------+-------+--------+-------------
+      |      |       |        | 
+      | 0    |       |        | 
+      | 1    |       |        | 
+      | 2    |       |        | 
+      | 0 m  |       |        | 
+      | 1 m  |       |        | 
+      | 2 m  |       |        | 
+      | 0 kg |       |        | 
+      | 1 kg |       |        | 
+      | 2 kg |       |        | 
+ 0    |      | -0    |        | 
+ 0    | 0    | -0    | 0      | 
+ 0    | 1    | -0    | 0      | 0
+ 0    | 2    | -0    | 0      | 0
+ 0    | 0 m  | -0    | 0 m    | 
+ 0    | 1 m  | -0    | 0 m    | 0 m^-1
+ 0    | 2 m  | -0    | 0 m    | 0 m^-1
+ 0    | 0 kg | -0    | 0 kg   | 
+ 0    | 1 kg | -0    | 0 kg   | 0 kg^-1
+ 0    | 2 kg | -0    | 0 kg   | 0 kg^-1
+ 1    |      | -1    |        | 
+ 1    | 0    | -1    | 0      | 
+ 1    | 1    | -1    | 1      | 1
+ 1    | 2    | -1    | 2      | 0.5
+ 1    | 0 m  | -1    | 0 m    | 
+ 1    | 1 m  | -1    | 1 m    | 1 m^-1
+ 1    | 2 m  | -1    | 2 m    | 0.5 m^-1
+ 1    | 0 kg | -1    | 0 kg   | 
+ 1    | 1 kg | -1    | 1 kg   | 1 kg^-1
+ 1    | 2 kg | -1    | 2 kg   | 0.5 kg^-1
+ 2    |      | -2    |        | 
+ 2    | 0    | -2    | 0      | 
+ 2    | 1    | -2    | 2      | 2
+ 2    | 2    | -2    | 4      | 1
+ 2    | 0 m  | -2    | 0 m    | 
+ 2    | 1 m  | -2    | 2 m    | 2 m^-1
+ 2    | 2 m  | -2    | 4 m    | 1 m^-1
+ 2    | 0 kg | -2    | 0 kg   | 
+ 2    | 1 kg | -2    | 2 kg   | 2 kg^-1
+ 2    | 2 kg | -2    | 4 kg   | 1 kg^-1
+ 0 m  |      | -0 m  |        | 
+ 0 m  | 0    | -0 m  | 0 m    | 
+ 0 m  | 1    | -0 m  | 0 m    | 0 m
+ 0 m  | 2    | -0 m  | 0 m    | 0 m
+ 0 m  | 0 m  | -0 m  | 0 m^2  | 
+ 0 m  | 1 m  | -0 m  | 0 m^2  | 0
+ 0 m  | 2 m  | -0 m  | 0 m^2  | 0
+ 0 m  | 0 kg | -0 m  | 0 m kg | 
+ 0 m  | 1 kg | -0 m  | 0 m kg | 0 m kg^-1
+ 0 m  | 2 kg | -0 m  | 0 m kg | 0 m kg^-1
+ 1 m  |      | -1 m  |        | 
+ 1 m  | 0    | -1 m  | 0 m    | 
+ 1 m  | 1    | -1 m  | 1 m    | 1 m
+ 1 m  | 2    | -1 m  | 2 m    | 0.5 m
+ 1 m  | 0 m  | -1 m  | 0 m^2  | 
+ 1 m  | 1 m  | -1 m  | 1 m^2  | 1
+ 1 m  | 2 m  | -1 m  | 2 m^2  | 0.5
+ 1 m  | 0 kg | -1 m  | 0 m kg | 
+ 1 m  | 1 kg | -1 m  | 1 m kg | 1 m kg^-1
+ 1 m  | 2 kg | -1 m  | 2 m kg | 0.5 m kg^-1
+ 2 m  |      | -2 m  |        | 
+ 2 m  | 0    | -2 m  | 0 m    | 
+ 2 m  | 1    | -2 m  | 2 m    | 2 m
+ 2 m  | 2    | -2 m  | 4 m    | 1 m
+ 2 m  | 0 m  | -2 m  | 0 m^2  | 
+ 2 m  | 1 m  | -2 m  | 2 m^2  | 2
+ 2 m  | 2 m  | -2 m  | 4 m^2  | 1
+ 2 m  | 0 kg | -2 m  | 0 m kg | 
+ 2 m  | 1 kg | -2 m  | 2 m kg | 2 m kg^-1
+ 2 m  | 2 kg | -2 m  | 4 m kg | 1 m kg^-1
+ 0 kg |      | -0 kg |        | 
+ 0 kg | 0    | -0 kg | 0 kg   | 
+ 0 kg | 1    | -0 kg | 0 kg   | 0 kg
+ 0 kg | 2    | -0 kg | 0 kg   | 0 kg
+ 0 kg | 0 m  | -0 kg | 0 m kg | 
+ 0 kg | 1 m  | -0 kg | 0 m kg | 0 m^-1 kg
+ 0 kg | 2 m  | -0 kg | 0 m kg | 0 m^-1 kg
+ 0 kg | 0 kg | -0 kg | 0 kg^2 | 
+ 0 kg | 1 kg | -0 kg | 0 kg^2 | 0
+ 0 kg | 2 kg | -0 kg | 0 kg^2 | 0
+ 1 kg |      | -1 kg |        | 
+ 1 kg | 0    | -1 kg | 0 kg   | 
+ 1 kg | 1    | -1 kg | 1 kg   | 1 kg
+ 1 kg | 2    | -1 kg | 2 kg   | 0.5 kg
+ 1 kg | 0 m  | -1 kg | 0 m kg | 
+ 1 kg | 1 m  | -1 kg | 1 m kg | 1 m^-1 kg
+ 1 kg | 2 m  | -1 kg | 2 m kg | 0.5 m^-1 kg
+ 1 kg | 0 kg | -1 kg | 0 kg^2 | 
+ 1 kg | 1 kg | -1 kg | 1 kg^2 | 1
+ 1 kg | 2 kg | -1 kg | 2 kg^2 | 0.5
+ 2 kg |      | -2 kg |        | 
+ 2 kg | 0    | -2 kg | 0 kg   | 
+ 2 kg | 1    | -2 kg | 2 kg   | 2 kg
+ 2 kg | 2    | -2 kg | 4 kg   | 1 kg
+ 2 kg | 0 m  | -2 kg | 0 m kg | 
+ 2 kg | 1 m  | -2 kg | 2 m kg | 2 m^-1 kg
+ 2 kg | 2 m  | -2 kg | 4 m kg | 1 m^-1 kg
+ 2 kg | 0 kg | -2 kg | 0 kg^2 | 
+ 2 kg | 1 kg | -2 kg | 2 kg^2 | 2
+ 2 kg | 2 kg | -2 kg | 4 kg^2 | 1
+(100 rows)
 
--- test btree index
-INSERT INTO u SELECT meter(generate_series(1,10000)::double precision);
-INSERT INTO u SELECT generate_series(1,10000)::text::unit * kilogram();
-ANALYZE u;
-CREATE INDEX ON u(u);
-SELECT * FROM u WHERE u = meter(400);
-   u   
--------
- 400 m
-(1 row)
-
-SELECT * FROM u WHERE u = '300' * kilogram();
-   u    
---------
- 300 kg
-(1 row)
-
-EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = meter(400);
-             QUERY PLAN             
-------------------------------------
- Index Only Scan using u_u_idx on u
-   Index Cond: (u = '400 m'::unit)
-(2 rows)
-
-EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = '300' * kilogram();
-             QUERY PLAN             
-------------------------------------
- Index Only Scan using u_u_idx on u
-   Index Cond: (u = '300 kg'::unit)
-(2 rows)
+WITH
+  v(a) AS (VALUES
+	(NULL),
+	('1'::unit),
+	('2'::unit),
+	(meter()),
+	(meter() * '2'),
+	(kilogram()),
+	(kilogram() * '2')
+  )
+SELECT
+  a,
+  a ^ -2 AS pow_2, a ^ -1 AS pow_1, a ^ 0 AS pow0, a ^ 1 AS pow1, a ^ 2 AS pow2
+FROM
+  v;
+  a   |   pow_2    |   pow_1   | pow0 | pow1 |  pow2  
+------+------------+-----------+------+------+--------
+      |            |           |      |      | 
+ 1    | 1          | 1         | 1    | 1    | 1
+ 2    | 0.25       | 0.5       | 1    | 2    | 4
+ 1 m  | 1 m^-2     | 1 m^-1    | 1    | 1 m  | 1 m^2
+ 2 m  | 0.25 m^-2  | 0.5 m^-1  | 1    | 2 m  | 4 m^2
+ 1 kg | 1 kg^-2    | 1 kg^-1   | 1    | 1 kg | 1 kg^2
+ 2 kg | 0.25 kg^-2 | 0.5 kg^-1 | 1    | 2 kg | 4 kg^2
+(7 rows)
 

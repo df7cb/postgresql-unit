@@ -61,6 +61,18 @@ CREATE FUNCTION byte(double precision DEFAULT 1.0)
 	AS '$libdir/unit', 'unit_byte'
 	LANGUAGE C IMMUTABLE STRICT;
 
+-- extractors
+
+CREATE FUNCTION value(unit)
+	RETURNS double precision
+	AS '$libdir/unit', 'unit_value'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION dimension(unit)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_dimension'
+	LANGUAGE C IMMUTABLE STRICT;
+
 -- operators
 
 CREATE FUNCTION unit_add(unit, unit)
@@ -86,6 +98,16 @@ CREATE OPERATOR - (
 	procedure = unit_sub
 );
 
+CREATE FUNCTION unit_neg(unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR - (
+	rightarg = unit,
+	procedure = unit_neg
+);
+
 CREATE FUNCTION unit_mul(unit, unit)
 	RETURNS unit
 	AS '$libdir/unit'
@@ -98,6 +120,30 @@ CREATE OPERATOR * (
 	commutator = *
 );
 
+CREATE FUNCTION dbl_unit_mul(double precision, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR * (
+	leftarg = double precision,
+	rightarg = unit,
+	procedure = dbl_unit_mul,
+	commutator = *
+);
+
+CREATE FUNCTION unit_dbl_mul(unit, double precision)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR * (
+	leftarg = unit,
+	rightarg = double precision,
+	procedure = unit_dbl_mul,
+	commutator = *
+);
+
 CREATE FUNCTION unit_div(unit, unit)
 	RETURNS unit
 	AS '$libdir/unit'
@@ -107,6 +153,28 @@ CREATE OPERATOR / (
 	leftarg = unit,
 	rightarg = unit,
 	procedure = unit_div
+);
+
+CREATE FUNCTION dbl_unit_div(double precision, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR / (
+	leftarg = double precision,
+	rightarg = unit,
+	procedure = dbl_unit_div
+);
+
+CREATE FUNCTION unit_dbl_div(unit, double precision)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR / (
+	leftarg = unit,
+	rightarg = double precision,
+	procedure = unit_dbl_div
 );
 
 CREATE FUNCTION unit_pow(unit, int)

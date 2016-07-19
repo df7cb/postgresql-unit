@@ -187,6 +187,32 @@ unit_byte (PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+/* extractors */
+
+PG_FUNCTION_INFO_V1(unit_value);
+
+Datum
+unit_value(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+
+	PG_RETURN_FLOAT8(a->value);
+}
+
+PG_FUNCTION_INFO_V1(unit_dimension);
+
+Datum
+unit_dimension(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*result;
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = 1;
+	memcpy(result->units, a->units, N_UNITS);
+	PG_RETURN_POINTER(result);
+}
+
 /* operators */
 
 PG_FUNCTION_INFO_V1(unit_add);
@@ -221,6 +247,20 @@ unit_sub(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+PG_FUNCTION_INFO_V1(unit_neg);
+
+Datum
+unit_neg(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*result;
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = - a->value;
+	memcpy(result->units, a->units, N_UNITS);
+	PG_RETURN_POINTER(result);
+}
+
 PG_FUNCTION_INFO_V1(unit_mul);
 
 Datum
@@ -235,6 +275,36 @@ unit_mul(PG_FUNCTION_ARGS)
 	result->value = a->value * b->value;
 	for (i = 0; i < N_UNITS; i++)
 		result->units[i] = a->units[i] + b->units[i];
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(dbl_unit_mul);
+
+Datum
+dbl_unit_mul(PG_FUNCTION_ARGS)
+{
+	double	 a = PG_GETARG_FLOAT8(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+	Unit	*result;
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = a * b->value;
+	memcpy(result->units, b->units, N_UNITS);
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(unit_dbl_mul);
+
+Datum
+unit_dbl_mul(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	double	 b = PG_GETARG_FLOAT8(1);
+	Unit	*result;
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = a->value * b;
+	memcpy(result->units, a->units, N_UNITS);
 	PG_RETURN_POINTER(result);
 }
 
@@ -258,6 +328,49 @@ unit_div(PG_FUNCTION_ARGS)
 	result->value = a->value / b->value;
 	for (i = 0; i < N_UNITS; i++)
 		result->units[i] = a->units[i] - b->units[i];
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(dbl_unit_div);
+
+Datum
+dbl_unit_div(PG_FUNCTION_ARGS)
+{
+	double	 a = PG_GETARG_FLOAT8(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+	Unit	*result;
+	int		 i;
+
+	if (b->value == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_DIVISION_BY_ZERO),
+				 errmsg("division by zero-valued unit: \"%s\"",
+					 unit_cstring(b))));
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = a / b->value;
+	for (i = 0; i < N_UNITS; i++)
+		result->units[i] = - b->units[i];
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(unit_dbl_div);
+
+Datum
+unit_dbl_div(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	double	 b = PG_GETARG_FLOAT8(1);
+	Unit	*result;
+
+	if (b == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_DIVISION_BY_ZERO),
+				 errmsg("division of unit by zero")));
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = a->value / b;
+	memcpy(result->units, a->units, N_UNITS);
 	PG_RETURN_POINTER(result);
 }
 
