@@ -480,3 +480,31 @@ unit_cmp(PG_FUNCTION_ARGS)
 	PG_RETURN_INT32(unit_cmp_internal(a, b));
 }
 
+PG_FUNCTION_INFO_V1(unit_least);
+
+Datum
+unit_least(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	test_same_unit(a, b);
+	if (unit_cmp_internal(a, b) <= 0)
+		PG_RETURN_POINTER(a);
+	PG_RETURN_POINTER(b);
+}
+
+PG_FUNCTION_INFO_V1(unit_greatest);
+
+Datum
+unit_greatest(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	test_same_unit(a, b);
+	if (unit_cmp_internal(a, b) >= 0)
+		PG_RETURN_POINTER(a);
+	PG_RETURN_POINTER(b);
+}
+

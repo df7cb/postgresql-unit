@@ -1,0 +1,69 @@
+-- test aggregates
+CREATE TEMP TABLE u (
+	u unit
+);
+SELECT sum(u) AS null_sum FROM u;
+ null_sum 
+----------
+ 
+(1 row)
+
+SELECT min(u) AS null_min FROM u;
+ null_min 
+----------
+ 
+(1 row)
+
+SELECT max(u) AS null_max FROM u;
+ null_max 
+----------
+ 
+(1 row)
+
+INSERT INTO u VALUES (meter()), (meter(2));
+SELECT sum(u) AS three_meters FROM u;
+ three_meters 
+--------------
+ 3 m
+(1 row)
+
+SELECT min(u) AS one_meter FROM u;
+ one_meter 
+-----------
+ 1 m
+(1 row)
+
+SELECT max(u) AS two_meters FROM u;
+ two_meters 
+------------
+ 2 m
+(1 row)
+
+DELETE FROM u;
+INSERT INTO u VALUES (kilogram(2)), (kilogram());
+SELECT sum(u) AS three_kilogram FROM u;
+ three_kilogram 
+----------------
+ 3 kg
+(1 row)
+
+SELECT min(u) AS one_kilogram FROM u;
+ one_kilogram 
+--------------
+ 1 kg
+(1 row)
+
+SELECT max(u) AS two_kilogram FROM u;
+ two_kilogram 
+--------------
+ 2 kg
+(1 row)
+
+DELETE FROM u;
+INSERT INTO u VALUES (ampere()), (kilogram(2));
+SELECT sum(u) AS error FROM u;
+ERROR:  units are not the same: "1 A", "2 kg"
+SELECT min(u) AS error FROM u;
+ERROR:  units are not the same: "1 A", "2 kg"
+SELECT max(u) AS error FROM u;
+ERROR:  units are not the same: "1 A", "2 kg"

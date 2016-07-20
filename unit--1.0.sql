@@ -190,9 +190,31 @@ CREATE OPERATOR ^ (
 
 -- aggregates
 
-CREATE AGGREGATE sum (unit)
+CREATE AGGREGATE sum(unit)
 (
 	sfunc = unit_add,
+	stype = unit
+);
+
+CREATE FUNCTION unit_least(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE AGGREGATE min(unit)
+(
+	sfunc = unit_least,
+	stype = unit
+);
+
+CREATE FUNCTION unit_greatest(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE AGGREGATE max(unit)
+(
+	sfunc = unit_greatest,
 	stype = unit
 );
 
@@ -242,9 +264,10 @@ CREATE OPERATOR > (
 	restrict = scalargtsel, join = scalargtjoinsel
 );
 
--- create the support function too
-CREATE FUNCTION unit_cmp(unit, unit) RETURNS int4
-	AS '$libdir/unit' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION unit_cmp(unit, unit)
+	RETURNS int4
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR CLASS unit_ops
 	DEFAULT FOR TYPE unit USING btree AS
