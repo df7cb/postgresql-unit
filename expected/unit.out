@@ -5,7 +5,7 @@ SELECT '1'::unit;
  1
 (1 row)
 
-CREATE TABLE u (u unit);
+CREATE TEMP TABLE u (u unit);
 INSERT INTO u VALUES ('1');
 SELECT * FROM u;
  u 

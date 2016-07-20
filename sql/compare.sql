@@ -24,6 +24,7 @@ FROM
   va CROSS JOIN vb;
 
 -- test btree index
+CREATE TEMP TABLE u (u unit);
 INSERT INTO u SELECT meter(generate_series(1,10000)::double precision);
 INSERT INTO u SELECT generate_series(1,10000)::text::unit * kilogram();
 ANALYZE u;

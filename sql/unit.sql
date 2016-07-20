@@ -1,6 +1,6 @@
 -- test input and output
 SELECT '1'::unit;
-CREATE TABLE u (u unit);
+CREATE TEMP TABLE u (u unit);
 INSERT INTO u VALUES ('1');
 SELECT * FROM u;
 
