@@ -13,7 +13,3 @@ typedef struct Unit {
 	double			value;
 	signed char		units[N_UNITS];
 } Unit;
-
-static Unit unit_zero; /* constant zero */
-
-void _PG_init (void);
