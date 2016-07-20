@@ -4,6 +4,14 @@
 
 #include "unit.h"
 
+/* module initialization */
+
+void
+_PG_init (void)
+{
+	memset(&unit_zero, 0, sizeof(Unit));
+}
+
 PG_MODULE_MAGIC;
 
 /* internal functions */
@@ -41,13 +49,11 @@ unit_cstring (Unit *unit)
 static inline void
 test_same_unit (Unit *a, Unit *b)
 {
-	int		 i;
-	for (i = 0; i < N_UNITS; i++)
-		if (a->units[i] != b->units[i])
-			ereport(ERROR,
-					(errcode(ERRCODE_DATA_EXCEPTION),
-					 errmsg("units are not the same: \"%s\", \"%s\"",
-						 unit_cstring(a), unit_cstring(b))));
+	if (memcmp(a->units, b->units, N_UNITS))
+		ereport(ERROR,
+				(errcode(ERRCODE_DATA_EXCEPTION),
+				 errmsg("units are not the same: \"%s\", \"%s\"",
+					 unit_cstring(a), unit_cstring(b))));
 }
 
 /* input and output */
@@ -224,6 +230,31 @@ unit_add(PG_FUNCTION_ARGS)
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
 
+	test_same_unit(a, b);
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = a->value + b->value;
+	memcpy(result->units, a->units, N_UNITS);
+	PG_RETURN_POINTER(result);
+}
+
+/* variant of unit_add that accepts dimensionless zero as always compatible for
+ * use in aggregates
+ */
+PG_FUNCTION_INFO_V1(unit_add0);
+
+Datum
+unit_add0(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+	Unit	*result;
+
+	/* handle dimensionless zero additions */
+	if (!memcmp(a, &unit_zero, sizeof(Unit)))
+		PG_RETURN_POINTER(b);
+	if (!memcmp(b, &unit_zero, sizeof(Unit)))
+		PG_RETURN_POINTER(a);
+	/* other cases */
 	test_same_unit(a, b);
 	result = (Unit *) palloc(sizeof(Unit));
 	result->value = a->value + b->value;

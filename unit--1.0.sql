@@ -188,6 +188,20 @@ CREATE OPERATOR ^ (
 	procedure = unit_pow
 );
 
+-- aggregates
+
+CREATE FUNCTION unit_add0(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE AGGREGATE sum (unit)
+(
+	sfunc = unit_add0,
+	stype = unit,
+	initcond = '0'
+);
+
 -- comparisons
 
 CREATE FUNCTION unit_lt(unit, unit) RETURNS bool

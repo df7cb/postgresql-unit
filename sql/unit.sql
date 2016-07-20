@@ -31,7 +31,8 @@ SELECT dimension(kilogram(2));
 -- test unit addition/subtraction
 SELECT '1'::unit + '2' AS sum;
 SELECT '1'::unit - '2' AS difference;
-SELECT meter() + '1' AS error;
+SELECT '0' + meter() AS error;
+SELECT meter() + '0' AS error;
 SELECT meter() + kilogram() AS error;
 
 -- test unit multiplication/division
