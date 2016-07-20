@@ -188,36 +188,6 @@ CREATE OPERATOR ^ (
 	procedure = unit_pow
 );
 
--- aggregates
-
-CREATE AGGREGATE sum(unit)
-(
-	sfunc = unit_add,
-	stype = unit
-);
-
-CREATE FUNCTION unit_least(unit, unit)
-	RETURNS unit
-	AS '$libdir/unit'
-	LANGUAGE C IMMUTABLE STRICT;
-
-CREATE AGGREGATE min(unit)
-(
-	sfunc = unit_least,
-	stype = unit
-);
-
-CREATE FUNCTION unit_greatest(unit, unit)
-	RETURNS unit
-	AS '$libdir/unit'
-	LANGUAGE C IMMUTABLE STRICT;
-
-CREATE AGGREGATE max(unit)
-(
-	sfunc = unit_greatest,
-	stype = unit
-);
-
 -- comparisons
 
 CREATE FUNCTION unit_lt(unit, unit) RETURNS bool
@@ -277,3 +247,57 @@ CREATE OPERATOR CLASS unit_ops
 		OPERATOR 4 >= ,
 		OPERATOR 5 > ,
 		FUNCTION 1 unit_cmp(unit, unit);
+
+-- aggregates
+
+CREATE AGGREGATE sum(unit)
+(
+	sfunc = unit_add,
+	stype = unit
+);
+
+CREATE FUNCTION unit_least(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE AGGREGATE min(unit)
+(
+	sfunc = unit_least,
+	stype = unit
+);
+
+CREATE FUNCTION unit_greatest(unit, unit)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE AGGREGATE max(unit)
+(
+	sfunc = unit_greatest,
+	stype = unit
+);
+
+CREATE TYPE unit_accum_t AS (
+	s unit,
+	n bigint
+);
+
+CREATE FUNCTION unit_accum(a unit_accum_t, u unit)
+	RETURNS unit_accum_t
+	AS $$SELECT (CASE WHEN a.s = '0'::unit THEN u ELSE a.s + u END, a.n + 1)::unit_accum_t$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_avg(a unit_accum_t)
+	RETURNS unit
+	AS $$SELECT CASE WHEN a.n > 0 THEN a.s / a.n ELSE NULL END$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+
+CREATE AGGREGATE avg(unit)
+(
+	sfunc = unit_accum,
+	stype = unit_accum_t,
+	finalfunc = unit_avg,
+	initcond = '(0,0)'
+);
+

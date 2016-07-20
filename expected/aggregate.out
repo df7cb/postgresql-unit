@@ -20,6 +20,12 @@ SELECT max(u) AS null_max FROM u;
  
 (1 row)
 
+SELECT avg(u) AS null_avg FROM u;
+ null_avg 
+----------
+ 
+(1 row)
+
 INSERT INTO u VALUES (meter()), (meter(2));
 SELECT sum(u) AS three_meters FROM u;
  three_meters 
@@ -37,6 +43,12 @@ SELECT max(u) AS two_meters FROM u;
  two_meters 
 ------------
  2 m
+(1 row)
+
+SELECT avg(u) AS oneandhalf_meters FROM u;
+ oneandhalf_meters 
+-------------------
+ 1.5 m
 (1 row)
 
 DELETE FROM u;
@@ -59,6 +71,37 @@ SELECT max(u) AS two_kilogram FROM u;
  2 kg
 (1 row)
 
+SELECT avg(u) AS oneandhalf_kilogram FROM u;
+ oneandhalf_kilogram 
+---------------------
+ 1.5 kg
+(1 row)
+
+INSERT INTO u VALUES (NULL);
+SELECT sum(u) AS three_kilogram FROM u;
+ three_kilogram 
+----------------
+ 3 kg
+(1 row)
+
+SELECT min(u) AS one_kilogram FROM u;
+ one_kilogram 
+--------------
+ 1 kg
+(1 row)
+
+SELECT max(u) AS two_kilogram FROM u;
+ two_kilogram 
+--------------
+ 2 kg
+(1 row)
+
+SELECT avg(u) AS oneandhalf_kilogram FROM u;
+ oneandhalf_kilogram 
+---------------------
+ 1.5 kg
+(1 row)
+
 DELETE FROM u;
 INSERT INTO u VALUES (ampere()), (kilogram(2));
 SELECT sum(u) AS error FROM u;
@@ -67,3 +110,6 @@ SELECT min(u) AS error FROM u;
 ERROR:  units are not the same: "1 A", "2 kg"
 SELECT max(u) AS error FROM u;
 ERROR:  units are not the same: "1 A", "2 kg"
+SELECT avg(u) AS error FROM u;
+ERROR:  units are not the same: "1 A", "2 kg"
+CONTEXT:  SQL function "unit_accum" statement 1
