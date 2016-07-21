@@ -10,6 +10,13 @@ PG_MODULE_MAGIC;
 
 /* internal functions */
 
+static inline uint64_t
+unit_dimension_int (Unit *unit)
+{
+	uint64_t	*p = (uint64_t *)unit->units;
+	return *p;
+}
+
 static inline char *
 unit_fmt (char *name, signed char exponent)
 {
@@ -25,8 +32,54 @@ unit_fmt (char *name, signed char exponent)
 static char *
 unit_cstring (Unit *unit)
 {
-	char *result = psprintf("%g%s%s%s%s%s%s%s%s",
-			unit->value,
+	double	 v = fabs(unit->value);
+	char	*prefix = "";
+	double	 factor = 1.0;
+
+	if (unit_dimension_int(unit) == unit_zero) {
+		// do nothing
+	} else if (v >= 1e27) {
+		// do nothing
+	} else if (v >= 1e24) {
+		prefix = "Y"; factor = 1e-24;
+	} else if (v >= 1e21) {
+		prefix = "Z"; factor = 1e-21;
+	} else if (v >= 1e18) {
+		prefix = "E"; factor = 1e-18;
+	} else if (v >= 1e15) {
+		prefix = "P"; factor = 1e-15;
+	} else if (v >= 1e12) {
+		prefix = "T"; factor = 1e-12;
+	} else if (v >= 1e9) {
+		prefix = "G"; factor = 1e-9;
+	} else if (v >= 1e6) {
+		prefix = "M"; factor = 1e-6;
+	} else if (v >= 1e3) {
+		prefix = "k"; factor = 1e-3;
+	} else if (v >= 1e0) {
+		// do nothing
+	} else if (v >= 1e-3) {
+		prefix = "m"; factor = 1e3;
+	} else if (v >= 1e-6) {
+		prefix = "mikro"; factor = 1e6;
+	} else if (v >= 1e-9) {
+		prefix = "n"; factor = 1e9;
+	} else if (v >= 1e-12) {
+		prefix = "p"; factor = 1e12;
+	} else if (v >= 1e-15) {
+		prefix = "f"; factor = 1e15;
+	} else if (v >= 1e-18) {
+		prefix = "a"; factor = 1e18;
+	} else if (v >= 1e-21) {
+		prefix = "z"; factor = 1e21;
+	} else if (v >= 1e-24) {
+		prefix = "y"; factor = 1e24;
+	}
+
+	v = unit->value * factor;
+
+	return psprintf("%g%s%s%s%s%s%s%s%s%s",
+			v, prefix,
 			unit_fmt(" m",   unit->units[UNIT_m]),
 			unit_fmt(" kg",  unit->units[UNIT_kg]),
 			unit_fmt(" s",   unit->units[UNIT_s]),
@@ -36,7 +89,6 @@ unit_cstring (Unit *unit)
 			unit_fmt(" cd",  unit->units[UNIT_cd]),
 			unit_fmt(" B",   unit->units[UNIT_B])
 			);
-	return result;
 }
 
 /* test if two Units use the same unit */

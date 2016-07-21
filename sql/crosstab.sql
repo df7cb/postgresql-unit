@@ -24,6 +24,33 @@ FROM
   units AS a CROSS JOIN units AS b
 \crosstabview
 
+WITH
+  factor(f) AS (VALUES
+	(1e27),
+	(1e24),
+	(1e21),
+	(1e18),
+	(1e15),
+	(1e12),
+	(1e9),
+	(1e6),
+	(1e3),
+	(1),
+	(1e-3),
+	(1e-6),
+	(1e-9),
+	(1e-12),
+	(1e-15),
+	(1e-18),
+	(1e-21),
+	(1e-24),
+	(1e-27))
+SELECT
+  f, u, f * u
+FROM
+  factor CROSS JOIN units
+\crosstabview
+
 -- test division
 WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('1'), ('2'))
 SELECT
