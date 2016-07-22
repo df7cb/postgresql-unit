@@ -10,6 +10,36 @@ CREATE TEMP TABLE units (u) AS
 	(candela()),
 	(byte());
 
+CREATE TEMP TABLE derived_units (u) AS
+  VALUES
+	('1'::unit),
+	(meter()),
+	(kilogram()),
+	(second()),
+	(ampere()),
+	(kelvin()),
+	(mole()),
+	(candela()),
+	(byte()),
+
+	(hertz()),
+	(newton()),
+	(pascal()),
+	(joule()),
+	(watt()),
+	(coulomb()),
+	(volt()),
+	(farad()),
+	(ohm()),
+	(siemens()),
+	(weber()),
+	(tesla()),
+	(henry()),
+	(lux()),
+	(katal());
+
+SELECT u, 1/u AS inverse FROM derived_units;
+
 -- test multiplication
 WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('0'), ('1'), ('2'))
 SELECT
@@ -21,7 +51,7 @@ FROM
 SELECT
   a.u AS a, b.u AS b, a.u * b.u AS mul
 FROM 
-  units AS a CROSS JOIN units AS b
+  derived_units AS a CROSS JOIN units AS b
 \crosstabview
 
 WITH
@@ -56,7 +86,7 @@ WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('1'), ('2'))
 SELECT
   u, i, u / i
 FROM
-  units CROSS JOIN i
+  derived_units CROSS JOIN i
 \crosstabview
 
 WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('0'), ('1'), ('2'))
@@ -69,7 +99,7 @@ FROM
 SELECT
   a.u AS a, b.u AS b, a.u / b.u AS div
 FROM 
-  units AS a CROSS JOIN units AS b
+  derived_units AS a CROSS JOIN units AS b
 \crosstabview
 
 -- test comparisons
