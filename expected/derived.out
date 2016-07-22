@@ -325,10 +325,11 @@ SELECT au();
 (1 row)
 
 SELECT decibel();
-ERROR:  function decibel() does not exist
-LINE 1: SELECT decibel();
-               ^
-HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+ decibel 
+---------
+       1
+(1 row)
+
 SELECT minute(60);
  minute 
 --------
@@ -389,8 +390,27 @@ SELECT au(10);
  1.49598T m
 (1 row)
 
+SELECT decibel(-3);
+      decibel      
+-------------------
+ 0.501187233627272
+(1 row)
+
+SELECT decibel(3);
+     decibel      
+------------------
+ 1.99526231496888
+(1 row)
+
 SELECT decibel(10);
-ERROR:  function decibel(integer) does not exist
-LINE 1: SELECT decibel(10);
-               ^
-HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+ decibel 
+---------
+      10
+(1 row)
+
+SELECT decibel(20);
+ decibel 
+---------
+     100
+(1 row)
+

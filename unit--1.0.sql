@@ -322,7 +322,10 @@ CREATE FUNCTION au        (double precision DEFAULT 1.0)
 	RETURNS unit
 	AS $$SELECT meter($1 * 149597870700)$$
 	LANGUAGE SQL IMMUTABLE STRICT;
--- TODO: decibel
+CREATE FUNCTION decibel   (double precision DEFAULT 0.0)
+	RETURNS double precision
+	AS $$SELECT 10.0^($1 / 10.0)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
 
 -- comparisons
 

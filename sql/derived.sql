@@ -68,4 +68,7 @@ SELECT hectare(1/100.0);
 SELECT liter(1000);
 SELECT tonne(1/1000.0);
 SELECT au(10);
+SELECT decibel(-3);
+SELECT decibel(3);
 SELECT decibel(10);
+SELECT decibel(20);
