@@ -1,0 +1,396 @@
+-- derived units
+SELECT radian();
+ radian 
+--------
+ 1
+(1 row)
+
+SELECT steradian();
+ steradian 
+-----------
+ 1
+(1 row)
+
+SELECT hertz();
+ hertz 
+-------
+ 1 Hz
+(1 row)
+
+SELECT newton();
+ newton 
+--------
+ 1 N
+(1 row)
+
+SELECT pascal();
+ pascal 
+--------
+ 1 Pa
+(1 row)
+
+SELECT joule();
+ joule 
+-------
+ 1 J
+(1 row)
+
+SELECT watt();
+ watt 
+------
+ 1 W
+(1 row)
+
+SELECT coulomb();
+ coulomb 
+---------
+ 1 C
+(1 row)
+
+SELECT volt();
+ volt 
+------
+ 1 V
+(1 row)
+
+SELECT farad();
+ farad 
+-------
+ 1 F
+(1 row)
+
+SELECT ohm();
+ ohm 
+-----
+ 1 Ω
+(1 row)
+
+SELECT siemens();
+ siemens 
+---------
+ 1 S
+(1 row)
+
+SELECT weber();
+ weber 
+-------
+ 1 Wb
+(1 row)
+
+SELECT tesla();
+ tesla 
+-------
+ 1 T
+(1 row)
+
+SELECT henry();
+ henry 
+-------
+ 1 H
+(1 row)
+
+SELECT celsius();
+ celsius  
+----------
+ 273.15 K
+(1 row)
+
+SELECT lumen();
+ lumen 
+-------
+ 1 cd
+(1 row)
+
+SELECT lux();
+ lux  
+------
+ 1 lx
+(1 row)
+
+SELECT becquerel();
+ becquerel 
+-----------
+ 1 Hz
+(1 row)
+
+SELECT gray();
+ gray 
+------
+ 1 Gy
+(1 row)
+
+SELECT sievert();
+ sievert 
+---------
+ 1 Gy
+(1 row)
+
+SELECT katal();
+ katal 
+-------
+ 1 kat
+(1 row)
+
+SELECT radian(2);
+ radian 
+--------
+ 2
+(1 row)
+
+SELECT steradian(2);
+ steradian 
+-----------
+ 2
+(1 row)
+
+SELECT hertz(2);
+ hertz 
+-------
+ 2 Hz
+(1 row)
+
+SELECT newton(2);
+ newton 
+--------
+ 2 N
+(1 row)
+
+SELECT pascal(2);
+ pascal 
+--------
+ 2 Pa
+(1 row)
+
+SELECT joule(2);
+ joule 
+-------
+ 2 J
+(1 row)
+
+SELECT watt(2);
+ watt 
+------
+ 2 W
+(1 row)
+
+SELECT coulomb(2);
+ coulomb 
+---------
+ 2 C
+(1 row)
+
+SELECT volt(2);
+ volt 
+------
+ 2 V
+(1 row)
+
+SELECT farad(2);
+ farad 
+-------
+ 2 F
+(1 row)
+
+SELECT ohm(2);
+ ohm 
+-----
+ 2 Ω
+(1 row)
+
+SELECT siemens(2);
+ siemens 
+---------
+ 2 S
+(1 row)
+
+SELECT weber(2);
+ weber 
+-------
+ 2 Wb
+(1 row)
+
+SELECT tesla(2);
+ tesla 
+-------
+ 2 T
+(1 row)
+
+SELECT henry(2);
+ henry 
+-------
+ 2 H
+(1 row)
+
+SELECT celsius(100);
+ celsius  
+----------
+ 373.15 K
+(1 row)
+
+SELECT lumen(2);
+ lumen 
+-------
+ 2 cd
+(1 row)
+
+SELECT lux(2);
+ lux  
+------
+ 2 lx
+(1 row)
+
+SELECT becquerel(2);
+ becquerel 
+-----------
+ 2 Hz
+(1 row)
+
+SELECT gray(2);
+ gray 
+------
+ 2 Gy
+(1 row)
+
+SELECT sievert(2);
+ sievert 
+---------
+ 2 Gy
+(1 row)
+
+SELECT katal(2);
+ katal 
+-------
+ 2 kat
+(1 row)
+
+-- Non-SI units accepted for use with the SI
+SELECT minute();
+ minute 
+--------
+ 60 s
+(1 row)
+
+SELECT hour();
+  hour  
+--------
+ 3.6k s
+(1 row)
+
+SELECT day();
+   day   
+---------
+ 86.4k s
+(1 row)
+
+SELECT degree_arc();
+ degree_arc 
+------------
+ 0.0174533
+(1 row)
+
+SELECT minute_arc();
+ minute_arc  
+-------------
+ 0.000290888
+(1 row)
+
+SELECT second_arc();
+ second_arc  
+-------------
+ 4.84814e-06
+(1 row)
+
+SELECT hectare();
+ hectare 
+---------
+ 10k m^2
+(1 row)
+
+SELECT liter();
+ liter  
+--------
+ 1m m^3
+(1 row)
+
+SELECT tonne();
+ tonne 
+-------
+ 1k kg
+(1 row)
+
+SELECT au();
+     au     
+------------
+ 149.598G m
+(1 row)
+
+SELECT decibel();
+ERROR:  function decibel() does not exist
+LINE 1: SELECT decibel();
+               ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+SELECT minute(60);
+ minute 
+--------
+ 3.6k s
+(1 row)
+
+SELECT hour(24);
+  hour   
+---------
+ 86.4k s
+(1 row)
+
+SELECT day(1/24.0);
+  day   
+--------
+ 3.6k s
+(1 row)
+
+SELECT degree_arc(360);
+ degree_arc 
+------------
+ 6.28319
+(1 row)
+
+SELECT minute_arc(60);
+ minute_arc 
+------------
+ 0.0174533
+(1 row)
+
+SELECT second_arc(60);
+ second_arc  
+-------------
+ 0.000290888
+(1 row)
+
+SELECT hectare(1/100.0);
+ hectare 
+---------
+ 100 m^2
+(1 row)
+
+SELECT liter(1000);
+ liter 
+-------
+ 1 m^3
+(1 row)
+
+SELECT tonne(1/1000.0);
+ tonne 
+-------
+ 1 kg
+(1 row)
+
+SELECT au(10);
+     au     
+------------
+ 1.49598T m
+(1 row)
+
+SELECT decibel(10);
+ERROR:  function decibel(integer) does not exist
+LINE 1: SELECT decibel(10);
+               ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.

@@ -39,8 +39,8 @@ FROM
  1     | 1     | 1 m     | 1 kg     | 1 s     | 1 A     | 1 K     | 1 mol    | 1 cd     | 1 B
  1 m   | 1 m   | 1 m^2   | 1 m kg   | 1 m s   | 1 m A   | 1 m K   | 1 m mol  | 1 m cd   | 1 m B
  1 kg  | 1 kg  | 1 m kg  | 1 kg^2   | 1 kg s  | 1 kg A  | 1 kg K  | 1 kg mol | 1 kg cd  | 1 kg B
- 1 s   | 1 s   | 1 m s   | 1 kg s   | 1 s^2   | 1 s A   | 1 s K   | 1 s mol  | 1 s cd   | 1 s B
- 1 A   | 1 A   | 1 m A   | 1 kg A   | 1 s A   | 1 A^2   | 1 A K   | 1 A mol  | 1 A cd   | 1 A B
+ 1 s   | 1 s   | 1 m s   | 1 kg s   | 1 s^2   | 1 C     | 1 s K   | 1 s mol  | 1 s cd   | 1 s B
+ 1 A   | 1 A   | 1 m A   | 1 kg A   | 1 C     | 1 A^2   | 1 A K   | 1 A mol  | 1 A cd   | 1 A B
  1 K   | 1 K   | 1 m K   | 1 kg K   | 1 s K   | 1 A K   | 1 K^2   | 1 K mol  | 1 K cd   | 1 K B
  1 mol | 1 mol | 1 m mol | 1 kg mol | 1 s mol | 1 A mol | 1 K mol | 1 mol^2  | 1 mol cd | 1 mol B
  1 cd  | 1 cd  | 1 m cd  | 1 kg cd  | 1 s cd  | 1 A cd  | 1 K cd  | 1 mol cd | 1 cd^2   | 1 cd B
@@ -73,27 +73,27 @@ SELECT
 FROM
   factor CROSS JOIN units
 \crosstabview
-               f               |   1   |   1 m    |   1 kg    |   1 s    |   1 A    |   1 K    |   1 mol    |   1 cd    |   1 B    
--------------------------------+-------+----------+-----------+----------+----------+----------+------------+-----------+----------
-  1000000000000000000000000000 | 1e+27 | 1e+27 m  | 1e+27 kg  | 1e+27 s  | 1e+27 A  | 1e+27 K  | 1e+27 mol  | 1e+27 cd  | 1e+27 B
-     1000000000000000000000000 | 1e+24 | 1Y m     | 1Y kg     | 1Y s     | 1Y A     | 1Y K     | 1Y mol     | 1Y cd     | 1Y B
-        1000000000000000000000 | 1e+21 | 1Z m     | 1Z kg     | 1Z s     | 1Z A     | 1Z K     | 1Z mol     | 1Z cd     | 1Z B
-           1000000000000000000 | 1e+18 | 1E m     | 1E kg     | 1E s     | 1E A     | 1E K     | 1E mol     | 1E cd     | 1E B
-              1000000000000000 | 1e+15 | 1P m     | 1P kg     | 1P s     | 1P A     | 1P K     | 1P mol     | 1P cd     | 1P B
-                 1000000000000 | 1e+12 | 1T m     | 1T kg     | 1T s     | 1T A     | 1T K     | 1T mol     | 1T cd     | 1T B
-                    1000000000 | 1e+09 | 1G m     | 1G kg     | 1G s     | 1G A     | 1G K     | 1G mol     | 1G cd     | 1G B
-                       1000000 | 1e+06 | 1M m     | 1M kg     | 1M s     | 1M A     | 1M K     | 1M mol     | 1M cd     | 1M B
-                          1000 | 1000  | 1k m     | 1k kg     | 1k s     | 1k A     | 1k K     | 1k mol     | 1k cd     | 1k B
-                             1 | 1     | 1 m      | 1 kg      | 1 s      | 1 A      | 1 K      | 1 mol      | 1 cd      | 1 B
-                         0.001 | 0.001 | 1m m     | 1m kg     | 1m s     | 1m A     | 1m K     | 1m mol     | 1m cd     | 1m B
-                      0.000001 | 1e-06 | 1mikro m | 1mikro kg | 1mikro s | 1mikro A | 1mikro K | 1mikro mol | 1mikro cd | 1mikro B
-                   0.000000001 | 1e-09 | 1n m     | 1n kg     | 1n s     | 1n A     | 1n K     | 1n mol     | 1n cd     | 1n B
-                0.000000000001 | 1e-12 | 1p m     | 1p kg     | 1p s     | 1p A     | 1p K     | 1p mol     | 1p cd     | 1p B
-             0.000000000000001 | 1e-15 | 1f m     | 1f kg     | 1f s     | 1f A     | 1f K     | 1f mol     | 1f cd     | 1f B
-          0.000000000000000001 | 1e-18 | 1a m     | 1a kg     | 1a s     | 1a A     | 1a K     | 1a mol     | 1a cd     | 1a B
-       0.000000000000000000001 | 1e-21 | 1z m     | 1z kg     | 1z s     | 1z A     | 1z K     | 1z mol     | 1z cd     | 1z B
-    0.000000000000000000000001 | 1e-24 | 1y m     | 1y kg     | 1y s     | 1y A     | 1y K     | 1y mol     | 1y cd     | 1y B
- 0.000000000000000000000000001 | 1e-27 | 1e-27 m  | 1e-27 kg  | 1e-27 s  | 1e-27 A  | 1e-27 K  | 1e-27 mol  | 1e-27 cd  | 1e-27 B
+               f               |   1   |   1 m   |   1 kg   |   1 s   |   1 A   |   1 K   |   1 mol   |   1 cd   |   1 B   
+-------------------------------+-------+---------+----------+---------+---------+---------+-----------+----------+---------
+  1000000000000000000000000000 | 1e+27 | 1e+27 m | 1e+27 kg | 1e+27 s | 1e+27 A | 1e+27 K | 1e+27 mol | 1e+27 cd | 1e+27 B
+     1000000000000000000000000 | 1e+24 | 1Y m    | 1Y kg    | 1Y s    | 1Y A    | 1Y K    | 1Y mol    | 1Y cd    | 1Y B
+        1000000000000000000000 | 1e+21 | 1Z m    | 1Z kg    | 1Z s    | 1Z A    | 1Z K    | 1Z mol    | 1Z cd    | 1Z B
+           1000000000000000000 | 1e+18 | 1E m    | 1E kg    | 1E s    | 1E A    | 1E K    | 1E mol    | 1E cd    | 1E B
+              1000000000000000 | 1e+15 | 1P m    | 1P kg    | 1P s    | 1P A    | 1P K    | 1P mol    | 1P cd    | 1P B
+                 1000000000000 | 1e+12 | 1T m    | 1T kg    | 1T s    | 1T A    | 1T K    | 1T mol    | 1T cd    | 1T B
+                    1000000000 | 1e+09 | 1G m    | 1G kg    | 1G s    | 1G A    | 1G K    | 1G mol    | 1G cd    | 1G B
+                       1000000 | 1e+06 | 1M m    | 1M kg    | 1M s    | 1M A    | 1M K    | 1M mol    | 1M cd    | 1M B
+                          1000 | 1000  | 1k m    | 1k kg    | 1k s    | 1k A    | 1k K    | 1k mol    | 1k cd    | 1k B
+                             1 | 1     | 1 m     | 1 kg     | 1 s     | 1 A     | 1 K     | 1 mol     | 1 cd     | 1 B
+                         0.001 | 0.001 | 1m m    | 1m kg    | 1m s    | 1m A    | 1m K    | 1m mol    | 1m cd    | 1m B
+                      0.000001 | 1e-06 | 1µ m    | 1µ kg    | 1µ s    | 1µ A    | 1µ K    | 1µ mol    | 1µ cd    | 1µ B
+                   0.000000001 | 1e-09 | 1n m    | 1n kg    | 1n s    | 1n A    | 1n K    | 1n mol    | 1n cd    | 1n B
+                0.000000000001 | 1e-12 | 1p m    | 1p kg    | 1p s    | 1p A    | 1p K    | 1p mol    | 1p cd    | 1p B
+             0.000000000000001 | 1e-15 | 1f m    | 1f kg    | 1f s    | 1f A    | 1f K    | 1f mol    | 1f cd    | 1f B
+          0.000000000000000001 | 1e-18 | 1a m    | 1a kg    | 1a s    | 1a A    | 1a K    | 1a mol    | 1a cd    | 1a B
+       0.000000000000000000001 | 1e-21 | 1z m    | 1z kg    | 1z s    | 1z A    | 1z K    | 1z mol    | 1z cd    | 1z B
+    0.000000000000000000000001 | 1e-24 | 1y m    | 1y kg    | 1y s    | 1y A    | 1y K    | 1y mol    | 1y cd    | 1y B
+ 0.000000000000000000000000001 | 1e-27 | 1e-27 m | 1e-27 kg | 1e-27 s | 1e-27 A | 1e-27 K | 1e-27 mol | 1e-27 cd | 1e-27 B
 (19 rows)
 
 -- test division
@@ -122,13 +122,13 @@ SELECT
 FROM
   units CROSS JOIN i
 \crosstabview
- i  | 1  |   1 m   |   1 kg   |   1 s   |   1 A   |   1 K   |   1 mol   |   1 cd   |   1 B   
-----+----+---------+----------+---------+---------+---------+-----------+----------+---------
- -2 | -2 | -2 m^-1 | -2 kg^-1 | -2 s^-1 | -2 A^-1 | -2 K^-1 | -2 mol^-1 | -2 cd^-1 | -2 B^-1
- -1 | -1 | -1 m^-1 | -1 kg^-1 | -1 s^-1 | -1 A^-1 | -1 K^-1 | -1 mol^-1 | -1 cd^-1 | -1 B^-1
- 0  | 0  | 0 m^-1  | 0 kg^-1  | 0 s^-1  | 0 A^-1  | 0 K^-1  | 0 mol^-1  | 0 cd^-1  | 0 B^-1
- 1  | 1  | 1 m^-1  | 1 kg^-1  | 1 s^-1  | 1 A^-1  | 1 K^-1  | 1 mol^-1  | 1 cd^-1  | 1 B^-1
- 2  | 2  | 2 m^-1  | 2 kg^-1  | 2 s^-1  | 2 A^-1  | 2 K^-1  | 2 mol^-1  | 2 cd^-1  | 2 B^-1
+ i  | 1  |   1 m   |   1 kg   |  1 s  |   1 A   |   1 K   |   1 mol   |   1 cd   |   1 B   
+----+----+---------+----------+-------+---------+---------+-----------+----------+---------
+ -2 | -2 | -2 m^-1 | -2 kg^-1 | -2 Hz | -2 A^-1 | -2 K^-1 | -2 mol^-1 | -2 cd^-1 | -2 B^-1
+ -1 | -1 | -1 m^-1 | -1 kg^-1 | -1 Hz | -1 A^-1 | -1 K^-1 | -1 mol^-1 | -1 cd^-1 | -1 B^-1
+ 0  | 0  | 0 m^-1  | 0 kg^-1  | 0 Hz  | 0 A^-1  | 0 K^-1  | 0 mol^-1  | 0 cd^-1  | 0 B^-1
+ 1  | 1  | 1 m^-1  | 1 kg^-1  | 1 Hz  | 1 A^-1  | 1 K^-1  | 1 mol^-1  | 1 cd^-1  | 1 B^-1
+ 2  | 2  | 2 m^-1  | 2 kg^-1  | 2 Hz  | 2 A^-1  | 2 K^-1  | 2 mol^-1  | 2 cd^-1  | 2 B^-1
 (5 rows)
 
 SELECT
@@ -136,17 +136,17 @@ SELECT
 FROM 
   units AS a CROSS JOIN units AS b
 \crosstabview
-   a   |   1   |    1 m     |    1 kg     |    1 s     |    1 A     |    1 K     |    1 mol    |    1 cd     |    1 B     
--------+-------+------------+-------------+------------+------------+------------+-------------+-------------+------------
- 1     | 1     | 1 m^-1     | 1 kg^-1     | 1 s^-1     | 1 A^-1     | 1 K^-1     | 1 mol^-1    | 1 cd^-1     | 1 B^-1
- 1 m   | 1 m   | 1          | 1 m kg^-1   | 1 m s^-1   | 1 m A^-1   | 1 m K^-1   | 1 m mol^-1  | 1 m cd^-1   | 1 m B^-1
- 1 kg  | 1 kg  | 1 m^-1 kg  | 1           | 1 kg s^-1  | 1 kg A^-1  | 1 kg K^-1  | 1 kg mol^-1 | 1 kg cd^-1  | 1 kg B^-1
- 1 s   | 1 s   | 1 m^-1 s   | 1 kg^-1 s   | 1          | 1 s A^-1   | 1 s K^-1   | 1 s mol^-1  | 1 s cd^-1   | 1 s B^-1
- 1 A   | 1 A   | 1 m^-1 A   | 1 kg^-1 A   | 1 s^-1 A   | 1          | 1 A K^-1   | 1 A mol^-1  | 1 A cd^-1   | 1 A B^-1
- 1 K   | 1 K   | 1 m^-1 K   | 1 kg^-1 K   | 1 s^-1 K   | 1 A^-1 K   | 1          | 1 K mol^-1  | 1 K cd^-1   | 1 K B^-1
- 1 mol | 1 mol | 1 m^-1 mol | 1 kg^-1 mol | 1 s^-1 mol | 1 A^-1 mol | 1 K^-1 mol | 1           | 1 mol cd^-1 | 1 mol B^-1
- 1 cd  | 1 cd  | 1 m^-1 cd  | 1 kg^-1 cd  | 1 s^-1 cd  | 1 A^-1 cd  | 1 K^-1 cd  | 1 mol^-1 cd | 1           | 1 cd B^-1
- 1 B   | 1 B   | 1 m^-1 B   | 1 kg^-1 B   | 1 s^-1 B   | 1 A^-1 B   | 1 K^-1 B   | 1 mol^-1 B  | 1 cd^-1 B   | 1
+   a   |   1   |    1 m     |    1 kg     |    1 s    |    1 A     |    1 K     |    1 mol    |    1 cd     |    1 B     
+-------+-------+------------+-------------+-----------+------------+------------+-------------+-------------+------------
+ 1     | 1     | 1 m^-1     | 1 kg^-1     | 1 Hz      | 1 A^-1     | 1 K^-1     | 1 mol^-1    | 1 cd^-1     | 1 B^-1
+ 1 m   | 1 m   | 1          | 1 m kg^-1   | 1 m s^-1  | 1 m A^-1   | 1 m K^-1   | 1 m mol^-1  | 1 m cd^-1   | 1 m B^-1
+ 1 kg  | 1 kg  | 1 m^-1 kg  | 1           | 1 kg s^-1 | 1 kg A^-1  | 1 kg K^-1  | 1 kg mol^-1 | 1 kg cd^-1  | 1 kg B^-1
+ 1 s   | 1 s   | 1 m^-1 s   | 1 kg^-1 s   | 1         | 1 s A^-1   | 1 s K^-1   | 1 s mol^-1  | 1 s cd^-1   | 1 s B^-1
+ 1 A   | 1 A   | 1 m^-1 A   | 1 kg^-1 A   | 1 s^-1 A  | 1          | 1 A K^-1   | 1 A mol^-1  | 1 A cd^-1   | 1 A B^-1
+ 1 K   | 1 K   | 1 m^-1 K   | 1 kg^-1 K   | 1 s^-1 K  | 1 A^-1 K   | 1          | 1 K mol^-1  | 1 K cd^-1   | 1 K B^-1
+ 1 mol | 1 mol | 1 m^-1 mol | 1 kg^-1 mol | 1 kat     | 1 A^-1 mol | 1 K^-1 mol | 1           | 1 mol cd^-1 | 1 mol B^-1
+ 1 cd  | 1 cd  | 1 m^-1 cd  | 1 kg^-1 cd  | 1 s^-1 cd | 1 A^-1 cd  | 1 K^-1 cd  | 1 mol^-1 cd | 1           | 1 cd B^-1
+ 1 B   | 1 B   | 1 m^-1 B   | 1 kg^-1 B   | 1 s^-1 B  | 1 A^-1 B   | 1 K^-1 B   | 1 mol^-1 B  | 1 cd^-1 B   | 1
 (9 rows)
 
 -- test comparisons

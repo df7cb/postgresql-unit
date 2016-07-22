@@ -35,8 +35,9 @@ unit_cstring (Unit *unit)
 	double	 v = fabs(unit->value);
 	char	*prefix = "";
 	double	 factor = 1.0;
+	int		 i;
 
-	if (unit_dimension_int(unit) == unit_zero) {
+	if (unit_dimension_int(unit) == UNIT_unity) {
 		// do nothing
 	} else if (v >= 1e27) {
 		// do nothing
@@ -61,7 +62,7 @@ unit_cstring (Unit *unit)
 	} else if (v >= 1e-3) {
 		prefix = "m"; factor = 1e3;
 	} else if (v >= 1e-6) {
-		prefix = "mikro"; factor = 1e6;
+		prefix = "µ"; factor = 1e6;
 	} else if (v >= 1e-9) {
 		prefix = "n"; factor = 1e9;
 	} else if (v >= 1e-12) {
@@ -77,6 +78,11 @@ unit_cstring (Unit *unit)
 	}
 
 	v = unit->value * factor;
+
+	for (i = 0; derived_units[i].name; i++)
+		if (! memcmp(unit->units, derived_units[i].units, N_UNITS))
+			return psprintf("%g %s%s",
+					v, prefix, derived_units[i].name);
 
 	return psprintf("%g%s%s%s%s%s%s%s%s%s",
 			v, prefix,

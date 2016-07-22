@@ -100,9 +100,9 @@ SELECT meter() * kilogram() AS meter_kilogram;
 (1 row)
 
 SELECT '1' / second(.02) AS hertz;
-  hertz  
----------
- 50 s^-1
+ hertz 
+-------
+ 50 Hz
 (1 row)
 
 SELECT meter(9.81) / (second() * second()) AS acceleration;
@@ -127,7 +127,7 @@ SELECT ampere() * 3 AS three_ampere;
 SELECT 4 / second() AS four_hertz;
  four_hertz 
 ------------
- 4 s^-1
+ 4 Hz
 (1 row)
 
 SELECT kelvin(10) / 5 AS two_kelvin;
@@ -166,9 +166,9 @@ SELECT meter(7) ^ 2 AS square_meter;
 (1 row)
 
 SELECT second(.02) ^ -1 AS hertz;
-  hertz  
----------
- 50 s^-1
+ hertz 
+-------
+ 50 Hz
 (1 row)
 
 SELECT ampere(4) ^ 0 AS unity;

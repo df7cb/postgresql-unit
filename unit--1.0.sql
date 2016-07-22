@@ -188,6 +188,142 @@ CREATE OPERATOR ^ (
 	procedure = unit_pow
 );
 
+-- derived units
+
+CREATE FUNCTION radian    (double precision DEFAULT 1.0) -- m·m^-1
+	RETURNS unit
+	AS $$SELECT meter($1) / meter()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION steradian (double precision DEFAULT 1.0) -- m^2·m^-2
+	RETURNS unit
+	AS $$SELECT meter($1) * meter() / meter()^2$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION hertz     (double precision DEFAULT 1.0) -- s^-1
+	RETURNS unit
+	AS $$SELECT $1 / second()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION newton    (double precision DEFAULT 1.0) -- kg·m·s^-2
+	RETURNS unit
+	AS $$SELECT kilogram($1) * meter() / second()^2$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION pascal    (double precision DEFAULT 1.0) -- N/m^2
+	RETURNS unit
+	AS $$SELECT newton($1) / meter()^2 $$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION joule     (double precision DEFAULT 1.0) -- N·m
+	RETURNS unit
+	AS $$SELECT newton($1) * meter()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION watt      (double precision DEFAULT 1.0) -- J/s
+	RETURNS unit
+	AS $$SELECT joule($1) / second()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION coulomb   (double precision DEFAULT 1.0) -- A·s
+	RETURNS unit
+	AS $$SELECT ampere($1) * second()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION volt      (double precision DEFAULT 1.0) -- W/A
+	RETURNS unit
+	AS $$SELECT watt($1) / ampere() $$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION farad     (double precision DEFAULT 1.0) -- C/V
+	RETURNS unit
+	AS $$SELECT coulomb($1) / volt() $$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION ohm       (double precision DEFAULT 1.0) -- V/A
+	RETURNS unit
+	AS $$SELECT volt($1) / ampere() $$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION siemens   (double precision DEFAULT 1.0) -- A/V
+	RETURNS unit
+	AS $$SELECT ampere($1) / volt()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION weber     (double precision DEFAULT 1.0) -- V·s
+	RETURNS unit
+	AS $$SELECT volt($1) * second()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION tesla     (double precision DEFAULT 1.0) -- Wb/m^2
+	RETURNS unit
+	AS $$SELECT weber($1) / meter()^2$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION henry     (double precision DEFAULT 1.0) -- Wb/A
+	RETURNS unit
+	AS $$SELECT weber($1) / ampere()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION celsius   (double precision DEFAULT 0.0) -- K relative to 273.15, default to 0°C
+	RETURNS unit
+	AS $$SELECT kelvin($1 + 273.15)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION lumen     (double precision DEFAULT 1.0) -- cd·sr
+	RETURNS unit
+	AS $$SELECT candela($1) * steradian()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION lux       (double precision DEFAULT 1.0) -- lm/m^2
+	RETURNS unit
+	AS $$SELECT lumen($1) / meter()^2$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION becquerel (double precision DEFAULT 1.0) -- s^-1
+	RETURNS unit
+	AS $$SELECT $1 / second()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION gray      (double precision DEFAULT 1.0) -- J/kg
+	RETURNS unit
+	AS $$SELECT joule($1) / kilogram()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION sievert   (double precision DEFAULT 1.0) -- J/kg
+	RETURNS unit
+	AS $$SELECT joule($1)/ kilogram()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION katal     (double precision DEFAULT 1.0) -- mol·s^-1
+	RETURNS unit
+	AS $$SELECT mole($1) / second()$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+
+-- Non-SI units accepted for use with the SI
+--minute, hour, day, degree of arc, minute of arc, second of arc, hectare, litre, tonne, astronomical unit and [deci]bel
+
+CREATE FUNCTION minute    (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT second($1 * 60)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION hour      (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT second($1 * 3600)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION day       (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT second($1 * 86400)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION degree_arc(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT $1 * '1'::unit * pi() / 180$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION minute_arc(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT $1 * '1'::unit * pi() / 180 / 60$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION second_arc(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT $1 * '1'::unit * pi() / 180 / 3600$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION hectare   (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT $1 * meter(100)^2$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION liter     (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT $1 * meter(0.1)^3$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION tonne     (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT kilogram($1 * 1000)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+CREATE FUNCTION au        (double precision DEFAULT 1.0)
+	RETURNS unit
+	AS $$SELECT meter($1 * 149597870700)$$
+	LANGUAGE SQL IMMUTABLE STRICT;
+-- TODO: decibel
+
 -- comparisons
 
 CREATE FUNCTION unit_lt(unit, unit) RETURNS bool
