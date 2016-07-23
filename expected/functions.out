@@ -159,10 +159,16 @@ SELECT '6'::unit ^ 2 AS square;
  36
 (1 row)
 
-SELECT meter(7) ^ 2 AS square_meter;
+SELECT meter(100) ^ 2 AS square_meter;
  square_meter 
 --------------
- 49 m^2
+ 10000 m^2
+(1 row)
+
+SELECT kilogram(100) ^ 2 AS square_kilogram;
+ square_kilogram 
+-----------------
+ 10000 kg^2
 (1 row)
 
 SELECT second(.02) ^ -1 AS hertz;
@@ -266,7 +272,7 @@ FROM
  1 m  | 2 m  | -1 m  | 2 m^2  | 0.5
  1 m  | 0 kg | -1 m  | 0 m*kg | 
  1 m  | 1 kg | -1 m  | 1 m*kg | 1 m/kg
- 1 m  | 2 kg | -1 m  | 2 m*kg | 0.5 m/kg
+ 1 m  | 2 kg | -1 m  | 2 m*kg | 500 mm/kg
  2 m  |      | -2 m  |        | 
  2 m  | 0    | -2 m  | 0 m    | 
  2 m  | 1    | -2 m  | 2 m    | 2 m
@@ -293,7 +299,7 @@ FROM
  1 kg | 2    | -1 kg | 2 kg   | 500 g
  1 kg | 0 m  | -1 kg | 0 m*kg | 
  1 kg | 1 m  | -1 kg | 1 m*kg | 1 kg/m
- 1 kg | 2 m  | -1 kg | 2 m*kg | 0.5 kg/m
+ 1 kg | 2 m  | -1 kg | 2 m*kg | 500 g/m
  1 kg | 0 kg | -1 kg | 0 kg^2 | 
  1 kg | 1 kg | -1 kg | 1 kg^2 | 1
  1 kg | 2 kg | -1 kg | 2 kg^2 | 0.5

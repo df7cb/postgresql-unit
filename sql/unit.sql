@@ -1,5 +1,6 @@
 -- test input and output
-SELECT '1'::unit;
+SELECT '1'::unit; -- unit_in
+SELECT unit(1); -- dbl2unit
 CREATE TEMP TABLE u (u unit);
 INSERT INTO u VALUES ('1');
 SELECT * FROM u;
@@ -21,3 +22,12 @@ SELECT candela();
 SELECT candela(8.0) AS eight_candela;
 SELECT byte();
 SELECT byte(9.0) AS nine_byte;
+
+-- test dimensionless scales
+SELECT unit(0) AS zero, unit(1e-6) AS "1e-6", unit(0.001) AS "0.001", unit(1.0) AS "1", unit(1000.0) AS "1000";
+-- test SI prefixes
+SELECT meter(0) AS zero, meter(1e-6) AS "µm", meter(0.001) AS mm, meter(1.0) AS m, meter(1000.0) AS km;
+SELECT kilogram(0) AS zero, kilogram(1e-6) AS mg, kilogram(0.001) AS g, kilogram(1.0) AS kg, kilogram(1000.0) AS "Mg";
+-- test combined units (exactly one unit with exponent 1 in numerator)
+SELECT meter(0)/second() AS zero, meter(1e-6)/second() AS "µm", meter(0.001)/second() AS mm, meter(1.0)/second() AS m, meter(1000.0)/second() AS km;
+SELECT kilogram(0)/second() AS zero, kilogram(1e-6)/second() AS mg, kilogram(0.001)/second() AS g, kilogram(1.0)/second() AS kg, kilogram(1000.0)/second() AS "Mg";

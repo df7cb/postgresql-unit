@@ -1,5 +1,11 @@
 -- test input and output
-SELECT '1'::unit;
+SELECT '1'::unit; -- unit_in
+ unit 
+------
+ 1
+(1 row)
+
+SELECT unit(1); -- dbl2unit
  unit 
 ------
  1
@@ -108,5 +114,38 @@ SELECT byte(9.0) AS nine_byte;
  nine_byte 
 -----------
  9 B
+(1 row)
+
+-- test dimensionless scales
+SELECT unit(0) AS zero, unit(1e-6) AS "1e-6", unit(0.001) AS "0.001", unit(1.0) AS "1", unit(1000.0) AS "1000";
+ zero | 1e-6  | 0.001 | 1 | 1000 
+------+-------+-------+---+------
+ 0    | 1e-06 | 0.001 | 1 | 1000
+(1 row)
+
+-- test SI prefixes
+SELECT meter(0) AS zero, meter(1e-6) AS "µm", meter(0.001) AS mm, meter(1.0) AS m, meter(1000.0) AS km;
+ zero |  µm  |  mm  |  m  |  km  
+------+------+------+-----+------
+ 0 m  | 1 µm | 1 mm | 1 m | 1 km
+(1 row)
+
+SELECT kilogram(0) AS zero, kilogram(1e-6) AS mg, kilogram(0.001) AS g, kilogram(1.0) AS kg, kilogram(1000.0) AS "Mg";
+ zero |  mg  |  g  |  kg  |  Mg  
+------+------+-----+------+------
+ 0 kg | 1 mg | 1 g | 1 kg | 1 Mg
+(1 row)
+
+-- test combined units (exactly one unit with exponent 1 in numerator)
+SELECT meter(0)/second() AS zero, meter(1e-6)/second() AS "µm", meter(0.001)/second() AS mm, meter(1.0)/second() AS m, meter(1000.0)/second() AS km;
+ zero  |   µm   |   mm   |   m   |   km   
+-------+--------+--------+-------+--------
+ 0 m/s | 1 µm/s | 1 mm/s | 1 m/s | 1 km/s
+(1 row)
+
+SELECT kilogram(0)/second() AS zero, kilogram(1e-6)/second() AS mg, kilogram(0.001)/second() AS g, kilogram(1.0)/second() AS kg, kilogram(1000.0)/second() AS "Mg";
+  zero  |   mg   |   g   |   kg   |   Mg   
+--------+--------+-------+--------+--------
+ 0 kg/s | 1 mg/s | 1 g/s | 1 kg/s | 1 Mg/s
 (1 row)
 

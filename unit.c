@@ -13,89 +13,161 @@ static char *
 unit_cstring (Unit *unit)
 {
 	int		 i;
+	int		 n_numerator = 0;
+	int		 u_numerator = -1;
+	int		 derived_unit = -1;
 	char	*output;
 	char	*output_p;
 	bool	 numerator = false;
 	bool	 denominator = false;
 
+	/* check if this is a combination of base units we have a specific name for */
 	for (i = 0; derived_units[i].name; i++)
 		if (! memcmp(unit->units, derived_units[i].units, N_UNITS))
 		{
-			double	 v = unit->value;
-			double	 va;
-			char	*prefix = "";
-			double	 factor = 1.0;
-
-			if (! strcmp(derived_units[i].name, "g")) {
-				if (unit->value == 0.0)
-					return psprintf("%g kg", v); /* always use "kg" with 0 */
-				v *= 1000.0;
+			derived_unit = i;
+			break;
+		}
+	if (derived_unit == -1) /* otherwise, sum up positive exponents */
+		for (i = 0; i < N_UNITS; i++) {
+			if (unit->units[i] > 0) {
+				n_numerator += unit->units[i];
+				u_numerator = i;
 			}
-
-			va = fabs(v);
-
-			if (va >= 1e27) {
-				// do nothing
-			} else if (va >= 1e24) {
-				prefix = "Y"; factor = 1e-24;
-			} else if (va >= 1e21) {
-				prefix = "Z"; factor = 1e-21;
-			} else if (va >= 1e18) {
-				prefix = "E"; factor = 1e-18;
-			} else if (va >= 1e15) {
-				prefix = "P"; factor = 1e-15;
-			} else if (va >= 1e12) {
-				prefix = "T"; factor = 1e-12;
-			} else if (va >= 1e9) {
-				prefix = "G"; factor = 1e-9;
-			} else if (va >= 1e6) {
-				prefix = "M"; factor = 1e-6;
-			} else if (va >= 1e3) {
-				prefix = "k"; factor = 1e-3;
-			} else if (va >= 1e0) {
-				// do nothing
-			} else if (va >= 1e-3) {
-				prefix = "m"; factor = 1e3;
-			} else if (va >= 1e-6) {
-				prefix = "µ"; factor = 1e6;
-			} else if (va >= 1e-9) {
-				prefix = "n"; factor = 1e9;
-			} else if (va >= 1e-12) {
-				prefix = "p"; factor = 1e12;
-			} else if (va >= 1e-15) {
-				prefix = "f"; factor = 1e15;
-			} else if (va >= 1e-18) {
-				prefix = "a"; factor = 1e18;
-			} else if (va >= 1e-21) {
-				prefix = "z"; factor = 1e21;
-			} else if (va >= 1e-24) {
-				prefix = "y"; factor = 1e24;
-			}
-
-			return psprintf("%g %s%s", v * factor, prefix, derived_units[i].name);
 		}
 
-	/* use scientific notation for unknown units (and dimensionless values) */
 	output_p = output = palloc(128);
-	output_p += sprintf(output_p, "%g", unit->value);
-	for (i = 0; i < N_UNITS; i++) /* format units in numerator */
-		if (unit->units[i] > 0) {
-			output_p += sprintf(output_p, "%s%s", numerator ? "*" : " ", base_units[i]);
-			if (unit->units[i] > 1)
-				output_p += sprintf(output_p, "^%d", unit->units[i]);
-			numerator = true;
+#define print_output(...) output_p += sprintf(output_p, __VA_ARGS__);
+
+	/* case 1: derived unit, or numerator with exactly one unit (exponent 1) that is not kg */
+	if (derived_unit >= 0 || (n_numerator == 1 && u_numerator != UNIT_kg)) {
+		double	 v_abs = fabs(unit->value);
+		char	*prefix = "";
+		double	 factor = 1.0;
+
+		if (v_abs >= 1e27) {
+			// do nothing
+		} else if (v_abs >= 1e24) {
+			prefix = "Y"; factor = 1e-24;
+		} else if (v_abs >= 1e21) {
+			prefix = "Z"; factor = 1e-21;
+		} else if (v_abs >= 1e18) {
+			prefix = "E"; factor = 1e-18;
+		} else if (v_abs >= 1e15) {
+			prefix = "P"; factor = 1e-15;
+		} else if (v_abs >= 1e12) {
+			prefix = "T"; factor = 1e-12;
+		} else if (v_abs >= 1e9) {
+			prefix = "G"; factor = 1e-9;
+		} else if (v_abs >= 1e6) {
+			prefix = "M"; factor = 1e-6;
+		} else if (v_abs >= 1e3) {
+			prefix = "k"; factor = 1e-3;
+		} else if (v_abs >= 1e0) {
+			// do nothing
+		} else if (v_abs >= 1e-3) {
+			prefix = "m"; factor = 1e3;
+		} else if (v_abs >= 1e-6) {
+			prefix = "µ"; factor = 1e6;
+		} else if (v_abs >= 1e-9) {
+			prefix = "n"; factor = 1e9;
+		} else if (v_abs >= 1e-12) {
+			prefix = "p"; factor = 1e12;
+		} else if (v_abs >= 1e-15) {
+			prefix = "f"; factor = 1e15;
+		} else if (v_abs >= 1e-18) {
+			prefix = "a"; factor = 1e18;
+		} else if (v_abs >= 1e-21) {
+			prefix = "z"; factor = 1e21;
+		} else if (v_abs >= 1e-24) {
+			prefix = "y"; factor = 1e24;
+		} /* else do nothing */
+
+		/* case 1a: derived unit, print with SI prefix and exit */
+		if (derived_unit >= 0) {
+			print_output("%g %s%s", unit->value * factor, prefix, derived_units[i].name);
+			return output;
 		}
+
+		/* case 1b: single unit in numerator (exponent 1), print with SI prefix and continue */
+		print_output("%g %s%s", unit->value * factor, prefix, base_units[u_numerator]);
+		numerator = true;
+
+	/* case 2: kg in numerator (exponent 1): print with SI prefix */
+	} else if (n_numerator == 1 && u_numerator == UNIT_kg) {
+		double	 v_abs = fabs(unit->value);
+		char	*prefix = "k";
+		double	 factor = 1.0;
+
+		if (v_abs >= 1e24) {
+			/* do nothing */
+		} else if (v_abs >= 1e21) {
+			prefix = "Y"; factor = 1e-21;
+		} else if (v_abs >= 1e18) {
+			prefix = "Z"; factor = 1e-18;
+		} else if (v_abs >= 1e15) {
+			prefix = "E"; factor = 1e-15;
+		} else if (v_abs >= 1e12) {
+			prefix = "P"; factor = 1e-12;
+		} else if (v_abs >= 1e9) {
+			prefix = "T"; factor = 1e-9;
+		} else if (v_abs >= 1e6) {
+			prefix = "G"; factor = 1e-6;
+		} else if (v_abs >= 1e3) {
+			prefix = "M"; factor = 1e-3;
+		} else if (v_abs >= 1e0) {
+			prefix = "k";
+		} else if (v_abs >= 1e-3) {
+			prefix = "";  factor = 1e3;
+		} else if (v_abs >= 1e-6) {
+			prefix = "m"; factor = 1e6;
+		} else if (v_abs >= 1e-9) {
+			prefix = "µ"; factor = 1e9;
+		} else if (v_abs >= 1e-12) {
+			prefix = "n"; factor = 1e12;
+		} else if (v_abs >= 1e-15) {
+			prefix = "p"; factor = 1e15;
+		} else if (v_abs >= 1e-18) {
+			prefix = "f"; factor = 1e18;
+		} else if (v_abs >= 1e-21) {
+			prefix = "a"; factor = 1e21;
+		} else if (v_abs >= 1e-24) {
+			prefix = "z"; factor = 1e24;
+		} else if (v_abs >= 1e-27) {
+			prefix = "y"; factor = 1e27;
+		} /* else: smaller value or 0 (or -0), print using kg */
+
+		print_output("%g %sg", unit->value * factor, prefix); /* gram with SI prefix */
+		numerator = true;
+
+	/* case 3: zero or more than one unit in numerator */
+	} else {
+		/* always use scientific notation here */
+		print_output("%g", unit->value);
+
+		for (i = 0; i < N_UNITS; i++) /* format units in numerator */
+			if (unit->units[i] > 0) {
+				print_output("%s%s", numerator ? "*" : " ", base_units[i]);
+				if (unit->units[i] > 1)
+					print_output("^%d", unit->units[i]);
+				numerator = true;
+			}
+	}
+
+	/* print units in denominator */
 	for (i = 0; i < N_UNITS; i++) /* format units in denominator */
 		if (unit->units[i] < 0) {
 			if (numerator) { /* format as .../a^x*b^y */
-				output_p += sprintf(output_p, "%s%s", denominator ? "*" : "/", base_units[i]);
+				print_output("%s%s", denominator ? "*" : "/", base_units[i]);
 				if (unit->units[i] < -1)
-					output_p += sprintf(output_p, "^%d", -unit->units[i]);
+					print_output("^%d", -unit->units[i]);
 			} else { /* format as a^-x*b^-y */
-				output_p += sprintf(output_p, "%s%s^%d", denominator ? "*" : " ", base_units[i], unit->units[i]);
+				print_output("%s%s^%d", denominator ? "*" : " ", base_units[i], unit->units[i]);
 			}
 			denominator = true;
 		}
+
+	/* done */
 	return output;
 }
 
@@ -142,6 +214,18 @@ unit_out(PG_FUNCTION_ARGS)
 }
 
 /* constructors */
+
+PG_FUNCTION_INFO_V1 (dbl2unit);
+
+Datum
+dbl2unit (PG_FUNCTION_ARGS)
+{
+	Unit	*result;
+
+	result = (Unit *) palloc0(sizeof(Unit));
+	result->value = PG_GETARG_FLOAT8(0);
+	PG_RETURN_POINTER(result);
+}
 
 PG_FUNCTION_INFO_V1 (unit_meter);
 

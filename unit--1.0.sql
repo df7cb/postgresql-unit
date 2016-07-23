@@ -21,6 +21,11 @@ CREATE TYPE unit (
 
 -- constructors
 
+CREATE FUNCTION unit(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'dbl2unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
 CREATE FUNCTION meter(double precision DEFAULT 1.0)
 	RETURNS unit
 	AS '$libdir/unit', 'unit_meter'

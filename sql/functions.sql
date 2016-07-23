@@ -38,7 +38,8 @@ SELECT kilogram(1) / 0 AS error;
 
 -- test exponentiation
 SELECT '6'::unit ^ 2 AS square;
-SELECT meter(7) ^ 2 AS square_meter;
+SELECT meter(100) ^ 2 AS square_meter;
+SELECT kilogram(100) ^ 2 AS square_kilogram;
 SELECT second(.02) ^ -1 AS hertz;
 SELECT ampere(4) ^ 0 AS unity;
 SELECT '0'::unit ^ 0 AS unity;
