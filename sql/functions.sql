@@ -10,6 +10,7 @@ SELECT '1'::unit - '2' AS difference;
 SELECT '0' + meter() AS error;
 SELECT meter() + '0' AS error;
 SELECT meter() + kilogram() AS error;
+SELECT meter() - kilogram() AS error;
 
 -- test unit multiplication/division
 SELECT - '1'::unit AS negative;

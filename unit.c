@@ -171,15 +171,15 @@ unit_cstring (Unit *unit)
 	return output;
 }
 
-/* test if two Units use the same unit */
+/* test if two Units have the same dimension */
 static inline void
-test_same_unit (Unit *a, Unit *b)
+test_same_dimension (char *op, Unit *a, Unit *b)
 {
 	if (memcmp(a->units, b->units, N_UNITS))
 		ereport(ERROR,
 				(errcode(ERRCODE_DATA_EXCEPTION),
-				 errmsg("units are not the same: \"%s\", \"%s\"",
-					 unit_cstring(a), unit_cstring(b))));
+				 errmsg("dimension mismatch in \"%s\" operation: \"%s\", \"%s\"",
+					 op, unit_cstring(a), unit_cstring(b))));
 }
 
 /* input and output */
@@ -368,7 +368,7 @@ unit_add(PG_FUNCTION_ARGS)
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
 
-	test_same_unit(a, b);
+	test_same_dimension("+", a, b);
 	result = (Unit *) palloc(sizeof(Unit));
 	result->value = a->value + b->value;
 	memcpy(result->units, a->units, N_UNITS);
@@ -384,7 +384,7 @@ unit_sub(PG_FUNCTION_ARGS)
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
 
-	test_same_unit(a, b);
+	test_same_dimension("-", a, b);
 	result = (Unit *) palloc(sizeof(Unit));
 	result->value = a->value - b->value;
 	memcpy(result->units, a->units, N_UNITS);
@@ -632,7 +632,7 @@ unit_least(PG_FUNCTION_ARGS)
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 
-	test_same_unit(a, b);
+	test_same_dimension("unit_least", a, b);
 	if (unit_cmp_internal(a, b) <= 0)
 		PG_RETURN_POINTER(a);
 	PG_RETURN_POINTER(b);
@@ -646,7 +646,7 @@ unit_greatest(PG_FUNCTION_ARGS)
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 
-	test_same_unit(a, b);
+	test_same_dimension("unit_greatest", a, b);
 	if (unit_cmp_internal(a, b) >= 0)
 		PG_RETURN_POINTER(a);
 	PG_RETURN_POINTER(b);
