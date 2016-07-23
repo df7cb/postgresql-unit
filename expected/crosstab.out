@@ -36,8 +36,8 @@ CREATE TEMP TABLE derived_units (u) AS
 	(lux()),
 	(katal());
 SELECT u, 1/u AS inverse FROM derived_units;
-   u   |       inverse        
--------+----------------------
+   u   |     inverse      
+-------+------------------
  1     | 1
  1 m   | 1 m^-1
  1 kg  | 1 kg^-1
@@ -48,20 +48,20 @@ SELECT u, 1/u AS inverse FROM derived_units;
  1 cd  | 1 cd^-1
  1 B   | 1 B^-1
  1 Hz  | 1 s
- 1 N   | 1 m^-1 kg^-1 s^2
- 1 Pa  | 1 m kg^-1 s^2
- 1 J   | 1 m^-2 kg^-1 s^2
- 1 W   | 1 m^-2 kg^-1 s^3
- 1 C   | 1 s^-1 A^-1
- 1 V   | 1 m^-2 kg^-1 s^3 A
- 1 F   | 1 m^2 kg s^-4 A^-2
+ 1 N   | 1 s^2/m*kg
+ 1 Pa  | 1 m*s^2/kg
+ 1 J   | 1 s^2/m^2*kg
+ 1 W   | 1 s^3/m^2*kg
+ 1 C   | 1 s^-1*A^-1
+ 1 V   | 1 s^3*A/m^2*kg
+ 1 F   | 1 m^2*kg/s^4*A^2
  1 Ω   | 1 S
  1 S   | 1 Ω
- 1 Wb  | 1 m^-2 kg^-1 s^2 A
- 1 T   | 1 kg^-1 s^2 A
- 1 H   | 1 m^-2 kg^-1 s^2 A^2
- 1 lx  | 1 m^2 cd^-1
- 1 kat | 1 s mol^-1
+ 1 Wb  | 1 s^2*A/m^2*kg
+ 1 T   | 1 s^2*A/kg
+ 1 H   | 1 s^2*A^2/m^2*kg
+ 1 lx  | 1 m^2/cd
+ 1 kat | 1 s/mol
 (24 rows)
 
 -- test multiplication
@@ -89,32 +89,32 @@ SELECT
 FROM 
   derived_units AS a CROSS JOIN units AS b
 \crosstabview
-   a   |   1   |         1 m          |         1 kg         |         1 s          |         1 A          |          1 K           |          1 mol           |          1 cd           |          1 B           
--------+-------+----------------------+----------------------+----------------------+----------------------+------------------------+--------------------------+-------------------------+------------------------
- 1     | 1     | 1 m                  | 1 kg                 | 1 s                  | 1 A                  | 1 K                    | 1 mol                    | 1 cd                    | 1 B
- 1 m   | 1 m   | 1 m^2                | 1 m kg               | 1 m s                | 1 m A                | 1 m K                  | 1 m mol                  | 1 m cd                  | 1 m B
- 1 kg  | 1 kg  | 1 m kg               | 1 kg^2               | 1 kg s               | 1 kg A               | 1 kg K                 | 1 kg mol                 | 1 kg cd                 | 1 kg B
- 1 s   | 1 s   | 1 m s                | 1 kg s               | 1 s^2                | 1 C                  | 1 s K                  | 1 s mol                  | 1 s cd                  | 1 s B
- 1 A   | 1 A   | 1 m A                | 1 kg A               | 1 C                  | 1 A^2                | 1 A K                  | 1 A mol                  | 1 A cd                  | 1 A B
- 1 K   | 1 K   | 1 m K                | 1 kg K               | 1 s K                | 1 A K                | 1 K^2                  | 1 K mol                  | 1 K cd                  | 1 K B
- 1 mol | 1 mol | 1 m mol              | 1 kg mol             | 1 s mol              | 1 A mol              | 1 K mol                | 1 mol^2                  | 1 mol cd                | 1 mol B
- 1 cd  | 1 cd  | 1 m cd               | 1 kg cd              | 1 s cd               | 1 A cd               | 1 K cd                 | 1 mol cd                 | 1 cd^2                  | 1 cd B
- 1 B   | 1 B   | 1 m B                | 1 kg B               | 1 s B                | 1 A B                | 1 K B                  | 1 mol B                  | 1 cd B                  | 1 B^2
- 1 Hz  | 1 Hz  | 1 m s^-1             | 1 kg s^-1            | 1                    | 1 s^-1 A             | 1 s^-1 K               | 1 kat                    | 1 s^-1 cd               | 1 s^-1 B
- 1 N   | 1 N   | 1 J                  | 1 m kg^2 s^-2        | 1 m kg s^-1          | 1 m kg s^-2 A        | 1 m kg s^-2 K          | 1 m kg s^-2 mol          | 1 m kg s^-2 cd          | 1 m kg s^-2 B
- 1 Pa  | 1 Pa  | 1 kg s^-2            | 1 m^-1 kg^2 s^-2     | 1 m^-1 kg s^-1       | 1 m^-1 kg s^-2 A     | 1 m^-1 kg s^-2 K       | 1 m^-1 kg s^-2 mol       | 1 m^-1 kg s^-2 cd       | 1 m^-1 kg s^-2 B
- 1 J   | 1 J   | 1 m^3 kg s^-2        | 1 m^2 kg^2 s^-2      | 1 m^2 kg s^-1        | 1 m^2 kg s^-2 A      | 1 m^2 kg s^-2 K        | 1 m^2 kg s^-2 mol        | 1 m^2 kg s^-2 cd        | 1 m^2 kg s^-2 B
- 1 W   | 1 W   | 1 m^3 kg s^-3        | 1 m^2 kg^2 s^-3      | 1 J                  | 1 m^2 kg s^-3 A      | 1 m^2 kg s^-3 K        | 1 m^2 kg s^-3 mol        | 1 m^2 kg s^-3 cd        | 1 m^2 kg s^-3 B
- 1 C   | 1 C   | 1 m s A              | 1 kg s A             | 1 s^2 A              | 1 s A^2              | 1 s A K                | 1 s A mol                | 1 s A cd                | 1 s A B
- 1 V   | 1 V   | 1 m^3 kg s^-3 A^-1   | 1 m^2 kg^2 s^-3 A^-1 | 1 Wb                 | 1 W                  | 1 m^2 kg s^-3 A^-1 K   | 1 m^2 kg s^-3 A^-1 mol   | 1 m^2 kg s^-3 A^-1 cd   | 1 m^2 kg s^-3 A^-1 B
- 1 F   | 1 F   | 1 m^-1 kg^-1 s^4 A^2 | 1 m^-2 s^4 A^2       | 1 m^-2 kg^-1 s^5 A^2 | 1 m^-2 kg^-1 s^4 A^3 | 1 m^-2 kg^-1 s^4 A^2 K | 1 m^-2 kg^-1 s^4 A^2 mol | 1 m^-2 kg^-1 s^4 A^2 cd | 1 m^-2 kg^-1 s^4 A^2 B
- 1 Ω   | 1 Ω   | 1 m^3 kg s^-3 A^-2   | 1 m^2 kg^2 s^-3 A^-2 | 1 H                  | 1 V                  | 1 m^2 kg s^-3 A^-2 K   | 1 m^2 kg s^-3 A^-2 mol   | 1 m^2 kg s^-3 A^-2 cd   | 1 m^2 kg s^-3 A^-2 B
- 1 S   | 1 S   | 1 m^-1 kg^-1 s^3 A^2 | 1 m^-2 s^3 A^2       | 1 F                  | 1 m^-2 kg^-1 s^3 A^3 | 1 m^-2 kg^-1 s^3 A^2 K | 1 m^-2 kg^-1 s^3 A^2 mol | 1 m^-2 kg^-1 s^3 A^2 cd | 1 m^-2 kg^-1 s^3 A^2 B
- 1 Wb  | 1 Wb  | 1 m^3 kg s^-2 A^-1   | 1 m^2 kg^2 s^-2 A^-1 | 1 m^2 kg s^-1 A^-1   | 1 J                  | 1 m^2 kg s^-2 A^-1 K   | 1 m^2 kg s^-2 A^-1 mol   | 1 m^2 kg s^-2 A^-1 cd   | 1 m^2 kg s^-2 A^-1 B
- 1 T   | 1 T   | 1 m kg s^-2 A^-1     | 1 kg^2 s^-2 A^-1     | 1 kg s^-1 A^-1       | 1 kg s^-2            | 1 kg s^-2 A^-1 K       | 1 kg s^-2 A^-1 mol       | 1 kg s^-2 A^-1 cd       | 1 kg s^-2 A^-1 B
- 1 H   | 1 H   | 1 m^3 kg s^-2 A^-2   | 1 m^2 kg^2 s^-2 A^-2 | 1 m^2 kg s^-1 A^-2   | 1 Wb                 | 1 m^2 kg s^-2 A^-2 K   | 1 m^2 kg s^-2 A^-2 mol   | 1 m^2 kg s^-2 A^-2 cd   | 1 m^2 kg s^-2 A^-2 B
- 1 lx  | 1 lx  | 1 m^-1 cd            | 1 m^-2 kg cd         | 1 m^-2 s cd          | 1 m^-2 A cd          | 1 m^-2 K cd            | 1 m^-2 mol cd            | 1 m^-2 cd^2             | 1 m^-2 cd B
- 1 kat | 1 kat | 1 m s^-1 mol         | 1 kg s^-1 mol        | 1 mol                | 1 s^-1 A mol         | 1 s^-1 K mol           | 1 s^-1 mol^2             | 1 s^-1 mol cd           | 1 s^-1 mol B
+   a   |   1   |       1 m        |        1 kg        |       1 s        |       1 A        |        1 K         |        1 mol         |        1 cd         |        1 B         
+-------+-------+------------------+--------------------+------------------+------------------+--------------------+----------------------+---------------------+--------------------
+ 1     | 1     | 1 m              | 1 kg               | 1 s              | 1 A              | 1 K                | 1 mol                | 1 cd                | 1 B
+ 1 m   | 1 m   | 1 m^2            | 1 m*kg             | 1 m*s            | 1 m*A            | 1 m*K              | 1 m*mol              | 1 m*cd              | 1 m*B
+ 1 kg  | 1 kg  | 1 m*kg           | 1 kg^2             | 1 kg*s           | 1 kg*A           | 1 kg*K             | 1 kg*mol             | 1 kg*cd             | 1 kg*B
+ 1 s   | 1 s   | 1 m*s            | 1 kg*s             | 1 s^2            | 1 C              | 1 s*K              | 1 s*mol              | 1 s*cd              | 1 s*B
+ 1 A   | 1 A   | 1 m*A            | 1 kg*A             | 1 C              | 1 A^2            | 1 A*K              | 1 A*mol              | 1 A*cd              | 1 A*B
+ 1 K   | 1 K   | 1 m*K            | 1 kg*K             | 1 s*K            | 1 A*K            | 1 K^2              | 1 K*mol              | 1 K*cd              | 1 K*B
+ 1 mol | 1 mol | 1 m*mol          | 1 kg*mol           | 1 s*mol          | 1 A*mol          | 1 K*mol            | 1 mol^2              | 1 mol*cd            | 1 mol*B
+ 1 cd  | 1 cd  | 1 m*cd           | 1 kg*cd            | 1 s*cd           | 1 A*cd           | 1 K*cd             | 1 mol*cd             | 1 cd^2              | 1 cd*B
+ 1 B   | 1 B   | 1 m*B            | 1 kg*B             | 1 s*B            | 1 A*B            | 1 K*B              | 1 mol*B              | 1 cd*B              | 1 B^2
+ 1 Hz  | 1 Hz  | 1 m/s            | 1 kg/s             | 1                | 1 A/s            | 1 K/s              | 1 kat                | 1 cd/s              | 1 B/s
+ 1 N   | 1 N   | 1 J              | 1 m*kg^2/s^2       | 1 m*kg/s         | 1 m*kg*A/s^2     | 1 m*kg*K/s^2       | 1 m*kg*mol/s^2       | 1 m*kg*cd/s^2       | 1 m*kg*B/s^2
+ 1 Pa  | 1 Pa  | 1 kg/s^2         | 1 kg^2/m*s^2       | 1 kg/m*s         | 1 kg*A/m*s^2     | 1 kg*K/m*s^2       | 1 kg*mol/m*s^2       | 1 kg*cd/m*s^2       | 1 kg*B/m*s^2
+ 1 J   | 1 J   | 1 m^3*kg/s^2     | 1 m^2*kg^2/s^2     | 1 m^2*kg/s       | 1 m^2*kg*A/s^2   | 1 m^2*kg*K/s^2     | 1 m^2*kg*mol/s^2     | 1 m^2*kg*cd/s^2     | 1 m^2*kg*B/s^2
+ 1 W   | 1 W   | 1 m^3*kg/s^3     | 1 m^2*kg^2/s^3     | 1 J              | 1 m^2*kg*A/s^3   | 1 m^2*kg*K/s^3     | 1 m^2*kg*mol/s^3     | 1 m^2*kg*cd/s^3     | 1 m^2*kg*B/s^3
+ 1 C   | 1 C   | 1 m*s*A          | 1 kg*s*A           | 1 s^2*A          | 1 s*A^2          | 1 s*A*K            | 1 s*A*mol            | 1 s*A*cd            | 1 s*A*B
+ 1 V   | 1 V   | 1 m^3*kg/s^3*A   | 1 m^2*kg^2/s^3*A   | 1 Wb             | 1 W              | 1 m^2*kg*K/s^3*A   | 1 m^2*kg*mol/s^3*A   | 1 m^2*kg*cd/s^3*A   | 1 m^2*kg*B/s^3*A
+ 1 F   | 1 F   | 1 s^4*A^2/m*kg   | 1 s^4*A^2/m^2      | 1 s^5*A^2/m^2*kg | 1 s^4*A^3/m^2*kg | 1 s^4*A^2*K/m^2*kg | 1 s^4*A^2*mol/m^2*kg | 1 s^4*A^2*cd/m^2*kg | 1 s^4*A^2*B/m^2*kg
+ 1 Ω   | 1 Ω   | 1 m^3*kg/s^3*A^2 | 1 m^2*kg^2/s^3*A^2 | 1 H              | 1 V              | 1 m^2*kg*K/s^3*A^2 | 1 m^2*kg*mol/s^3*A^2 | 1 m^2*kg*cd/s^3*A^2 | 1 m^2*kg*B/s^3*A^2
+ 1 S   | 1 S   | 1 s^3*A^2/m*kg   | 1 s^3*A^2/m^2      | 1 F              | 1 s^3*A^3/m^2*kg | 1 s^3*A^2*K/m^2*kg | 1 s^3*A^2*mol/m^2*kg | 1 s^3*A^2*cd/m^2*kg | 1 s^3*A^2*B/m^2*kg
+ 1 Wb  | 1 Wb  | 1 m^3*kg/s^2*A   | 1 m^2*kg^2/s^2*A   | 1 m^2*kg/s*A     | 1 J              | 1 m^2*kg*K/s^2*A   | 1 m^2*kg*mol/s^2*A   | 1 m^2*kg*cd/s^2*A   | 1 m^2*kg*B/s^2*A
+ 1 T   | 1 T   | 1 m*kg/s^2*A     | 1 kg^2/s^2*A       | 1 kg/s*A         | 1 kg/s^2         | 1 kg*K/s^2*A       | 1 kg*mol/s^2*A       | 1 kg*cd/s^2*A       | 1 kg*B/s^2*A
+ 1 H   | 1 H   | 1 m^3*kg/s^2*A^2 | 1 m^2*kg^2/s^2*A^2 | 1 m^2*kg/s*A^2   | 1 Wb             | 1 m^2*kg*K/s^2*A^2 | 1 m^2*kg*mol/s^2*A^2 | 1 m^2*kg*cd/s^2*A^2 | 1 m^2*kg*B/s^2*A^2
+ 1 lx  | 1 lx  | 1 cd/m           | 1 kg*cd/m^2        | 1 s*cd/m^2       | 1 A*cd/m^2       | 1 K*cd/m^2         | 1 mol*cd/m^2         | 1 cd^2/m^2          | 1 cd*B/m^2
+ 1 kat | 1 kat | 1 m*mol/s        | 1 kg*mol/s         | 1 mol            | 1 A*mol/s        | 1 K*mol/s          | 1 mol^2/s            | 1 mol*cd/s          | 1 mol*B/s
 (24 rows)
 
 WITH
@@ -221,32 +221,32 @@ SELECT
 FROM 
   derived_units AS a CROSS JOIN units AS b
 \crosstabview
-   a   |   1   |         1 m          |         1 kg         |         1 s          |         1 A         |            1 K            |            1 mol            |            1 cd            |            1 B            
--------+-------+----------------------+----------------------+----------------------+---------------------+---------------------------+-----------------------------+----------------------------+---------------------------
- 1     | 1     | 1 m^-1               | 1 kg^-1              | 1 Hz                 | 1 A^-1              | 1 K^-1                    | 1 mol^-1                    | 1 cd^-1                    | 1 B^-1
- 1 m   | 1 m   | 1                    | 1 m kg^-1            | 1 m s^-1             | 1 m A^-1            | 1 m K^-1                  | 1 m mol^-1                  | 1 m cd^-1                  | 1 m B^-1
- 1 kg  | 1 kg  | 1 m^-1 kg            | 1                    | 1 kg s^-1            | 1 kg A^-1           | 1 kg K^-1                 | 1 kg mol^-1                 | 1 kg cd^-1                 | 1 kg B^-1
- 1 s   | 1 s   | 1 m^-1 s             | 1 kg^-1 s            | 1                    | 1 s A^-1            | 1 s K^-1                  | 1 s mol^-1                  | 1 s cd^-1                  | 1 s B^-1
- 1 A   | 1 A   | 1 m^-1 A             | 1 kg^-1 A            | 1 s^-1 A             | 1                   | 1 A K^-1                  | 1 A mol^-1                  | 1 A cd^-1                  | 1 A B^-1
- 1 K   | 1 K   | 1 m^-1 K             | 1 kg^-1 K            | 1 s^-1 K             | 1 A^-1 K            | 1                         | 1 K mol^-1                  | 1 K cd^-1                  | 1 K B^-1
- 1 mol | 1 mol | 1 m^-1 mol           | 1 kg^-1 mol          | 1 kat                | 1 A^-1 mol          | 1 K^-1 mol                | 1                           | 1 mol cd^-1                | 1 mol B^-1
- 1 cd  | 1 cd  | 1 m^-1 cd            | 1 kg^-1 cd           | 1 s^-1 cd            | 1 A^-1 cd           | 1 K^-1 cd                 | 1 mol^-1 cd                 | 1                          | 1 cd B^-1
- 1 B   | 1 B   | 1 m^-1 B             | 1 kg^-1 B            | 1 s^-1 B             | 1 A^-1 B            | 1 K^-1 B                  | 1 mol^-1 B                  | 1 cd^-1 B                  | 1
- 1 Hz  | 1 Hz  | 1 m^-1 s^-1          | 1 kg^-1 s^-1         | 1 s^-2               | 1 s^-1 A^-1         | 1 s^-1 K^-1               | 1 s^-1 mol^-1               | 1 s^-1 cd^-1               | 1 s^-1 B^-1
- 1 N   | 1 N   | 1 kg s^-2            | 1 m s^-2             | 1 m kg s^-3          | 1 m kg s^-2 A^-1    | 1 m kg s^-2 K^-1          | 1 m kg s^-2 mol^-1          | 1 m kg s^-2 cd^-1          | 1 m kg s^-2 B^-1
- 1 Pa  | 1 Pa  | 1 m^-2 kg s^-2       | 1 m^-1 s^-2          | 1 m^-1 kg s^-3       | 1 m^-1 kg s^-2 A^-1 | 1 m^-1 kg s^-2 K^-1       | 1 m^-1 kg s^-2 mol^-1       | 1 m^-1 kg s^-2 cd^-1       | 1 m^-1 kg s^-2 B^-1
- 1 J   | 1 J   | 1 N                  | 1 Gy                 | 1 W                  | 1 Wb                | 1 m^2 kg s^-2 K^-1        | 1 m^2 kg s^-2 mol^-1        | 1 m^2 kg s^-2 cd^-1        | 1 m^2 kg s^-2 B^-1
- 1 W   | 1 W   | 1 m kg s^-3          | 1 m^2 s^-3           | 1 m^2 kg s^-4        | 1 V                 | 1 m^2 kg s^-3 K^-1        | 1 m^2 kg s^-3 mol^-1        | 1 m^2 kg s^-3 cd^-1        | 1 m^2 kg s^-3 B^-1
- 1 C   | 1 C   | 1 m^-1 s A           | 1 kg^-1 s A          | 1 A                  | 1 s                 | 1 s A K^-1                | 1 s A mol^-1                | 1 s A cd^-1                | 1 s A B^-1
- 1 V   | 1 V   | 1 m kg s^-3 A^-1     | 1 m^2 s^-3 A^-1      | 1 m^2 kg s^-4 A^-1   | 1 Ω                 | 1 m^2 kg s^-3 A^-1 K^-1   | 1 m^2 kg s^-3 A^-1 mol^-1   | 1 m^2 kg s^-3 A^-1 cd^-1   | 1 m^2 kg s^-3 A^-1 B^-1
- 1 F   | 1 F   | 1 m^-3 kg^-1 s^4 A^2 | 1 m^-2 kg^-2 s^4 A^2 | 1 S                  | 1 m^-2 kg^-1 s^4 A  | 1 m^-2 kg^-1 s^4 A^2 K^-1 | 1 m^-2 kg^-1 s^4 A^2 mol^-1 | 1 m^-2 kg^-1 s^4 A^2 cd^-1 | 1 m^-2 kg^-1 s^4 A^2 B^-1
- 1 Ω   | 1 Ω   | 1 m kg s^-3 A^-2     | 1 m^2 s^-3 A^-2      | 1 m^2 kg s^-4 A^-2   | 1 m^2 kg s^-3 A^-3  | 1 m^2 kg s^-3 A^-2 K^-1   | 1 m^2 kg s^-3 A^-2 mol^-1   | 1 m^2 kg s^-3 A^-2 cd^-1   | 1 m^2 kg s^-3 A^-2 B^-1
- 1 S   | 1 S   | 1 m^-3 kg^-1 s^3 A^2 | 1 m^-2 kg^-2 s^3 A^2 | 1 m^-2 kg^-1 s^2 A^2 | 1 m^-2 kg^-1 s^3 A  | 1 m^-2 kg^-1 s^3 A^2 K^-1 | 1 m^-2 kg^-1 s^3 A^2 mol^-1 | 1 m^-2 kg^-1 s^3 A^2 cd^-1 | 1 m^-2 kg^-1 s^3 A^2 B^-1
- 1 Wb  | 1 Wb  | 1 m kg s^-2 A^-1     | 1 m^2 s^-2 A^-1      | 1 V                  | 1 H                 | 1 m^2 kg s^-2 A^-1 K^-1   | 1 m^2 kg s^-2 A^-1 mol^-1   | 1 m^2 kg s^-2 A^-1 cd^-1   | 1 m^2 kg s^-2 A^-1 B^-1
- 1 T   | 1 T   | 1 m^-1 kg s^-2 A^-1  | 1 s^-2 A^-1          | 1 kg s^-3 A^-1       | 1 kg s^-2 A^-2      | 1 kg s^-2 A^-1 K^-1       | 1 kg s^-2 A^-1 mol^-1       | 1 kg s^-2 A^-1 cd^-1       | 1 kg s^-2 A^-1 B^-1
- 1 H   | 1 H   | 1 m kg s^-2 A^-2     | 1 m^2 s^-2 A^-2      | 1 Ω                  | 1 m^2 kg s^-2 A^-3  | 1 m^2 kg s^-2 A^-2 K^-1   | 1 m^2 kg s^-2 A^-2 mol^-1   | 1 m^2 kg s^-2 A^-2 cd^-1   | 1 m^2 kg s^-2 A^-2 B^-1
- 1 lx  | 1 lx  | 1 m^-3 cd            | 1 m^-2 kg^-1 cd      | 1 m^-2 s^-1 cd       | 1 m^-2 A^-1 cd      | 1 m^-2 K^-1 cd            | 1 m^-2 mol^-1 cd            | 1 m^-2                     | 1 m^-2 cd B^-1
- 1 kat | 1 kat | 1 m^-1 s^-1 mol      | 1 kg^-1 s^-1 mol     | 1 s^-2 mol           | 1 s^-1 A^-1 mol     | 1 s^-1 K^-1 mol           | 1 Hz                        | 1 s^-1 mol cd^-1           | 1 s^-1 mol B^-1
+   a   |   1   |       1 m        |        1 kg        |       1 s        |       1 A        |        1 K         |        1 mol         |        1 cd         |        1 B         
+-------+-------+------------------+--------------------+------------------+------------------+--------------------+----------------------+---------------------+--------------------
+ 1     | 1     | 1 m^-1           | 1 kg^-1            | 1 Hz             | 1 A^-1           | 1 K^-1             | 1 mol^-1             | 1 cd^-1             | 1 B^-1
+ 1 m   | 1 m   | 1                | 1 m/kg             | 1 m/s            | 1 m/A            | 1 m/K              | 1 m/mol              | 1 m/cd              | 1 m/B
+ 1 kg  | 1 kg  | 1 kg/m           | 1                  | 1 kg/s           | 1 kg/A           | 1 kg/K             | 1 kg/mol             | 1 kg/cd             | 1 kg/B
+ 1 s   | 1 s   | 1 s/m            | 1 s/kg             | 1                | 1 s/A            | 1 s/K              | 1 s/mol              | 1 s/cd              | 1 s/B
+ 1 A   | 1 A   | 1 A/m            | 1 A/kg             | 1 A/s            | 1                | 1 A/K              | 1 A/mol              | 1 A/cd              | 1 A/B
+ 1 K   | 1 K   | 1 K/m            | 1 K/kg             | 1 K/s            | 1 K/A            | 1                  | 1 K/mol              | 1 K/cd              | 1 K/B
+ 1 mol | 1 mol | 1 mol/m          | 1 mol/kg           | 1 kat            | 1 mol/A          | 1 mol/K            | 1                    | 1 mol/cd            | 1 mol/B
+ 1 cd  | 1 cd  | 1 cd/m           | 1 cd/kg            | 1 cd/s           | 1 cd/A           | 1 cd/K             | 1 cd/mol             | 1                   | 1 cd/B
+ 1 B   | 1 B   | 1 B/m            | 1 B/kg             | 1 B/s            | 1 B/A            | 1 B/K              | 1 B/mol              | 1 B/cd              | 1
+ 1 Hz  | 1 Hz  | 1 m^-1*s^-1      | 1 kg^-1*s^-1       | 1 s^-2           | 1 s^-1*A^-1      | 1 s^-1*K^-1        | 1 s^-1*mol^-1        | 1 s^-1*cd^-1        | 1 s^-1*B^-1
+ 1 N   | 1 N   | 1 kg/s^2         | 1 m/s^2            | 1 m*kg/s^3       | 1 m*kg/s^2*A     | 1 m*kg/s^2*K       | 1 m*kg/s^2*mol       | 1 m*kg/s^2*cd       | 1 m*kg/s^2*B
+ 1 Pa  | 1 Pa  | 1 kg/m^2*s^2     | 1 m^-1*s^-2        | 1 kg/m*s^3       | 1 kg/m*s^2*A     | 1 kg/m*s^2*K       | 1 kg/m*s^2*mol       | 1 kg/m*s^2*cd       | 1 kg/m*s^2*B
+ 1 J   | 1 J   | 1 N              | 1 Gy               | 1 W              | 1 Wb             | 1 m^2*kg/s^2*K     | 1 m^2*kg/s^2*mol     | 1 m^2*kg/s^2*cd     | 1 m^2*kg/s^2*B
+ 1 W   | 1 W   | 1 m*kg/s^3       | 1 m^2/s^3          | 1 m^2*kg/s^4     | 1 V              | 1 m^2*kg/s^3*K     | 1 m^2*kg/s^3*mol     | 1 m^2*kg/s^3*cd     | 1 m^2*kg/s^3*B
+ 1 C   | 1 C   | 1 s*A/m          | 1 s*A/kg           | 1 A              | 1 s              | 1 s*A/K            | 1 s*A/mol            | 1 s*A/cd            | 1 s*A/B
+ 1 V   | 1 V   | 1 m*kg/s^3*A     | 1 m^2/s^3*A        | 1 m^2*kg/s^4*A   | 1 Ω              | 1 m^2*kg/s^3*A*K   | 1 m^2*kg/s^3*A*mol   | 1 m^2*kg/s^3*A*cd   | 1 m^2*kg/s^3*A*B
+ 1 F   | 1 F   | 1 s^4*A^2/m^3*kg | 1 s^4*A^2/m^2*kg^2 | 1 S              | 1 s^4*A/m^2*kg   | 1 s^4*A^2/m^2*kg*K | 1 s^4*A^2/m^2*kg*mol | 1 s^4*A^2/m^2*kg*cd | 1 s^4*A^2/m^2*kg*B
+ 1 Ω   | 1 Ω   | 1 m*kg/s^3*A^2   | 1 m^2/s^3*A^2      | 1 m^2*kg/s^4*A^2 | 1 m^2*kg/s^3*A^3 | 1 m^2*kg/s^3*A^2*K | 1 m^2*kg/s^3*A^2*mol | 1 m^2*kg/s^3*A^2*cd | 1 m^2*kg/s^3*A^2*B
+ 1 S   | 1 S   | 1 s^3*A^2/m^3*kg | 1 s^3*A^2/m^2*kg^2 | 1 s^2*A^2/m^2*kg | 1 s^3*A/m^2*kg   | 1 s^3*A^2/m^2*kg*K | 1 s^3*A^2/m^2*kg*mol | 1 s^3*A^2/m^2*kg*cd | 1 s^3*A^2/m^2*kg*B
+ 1 Wb  | 1 Wb  | 1 m*kg/s^2*A     | 1 m^2/s^2*A        | 1 V              | 1 H              | 1 m^2*kg/s^2*A*K   | 1 m^2*kg/s^2*A*mol   | 1 m^2*kg/s^2*A*cd   | 1 m^2*kg/s^2*A*B
+ 1 T   | 1 T   | 1 kg/m*s^2*A     | 1 s^-2*A^-1        | 1 kg/s^3*A       | 1 kg/s^2*A^2     | 1 kg/s^2*A*K       | 1 kg/s^2*A*mol       | 1 kg/s^2*A*cd       | 1 kg/s^2*A*B
+ 1 H   | 1 H   | 1 m*kg/s^2*A^2   | 1 m^2/s^2*A^2      | 1 Ω              | 1 m^2*kg/s^2*A^3 | 1 m^2*kg/s^2*A^2*K | 1 m^2*kg/s^2*A^2*mol | 1 m^2*kg/s^2*A^2*cd | 1 m^2*kg/s^2*A^2*B
+ 1 lx  | 1 lx  | 1 cd/m^3         | 1 cd/m^2*kg        | 1 cd/m^2*s       | 1 cd/m^2*A       | 1 cd/m^2*K         | 1 cd/m^2*mol         | 1 m^-2              | 1 cd/m^2*B
+ 1 kat | 1 kat | 1 mol/m*s        | 1 mol/kg*s         | 1 mol/s^2        | 1 mol/s*A        | 1 mol/s*K          | 1 Hz                 | 1 mol/s*cd          | 1 mol/s*B
 (24 rows)
 
 -- test comparisons

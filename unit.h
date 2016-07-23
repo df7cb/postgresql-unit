@@ -19,6 +19,17 @@ struct derived_unit_t {
 	signed char	 units[N_UNITS];
 };
 
+char *base_units[N_UNITS] = {
+	"m",
+	"kg",
+	"s",
+	"A",
+	"K",
+	"mol",
+	"cd",
+	"B",
+};
+
 struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki/International_System_of_Units */
 			/*  m  kg   s   A   K  mol cd   B  */
 	{ "m",   "\001\000\000\000\000\000\000\000" }, /* meter                                                                 */

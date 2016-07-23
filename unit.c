@@ -8,31 +8,15 @@
 
 PG_MODULE_MAGIC;
 
-/* internal functions */
-
-static inline uint64_t
-unit_dimension_int (Unit *unit)
-{
-	uint64_t	*p = (uint64_t *)unit->units;
-	return *p;
-}
-
-static inline char *
-unit_fmt (char *name, signed char exponent)
-{
-	if (exponent == 0)
-		return "";
-	else if (exponent == 1)
-		return name;
-	else
-		return psprintf("%s^%d", name, exponent);
-}
-
 /* format Unit as string */
 static char *
 unit_cstring (Unit *unit)
 {
 	int		 i;
+	char	*output;
+	char	*output_p;
+	bool	 numerator = false;
+	bool	 denominator = false;
 
 	for (i = 0; derived_units[i].name; i++)
 		if (! memcmp(unit->units, derived_units[i].units, N_UNITS))
@@ -92,17 +76,27 @@ unit_cstring (Unit *unit)
 		}
 
 	/* use scientific notation for unknown units (and dimensionless values) */
-	return psprintf("%g%s%s%s%s%s%s%s%s",
-			unit->value,
-			unit_fmt(" m",   unit->units[UNIT_m]),
-			unit_fmt(" kg",  unit->units[UNIT_kg]),
-			unit_fmt(" s",   unit->units[UNIT_s]),
-			unit_fmt(" A",   unit->units[UNIT_A]),
-			unit_fmt(" K",   unit->units[UNIT_K]),
-			unit_fmt(" mol", unit->units[UNIT_mol]),
-			unit_fmt(" cd",  unit->units[UNIT_cd]),
-			unit_fmt(" B",   unit->units[UNIT_B])
-			);
+	output_p = output = palloc(128);
+	output_p += sprintf(output_p, "%g", unit->value);
+	for (i = 0; i < N_UNITS; i++) /* format units in numerator */
+		if (unit->units[i] > 0) {
+			output_p += sprintf(output_p, "%s%s", numerator ? "*" : " ", base_units[i]);
+			if (unit->units[i] > 1)
+				output_p += sprintf(output_p, "^%d", unit->units[i]);
+			numerator = true;
+		}
+	for (i = 0; i < N_UNITS; i++) /* format units in denominator */
+		if (unit->units[i] < 0) {
+			if (numerator) { /* format as .../a^x*b^y */
+				output_p += sprintf(output_p, "%s%s", denominator ? "*" : "/", base_units[i]);
+				if (unit->units[i] < -1)
+					output_p += sprintf(output_p, "^%d", -unit->units[i]);
+			} else { /* format as a^-x*b^-y */
+				output_p += sprintf(output_p, "%s%s^%d", denominator ? "*" : " ", base_units[i], unit->units[i]);
+			}
+			denominator = true;
+		}
+	return output;
 }
 
 /* test if two Units use the same unit */

@@ -96,7 +96,7 @@ SELECT meter() * meter() AS square_meter;
 SELECT meter() * kilogram() AS meter_kilogram;
  meter_kilogram 
 ----------------
- 1 m kg
+ 1 m*kg
 (1 row)
 
 SELECT '1' / second(.02) AS hertz;
@@ -108,7 +108,7 @@ SELECT '1' / second(.02) AS hertz;
 SELECT meter(9.81) / (second() * second()) AS acceleration;
  acceleration 
 --------------
- 9.81 m s^-2
+ 9.81 m/s^2
 (1 row)
 
 -- test unit/double operators
@@ -205,8 +205,8 @@ SELECT
   CASE WHEN value(b) = 0 THEN NULL ELSE a / b END AS div
 FROM
   va CROSS JOIN vb;
-  a   |  b   |  neg  |  mul   |     div     
-------+------+-------+--------+-------------
+  a   |  b   |  neg  |  mul   |    div    
+------+------+-------+--------+-----------
       |      |       |        | 
       | 0    |       |        | 
       | 1    |       |        | 
@@ -254,9 +254,9 @@ FROM
  0 m  | 0 m  | -0 m  | 0 m^2  | 
  0 m  | 1 m  | -0 m  | 0 m^2  | 0
  0 m  | 2 m  | -0 m  | 0 m^2  | 0
- 0 m  | 0 kg | -0 m  | 0 m kg | 
- 0 m  | 1 kg | -0 m  | 0 m kg | 0 m kg^-1
- 0 m  | 2 kg | -0 m  | 0 m kg | 0 m kg^-1
+ 0 m  | 0 kg | -0 m  | 0 m*kg | 
+ 0 m  | 1 kg | -0 m  | 0 m*kg | 0 m/kg
+ 0 m  | 2 kg | -0 m  | 0 m*kg | 0 m/kg
  1 m  |      | -1 m  |        | 
  1 m  | 0    | -1 m  | 0 m    | 
  1 m  | 1    | -1 m  | 1 m    | 1 m
@@ -264,9 +264,9 @@ FROM
  1 m  | 0 m  | -1 m  | 0 m^2  | 
  1 m  | 1 m  | -1 m  | 1 m^2  | 1
  1 m  | 2 m  | -1 m  | 2 m^2  | 0.5
- 1 m  | 0 kg | -1 m  | 0 m kg | 
- 1 m  | 1 kg | -1 m  | 1 m kg | 1 m kg^-1
- 1 m  | 2 kg | -1 m  | 2 m kg | 0.5 m kg^-1
+ 1 m  | 0 kg | -1 m  | 0 m*kg | 
+ 1 m  | 1 kg | -1 m  | 1 m*kg | 1 m/kg
+ 1 m  | 2 kg | -1 m  | 2 m*kg | 0.5 m/kg
  2 m  |      | -2 m  |        | 
  2 m  | 0    | -2 m  | 0 m    | 
  2 m  | 1    | -2 m  | 2 m    | 2 m
@@ -274,16 +274,16 @@ FROM
  2 m  | 0 m  | -2 m  | 0 m^2  | 
  2 m  | 1 m  | -2 m  | 2 m^2  | 2
  2 m  | 2 m  | -2 m  | 4 m^2  | 1
- 2 m  | 0 kg | -2 m  | 0 m kg | 
- 2 m  | 1 kg | -2 m  | 2 m kg | 2 m kg^-1
- 2 m  | 2 kg | -2 m  | 4 m kg | 1 m kg^-1
+ 2 m  | 0 kg | -2 m  | 0 m*kg | 
+ 2 m  | 1 kg | -2 m  | 2 m*kg | 2 m/kg
+ 2 m  | 2 kg | -2 m  | 4 m*kg | 1 m/kg
  0 kg |      | -0 kg |        | 
  0 kg | 0    | -0 kg | 0 kg   | 
  0 kg | 1    | -0 kg | 0 kg   | 0 kg
  0 kg | 2    | -0 kg | 0 kg   | 0 kg
- 0 kg | 0 m  | -0 kg | 0 m kg | 
- 0 kg | 1 m  | -0 kg | 0 m kg | 0 m^-1 kg
- 0 kg | 2 m  | -0 kg | 0 m kg | 0 m^-1 kg
+ 0 kg | 0 m  | -0 kg | 0 m*kg | 
+ 0 kg | 1 m  | -0 kg | 0 m*kg | 0 kg/m
+ 0 kg | 2 m  | -0 kg | 0 m*kg | 0 kg/m
  0 kg | 0 kg | -0 kg | 0 kg^2 | 
  0 kg | 1 kg | -0 kg | 0 kg^2 | 0
  0 kg | 2 kg | -0 kg | 0 kg^2 | 0
@@ -291,9 +291,9 @@ FROM
  1 kg | 0    | -1 kg | 0 kg   | 
  1 kg | 1    | -1 kg | 1 kg   | 1 kg
  1 kg | 2    | -1 kg | 2 kg   | 500 g
- 1 kg | 0 m  | -1 kg | 0 m kg | 
- 1 kg | 1 m  | -1 kg | 1 m kg | 1 m^-1 kg
- 1 kg | 2 m  | -1 kg | 2 m kg | 0.5 m^-1 kg
+ 1 kg | 0 m  | -1 kg | 0 m*kg | 
+ 1 kg | 1 m  | -1 kg | 1 m*kg | 1 kg/m
+ 1 kg | 2 m  | -1 kg | 2 m*kg | 0.5 kg/m
  1 kg | 0 kg | -1 kg | 0 kg^2 | 
  1 kg | 1 kg | -1 kg | 1 kg^2 | 1
  1 kg | 2 kg | -1 kg | 2 kg^2 | 0.5
@@ -301,9 +301,9 @@ FROM
  2 kg | 0    | -2 kg | 0 kg   | 
  2 kg | 1    | -2 kg | 2 kg   | 2 kg
  2 kg | 2    | -2 kg | 4 kg   | 1 kg
- 2 kg | 0 m  | -2 kg | 0 m kg | 
- 2 kg | 1 m  | -2 kg | 2 m kg | 2 m^-1 kg
- 2 kg | 2 m  | -2 kg | 4 m kg | 1 m^-1 kg
+ 2 kg | 0 m  | -2 kg | 0 m*kg | 
+ 2 kg | 1 m  | -2 kg | 2 m*kg | 2 kg/m
+ 2 kg | 2 m  | -2 kg | 4 m*kg | 1 kg/m
  2 kg | 0 kg | -2 kg | 0 kg^2 | 
  2 kg | 1 kg | -2 kg | 2 kg^2 | 2
  2 kg | 2 kg | -2 kg | 4 kg^2 | 1
