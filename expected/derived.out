@@ -273,13 +273,13 @@ SELECT minute();
 SELECT hour();
   hour  
 --------
- 3.6k s
+ 3.6 ks
 (1 row)
 
 SELECT day();
    day   
 ---------
- 86.4k s
+ 86.4 ks
 (1 row)
 
 SELECT degree_arc();
@@ -301,27 +301,27 @@ SELECT second_arc();
 (1 row)
 
 SELECT hectare();
- hectare 
----------
- 10k m^2
+  hectare  
+-----------
+ 10000 m^2
 (1 row)
 
 SELECT liter();
- liter  
---------
- 1m m^3
+   liter   
+-----------
+ 0.001 m^3
 (1 row)
 
 SELECT tonne();
  tonne 
 -------
- 1k kg
+ 1 Mg
 (1 row)
 
 SELECT au();
      au     
 ------------
- 149.598G m
+ 149.598 Gm
 (1 row)
 
 SELECT decibel();
@@ -333,19 +333,19 @@ SELECT decibel();
 SELECT minute(60);
  minute 
 --------
- 3.6k s
+ 3.6 ks
 (1 row)
 
 SELECT hour(24);
   hour   
 ---------
- 86.4k s
+ 86.4 ks
 (1 row)
 
 SELECT day(1/24.0);
   day   
 --------
- 3.6k s
+ 3.6 ks
 (1 row)
 
 SELECT degree_arc(360);
@@ -387,7 +387,7 @@ SELECT tonne(1/1000.0);
 SELECT au(10);
      au     
 ------------
- 1.49598T m
+ 1.49598 Tm
 (1 row)
 
 SELECT decibel(-3);

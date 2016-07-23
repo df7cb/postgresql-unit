@@ -21,6 +21,15 @@ struct derived_unit_t {
 
 struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki/International_System_of_Units */
 			/*  m  kg   s   A   K  mol cd   B  */
+	{ "m",   "\001\000\000\000\000\000\000\000" }, /* meter                                                                 */
+	{ "g",   "\000\001\000\000\000\000\000\000" }, /* gram (!)                                                              */
+	{ "s",   "\000\000\001\000\000\000\000\000" }, /* second                                                                */
+	{ "A",   "\000\000\000\001\000\000\000\000" }, /* ampere                                                                */
+	{ "K",   "\000\000\000\000\001\000\000\000" }, /* kelvin                                                                */
+	{ "mol", "\000\000\000\000\000\001\000\000" }, /* mole                                                                  */
+	{ "cd",  "\000\000\000\000\000\000\001\000" }, /* candela                                                               */
+	{ "B",   "\000\000\000\000\000\000\000\001" }, /* byte                                                                  */
+
 //	{ "rad", "\000\000\000\000\000\000\000\000" }, /* radian          angle                                            m·m^-1 */
 //	{ "sr",  "\000\000\000\000\000\000\000\000" }, /* steradian       solid angle                                      m^2·m^-2 */
 	{ "Hz",  "\000\000\377\000\000\000\000\000" }, /* hertz           frequency                                        s^-1 */
@@ -43,6 +52,10 @@ struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki/Inter
 	{ "Gy",  "\002\000\376\000\000\000\000\000" }, /* gray            absorbed dose (of ionizing radiation)    J/kg    m^2·s^-2 */
 //	{ "Sv",  "\000\000\000\000\000\000\000\000" }, /* sievert         equivalent dose (of ionizing radiation)  J/kg    m^2·s^-2 */
 	{ "kat", "\000\000\377\000\000\001\000\000" }, /* katal           catalytic activity                               mol·s^-1 */
+
+//	{ "m/s", "\001\000\377\000\000\000\000\000" }, /* meter/second    velocity                                              */
+//	{ "B/s", "\001\000\000\000\000\000\000\377" }, /* byte/second     bandwidth                                             */
+
 	{ NULL, {NULL} }
 };
 

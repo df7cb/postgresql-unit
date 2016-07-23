@@ -32,60 +32,68 @@ unit_fmt (char *name, signed char exponent)
 static char *
 unit_cstring (Unit *unit)
 {
-	double	 v = fabs(unit->value);
-	char	*prefix = "";
-	double	 factor = 1.0;
 	int		 i;
-
-	if (unit_dimension_int(unit) == UNIT_unity) {
-		// do nothing
-	} else if (v >= 1e27) {
-		// do nothing
-	} else if (v >= 1e24) {
-		prefix = "Y"; factor = 1e-24;
-	} else if (v >= 1e21) {
-		prefix = "Z"; factor = 1e-21;
-	} else if (v >= 1e18) {
-		prefix = "E"; factor = 1e-18;
-	} else if (v >= 1e15) {
-		prefix = "P"; factor = 1e-15;
-	} else if (v >= 1e12) {
-		prefix = "T"; factor = 1e-12;
-	} else if (v >= 1e9) {
-		prefix = "G"; factor = 1e-9;
-	} else if (v >= 1e6) {
-		prefix = "M"; factor = 1e-6;
-	} else if (v >= 1e3) {
-		prefix = "k"; factor = 1e-3;
-	} else if (v >= 1e0) {
-		// do nothing
-	} else if (v >= 1e-3) {
-		prefix = "m"; factor = 1e3;
-	} else if (v >= 1e-6) {
-		prefix = "µ"; factor = 1e6;
-	} else if (v >= 1e-9) {
-		prefix = "n"; factor = 1e9;
-	} else if (v >= 1e-12) {
-		prefix = "p"; factor = 1e12;
-	} else if (v >= 1e-15) {
-		prefix = "f"; factor = 1e15;
-	} else if (v >= 1e-18) {
-		prefix = "a"; factor = 1e18;
-	} else if (v >= 1e-21) {
-		prefix = "z"; factor = 1e21;
-	} else if (v >= 1e-24) {
-		prefix = "y"; factor = 1e24;
-	}
-
-	v = unit->value * factor;
 
 	for (i = 0; derived_units[i].name; i++)
 		if (! memcmp(unit->units, derived_units[i].units, N_UNITS))
-			return psprintf("%g %s%s",
-					v, prefix, derived_units[i].name);
+		{
+			double	 v = unit->value;
+			double	 va;
+			char	*prefix = "";
+			double	 factor = 1.0;
 
-	return psprintf("%g%s%s%s%s%s%s%s%s%s",
-			v, prefix,
+			if (! strcmp(derived_units[i].name, "g")) {
+				if (unit->value == 0.0)
+					return psprintf("%g kg", v); /* always use "kg" with 0 */
+				v *= 1000.0;
+			}
+
+			va = fabs(v);
+
+			if (va >= 1e27) {
+				// do nothing
+			} else if (va >= 1e24) {
+				prefix = "Y"; factor = 1e-24;
+			} else if (va >= 1e21) {
+				prefix = "Z"; factor = 1e-21;
+			} else if (va >= 1e18) {
+				prefix = "E"; factor = 1e-18;
+			} else if (va >= 1e15) {
+				prefix = "P"; factor = 1e-15;
+			} else if (va >= 1e12) {
+				prefix = "T"; factor = 1e-12;
+			} else if (va >= 1e9) {
+				prefix = "G"; factor = 1e-9;
+			} else if (va >= 1e6) {
+				prefix = "M"; factor = 1e-6;
+			} else if (va >= 1e3) {
+				prefix = "k"; factor = 1e-3;
+			} else if (va >= 1e0) {
+				// do nothing
+			} else if (va >= 1e-3) {
+				prefix = "m"; factor = 1e3;
+			} else if (va >= 1e-6) {
+				prefix = "µ"; factor = 1e6;
+			} else if (va >= 1e-9) {
+				prefix = "n"; factor = 1e9;
+			} else if (va >= 1e-12) {
+				prefix = "p"; factor = 1e12;
+			} else if (va >= 1e-15) {
+				prefix = "f"; factor = 1e15;
+			} else if (va >= 1e-18) {
+				prefix = "a"; factor = 1e18;
+			} else if (va >= 1e-21) {
+				prefix = "z"; factor = 1e21;
+			} else if (va >= 1e-24) {
+				prefix = "y"; factor = 1e24;
+			}
+
+			return psprintf("%g %s%s", v * factor, prefix, derived_units[i].name);
+		}
+
+	/* use scientific notation for unknown units (and dimensionless values) */
+	return psprintf("%g%s%s%s%s%s%s%s%s",
+			unit->value,
 			unit_fmt(" m",   unit->units[UNIT_m]),
 			unit_fmt(" kg",  unit->units[UNIT_kg]),
 			unit_fmt(" s",   unit->units[UNIT_s]),
