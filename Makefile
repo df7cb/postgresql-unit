@@ -1,4 +1,5 @@
-MODULES = unit
+MODULE_big = unit
+OBJS = unit.o unitparse.yy.o unitparse.tab.o
 EXTENSION = unit
 DATA = unit--1.0.sql
 REGRESS = unit functions derived compare aggregate crosstab
@@ -11,12 +12,12 @@ include $(PGXS)
 unit.o: unit.c unit.h defined_units.h
 
 unitparse.yy.c: unitparse.l
-	flex -o $@ $<
+	flex --prefix yyunit -o $@ $<
 
 unitparse.yy.o: unit.h defined_units.h unitparse.tab.c # actually unitparse.tab.h
 
 unitparse.tab.c: unitparse.y
-	bison -d $<
+	bison -Dapi.prefix=yyunit -d $<
 
 unitparse.tab.o: unit.h defined_units.h
 

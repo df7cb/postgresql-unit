@@ -2,12 +2,11 @@
 #include <strings.h> /* bzero */
 #include <math.h> /* pow */
 #include "unit.h"
-#include "defined_units.h"
 
 /* flex/bison prototypes */
 int yylex (void);
-struct yy_buffer_state *yy_scan_string(char *str);
-void yy_delete_buffer(struct yy_buffer_state *buffer);
+struct yyunit_buffer_state *yyunit_scan_string(char *str);
+void yyunit_delete_buffer(struct yyunit_buffer_state *buffer);
 void yyerror (char const *s);
 
 Unit *yyunit; /* parsing result gets stored here */
@@ -81,12 +80,12 @@ maybe_exp:
 int
 unit_parse (char *s, Unit *unit)
 {
-	struct yy_buffer_state *buf;
+	struct yyunit_buffer_state *buf;
 	int ret;
 
 	yyunit = unit;
-	buf = yy_scan_string(s);
+	buf = yyunit_scan_string(s);
 	ret = yyparse();
-	yy_delete_buffer(buf);
+	yyunit_delete_buffer(buf);
 	return ret;
 }

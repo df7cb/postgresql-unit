@@ -9,3 +9,5 @@ unitparse.tab.h
 unitparse.tab.o
 unitparse.yy.c
 unitparse.yy.o
+unittest
+unittest.o

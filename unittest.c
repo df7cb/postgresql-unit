@@ -1,14 +1,15 @@
-#include "unit.h"
 #include <stdio.h>
+#include "unit.h"
+#include "defined_units.h"
 
-void yyerror (char const *s);
+void yyuniterror (char const *s);
 void unitprint (Unit *unit);
 void parse (char *s);
 
 void
-yyerror (char const *s)
+yyuniterror (char const *s)
 {
-	fprintf (stderr, "yyerror: %s\n", s);
+	fprintf (stderr, "yyuniterror: %s\n", s);
 }
 
 void
