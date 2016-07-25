@@ -105,11 +105,11 @@ SELECT avg(u) AS oneandhalf_kilogram FROM u;
 DELETE FROM u;
 INSERT INTO u VALUES (ampere()), (kilogram(2));
 SELECT sum(u) AS error FROM u;
-ERROR:  units are not the same: "1 A", "2 kg"
+ERROR:  dimension mismatch in "+" operation: "1 A", "2 kg"
 SELECT min(u) AS error FROM u;
-ERROR:  units are not the same: "1 A", "2 kg"
+ERROR:  dimension mismatch in "unit_least" operation: "1 A", "2 kg"
 SELECT max(u) AS error FROM u;
-ERROR:  units are not the same: "1 A", "2 kg"
+ERROR:  dimension mismatch in "unit_greatest" operation: "1 A", "2 kg"
 SELECT avg(u) AS error FROM u;
-ERROR:  units are not the same: "1 A", "2 kg"
+ERROR:  dimension mismatch in "+" operation: "1 A", "2 kg"
 CONTEXT:  SQL function "unit_accum" statement 1

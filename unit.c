@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "unit.h"
+#include "defined_units.h"
 
 /* module initialization */
 

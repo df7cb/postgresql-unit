@@ -37,11 +37,13 @@ SELECT '1'::unit - '2' AS difference;
 (1 row)
 
 SELECT '0' + meter() AS error;
-ERROR:  units are not the same: "0", "1 m"
+ERROR:  dimension mismatch in "+" operation: "0", "1 m"
 SELECT meter() + '0' AS error;
-ERROR:  units are not the same: "1 m", "0"
+ERROR:  dimension mismatch in "+" operation: "1 m", "0"
 SELECT meter() + kilogram() AS error;
-ERROR:  units are not the same: "1 m", "1 kg"
+ERROR:  dimension mismatch in "+" operation: "1 m", "1 kg"
+SELECT meter() - kilogram() AS error;
+ERROR:  dimension mismatch in "-" operation: "1 m", "1 kg"
 -- test unit multiplication/division
 SELECT - '1'::unit AS negative;
  negative 
