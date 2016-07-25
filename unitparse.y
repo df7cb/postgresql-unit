@@ -85,7 +85,7 @@ unit_parse (char *s, Unit *unit)
 
 	yyunit = unit;
 	buf = yyunit_scan_string(s);
-	ret = yyparse();
+	ret = yyunitparse();
 	yyunit_delete_buffer(buf);
 	return ret;
 }

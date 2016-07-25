@@ -185,23 +185,26 @@ test_same_dimension (char *op, Unit *a, Unit *b)
 
 /* input and output */
 
+void
+yyuniterror (char *s)
+{
+	/* do nothing here, we will check the return code of yyparse() */
+}
+
 PG_FUNCTION_INFO_V1 (unit_in);
 
 Datum
 unit_in (PG_FUNCTION_ARGS)
 {
 	char	*str = PG_GETARG_CSTRING(0);
-	double	 v;
 	Unit	*result;
 
-	if (sscanf(str, "%lf", &v) != 1)
+	result = (Unit *) palloc(sizeof(Unit));
+	if (unit_parse(str, result) > 0)
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
 				 errmsg("invalid input syntax for unit: \"%s\"",
 					 str)));
-
-	result = (Unit *) palloc0(sizeof(Unit));
-	result->value = v;
 	PG_RETURN_POINTER(result);
 }
 
