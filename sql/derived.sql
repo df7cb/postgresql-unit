@@ -72,3 +72,17 @@ SELECT decibel(-3);
 SELECT decibel(3);
 SELECT decibel(10);
 SELECT decibel(20);
+
+\i units.sql
+
+CREATE TEMP TABLE u AS
+  SELECT u, 2000 * u AS "2k", u/5000 AS "200µ", 0.002/u AS "500th_inverse", (40*u)^2 AS "1600_square" FROM units;
+SELECT * FROM u;
+SELECT u, u::text::unit AS "text::unit", "2k"::text::unit, "200µ"::text::unit, "500th_inverse"::text::unit, "1600_square"::text::unit FROM u;
+
+-- test i/o
+SELECT
+  a.u, b.u, (a.u*b.u)::text, (a.u*b.u)::text::unit
+FROM
+  units a CROSS JOIN units b
+WHERE (a.u*b.u)::text != (a.u*b.u)::text::unit::text;

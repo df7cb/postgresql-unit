@@ -2,7 +2,8 @@
 
 set -eux
 
-PG_CONFIG=/usr/lib/postgresql/9.6/bin/pg_config
+PGVERSION="9.6"
+PG_CONFIG=/usr/lib/postgresql/$PGVERSION/bin/pg_config
 export PGPORT=5432
 export PGDATABASE=regression
 

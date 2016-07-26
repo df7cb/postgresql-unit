@@ -45,7 +45,7 @@ dimension:
 | maybe_prefix UNIT maybe_exp {
 	int i;
 	if ($3 != 1) {
-		$$.value = $1 * pow($2.value, $3);
+		$$.value = pow($1 * $2.value, $3);
 		for (i = 0; i < N_UNITS; i++)
 			$$.units[i] = $2.units[i] * $3;
 	} else {
