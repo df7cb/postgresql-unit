@@ -21,6 +21,9 @@ Unit *yyunit; /* parsing result gets stored here */
 %type  <Unit> input dimension
 %type  <int> maybe_exp
 
+%left '/'
+%precedence '*' /* * binds stronger than / */
+
 %%
 
 input:
