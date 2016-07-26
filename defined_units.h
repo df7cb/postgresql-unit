@@ -34,6 +34,7 @@ const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki
 	{ "Gy",  "\002\000\376\000\000\000\000\000", 1.0, U_DERIVED }, /* gray            absorbed dose (of ionizing radiation)    J/kg    m^2·s^-2 */
 	{ "kat", "\000\000\377\000\000\001\000\000", 1.0, U_DERIVED }, /* katal           catalytic activity                               mol·s^-1 */
 
+	{ "g",   "\000\001\000\000\000\000\000\000", .001, 0        }, /* gram                                                             1e-3 kg */
 	{ "rad", "\000\000\000\000\000\000\000\000", 1.0, 0         }, /* radian          angle                                            m·m^-1 */
 	{ "sr",  "\000\000\000\000\000\000\000\000", 1.0, 0         }, /* steradian       solid angle                                      m^2·m^-2 */
 	{ "ohm", "\002\001\375\376\000\000\000\000", 1.0, 0         }, /* ohm             electric resistance, impedance           V/A     kg·m^2·s^-3·A^-2 */

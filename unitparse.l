@@ -58,13 +58,6 @@ EXP_R    \^[\-+]?[0-9]+
 			return UNIT;
 		}
 	}
-	/* the obnoxious kg */
-	if (!strcmp(yytext, "g")) {
-		yyunitlval.UNIT.value = 1.0/1000.0;
-		bzero(&yyunitlval.UNIT.units, N_UNITS);
-		yyunitlval.UNIT.units[UNIT_kg] = 1;
-		return UNIT;
-	}
 	/* check if this is a combination of base units we have a specific name for */
 	for (i = 0; derived_units[i].name; i++)
 		if (!strcmp(derived_units[i].name, yytext))
