@@ -23,7 +23,7 @@ unit_cstring (Unit *unit)
 	bool	 denominator = false;
 
 	/* check if this is a combination of base units we have a specific name for */
-	for (i = 0; derived_units[i].name; i++)
+	for (i = 0; derived_units[i].name && derived_units[i].flags & U_DERIVED; i++)
 		if (! memcmp(unit->units, derived_units[i].units, N_UNITS))
 		{
 			derived_unit = i;
@@ -184,6 +184,8 @@ test_same_dimension (char *op, Unit *a, Unit *b)
 }
 
 /* input and output */
+
+void yyuniterror (char *s);
 
 void
 yyuniterror (char *s)

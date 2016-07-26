@@ -9,7 +9,7 @@
 
 DOUBLE_R [\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 PREFIX_R (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|P|E|Z|Y)
-UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|Ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat)
+UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat)
 EXP_R    \^[\-+]?[0-9]+
 
 %%
@@ -60,7 +60,7 @@ EXP_R    \^[\-+]?[0-9]+
 	}
 	/* the obnoxious kg */
 	if (!strcmp(yytext, "g")) {
-		yyunitlval.UNIT.value = 0.001;
+		yyunitlval.UNIT.value = 1.0/1000.0;
 		bzero(&yyunitlval.UNIT.units, N_UNITS);
 		yyunitlval.UNIT.units[UNIT_kg] = 1;
 		return UNIT;
@@ -69,6 +69,7 @@ EXP_R    \^[\-+]?[0-9]+
 	for (i = 0; derived_units[i].name; i++)
 		if (!strcmp(derived_units[i].name, yytext))
 		{
+			yyunitlval.UNIT.value = derived_units[i].factor;
 			memcpy(&yyunitlval.UNIT.units, derived_units[i].units, N_UNITS);
 			return UNIT;
 		}
