@@ -272,45 +272,55 @@ FROM
 (12 rows)
 
 WITH
-  pfx(p) AS (VALUES ('y'),('z'),('a'),('f'),('p'),('n'),('µ'),('mu'),('m'),('c'),('d'),(''),('da'),('h'),('k'),('M'),('G'),('T'),('P'),('E'),('Z'),('Y')),
-  unt(u) AS (VALUES ('m'),('g'),('s'),('A'),('K'),('mol'),('cd'),('B'),('rad'),('sr'),('Hz'),('N'),('Pa'),('J'),('W'),('C'),('V'),('F'),('Ω'),('ohm'),('S'),('Wb'),('T'),('H'),('°C'),('lm'),('lx'),('Bq'),('Gy'),('Sv'),('kat'))
+  pfx(p) AS (VALUES
+	('y'),('z'),('a'),('f'),('p'),('n'),('µ'),('mu'),('m'),('c'),('d'),
+	(''),
+	('da'),('h'),('k'),('M'),('G'),('T'),('P'),('E'),('Z'),('Y')),
+  unt(u) AS (VALUES
+	('m/m'),
+	('m'),('g'),('s'),('A'),('K'),('mol'),('cd'),('B'),
+	('rad'),('sr'),('Hz'),('N'),('Pa'),('J'),('W'),('C'),('V'),('F'),('Ω'),('ohm'),('S'),('Wb'),('T'),('H'),('°C'),('lm'),('lx'),('Bq'),('Gy'),('Sv'),('kat'),
+	('t'),('l'))
 SELECT
   u, p, (p||u)::unit
 FROM
   pfx CROSS JOIN unt
 \crosstabview
-  u  |    y     |   z    |   a    |   f    |   p    |   n    |   µ    |   mu   |   m    |    c    |    d     |       |   da   |    h    |   k    |   M    |   G    |   T    |   P    |   E    |   Z    |   Y    
------+----------+--------+--------+--------+--------+--------+--------+--------+--------+---------+----------+-------+--------+---------+--------+--------+--------+--------+--------+--------+--------+--------
- m   | 1 ym     | 1 zm   | 1 am   | 1 fm   | 1 pm   | 1 nm   | 1 µm   | 1 µm   | 1 mm   | 10 mm   | 100 mm   | 1 m   | 10 m   | 100 m   | 1 km   | 1 Mm   | 1 Gm   | 1 Tm   | 1 Pm   | 1 Em   | 1 Zm   | 1 Ym
- g   | 1e-27 kg | 1 zg   | 1 ag   | 1 fg   | 1 pg   | 1 ng   | 1 µg   | 1 µg   | 1 mg   | 10 mg   | 100 mg   | 1 g   | 10 g   | 100 g   | 1 kg   | 1 Mg   | 1 Gg   | 1 Tg   | 1 Pg   | 1 Eg   | 1 Zg   | 1 Yg
- s   | 1 ys     | 1 zs   | 1 as   | 1 fs   | 1 ps   | 1 ns   | 1 µs   | 1 µs   | 1 ms   | 10 ms   | 100 ms   | 1 s   | 10 s   | 100 s   | 1 ks   | 1 Ms   | 1 Gs   | 1 Ts   | 1 Ps   | 1 Es   | 1 Zs   | 1 Ys
- A   | 1 yA     | 1 zA   | 1 aA   | 1 fA   | 1 pA   | 1 nA   | 1 µA   | 1 µA   | 1 mA   | 10 mA   | 100 mA   | 1 A   | 10 A   | 100 A   | 1 kA   | 1 MA   | 1 GA   | 1 TA   | 1 PA   | 1 EA   | 1 ZA   | 1 YA
- K   | 1 yK     | 1 zK   | 1 aK   | 1 fK   | 1 pK   | 1 nK   | 1 µK   | 1 µK   | 1 mK   | 10 mK   | 100 mK   | 1 K   | 10 K   | 100 K   | 1 kK   | 1 MK   | 1 GK   | 1 TK   | 1 PK   | 1 EK   | 1 ZK   | 1 YK
- mol | 1 ymol   | 1 zmol | 1 amol | 1 fmol | 1 pmol | 1 nmol | 1 µmol | 1 µmol | 1 mmol | 10 mmol | 100 mmol | 1 mol | 10 mol | 100 mol | 1 kmol | 1 Mmol | 1 Gmol | 1 Tmol | 1 Pmol | 1 Emol | 1 Zmol | 1 Ymol
- cd  | 1 ycd    | 1 zcd  | 1 acd  | 1 fcd  | 1 pcd  | 1 ncd  | 1 µcd  | 1 µcd  | 1 mcd  | 10 mcd  | 100 mcd  | 1 cd  | 10 cd  | 100 cd  | 1 kcd  | 1 Mcd  | 1 Gcd  | 1 Tcd  | 1 Pcd  | 1 Ecd  | 1 Zcd  | 1 Ycd
- B   | 1 yB     | 1 zB   | 1 aB   | 1 fB   | 1 pB   | 1 nB   | 1 µB   | 1 µB   | 1 mB   | 10 mB   | 100 mB   | 1 B   | 10 B   | 100 B   | 1 kB   | 1 MB   | 1 GB   | 1 TB   | 1 PB   | 1 EB   | 1 ZB   | 1 YB
- rad | 1e-24    | 1e-21  | 1e-18  | 1e-15  | 1e-12  | 1e-09  | 1e-06  | 1e-06  | 0.001  | 0.01    | 0.1      | 1     | 10     | 100     | 1000   | 1e+06  | 1e+09  | 1e+12  | 1e+15  | 1e+18  | 1e+21  | 1e+24
- sr  | 1e-24    | 1e-21  | 1e-18  | 1e-15  | 1e-12  | 1e-09  | 1e-06  | 1e-06  | 0.001  | 0.01    | 0.1      | 1     | 10     | 100     | 1000   | 1e+06  | 1e+09  | 1e+12  | 1e+15  | 1e+18  | 1e+21  | 1e+24
- Hz  | 1 yHz    | 1 zHz  | 1 aHz  | 1 fHz  | 1 pHz  | 1 nHz  | 1 µHz  | 1 µHz  | 1 mHz  | 10 mHz  | 100 mHz  | 1 Hz  | 10 Hz  | 100 Hz  | 1 kHz  | 1 MHz  | 1 GHz  | 1 THz  | 1 PHz  | 1 EHz  | 1 ZHz  | 1 YHz
- N   | 1 yN     | 1 zN   | 1 aN   | 1 fN   | 1 pN   | 1 nN   | 1 µN   | 1 µN   | 1 mN   | 10 mN   | 100 mN   | 1 N   | 10 N   | 100 N   | 1 kN   | 1 MN   | 1 GN   | 1 TN   | 1 PN   | 1 EN   | 1 ZN   | 1 YN
- Pa  | 1 yPa    | 1 zPa  | 1 aPa  | 1 fPa  | 1 pPa  | 1 nPa  | 1 µPa  | 1 µPa  | 1 mPa  | 10 mPa  | 100 mPa  | 1 Pa  | 10 Pa  | 100 Pa  | 1 kPa  | 1 MPa  | 1 GPa  | 1 TPa  | 1 PPa  | 1 EPa  | 1 ZPa  | 1 YPa
- J   | 1 yJ     | 1 zJ   | 1 aJ   | 1 fJ   | 1 pJ   | 1 nJ   | 1 µJ   | 1 µJ   | 1 mJ   | 10 mJ   | 100 mJ   | 1 J   | 10 J   | 100 J   | 1 kJ   | 1 MJ   | 1 GJ   | 1 TJ   | 1 PJ   | 1 EJ   | 1 ZJ   | 1 YJ
- W   | 1 yW     | 1 zW   | 1 aW   | 1 fW   | 1 pW   | 1 nW   | 1 µW   | 1 µW   | 1 mW   | 10 mW   | 100 mW   | 1 W   | 10 W   | 100 W   | 1 kW   | 1 MW   | 1 GW   | 1 TW   | 1 PW   | 1 EW   | 1 ZW   | 1 YW
- C   | 1 yC     | 1 zC   | 1 aC   | 1 fC   | 1 pC   | 1 nC   | 1 µC   | 1 µC   | 1 mC   | 10 mC   | 100 mC   | 1 C   | 10 C   | 100 C   | 1 kC   | 1 MC   | 1 GC   | 1 TC   | 1 PC   | 1 EC   | 1 ZC   | 1 YC
- V   | 1 yV     | 1 zV   | 1 aV   | 1 fV   | 1 pV   | 1 nV   | 1 µV   | 1 µV   | 1 mV   | 10 mV   | 100 mV   | 1 V   | 10 V   | 100 V   | 1 kV   | 1 MV   | 1 GV   | 1 TV   | 1 PV   | 1 EV   | 1 ZV   | 1 YV
- F   | 1 yF     | 1 zF   | 1 aF   | 1 fF   | 1 pF   | 1 nF   | 1 µF   | 1 µF   | 1 mF   | 10 mF   | 100 mF   | 1 F   | 10 F   | 100 F   | 1 kF   | 1 MF   | 1 GF   | 1 TF   | 1 PF   | 1 EF   | 1 ZF   | 1 YF
- Ω   | 1 yΩ     | 1 zΩ   | 1 aΩ   | 1 fΩ   | 1 pΩ   | 1 nΩ   | 1 µΩ   | 1 µΩ   | 1 mΩ   | 10 mΩ   | 100 mΩ   | 1 Ω   | 10 Ω   | 100 Ω   | 1 kΩ   | 1 MΩ   | 1 GΩ   | 1 TΩ   | 1 PΩ   | 1 EΩ   | 1 ZΩ   | 1 YΩ
- ohm | 1 yΩ     | 1 zΩ   | 1 aΩ   | 1 fΩ   | 1 pΩ   | 1 nΩ   | 1 µΩ   | 1 µΩ   | 1 mΩ   | 10 mΩ   | 100 mΩ   | 1 Ω   | 10 Ω   | 100 Ω   | 1 kΩ   | 1 MΩ   | 1 GΩ   | 1 TΩ   | 1 PΩ   | 1 EΩ   | 1 ZΩ   | 1 YΩ
- S   | 1 yS     | 1 zS   | 1 aS   | 1 fS   | 1 pS   | 1 nS   | 1 µS   | 1 µS   | 1 mS   | 10 mS   | 100 mS   | 1 S   | 10 S   | 100 S   | 1 kS   | 1 MS   | 1 GS   | 1 TS   | 1 PS   | 1 ES   | 1 ZS   | 1 YS
- Wb  | 1 yWb    | 1 zWb  | 1 aWb  | 1 fWb  | 1 pWb  | 1 nWb  | 1 µWb  | 1 µWb  | 1 mWb  | 10 mWb  | 100 mWb  | 1 Wb  | 10 Wb  | 100 Wb  | 1 kWb  | 1 MWb  | 1 GWb  | 1 TWb  | 1 PWb  | 1 EWb  | 1 ZWb  | 1 YWb
- T   | 1 yT     | 1 zT   | 1 aT   | 1 fT   | 1 pT   | 1 nT   | 1 µT   | 1 µT   | 1 mT   | 10 mT   | 100 mT   | 1 T   | 10 T   | 100 T   | 1 kT   | 1 MT   | 1 GT   | 1 TT   | 1 PT   | 1 ET   | 1 ZT   | 1 YT
- H   | 1 yH     | 1 zH   | 1 aH   | 1 fH   | 1 pH   | 1 nH   | 1 µH   | 1 µH   | 1 mH   | 10 mH   | 100 mH   | 1 H   | 10 H   | 100 H   | 1 kH   | 1 MH   | 1 GH   | 1 TH   | 1 PH   | 1 EH   | 1 ZH   | 1 YH
- °C  | 1 yK     | 1 zK   | 1 aK   | 1 fK   | 1 pK   | 1 nK   | 1 µK   | 1 µK   | 1 mK   | 10 mK   | 100 mK   | 1 K   | 10 K   | 100 K   | 1 kK   | 1 MK   | 1 GK   | 1 TK   | 1 PK   | 1 EK   | 1 ZK   | 1 YK
- lm  | 1 ycd    | 1 zcd  | 1 acd  | 1 fcd  | 1 pcd  | 1 ncd  | 1 µcd  | 1 µcd  | 1 mcd  | 10 mcd  | 100 mcd  | 1 cd  | 10 cd  | 100 cd  | 1 kcd  | 1 Mcd  | 1 Gcd  | 1 Tcd  | 1 Pcd  | 1 Ecd  | 1 Zcd  | 1 Ycd
- lx  | 1 ylx    | 1 zlx  | 1 alx  | 1 flx  | 1 plx  | 1 nlx  | 1 µlx  | 1 µlx  | 1 mlx  | 10 mlx  | 100 mlx  | 1 lx  | 10 lx  | 100 lx  | 1 klx  | 1 Mlx  | 1 Glx  | 1 Tlx  | 1 Plx  | 1 Elx  | 1 Zlx  | 1 Ylx
- Bq  | 1 yHz    | 1 zHz  | 1 aHz  | 1 fHz  | 1 pHz  | 1 nHz  | 1 µHz  | 1 µHz  | 1 mHz  | 10 mHz  | 100 mHz  | 1 Hz  | 10 Hz  | 100 Hz  | 1 kHz  | 1 MHz  | 1 GHz  | 1 THz  | 1 PHz  | 1 EHz  | 1 ZHz  | 1 YHz
- Gy  | 1 yGy    | 1 zGy  | 1 aGy  | 1 fGy  | 1 pGy  | 1 nGy  | 1 µGy  | 1 µGy  | 1 mGy  | 10 mGy  | 100 mGy  | 1 Gy  | 10 Gy  | 100 Gy  | 1 kGy  | 1 MGy  | 1 GGy  | 1 TGy  | 1 PGy  | 1 EGy  | 1 ZGy  | 1 YGy
- Sv  | 1 yGy    | 1 zGy  | 1 aGy  | 1 fGy  | 1 pGy  | 1 nGy  | 1 µGy  | 1 µGy  | 1 mGy  | 10 mGy  | 100 mGy  | 1 Gy  | 10 Gy  | 100 Gy  | 1 kGy  | 1 MGy  | 1 GGy  | 1 TGy  | 1 PGy  | 1 EGy  | 1 ZGy  | 1 YGy
- kat | 1 ykat   | 1 zkat | 1 akat | 1 fkat | 1 pkat | 1 nkat | 1 µkat | 1 µkat | 1 mkat | 10 mkat | 100 mkat | 1 kat | 10 kat | 100 kat | 1 kkat | 1 Mkat | 1 Gkat | 1 Tkat | 1 Pkat | 1 Ekat | 1 Zkat | 1 Ykat
-(31 rows)
+  u  |     y     |     z     |     a     |     f     |     p     |     n     |     µ     |    mu     |     m     |     c     |     d      |           |    da    |    h    |   k    |    M     |     G     |     T     |     P     |     E     |     Z     |     Y     
+-----+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+-----------+------------+-----------+----------+---------+--------+----------+-----------+-----------+-----------+-----------+-----------+-----------
+ m/m | 1e-24     | 1e-21     | 1e-18     | 1e-15     | 1e-12     | 1e-09     | 1e-06     | 1e-06     | 0.001     | 0.01      | 0.1        | 1         | 10       | 100     | 1000   | 1e+06    | 1e+09     | 1e+12     | 1e+15     | 1e+18     | 1e+21     | 1e+24
+ m   | 1 ym      | 1 zm      | 1 am      | 1 fm      | 1 pm      | 1 nm      | 1 µm      | 1 µm      | 1 mm      | 10 mm     | 100 mm     | 1 m       | 10 m     | 100 m   | 1 km   | 1 Mm     | 1 Gm      | 1 Tm      | 1 Pm      | 1 Em      | 1 Zm      | 1 Ym
+ g   | 1e-27 kg  | 1 zg      | 1 ag      | 1 fg      | 1 pg      | 1 ng      | 1 µg      | 1 µg      | 1 mg      | 10 mg     | 100 mg     | 1 g       | 10 g     | 100 g   | 1 kg   | 1 Mg     | 1 Gg      | 1 Tg      | 1 Pg      | 1 Eg      | 1 Zg      | 1 Yg
+ s   | 1 ys      | 1 zs      | 1 as      | 1 fs      | 1 ps      | 1 ns      | 1 µs      | 1 µs      | 1 ms      | 10 ms     | 100 ms     | 1 s       | 10 s     | 100 s   | 1 ks   | 1 Ms     | 1 Gs      | 1 Ts      | 1 Ps      | 1 Es      | 1 Zs      | 1 Ys
+ A   | 1 yA      | 1 zA      | 1 aA      | 1 fA      | 1 pA      | 1 nA      | 1 µA      | 1 µA      | 1 mA      | 10 mA     | 100 mA     | 1 A       | 10 A     | 100 A   | 1 kA   | 1 MA     | 1 GA      | 1 TA      | 1 PA      | 1 EA      | 1 ZA      | 1 YA
+ K   | 1 yK      | 1 zK      | 1 aK      | 1 fK      | 1 pK      | 1 nK      | 1 µK      | 1 µK      | 1 mK      | 10 mK     | 100 mK     | 1 K       | 10 K     | 100 K   | 1 kK   | 1 MK     | 1 GK      | 1 TK      | 1 PK      | 1 EK      | 1 ZK      | 1 YK
+ mol | 1 ymol    | 1 zmol    | 1 amol    | 1 fmol    | 1 pmol    | 1 nmol    | 1 µmol    | 1 µmol    | 1 mmol    | 10 mmol   | 100 mmol   | 1 mol     | 10 mol   | 100 mol | 1 kmol | 1 Mmol   | 1 Gmol    | 1 Tmol    | 1 Pmol    | 1 Emol    | 1 Zmol    | 1 Ymol
+ cd  | 1 ycd     | 1 zcd     | 1 acd     | 1 fcd     | 1 pcd     | 1 ncd     | 1 µcd     | 1 µcd     | 1 mcd     | 10 mcd    | 100 mcd    | 1 cd      | 10 cd    | 100 cd  | 1 kcd  | 1 Mcd    | 1 Gcd     | 1 Tcd     | 1 Pcd     | 1 Ecd     | 1 Zcd     | 1 Ycd
+ B   | 1 yB      | 1 zB      | 1 aB      | 1 fB      | 1 pB      | 1 nB      | 1 µB      | 1 µB      | 1 mB      | 10 mB     | 100 mB     | 1 B       | 10 B     | 100 B   | 1 kB   | 1 MB     | 1 GB      | 1 TB      | 1 PB      | 1 EB      | 1 ZB      | 1 YB
+ rad | 1e-24     | 1e-21     | 1e-18     | 1e-15     | 1e-12     | 1e-09     | 1e-06     | 1e-06     | 0.001     | 0.01      | 0.1        | 1         | 10       | 100     | 1000   | 1e+06    | 1e+09     | 1e+12     | 1e+15     | 1e+18     | 1e+21     | 1e+24
+ sr  | 1e-24     | 1e-21     | 1e-18     | 1e-15     | 1e-12     | 1e-09     | 1e-06     | 1e-06     | 0.001     | 0.01      | 0.1        | 1         | 10       | 100     | 1000   | 1e+06    | 1e+09     | 1e+12     | 1e+15     | 1e+18     | 1e+21     | 1e+24
+ Hz  | 1 yHz     | 1 zHz     | 1 aHz     | 1 fHz     | 1 pHz     | 1 nHz     | 1 µHz     | 1 µHz     | 1 mHz     | 10 mHz    | 100 mHz    | 1 Hz      | 10 Hz    | 100 Hz  | 1 kHz  | 1 MHz    | 1 GHz     | 1 THz     | 1 PHz     | 1 EHz     | 1 ZHz     | 1 YHz
+ N   | 1 yN      | 1 zN      | 1 aN      | 1 fN      | 1 pN      | 1 nN      | 1 µN      | 1 µN      | 1 mN      | 10 mN     | 100 mN     | 1 N       | 10 N     | 100 N   | 1 kN   | 1 MN     | 1 GN      | 1 TN      | 1 PN      | 1 EN      | 1 ZN      | 1 YN
+ Pa  | 1 yPa     | 1 zPa     | 1 aPa     | 1 fPa     | 1 pPa     | 1 nPa     | 1 µPa     | 1 µPa     | 1 mPa     | 10 mPa    | 100 mPa    | 1 Pa      | 10 Pa    | 100 Pa  | 1 kPa  | 1 MPa    | 1 GPa     | 1 TPa     | 1 PPa     | 1 EPa     | 1 ZPa     | 1 YPa
+ J   | 1 yJ      | 1 zJ      | 1 aJ      | 1 fJ      | 1 pJ      | 1 nJ      | 1 µJ      | 1 µJ      | 1 mJ      | 10 mJ     | 100 mJ     | 1 J       | 10 J     | 100 J   | 1 kJ   | 1 MJ     | 1 GJ      | 1 TJ      | 1 PJ      | 1 EJ      | 1 ZJ      | 1 YJ
+ W   | 1 yW      | 1 zW      | 1 aW      | 1 fW      | 1 pW      | 1 nW      | 1 µW      | 1 µW      | 1 mW      | 10 mW     | 100 mW     | 1 W       | 10 W     | 100 W   | 1 kW   | 1 MW     | 1 GW      | 1 TW      | 1 PW      | 1 EW      | 1 ZW      | 1 YW
+ C   | 1 yC      | 1 zC      | 1 aC      | 1 fC      | 1 pC      | 1 nC      | 1 µC      | 1 µC      | 1 mC      | 10 mC     | 100 mC     | 1 C       | 10 C     | 100 C   | 1 kC   | 1 MC     | 1 GC      | 1 TC      | 1 PC      | 1 EC      | 1 ZC      | 1 YC
+ V   | 1 yV      | 1 zV      | 1 aV      | 1 fV      | 1 pV      | 1 nV      | 1 µV      | 1 µV      | 1 mV      | 10 mV     | 100 mV     | 1 V       | 10 V     | 100 V   | 1 kV   | 1 MV     | 1 GV      | 1 TV      | 1 PV      | 1 EV      | 1 ZV      | 1 YV
+ F   | 1 yF      | 1 zF      | 1 aF      | 1 fF      | 1 pF      | 1 nF      | 1 µF      | 1 µF      | 1 mF      | 10 mF     | 100 mF     | 1 F       | 10 F     | 100 F   | 1 kF   | 1 MF     | 1 GF      | 1 TF      | 1 PF      | 1 EF      | 1 ZF      | 1 YF
+ Ω   | 1 yΩ      | 1 zΩ      | 1 aΩ      | 1 fΩ      | 1 pΩ      | 1 nΩ      | 1 µΩ      | 1 µΩ      | 1 mΩ      | 10 mΩ     | 100 mΩ     | 1 Ω       | 10 Ω     | 100 Ω   | 1 kΩ   | 1 MΩ     | 1 GΩ      | 1 TΩ      | 1 PΩ      | 1 EΩ      | 1 ZΩ      | 1 YΩ
+ ohm | 1 yΩ      | 1 zΩ      | 1 aΩ      | 1 fΩ      | 1 pΩ      | 1 nΩ      | 1 µΩ      | 1 µΩ      | 1 mΩ      | 10 mΩ     | 100 mΩ     | 1 Ω       | 10 Ω     | 100 Ω   | 1 kΩ   | 1 MΩ     | 1 GΩ      | 1 TΩ      | 1 PΩ      | 1 EΩ      | 1 ZΩ      | 1 YΩ
+ S   | 1 yS      | 1 zS      | 1 aS      | 1 fS      | 1 pS      | 1 nS      | 1 µS      | 1 µS      | 1 mS      | 10 mS     | 100 mS     | 1 S       | 10 S     | 100 S   | 1 kS   | 1 MS     | 1 GS      | 1 TS      | 1 PS      | 1 ES      | 1 ZS      | 1 YS
+ Wb  | 1 yWb     | 1 zWb     | 1 aWb     | 1 fWb     | 1 pWb     | 1 nWb     | 1 µWb     | 1 µWb     | 1 mWb     | 10 mWb    | 100 mWb    | 1 Wb      | 10 Wb    | 100 Wb  | 1 kWb  | 1 MWb    | 1 GWb     | 1 TWb     | 1 PWb     | 1 EWb     | 1 ZWb     | 1 YWb
+ T   | 1 yT      | 1 zT      | 1 aT      | 1 fT      | 1 pT      | 1 nT      | 1 µT      | 1 µT      | 1 mT      | 10 mT     | 100 mT     | 1 T       | 10 T     | 100 T   | 1 kT   | 1 MT     | 1 GT      | 1 TT      | 1 PT      | 1 ET      | 1 ZT      | 1 YT
+ H   | 1 yH      | 1 zH      | 1 aH      | 1 fH      | 1 pH      | 1 nH      | 1 µH      | 1 µH      | 1 mH      | 10 mH     | 100 mH     | 1 H       | 10 H     | 100 H   | 1 kH   | 1 MH     | 1 GH      | 1 TH      | 1 PH      | 1 EH      | 1 ZH      | 1 YH
+ °C  | 1 yK      | 1 zK      | 1 aK      | 1 fK      | 1 pK      | 1 nK      | 1 µK      | 1 µK      | 1 mK      | 10 mK     | 100 mK     | 1 K       | 10 K     | 100 K   | 1 kK   | 1 MK     | 1 GK      | 1 TK      | 1 PK      | 1 EK      | 1 ZK      | 1 YK
+ lm  | 1 ycd     | 1 zcd     | 1 acd     | 1 fcd     | 1 pcd     | 1 ncd     | 1 µcd     | 1 µcd     | 1 mcd     | 10 mcd    | 100 mcd    | 1 cd      | 10 cd    | 100 cd  | 1 kcd  | 1 Mcd    | 1 Gcd     | 1 Tcd     | 1 Pcd     | 1 Ecd     | 1 Zcd     | 1 Ycd
+ lx  | 1 ylx     | 1 zlx     | 1 alx     | 1 flx     | 1 plx     | 1 nlx     | 1 µlx     | 1 µlx     | 1 mlx     | 10 mlx    | 100 mlx    | 1 lx      | 10 lx    | 100 lx  | 1 klx  | 1 Mlx    | 1 Glx     | 1 Tlx     | 1 Plx     | 1 Elx     | 1 Zlx     | 1 Ylx
+ Bq  | 1 yHz     | 1 zHz     | 1 aHz     | 1 fHz     | 1 pHz     | 1 nHz     | 1 µHz     | 1 µHz     | 1 mHz     | 10 mHz    | 100 mHz    | 1 Hz      | 10 Hz    | 100 Hz  | 1 kHz  | 1 MHz    | 1 GHz     | 1 THz     | 1 PHz     | 1 EHz     | 1 ZHz     | 1 YHz
+ Gy  | 1 yGy     | 1 zGy     | 1 aGy     | 1 fGy     | 1 pGy     | 1 nGy     | 1 µGy     | 1 µGy     | 1 mGy     | 10 mGy    | 100 mGy    | 1 Gy      | 10 Gy    | 100 Gy  | 1 kGy  | 1 MGy    | 1 GGy     | 1 TGy     | 1 PGy     | 1 EGy     | 1 ZGy     | 1 YGy
+ Sv  | 1 yGy     | 1 zGy     | 1 aGy     | 1 fGy     | 1 pGy     | 1 nGy     | 1 µGy     | 1 µGy     | 1 mGy     | 10 mGy    | 100 mGy    | 1 Gy      | 10 Gy    | 100 Gy  | 1 kGy  | 1 MGy    | 1 GGy     | 1 TGy     | 1 PGy     | 1 EGy     | 1 ZGy     | 1 YGy
+ kat | 1 ykat    | 1 zkat    | 1 akat    | 1 fkat    | 1 pkat    | 1 nkat    | 1 µkat    | 1 µkat    | 1 mkat    | 10 mkat   | 100 mkat   | 1 kat     | 10 kat   | 100 kat | 1 kkat | 1 Mkat   | 1 Gkat    | 1 Tkat    | 1 Pkat    | 1 Ekat    | 1 Zkat    | 1 Ykat
+ t   | 1 ag      | 1000 ag   | 1 pg      | 1 ng      | 1 µg      | 1 mg      | 1 g       | 1 g       | 1 kg      | 10 kg     | 100 kg     | 1 Mg      | 10 Mg    | 100 Mg  | 1 Gg   | 1 Tg     | 1 Pg      | 1 Eg      | 1 Zg      | 1 Yg      | 1e+24 kg  | 1e+27 kg
+ l   | 1e-27 m^3 | 1e-24 m^3 | 1e-21 m^3 | 1e-18 m^3 | 1e-15 m^3 | 1e-12 m^3 | 1e-09 m^3 | 1e-09 m^3 | 1e-06 m^3 | 1e-05 m^3 | 0.0001 m^3 | 0.001 m^3 | 0.01 m^3 | 0.1 m^3 | 1 m^3  | 1000 m^3 | 1e+06 m^3 | 1e+09 m^3 | 1e+12 m^3 | 1e+15 m^3 | 1e+18 m^3 | 1e+21 m^3
+(34 rows)
 

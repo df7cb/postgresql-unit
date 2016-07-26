@@ -9,7 +9,7 @@
 
 DOUBLE_R [\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 PREFIX_R (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|P|E|Z|Y)
-UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat)
+UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|t|l)
 EXP_R    \^[\-+]?[0-9]+
 
 %%
