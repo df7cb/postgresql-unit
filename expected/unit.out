@@ -149,3 +149,51 @@ SELECT kilogram(0)/second() AS zero, kilogram(1e-6)/second() AS mg, kilogram(0.0
  0 kg/s | 1 mg/s | 1 g/s | 1 kg/s | 1 Mg/s
 (1 row)
 
+-- test parser
+SELECT '1 m'::unit;
+ unit 
+------
+ 1 m
+(1 row)
+
+SELECT '-1 m/s'::unit;
+  unit  
+--------
+ -1 m/s
+(1 row)
+
+SELECT '10 dm^3'::unit, '10l'::unit;
+   unit   |   unit   
+----------+----------
+ 0.01 m^3 | 0.01 m^3
+(1 row)
+
+SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
+  unit  |  unit  |  unit  
+--------+--------+--------
+ 9.81 N | 9.81 N | 9.81 N
+(1 row)
+
+SELECT '1 foobar'::unit AS error;
+ERROR:  invalid input syntax for unit: "1 foobar", syntax error, unexpected $undefined, expecting $end
+LINE 1: SELECT '1 foobar'::unit AS error;
+               ^
+-- problematic cases
+SELECT '1 cd'::unit AS candela; -- candela vs centiday
+ candela 
+---------
+ 1 cd
+(1 row)
+
+SELECT '1 Pa'::unit AS pascal; -- pascal vs petayear
+ pascal 
+--------
+ 1 Pa
+(1 row)
+
+SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a workaround
+  deciyear  
+------------
+ 3.15576 Ms
+(1 row)
+
