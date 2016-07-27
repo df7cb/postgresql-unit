@@ -9,6 +9,8 @@
 
 PG_MODULE_MAGIC;
 
+char *yyerrstr; /* copy of error catched by yyuniterror() */
+
 /* format Unit as string */
 static char *
 unit_cstring (Unit *unit)
@@ -190,7 +192,8 @@ void yyuniterror (char *s);
 void
 yyuniterror (char *s)
 {
-	/* do nothing here, we will check the return code of yyparse() */
+	/* store error for later use in unit_in */
+	yyerrstr = pstrdup(s);
 }
 
 PG_FUNCTION_INFO_V1 (unit_in);
@@ -205,8 +208,8 @@ unit_in (PG_FUNCTION_ARGS)
 	if (unit_parse(str, result) > 0)
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-				 errmsg("invalid input syntax for unit: \"%s\"",
-					 str)));
+				 errmsg("invalid input syntax for unit: \"%s\", %s",
+					 str, yyerrstr)));
 	PG_RETURN_POINTER(result);
 }
 

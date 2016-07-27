@@ -12,6 +12,8 @@ void yyerror (char const *s);
 Unit *yyunit; /* parsing result gets stored here */
 %}
 
+%define parse.error verbose
+
 %define api.value.type union
 %token <double> DOUBLE
 %token <double> PREFIX
