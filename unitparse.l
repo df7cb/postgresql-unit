@@ -9,7 +9,13 @@
 
 DOUBLE_R [\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 PREFIX_R (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|P|E|Z|Y)
-UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|t|l)
+PFX_c_R  (y|z|a|f|p|n|µ|mu|m|d|da|h|k|M|G|T|P|E|Z|Y)
+	/* PFX_c_R: prefixes without "c" */
+PFX_P_R  (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|E|Z|Y)
+	/* PFX_P_R: prefixes without "P" */
+UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|min|h|d|a)
+PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|min|h)
+	/* PUNIT_R: units with generic prefix handling. Omissions: "d" (conflict with "cd"), "a" (conflict with "Pa") */
 EXP_R    \^[\-+]?[0-9]+
 
 %%
@@ -19,7 +25,10 @@ EXP_R    \^[\-+]?[0-9]+
 	return DOUBLE;
 }
 
-{PREFIX_R}/{UNIT_R}  {
+{PFX_c_R}/d | /* exclude "c" prefix for "d" */
+d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syntax error, unexpected $end, expecting UNIT */
+{PFX_P_R}/a | /* exclude "P" prefix for "a" */
+{PREFIX_R}/{PUNIT_R} { /* generic prefix matching */
 	#define when(x) if (!strcmp(yytext, x))
 	     when ("y") yyunitlval.DOUBLE = 1e-24;
 	else when ("z") yyunitlval.DOUBLE = 1e-21;
@@ -43,6 +52,7 @@ EXP_R    \^[\-+]?[0-9]+
 	else when ("E") yyunitlval.DOUBLE = 1e18;
 	else when ("Z") yyunitlval.DOUBLE = 1e21;
 	else when ("Y") yyunitlval.DOUBLE = 1e24;
+	else return 1; /* error */
 	return PREFIX;
 	#undef when
 }
