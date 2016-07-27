@@ -83,3 +83,13 @@ SELECT
   a ^ -2 AS pow_2, a ^ -1 AS pow_1, a ^ 0 AS pow0, a ^ 1 AS pow1, a ^ 2 AS pow2
 FROM
   v;
+
+-- test conversion
+SELECT '1m'::unit @ 'mm';
+SELECT '10g'::unit @ 'mg';
+SELECT '5dm^3'::unit @ 'l';
+SELECT '9.81 m/s^2'::unit @ 'N/kg';
+SELECT '16384 B'::unit @ '8192 B';
+SELECT '1 hl'::unit @ '0.5 l';
+SELECT '5MB/min'::unit @ 'GB/d';
+SELECT '5m'::unit @ 's' AS error;

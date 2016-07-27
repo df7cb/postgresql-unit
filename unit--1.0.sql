@@ -193,6 +193,17 @@ CREATE OPERATOR ^ (
 	procedure = unit_pow
 );
 
+CREATE FUNCTION unit_at(unit, cstring)
+	RETURNS cstring
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR @ (
+	leftarg = unit,
+	rightarg = cstring,
+	procedure = unit_at
+);
+
 -- derived units
 
 CREATE FUNCTION radian    (double precision DEFAULT 1.0) -- m·m^-1

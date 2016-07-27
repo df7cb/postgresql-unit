@@ -544,6 +544,32 @@ unit_pow(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+PG_FUNCTION_INFO_V1(unit_at);
+
+Datum
+unit_at(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	char	*b = PG_GETARG_CSTRING(1);
+	Unit	 bu;
+	//int		 i;
+
+	if (unit_parse(b, &bu) > 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("invalid input syntax for unit: \"%s\", %s",
+					 b, yyerrstr)));
+	test_same_dimension("@", a, &bu);
+	if (bu.value == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_DIVISION_BY_ZERO),
+				 errmsg("division by zero-valued unit: \"%s\"", b)));
+	PG_RETURN_CSTRING(psprintf("%g %s%s",
+				a->value / bu.value,
+				(atof(b) > 0 ? "* " : ""),
+				b));
+}
+
 /* comparisons */
 
 static int

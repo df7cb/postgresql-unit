@@ -343,3 +343,48 @@ FROM
  2 kg | 0.25 kg^-2 | 0.5 kg^-1 | 1    | 2 kg | 4 kg^2
 (7 rows)
 
+-- test conversion
+SELECT '1m'::unit @ 'mm';
+ ?column? 
+----------
+ 1000 mm
+(1 row)
+
+SELECT '10g'::unit @ 'mg';
+ ?column? 
+----------
+ 10000 mg
+(1 row)
+
+SELECT '5dm^3'::unit @ 'l';
+ ?column? 
+----------
+ 5 l
+(1 row)
+
+SELECT '9.81 m/s^2'::unit @ 'N/kg';
+ ?column?  
+-----------
+ 9.81 N/kg
+(1 row)
+
+SELECT '16384 B'::unit @ '8192 B';
+  ?column?  
+------------
+ 2 * 8192 B
+(1 row)
+
+SELECT '1 hl'::unit @ '0.5 l';
+  ?column?   
+-------------
+ 200 * 0.5 l
+(1 row)
+
+SELECT '5MB/min'::unit @ 'GB/d';
+ ?column? 
+----------
+ 7.2 GB/d
+(1 row)
+
+SELECT '5m'::unit @ 's' AS error;
+ERROR:  dimension mismatch in "@" operation: "5 m", "1 s"
