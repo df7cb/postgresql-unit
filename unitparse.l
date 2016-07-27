@@ -3,6 +3,7 @@
 #include "unitparse.tab.h"
 %}
 
+%option prefix="yyunit"
 %option noyywrap
 %option nounput
 %option noinput

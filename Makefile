@@ -12,12 +12,12 @@ include $(PGXS)
 unit.o: unit.c unit.h defined_units.h
 
 unitparse.yy.c: unitparse.l
-	flex --prefix yyunit -o $@ $<
+	flex -o $@ $<
 
 unitparse.yy.o: unit.h defined_units.h unitparse.tab.c # actually unitparse.tab.h
 
 unitparse.tab.c: unitparse.y
-	bison -Dapi.prefix=yyunit -d $<
+	bison -d $<
 
 unitparse.tab.o: unit.h defined_units.h
 

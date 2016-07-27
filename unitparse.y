@@ -9,10 +9,11 @@ struct yyunit_buffer_state *yyunit_scan_string(char *str);
 void yyunit_delete_buffer(struct yyunit_buffer_state *buffer);
 void yyerror (char const *s);
 
-Unit *yyunit; /* parsing result gets stored here */
+static Unit *yyunit; /* parsing result gets stored here */
 %}
 
 %define parse.error verbose
+%define api.prefix {yyunit}
 
 %define api.value.type union
 %token <double> DOUBLE
@@ -82,6 +83,7 @@ maybe_exp:
 
 %%
 
+/* parse a given string and return the result via the second argument */
 int
 unit_parse (char *s, Unit *unit)
 {
