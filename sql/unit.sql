@@ -31,3 +31,14 @@ SELECT kilogram(0) AS zero, kilogram(1e-6) AS mg, kilogram(0.001) AS g, kilogram
 -- test combined units (exactly one unit with exponent 1 in numerator)
 SELECT meter(0)/second() AS zero, meter(1e-6)/second() AS "µm", meter(0.001)/second() AS mm, meter(1.0)/second() AS m, meter(1000.0)/second() AS km;
 SELECT kilogram(0)/second() AS zero, kilogram(1e-6)/second() AS mg, kilogram(0.001)/second() AS g, kilogram(1.0)/second() AS kg, kilogram(1000.0)/second() AS "Mg";
+
+-- test parser
+SELECT '1 m'::unit;
+SELECT '-1 m/s'::unit;
+SELECT '10 dm^3'::unit, '10l'::unit;
+SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
+SELECT '1 foobar'::unit AS error;
+-- problematic cases
+SELECT '1 cd'::unit AS candela; -- candela vs centiday
+SELECT '1 Pa'::unit AS pascal; -- pascal vs petayear
+SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a workaround
