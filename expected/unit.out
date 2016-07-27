@@ -197,3 +197,9 @@ SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a
  3.15576 Ms
 (1 row)
 
+SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- TODO: "yg" is parsed with rounding problems
+ yoctogram | actual_yoctogram 
+-----------+------------------
+ 1e-27 kg  | 1.00001 yg
+(1 row)
+

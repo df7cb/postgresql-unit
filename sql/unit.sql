@@ -42,3 +42,4 @@ SELECT '1 foobar'::unit AS error;
 SELECT '1 cd'::unit AS candela; -- candela vs centiday
 SELECT '1 Pa'::unit AS pascal; -- pascal vs petayear
 SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a workaround
+SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- TODO: "yg" is parsed with rounding problems
