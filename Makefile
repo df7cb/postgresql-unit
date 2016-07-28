@@ -3,7 +3,7 @@ OBJS = unit.o unitparse.yy.o unitparse.tab.o
 EXTENSION = unit
 DATA = unit--1.sql
 REGRESS = unit functions derived compare aggregate
-EXTRA_CLEAN = unitparse.yy.* unitparse.tab.* unittest unittest.o
+EXTRA_CLEAN = unitparse.yy.* unittest unittest.o # unitparse.tab.*
 
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
@@ -23,7 +23,12 @@ unitparse.yy.c: unitparse.l
 unitparse.yy.o: unit.h defined_units.h unitparse.tab.c # actually unitparse.tab.h
 
 unitparse.tab.c: unitparse.y
+ifneq ($(shell bison --version | grep 'Bison..2'),)
+	echo "### bison 2 detected, using pre-built unitparse.tab.c and .h files ###" # remove this hack once wheezy and precise are gone
+	touch $@
+else
 	bison -d $<
+endif
 
 unitparse.tab.o: unit.h defined_units.h
 

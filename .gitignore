@@ -4,8 +4,6 @@ results/
 tags
 unit.o
 unit.so
-unitparse.tab.c
-unitparse.tab.h
 unitparse.tab.o
 unitparse.yy.c
 unitparse.yy.o

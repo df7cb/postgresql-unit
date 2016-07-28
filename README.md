@@ -7,7 +7,8 @@ base units can be combined to named and unnamed derived units using operators
 defined in the PostgreSQL type system. SI prefixes are used for input and
 output, and quantities can be converted to arbitrary scale.
 
-Requires PostgreSQL 9.4 or later (uses psprintf()).
+Requires PostgreSQL 9.4 or later (uses *psprintf()*), flex, and bison 3 (the
+pre-built grammar files are used if only bison 2 is available).
 
 Features
 --------
@@ -24,7 +25,7 @@ Features
   tonne (t), astronomical unit (au)*
 * prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
-* operators: **+, -, *, /, ^**, conversion to arbitrary scale (*@*)
+* operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@**)
 
 Examples
 --------
