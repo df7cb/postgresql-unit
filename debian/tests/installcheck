@@ -1,2 +1,2 @@
 #!/bin/sh
-pg_buildext installcheck
+pg_buildext -i '--locale=C.UTF-8' installcheck
