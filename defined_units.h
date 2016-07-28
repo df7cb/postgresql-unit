@@ -49,7 +49,7 @@ const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki
 	{ "Bq",  "\000\000\377\000\000\000\000\000", 1.0, 0         }, /* becquerel       radioactivity (decays per unit time)             s^-1 */
 	{ "Sv",  "\002\000\376\000\000\000\000\000", 1.0, 0         }, /* sievert         equivalent dose (of ionizing radiation)  J/kg    m^2·s^-2 */
 
-	{ NULL, {NULL}, 0, 0 }
+	{ 0 }
 };
 
 #endif /* _DEFINED_UNITS_H */
