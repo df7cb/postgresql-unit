@@ -2,9 +2,6 @@
 ---
 # versions to run on
 env:
-  - PG_SUPPORTED_VERSIONS=9.1
-  - PG_SUPPORTED_VERSIONS=9.2
-  - PG_SUPPORTED_VERSIONS=9.3
   - PG_SUPPORTED_VERSIONS=9.4
   - PG_SUPPORTED_VERSIONS=9.5
   - PG_SUPPORTED_VERSIONS=9.6
@@ -21,7 +18,7 @@ before_install:
   - sudo apt-get -qq update
 
 install:
-  - sudo apt-get install bison debhelper devscripts fakeroot flex postgresql-server-dev-all
+  - sudo apt-get install bison debhelper devscripts fakeroot flex postgresql-server-dev-$PG_SUPPORTED_VERSIONS postgresql-server-dev-all
   # install PostgreSQL $PG_SUPPORTED_VERSIONS if not there yet
   - |
     if [ ! -x /usr/lib/postgresql/$PG_SUPPORTED_VERSIONS/bin/postgres ]; then

@@ -1,4 +1,6 @@
+SET client_min_messages = warning;
 CREATE EXTENSION IF NOT EXISTS unit;
+RESET client_min_messages;
 
 -- test input and output
 SELECT '1'::unit; -- unit_in
