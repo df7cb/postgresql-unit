@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS unit;
+
 -- test input and output
 SELECT '1'::unit; -- unit_in
 SELECT unit(1); -- dbl2unit

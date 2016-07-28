@@ -10,7 +10,6 @@ export PGDATABASE=regression
 make PG_CONFIG=$PG_CONFIG PROFILE="-Werror"
 sudo make install PG_CONFIG=$PG_CONFIG
 psql -c "DROP EXTENSION IF EXISTS unit CASCADE"
-psql -c "CREATE EXTENSION unit"
 if ! make installcheck REGRESS_OPTS="--use-existing" PG_CONFIG=$PG_CONFIG; then
 	cat regression.diffs
 	exit 1
