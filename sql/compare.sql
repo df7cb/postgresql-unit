@@ -16,7 +16,11 @@ WITH
   va(a) AS (SELECT * FROM v),
   vb(b) AS (SELECT * FROM v)
 SELECT
-  a, b, unit_cmp(a, b) AS cmp,
+  a, b,
+  CASE WHEN unit_cmp(a, b) < 0 THEN '<'
+       WHEN unit_cmp(a, b) = 0 THEN '='
+       WHEN unit_cmp(a, b) > 0 THEN '>'
+  END AS cmp,
   a < b  AS lt, a <= b AS le,
   a = b  AS eq, a <> b AS ne,
   a >= b AS ge, a > b  AS ge

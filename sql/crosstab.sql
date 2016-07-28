@@ -83,7 +83,11 @@ WITH
   va(a) AS (SELECT * FROM v),
   vb(b) AS (SELECT * FROM v)
 SELECT
-  a, b, unit_cmp(a, b) AS cmp
+  a, b,
+  CASE WHEN unit_cmp(a, b) < 0 THEN '<'
+       WHEN unit_cmp(a, b) = 0 THEN '='
+       WHEN unit_cmp(a, b) > 0 THEN '>'
+  END AS cmp
 FROM
   va CROSS JOIN vb
 \crosstabview
