@@ -25,6 +25,8 @@ install:
   # install PostgreSQL $PG_SUPPORTED_VERSIONS if not there yet
   - |
     if [ ! -x /usr/lib/postgresql/$PG_SUPPORTED_VERSIONS/bin/postgres ]; then
+      sudo apt-get install postgresql-common # upgrade pg-common first ...
+      sudo /etc/init.d/postgresql stop # ... so we can stop postgresql again before installing the server
       sudo apt-get install postgresql-$PG_SUPPORTED_VERSIONS
     fi
   # stop the travis-provided cluster
@@ -33,6 +35,7 @@ install:
   - dpkg -l postgresql\* | cat
 
 script:
+  - pg_buildext updatecontrol
   - dpkg-buildpackage -us -uc -rfakeroot
   - sudo debi
   - pg_buildext installcheck
