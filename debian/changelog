@@ -1,0 +1,5 @@
+postgresql-unit (1.0) UNRELEASED; urgency=medium
+
+  * Initial release.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 28 Jul 2016 11:47:22 +0200

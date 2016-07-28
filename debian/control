@@ -1,0 +1,23 @@
+Source: postgresql-unit
+Section: database
+Priority: optional
+Maintainer: Christoph Berg <myon@debian.org>
+Build-Depends:
+ bison,
+ debhelper (>> 9),
+ flex,
+ postgresql-server-dev-all (>= 153~),
+Standards-Version: 3.9.8
+Vcs-Git: https://github.com/ChristophBerg/postgresql-unit.git
+Vcs-Browser: https://github.com/ChristophBerg/postgresql-unit
+Homepage: https://github.com/ChristophBerg/postgresql-unit
+
+Package: postgresql-9.5-unit
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-9.5
+Description: SI Units for PostgreSQL
+ postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
+ base units can be combined to named and unnamed derived units using operators
+ defined in the PostgreSQL type system. SI prefixes are used for input and
+ output, and quantities can be converted to arbitrary scale.
+
