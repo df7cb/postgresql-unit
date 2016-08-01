@@ -56,7 +56,8 @@ extern int yyunitdebug;
     DOUBLE = 258,
     PREFIX = 259,
     UNIT = 260,
-    EXPONENT = 261
+    EXPONENT = 261,
+    ERROR = 262
   };
 #endif
 
@@ -84,7 +85,7 @@ union YYUNITSTYPE
   int EXPONENT;
   /* maybe_exp  */
   int maybe_exp;
-#line 88 "unitparse.tab.h" /* yacc.c:1909  */
+#line 89 "unitparse.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;

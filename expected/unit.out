@@ -178,7 +178,7 @@ SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
 (1 row)
 
 SELECT '1 foobar'::unit AS error;
-ERROR:  invalid input syntax for unit: "1 foobar", syntax error, unexpected $undefined, expecting $end
+ERROR:  invalid input syntax for unit: "1 foobar", syntax error, unexpected ERROR, expecting $end
 LINE 1: SELECT '1 foobar'::unit AS error;
                ^
 -- problematic cases

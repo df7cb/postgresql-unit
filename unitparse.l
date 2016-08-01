@@ -67,7 +67,7 @@ d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syn
 	else when ("E") yyunitlval.DOUBLE = 1e18;
 	else when ("Z") yyunitlval.DOUBLE = 1e21;
 	else when ("Y") yyunitlval.DOUBLE = 1e24;
-	else return 1; /* error */
+	else return ERROR;
 	return PREFIX;
 	#undef when
 }
@@ -92,7 +92,7 @@ d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syn
 			return UNIT;
 		}
 	/* should not happen */
-	return 1; /* error */
+	return ERROR;
 }
 
 {EXP_R} {
@@ -105,4 +105,4 @@ d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syn
 
 [ \t\n]* /* eat whitespace */
 
-. return 1; /* error */
+. return ERROR;

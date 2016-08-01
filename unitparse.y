@@ -34,6 +34,7 @@ static Unit *yyunit; /* parsing result gets stored here */
 %token <double> PREFIX
 %token <Unit> UNIT
 %token <int> EXPONENT
+%token ERROR
 %type  <double> dbl maybe_prefix;
 %type  <Unit> input dimension
 %type  <int> maybe_exp
