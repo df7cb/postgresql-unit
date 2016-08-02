@@ -284,7 +284,7 @@ WITH
 	('m/m'),
 	('m'),('g'),('s'),('A'),('K'),('mol'),('cd'),('B'),
 	('rad'),('sr'),('Hz'),('N'),('Pa'),('J'),('W'),('C'),('V'),('F'),('Ω'),('ohm'),('S'),('Wb'),('T'),('H'),('°C'),('lm'),('lx'),('Bq'),('Gy'),('Sv'),('kat'),
-	('l'),('t'),('min'),('h'),('d'),('a'))
+	('l'),('t'),('bar'),('min'),('h'),('d'),('a'))
 SELECT
   u, p, (p||u)::unit
 FROM
@@ -326,9 +326,10 @@ FROM
  kat | 1 ykat     | 1 zkat     | 1 akat     | 1 fkat     | 1 pkat     | 1 nkat     | 1 µkat    | 1 µkat    | 1 mkat     | 10 mkat    | 100 mkat   | 1 kat      | 10 kat     | 100 kat    | 1 kkat     | 1 Mkat     | 1 Gkat     | 1 Tkat     | 1 Pkat    | 1 Ekat     | 1 Zkat        | 1 Ykat
  l   | 1e-27 m^3  | 1e-24 m^3  | 1e-21 m^3  | 1e-18 m^3  | 1e-15 m^3  | 1e-12 m^3  | 1e-09 m^3 | 1e-09 m^3 | 1e-06 m^3  | 1e-05 m^3  | 0.0001 m^3 | 0.001 m^3  | 0.01 m^3   | 0.1 m^3    | 1 m^3      | 1000 m^3   | 1e+06 m^3  | 1e+09 m^3  | 1e+12 m^3 | 1e+15 m^3  | 1e+18 m^3     | 1e+21 m^3
  t   | 1 ag       | 1000 ag    | 1 pg       | 1 ng       | 1 µg       | 1 mg       | 1 g       | 1 g       | 1 kg       | 10 kg      | 100 kg     | 1 Mg       | 10 Mg      | 100 Mg     | 1 Gg       | 1 Tg       | 1 Pg       | 1 Eg       | 1 Zg      | 1 Yg       | 1e+24 kg      | 1e+27 kg
+ bar | 100 zPa    | 100 aPa    | 100 fPa    | 100 pPa    | 100 nPa    | 100 µPa    | 100 mPa   | 100 mPa   | 100 Pa     | 1 kPa      | 10 kPa     | 100 kPa    | 1 MPa      | 10 MPa     | 100 MPa    | 100 GPa    | 100 TPa    | 100 PPa    | 100 EPa   | 100 ZPa    | 100 YPa       | 1e+29 Pa
  min | 60 ys      | 60 zs      | 60 as      | 60 fs      | 60 ps      | 60 ns      | 60 µs     | 60 µs     | 60 ms      | 600 ms     | 6 s        | 60 s       | 600 s      | 6 ks       | 60 ks      | 60 Ms      | 60 Gs      | 60 Ts      | 60 Ps     | 60 Es      | 60 Zs         | 60 Ys
  h   | 3.6 zs     | 3.6 as     | 3.6 fs     | 3.6 ps     | 3.6 ns     | 3.6 µs     | 3.6 ms    | 3.6 ms    | 3.6 s      | 36 s       | 360 s      | 3.6 ks     | 36 ks      | 360 ks     | 3.6 Ms     | 3.6 Gs     | 3.6 Ts     | 3.6 Ps     | 3.6 Es    | 3.6 Zs     | 3.6 Ys        | 3.6e+27 s
  d   | 86.4 zs    | 86.4 as    | 86.4 fs    | 86.4 ps    | 86.4 ns    | 86.4 µs    | 86.4 ms   | 86.4 ms   | 86.4 s     | 1 cd       | 8.64 ks    | 86.4 ks    | 864 ks     | 8.64 Ms    | 86.4 Ms    | 86.4 Gs    | 86.4 Ts    | 86.4 Ps    | 86.4 Es   | 86.4 Zs    | 86.4 Ys       | 8.64e+28 s
  a   | 31.5576 as | 31.5576 fs | 31.5576 ps | 31.5576 ns | 31.5576 µs | 31.5576 ms | 31.5576 s | 31.5576 s | 31.5576 ks | 315.576 ks | 3.15576 Ms | 31.5576 Ms | 315.576 Ms | 3.15576 Gs | 31.5576 Gs | 31.5576 Ts | 31.5576 Ps | 31.5576 Es | 1 Pa      | 31.5576 Ys | 3.15576e+28 s | 3.15576e+31 s
-(38 rows)
+(39 rows)
 

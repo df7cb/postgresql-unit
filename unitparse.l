@@ -28,8 +28,8 @@ PFX_c_R  (y|z|a|f|p|n|µ|mu|m|d|da|h|k|M|G|T|P|E|Z|Y)
 	/* PFX_c_R: prefixes without "c" */
 PFX_P_R  (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|E|Z|Y)
 	/* PFX_P_R: prefixes without "P" */
-UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|min|h|d|a)
-PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|min|h)
+UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|bar|min|h|d|a)
+PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|bar|min|h)
 	/* PUNIT_R: units with generic prefix handling. Omissions: "d" (conflict with "cd"), "a" (conflict with "Pa") */
 EXP_R    \^[\-+]?[0-9]+
 

@@ -22,7 +22,7 @@ Features
   (°C, support limited), lumen (lm), lux (lx), becquerel (Bq), gray (Gy),
   sievert (Sv), katal (kat)*
 * non-coherent units: *minute (min), hour(h), day(d), hectare (ha), litre (l),
-  tonne (t), astronomical unit (au)*
+  tonne (t), bar, astronomical unit (au)*
 * prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
 * operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@**)
