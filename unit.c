@@ -84,7 +84,7 @@ unit_cstring (Unit *unit)
 			// do nothing
 		} else if (v_abs >= 1e-3) {
 			prefix = "m"; factor = 1e3;
-		} else if (v_abs >= 1e-6) {
+		} else if (v_abs >= 0x1.0c6f7a0b5ed8cp-20) { /* 1e-6 rounded down */
 			prefix = "µ"; factor = 1e6;
 		} else if (v_abs >= 1e-9) {
 			prefix = "n"; factor = 1e9;
@@ -136,7 +136,7 @@ unit_cstring (Unit *unit)
 			prefix = "k";
 		} else if (v_abs >= 1e-3) {
 			prefix = "";  factor = 1e3;
-		} else if (v_abs >= 1e-6) {
+		} else if (v_abs >= 0x1.0c6f7a0b5ed8cp-20) { /* 1e-6 rounded down */
 			prefix = "m"; factor = 1e6;
 		} else if (v_abs >= 1e-9) {
 			prefix = "µ"; factor = 1e9;
@@ -144,13 +144,13 @@ unit_cstring (Unit *unit)
 			prefix = "n"; factor = 1e12;
 		} else if (v_abs >= 1e-15) {
 			prefix = "p"; factor = 1e15;
-		} else if (v_abs >= 1e-18) {
+		} else if (v_abs >= 0x1.2725dd1d243abp-60) {
 			prefix = "f"; factor = 1e18;
 		} else if (v_abs >= 1e-21) {
 			prefix = "a"; factor = 1e21;
 		} else if (v_abs >= 1e-24) {
 			prefix = "z"; factor = 1e24;
-		} else if (v_abs >= 1e-27) {
+		} else if (v_abs >= 0x1.3ce9a36f23c0p-90) { /* 1e-27 rounded down */
 			prefix = "y"; factor = 1e27;
 		} /* else: smaller value or 0 (or -0), print using kg */
 
