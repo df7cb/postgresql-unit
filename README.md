@@ -10,6 +10,8 @@ output, and quantities can be converted to arbitrary scale.
 Requires PostgreSQL 9.4 or later (uses *psprintf()*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
 
+[![Build Status](https://travis-ci.org/ChristophBerg/postgresql-unit.svg?branch=master)](https://travis-ci.org/ChristophBerg/postgresql-unit)
+
 Features
 --------
 
