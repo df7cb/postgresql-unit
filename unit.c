@@ -18,6 +18,7 @@ GNU General Public License for more details.
 
 #include "unit.h"
 #include "defined_units.h"
+#include "powers.h"
 
 /* module initialization */
 
@@ -64,39 +65,39 @@ unit_cstring (Unit *unit)
 
 		if (v_abs >= 1e27) {
 			// do nothing
-		} else if (v_abs >= 1e24) {
+		} else if (v_abs >= POWER_24) {
 			prefix = "Y"; factor = 1e-24;
-		} else if (v_abs >= 1e21) {
+		} else if (v_abs >= POWER_21) {
 			prefix = "Z"; factor = 1e-21;
-		} else if (v_abs >= 1e18) {
+		} else if (v_abs >= POWER_18) {
 			prefix = "E"; factor = 1e-18;
-		} else if (v_abs >= 1e15) {
+		} else if (v_abs >= POWER_15) {
 			prefix = "P"; factor = 1e-15;
-		} else if (v_abs >= 1e12) {
+		} else if (v_abs >= POWER_12) {
 			prefix = "T"; factor = 1e-12;
-		} else if (v_abs >= 1e9) {
+		} else if (v_abs >= POWER_9) {
 			prefix = "G"; factor = 1e-9;
-		} else if (v_abs >= 1e6) {
+		} else if (v_abs >= POWER_6) {
 			prefix = "M"; factor = 1e-6;
-		} else if (v_abs >= 1e3) {
+		} else if (v_abs >= POWER_3) {
 			prefix = "k"; factor = 1e-3;
-		} else if (v_abs >= 1e0) {
+		} else if (v_abs >= POWER_0) {
 			// do nothing
-		} else if (v_abs >= 1e-3) {
+		} else if (v_abs >= POWER__3) {
 			prefix = "m"; factor = 1e3;
-		} else if (v_abs >= 0x1.0c6f7a0b5ed8cp-20) { /* 1e-6 rounded down */
+		} else if (v_abs >= POWER__6) {
 			prefix = "µ"; factor = 1e6;
-		} else if (v_abs >= 1e-9) {
+		} else if (v_abs >= POWER__9) {
 			prefix = "n"; factor = 1e9;
-		} else if (v_abs >= 1e-12) {
+		} else if (v_abs >= POWER__12) {
 			prefix = "p"; factor = 1e12;
-		} else if (v_abs >= 1e-15) {
+		} else if (v_abs >= POWER__15) {
 			prefix = "f"; factor = 1e15;
-		} else if (v_abs >= 1e-18) {
+		} else if (v_abs >= POWER__18) {
 			prefix = "a"; factor = 1e18;
-		} else if (v_abs >= 1e-21) {
+		} else if (v_abs >= POWER__21) {
 			prefix = "z"; factor = 1e21;
-		} else if (v_abs >= 1e-24) {
+		} else if (v_abs >= POWER__24) {
 			prefix = "y"; factor = 1e24;
 		} /* else do nothing */
 
@@ -116,41 +117,41 @@ unit_cstring (Unit *unit)
 		char	*prefix = "k";
 		double	 factor = 1.0;
 
-		if (v_abs >= 1e24) {
+		if (v_abs >= POWER_24) {
 			/* do nothing */
-		} else if (v_abs >= 1e21) {
+		} else if (v_abs >= POWER_21) {
 			prefix = "Y"; factor = 1e-21;
-		} else if (v_abs >= 1e18) {
+		} else if (v_abs >= POWER_18) {
 			prefix = "Z"; factor = 1e-18;
-		} else if (v_abs >= 1e15) {
+		} else if (v_abs >= POWER_15) {
 			prefix = "E"; factor = 1e-15;
-		} else if (v_abs >= 1e12) {
+		} else if (v_abs >= POWER_12) {
 			prefix = "P"; factor = 1e-12;
-		} else if (v_abs >= 1e9) {
+		} else if (v_abs >= POWER_9) {
 			prefix = "T"; factor = 1e-9;
-		} else if (v_abs >= 1e6) {
+		} else if (v_abs >= POWER_6) {
 			prefix = "G"; factor = 1e-6;
-		} else if (v_abs >= 1e3) {
+		} else if (v_abs >= POWER_3) {
 			prefix = "M"; factor = 1e-3;
-		} else if (v_abs >= 1e0) {
+		} else if (v_abs >= POWER_0) {
 			prefix = "k";
-		} else if (v_abs >= 1e-3) {
+		} else if (v_abs >= POWER__3) {
 			prefix = "";  factor = 1e3;
-		} else if (v_abs >= 0x1.0c6f7a0b5ed8cp-20) { /* 1e-6 rounded down */
+		} else if (v_abs >= POWER__6) {
 			prefix = "m"; factor = 1e6;
-		} else if (v_abs >= 1e-9) {
+		} else if (v_abs >= POWER__9) {
 			prefix = "µ"; factor = 1e9;
-		} else if (v_abs >= 1e-12) {
+		} else if (v_abs >= POWER__12) {
 			prefix = "n"; factor = 1e12;
-		} else if (v_abs >= 1e-15) {
+		} else if (v_abs >= POWER__15) {
 			prefix = "p"; factor = 1e15;
-		} else if (v_abs >= 0x1.2725dd1d243abp-60) {
+		} else if (v_abs >= POWER__18) {
 			prefix = "f"; factor = 1e18;
-		} else if (v_abs >= 1e-21) {
+		} else if (v_abs >= POWER__21) {
 			prefix = "a"; factor = 1e21;
-		} else if (v_abs >= 1e-24) {
+		} else if (v_abs >= POWER__24) {
 			prefix = "z"; factor = 1e24;
-		} else if (v_abs >= 0x1.3ce9a36f23c0p-90) { /* 1e-27 rounded down */
+		} else if (v_abs >= POWER__27) {
 			prefix = "y"; factor = 1e27;
 		} /* else: smaller value or 0 (or -0), print using kg */
 
