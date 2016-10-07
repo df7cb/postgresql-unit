@@ -14,12 +14,40 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
-#include "utils/builtins.h" /* float8out_internal */
 #include <math.h>
 
 #include "unit.h"
 #include "defined_units.h"
 #include "powers.h"
+
+#if PG_VERSION_NUM >= 90600
+#include "utils/builtins.h" /* float8out_internal */
+#else
+
+/* minimal version of PG 9.6's float8out_internal function for use in 9.4 and 9.5 */
+#define MAXDOUBLEWIDTH	128
+#define DBL_DIG			16
+extern int		extra_float_digits;
+
+char * float8out_internal(double num);
+char *
+float8out_internal(double num)
+{
+	char	   *ascii = (char *) palloc(MAXDOUBLEWIDTH + 1);
+	int			ndig = DBL_DIG + extra_float_digits;
+
+	if (isnan(num))
+		return strcpy(ascii, "NaN");
+
+	if (ndig < 1)
+		ndig = 1;
+
+	snprintf(ascii, MAXDOUBLEWIDTH + 1, "%.*g", ndig, num);
+
+	return ascii;
+}
+
+#endif /* PG_VERSION_NUM */
 
 /* module initialization */
 
