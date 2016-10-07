@@ -48,29 +48,29 @@ SELECT
   ('1000 '||p||'g')::unit AS "1000 g"
 FROM
   pfx;
- p  | factor | 0.001 m | meter  | 1000 m  | 0.001 g  |  gram  |  1000 g  
-----+--------+---------+--------+---------+----------+--------+----------
- y  | 1e-24  | 1e-27 m | 1 ym   | 1 zm    | 1e-30 kg | 1 yg   | 1 zg
- z  | 1e-21  | 1 ym    | 1 zm   | 1 am    | 1 yg     | 1 zg   | 1 ag
- a  | 1e-18  | 1 zm    | 1 am   | 1 fm    | 1 zg     | 1 ag   | 1 fg
- f  | 1e-15  | 1 am    | 1 fm   | 1 pm    | 1 ag     | 1 fg   | 1 pg
- p  | 1e-12  | 1 fm    | 1 pm   | 1 nm    | 1 fg     | 1 pg   | 1 ng
- n  | 1e-09  | 1 pm    | 1 nm   | 1 µm    | 1 pg     | 1 ng   | 1 µg
- µ  | 1e-06  | 1 nm    | 1 µm   | 1 mm    | 1 ng     | 1 µg   | 1 mg
- mu | 1e-06  | 1 nm    | 1 µm   | 1 mm    | 1 ng     | 1 µg   | 1 mg
- m  | 0.001  | 1 µm    | 1 mm   | 1 m     | 1 µg     | 1 mg   | 1 g
- c  | 0.01   | 10 µm   | 10 mm  | 10 m    | 10 µg    | 10 mg  | 10 g
- d  | 0.1    | 100 µm  | 100 mm | 100 m   | 100 µg   | 100 mg | 100 g
-    | 1      | 1 mm    | 1 m    | 1 km    | 1 mg     | 1 g    | 1 kg
- da | 10     | 10 mm   | 10 m   | 10 km   | 10 mg    | 10 g   | 10 kg
- h  | 100    | 100 mm  | 100 m  | 100 km  | 100 mg   | 100 g  | 100 kg
- k  | 1000   | 1 m     | 1 km   | 1 Mm    | 1 g      | 1 kg   | 1 Mg
- M  | 1e+06  | 1 km    | 1 Mm   | 1 Gm    | 1 kg     | 1 Mg   | 1 Gg
- G  | 1e+09  | 1 Mm    | 1 Gm   | 1 Tm    | 1 Mg     | 1 Gg   | 1 Tg
- T  | 1e+12  | 1 Gm    | 1 Tm   | 1 Pm    | 1 Gg     | 1 Tg   | 1 Pg
- P  | 1e+15  | 1 Tm    | 1 Pm   | 1 Em    | 1 Tg     | 1 Pg   | 1 Eg
- E  | 1e+18  | 1 Pm    | 1 Em   | 1 Zm    | 1 Pg     | 1 Eg   | 1 Zg
- Z  | 1e+21  | 1 Em    | 1 Zm   | 1 Ym    | 1 Eg     | 1 Zg   | 1 Yg
- Y  | 1e+24  | 1 Zm    | 1 Ym   | 1e+27 m | 1 Zg     | 1 Yg   | 1e+24 kg
+ p  |    factor     | 0.001 m | meter  | 1000 m  | 0.001 g  |  gram  |  1000 g  
+----+---------------+---------+--------+---------+----------+--------+----------
+ y  | 1e-24         | 1e-27 m | 1 ym   | 1 zm    | 1e-30 kg | 1 yg   | 1 zg
+ z  | 1e-21         | 1 ym    | 1 zm   | 1 am    | 1 yg     | 1 zg   | 1 ag
+ a  | 1e-18         | 1 zm    | 1 am   | 1 fm    | 1 zg     | 1 ag   | 1 fg
+ f  | 1e-15         | 1 am    | 1 fm   | 1 pm    | 1 ag     | 1 fg   | 1 pg
+ p  | 1e-12         | 1 fm    | 1 pm   | 1 nm    | 1 fg     | 1 pg   | 1 ng
+ n  | 1e-09         | 1 pm    | 1 nm   | 1 µm    | 1 pg     | 1 ng   | 1 µg
+ µ  | 1e-06         | 1 nm    | 1 µm   | 1 mm    | 1 ng     | 1 µg   | 1 mg
+ mu | 1e-06         | 1 nm    | 1 µm   | 1 mm    | 1 ng     | 1 µg   | 1 mg
+ m  | 0.001         | 1 µm    | 1 mm   | 1 m     | 1 µg     | 1 mg   | 1 g
+ c  | 0.01          | 10 µm   | 10 mm  | 10 m    | 10 µg    | 10 mg  | 10 g
+ d  | 0.1           | 100 µm  | 100 mm | 100 m   | 100 µg   | 100 mg | 100 g
+    | 1             | 1 mm    | 1 m    | 1 km    | 1 mg     | 1 g    | 1 kg
+ da | 10            | 10 mm   | 10 m   | 10 km   | 10 mg    | 10 g   | 10 kg
+ h  | 100           | 100 mm  | 100 m  | 100 km  | 100 mg   | 100 g  | 100 kg
+ k  | 1000          | 1 m     | 1 km   | 1 Mm    | 1 g      | 1 kg   | 1 Mg
+ M  | 1000000       | 1 km    | 1 Mm   | 1 Gm    | 1 kg     | 1 Mg   | 1 Gg
+ G  | 1000000000    | 1 Mm    | 1 Gm   | 1 Tm    | 1 Mg     | 1 Gg   | 1 Tg
+ T  | 1000000000000 | 1 Gm    | 1 Tm   | 1 Pm    | 1 Gg     | 1 Tg   | 1 Pg
+ P  | 1e+15         | 1 Tm    | 1 Pm   | 1 Em    | 1 Tg     | 1 Pg   | 1 Eg
+ E  | 1e+18         | 1 Pm    | 1 Em   | 1 Zm    | 1 Pg     | 1 Eg   | 1 Zg
+ Z  | 1e+21         | 1 Em    | 1 Zm   | 1 Ym    | 1 Eg     | 1 Zg   | 1 Yg
+ Y  | 1e+24         | 1 Zm    | 1 Ym   | 1e+27 m | 1 Zg     | 1 Yg   | 1e+24 kg
 (22 rows)
 

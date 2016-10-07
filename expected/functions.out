@@ -36,6 +36,12 @@ SELECT '1'::unit - '2' AS difference;
  -1
 (1 row)
 
+SELECT '3 m'::unit - '1 µm' AS difference;
+ difference 
+------------
+ 2.999999 m
+(1 row)
+
 SELECT '0' + meter() AS error;
 ERROR:  dimension mismatch in "+" operation: "0", "1 m"
 SELECT meter() + '0' AS error;

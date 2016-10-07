@@ -14,6 +14,7 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "utils/builtins.h" /* float8out_internal */
 #include <math.h>
 
 #include "unit.h"
@@ -103,12 +104,14 @@ unit_cstring (Unit *unit)
 
 		/* case 1a: derived unit, print with SI prefix and exit */
 		if (derived_unit >= 0) {
-			print_output("%g %s%s", unit->value * factor, prefix, derived_units[i].name);
+			print_output("%s %s%s", float8out_internal (unit->value * factor),
+					prefix, derived_units[i].name);
 			return output;
 		}
 
 		/* case 1b: single unit in numerator (exponent 1), print with SI prefix and continue */
-		print_output("%g %s%s", unit->value * factor, prefix, base_units[u_numerator]);
+		print_output("%s %s%s", float8out_internal (unit->value * factor),
+				prefix, base_units[u_numerator]);
 		numerator = true;
 
 	/* case 2: kg in numerator (exponent 1): print with SI prefix */
@@ -155,13 +158,14 @@ unit_cstring (Unit *unit)
 			prefix = "y"; factor = 1e27;
 		} /* else: smaller value or 0 (or -0), print using kg */
 
-		print_output("%g %sg", unit->value * factor, prefix); /* gram with SI prefix */
+		print_output("%s %sg", float8out_internal (unit->value * factor),
+				prefix); /* gram with SI prefix */
 		numerator = true;
 
 	/* case 3: zero or more than one unit in numerator */
 	} else {
 		/* always use scientific notation here */
-		print_output("%g", unit->value);
+		print_output("%s", float8out_internal (unit->value));
 
 		for (i = 0; i < N_UNITS; i++) /* format units in numerator */
 			if (unit->units[i] > 0) {
@@ -579,8 +583,8 @@ unit_at(PG_FUNCTION_ARGS)
 		ereport(ERROR,
 				(errcode(ERRCODE_DIVISION_BY_ZERO),
 				 errmsg("division by zero-valued unit: \"%s\"", b)));
-	PG_RETURN_CSTRING(psprintf("%g %s%s",
-				a->value / bu.value,
+	PG_RETURN_CSTRING(psprintf("%s %s%s",
+				float8out_internal (a->value / bu.value),
 				(atof(b) > 0 ? "* " : ""),
 				b));
 }
