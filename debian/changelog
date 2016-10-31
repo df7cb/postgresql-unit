@@ -1,3 +1,9 @@
+postgresql-unit (1.1) unstable; urgency=medium
+
+  * Use float8out_internal to format floats on output.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 31 Oct 2016 11:55:43 +0100
+
 postgresql-unit (1.0) unstable; urgency=medium
 
   * Initial release.
