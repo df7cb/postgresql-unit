@@ -1,0 +1,82 @@
+VALUES
+	(('1 B'::unit)),
+	(('1 KiB'::unit)),
+	(('1 MiB'::unit)),
+	(('1 GiB'::unit)),
+	(('1 TiB'::unit)),
+	(('1 PiB'::unit)),
+	(('1 EiB'::unit)),
+	(('1 ZiB'::unit)),
+	(('1 YiB'::unit));
+       column1       
+---------------------
+ 1 B
+ 1.024 kB
+ 1.048576 MB
+ 1.073741824 GB
+ 1.099511627776 TB
+ 1.12589990684262 PB
+ 1.15292150460685 EB
+ 1.18059162071741 ZB
+ 1.20892581961463 YB
+(9 rows)
+
+VALUES
+	(('1 B'::unit @ 'B')),
+	(('1 KiB'::unit @ 'KiB')),
+	(('1 MiB'::unit @ 'MiB')),
+	(('1 GiB'::unit @ 'GiB')),
+	(('1 TiB'::unit @ 'TiB')),
+	(('1 PiB'::unit @ 'PiB')),
+	(('1 EiB'::unit @ 'EiB')),
+	(('1 ZiB'::unit @ 'ZiB')),
+	(('1 YiB'::unit @ 'YiB'));
+ column1 
+---------
+ 1 B
+ 1 KiB
+ 1 MiB
+ 1 GiB
+ 1 TiB
+ 1 PiB
+ 1 EiB
+ 1 ZiB
+ 1 YiB
+(9 rows)
+
+VALUES
+	(('1 B'::unit @ 'B')),
+	(('1 kB'::unit @ 'KiB')),
+	(('1 MB'::unit @ 'MiB')),
+	(('1 GB'::unit @ 'GiB')),
+	(('1 TB'::unit @ 'TiB')),
+	(('1 PB'::unit @ 'PiB')),
+	(('1 EB'::unit @ 'EiB')),
+	(('1 ZB'::unit @ 'ZiB')),
+	(('1 YB'::unit @ 'YiB'));
+        column1        
+-----------------------
+ 1 B
+ 0.9765625 KiB
+ 0.95367431640625 MiB
+ 0.931322574615479 GiB
+ 0.909494701772928 TiB
+ 0.888178419700125 PiB
+ 0.867361737988404 EiB
+ 0.8470329472543 ZiB
+ 0.827180612553028 YiB
+(9 rows)
+
+-- errors
+SELECT '1 kiB'::unit;
+ERROR:  invalid input syntax for unit: "1 kiB", syntax error, unexpected ERROR, expecting $end
+LINE 1: SELECT '1 kiB'::unit;
+               ^
+SELECT '1 Ki'::unit;
+ERROR:  invalid input syntax for unit: "1 Ki", syntax error, unexpected ERROR, expecting $end
+LINE 1: SELECT '1 Ki'::unit;
+               ^
+SELECT '1 Kim'::unit;
+ERROR:  invalid input syntax for unit: "1 Kim", syntax error, unexpected ERROR, expecting $end
+LINE 1: SELECT '1 Kim'::unit;
+               ^

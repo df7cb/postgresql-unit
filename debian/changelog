@@ -1,3 +1,9 @@
+postgresql-unit (1.2) UNRELEASED; urgency=medium
+
+  * Support IEC binary prefixes for byte on input.
+
+ -- Christoph Berg <myon@debian.org>  Sun, 25 Dec 2016 21:18:30 +0100
+
 postgresql-unit (1.1) unstable; urgency=medium
 
   * Use float8out_internal to format floats on output.

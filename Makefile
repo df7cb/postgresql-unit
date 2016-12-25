@@ -2,7 +2,7 @@ MODULE_big = unit
 OBJS = unit.o unitparse.yy.o unitparse.tab.o
 EXTENSION = unit
 DATA = unit--1.sql
-REGRESS = unit prefix functions derived compare aggregate
+REGRESS = unit prefix functions derived compare aggregate iec
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o # unitparse.tab.*
 
 PG_CONFIG = pg_config

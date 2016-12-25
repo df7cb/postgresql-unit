@@ -5,7 +5,8 @@ Christoph Berg <cb@df7cb.de>
 postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
 base units can be combined to named and unnamed derived units using operators
 defined in the PostgreSQL type system. SI prefixes are used for input and
-output, and quantities can be converted to arbitrary scale.
+output, and quantities can be converted to arbitrary scale. Byte quantities
+also accept IEC binary prefixes on input.
 
 Requires PostgreSQL 9.4 or later (uses *psprintf()*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
@@ -27,6 +28,7 @@ Features
   tonne (t), bar, astronomical unit (au)*
 * prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
+* IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
 * operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@**)
 
 Examples

@@ -15,6 +15,8 @@ GNU General Public License for more details.
 %{
 #include "unit.h"
 #include "unitparse.tab.h"
+
+#define when(x) if (!strcmp(yytext, x))
 %}
 
 %option prefix="yyunit"
@@ -28,6 +30,7 @@ PFX_c_R  (y|z|a|f|p|n|µ|mu|m|d|da|h|k|M|G|T|P|E|Z|Y)
 	/* PFX_c_R: prefixes without "c" */
 PFX_P_R  (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|E|Z|Y)
 	/* PFX_P_R: prefixes without "P" */
+IEC_PREFIX_R (Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi)
 UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|bar|min|h|d|a)
 PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|bar|min|h)
 	/* PUNIT_R: units with generic prefix handling. Omissions: "d" (conflict with "cd"), "a" (conflict with "Pa") */
@@ -44,7 +47,6 @@ EXP_R    \^[\-+]?[0-9]+
 d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syntax error, unexpected $end, expecting UNIT */
 {PFX_P_R}/a | /* exclude "P" prefix for "a" */
 {PREFIX_R}/{PUNIT_R} { /* generic prefix matching */
-	#define when(x) if (!strcmp(yytext, x))
 	     when ("y") yyunitlval.DOUBLE = 1e-24;
 	else when ("z") yyunitlval.DOUBLE = 1e-21;
 	else when ("a") yyunitlval.DOUBLE = 1e-18;
@@ -69,7 +71,19 @@ d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syn
 	else when ("Y") yyunitlval.DOUBLE = 1e24;
 	else return ERROR;
 	return PREFIX;
-	#undef when
+}
+
+{IEC_PREFIX_R}/B { /* IEC binary prefixes for Bytes only */
+	     when ("Ki") yyunitlval.DOUBLE = 0x1p+10;
+	else when ("Mi") yyunitlval.DOUBLE = 0x1p+20;
+	else when ("Gi") yyunitlval.DOUBLE = 0x1p+30;
+	else when ("Ti") yyunitlval.DOUBLE = 0x1p+40;
+	else when ("Pi") yyunitlval.DOUBLE = 0x1p+50;
+	else when ("Ei") yyunitlval.DOUBLE = 0x1p+60;
+	else when ("Zi") yyunitlval.DOUBLE = 0x1p+70;
+	else when ("Yi") yyunitlval.DOUBLE = 0x1p+80;
+	else return ERROR;
+	return PREFIX;
 }
 
 {UNIT_R}    {
