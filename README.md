@@ -6,7 +6,7 @@ postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
 base units can be combined to named and unnamed derived units using operators
 defined in the PostgreSQL type system. SI prefixes are used for input and
 output, and quantities can be converted to arbitrary scale. Byte quantities
-also accept IEC binary prefixes on input.
+can also use IEC binary prefixes for input and output.
 
 Requires PostgreSQL 9.4 or later (uses *psprintf()*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
@@ -62,12 +62,26 @@ CREATE EXTENSION
  bottles_of_beer
 -----------------
  200 * 0.5 l
+
+# SET unit.byte_output_iec = on;
+# SELECT '4 TB'::unit AS disk_sold_as_4tb;
+   disk_sold_as_4tb
+----------------------
+ 3.63797880709171 TiB
 ```
+
+Config
+------
+
+* `unit.byte_output_iec`:
+  Set to `on` to format byte quantities using IEC binary prefixes (Ki, Mi, ...)
+  on output by default. (Default: off)
 
 References
 ----------
 
 * https://en.wikipedia.org/wiki/International_System_of_Units
+* https://en.wikipedia.org/wiki/Binary_prefix
 
 License
 -------

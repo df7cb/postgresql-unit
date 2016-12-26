@@ -14,6 +14,7 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "utils/guc.h"
 #include <math.h>
 
 #include "unit.h"
@@ -52,7 +53,29 @@ float8out_internal(double num)
 
 PG_MODULE_MAGIC;
 
-char *yyerrstr; /* copy of error catched by yyuniterror() */
+static bool unit_byte_output_iec;
+
+void _PG_init(void);
+
+void
+_PG_init(void)
+{
+	DefineCustomBoolVariable("unit.byte_output_iec",
+			"Output byte unit values with binary IEC prefixes",
+			"Set to on to output byte unit values using binary IEC prefixes "
+			"instead of decimal SI prefixes",
+			&unit_byte_output_iec,
+			false,
+			PGC_USERSET,
+			0, /* no flags */
+			NULL,
+			NULL,
+			NULL);
+
+	EmitWarningsOnPlaceholders("unit");
+}
+
+/* internal functions */
 
 /* format Unit as string */
 static char *
@@ -85,8 +108,11 @@ unit_cstring (Unit *unit)
 	output_p = output = palloc(128);
 #define print_output(...) output_p += sprintf(output_p, __VA_ARGS__);
 
-	/* case 1: derived unit, or numerator with exactly one unit (exponent 1) that is not kg */
-	if (derived_unit >= 0 || (n_numerator == 1 && u_numerator != UNIT_kg)) {
+	/* case 1: derived unit, or numerator with exactly one unit (exponent 1)
+	 * that is not kg, and is not byte (if binary prefixes are requested) */
+	if (derived_unit >= 0 || (n_numerator == 1 &&
+				u_numerator != UNIT_kg &&
+				!(u_numerator == UNIT_B && unit_byte_output_iec))) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "";
 		double	 factor = 1.0;
@@ -189,6 +215,36 @@ unit_cstring (Unit *unit)
 				prefix); /* gram with SI prefix */
 		numerator = true;
 
+	/* case 3: byte in numerator (exponent 1), and binary IEC prefix requested */
+	} else if (n_numerator == 1 && u_numerator == UNIT_B && unit_byte_output_iec) {
+		double	 v_abs = fabs(unit->value);
+		char	*prefix = "";
+		double	 factor = 1.0;
+
+		if (v_abs >= 0x1p+90) {
+			// do nothing
+		} else if (v_abs >= 0x1p+80) {
+			prefix = "Yi"; factor = 0x1p-80;
+		} else if (v_abs >= 0x1p+70) {
+			prefix = "Zi"; factor = 0x1p-70;
+		} else if (v_abs >= 0x1p+60) {
+			prefix = "Ei"; factor = 0x1p-60;
+		} else if (v_abs >= 0x1p+50) {
+			prefix = "Pi"; factor = 0x1p-50;
+		} else if (v_abs >= 0x1p+40) {
+			prefix = "Ti"; factor = 0x1p-40;
+		} else if (v_abs >= 0x1p+30) {
+			prefix = "Gi"; factor = 0x1p-30;
+		} else if (v_abs >= 0x1p+20) {
+			prefix = "Mi"; factor = 0x1p-20;
+		} else if (v_abs >= 0x1p+10) {
+			prefix = "Ki"; factor = 0x1p-10;
+		} /* else do nothing */
+
+		print_output("%s %sB", float8out_internal (unit->value * factor),
+				prefix); /* byte with binary prefix */
+		numerator = true;
+
 	/* case 3: zero or more than one unit in numerator */
 	} else {
 		/* always use scientific notation here */
@@ -232,6 +288,8 @@ test_same_dimension (char *op, Unit *a, Unit *b)
 }
 
 /* input and output */
+
+char *yyerrstr; /* copy of error catched by yyuniterror() */
 
 void yyuniterror (char *s);
 
