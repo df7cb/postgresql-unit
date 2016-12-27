@@ -1,7 +1,3 @@
-SET client_min_messages = warning;
-CREATE EXTENSION IF NOT EXISTS unit;
-RESET client_min_messages;
-
 -- test input and output
 SELECT '1'::unit; -- unit_in
 SELECT unit(1); -- dbl2unit
@@ -50,3 +46,13 @@ SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- "yg
 SELECT '1 min'::unit AS minute; -- minute vs milliinch
 SELECT '1 ft'::unit AS foot; -- foot vs femtotonne
 SELECT '1 yd'::unit AS yard; -- yard vs yoctoday
+
+-- check which prefix/unit combinations produce other dimensions (parser conflicts)
+SELECT
+  p, u, (p||u)::unit
+FROM
+  prefixes CROSS JOIN units
+WHERE
+  u <> 'kg' AND
+  dimension(u::unit) != dimension((p||u)::unit)
+ORDER BY p, u;
