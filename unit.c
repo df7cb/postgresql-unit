@@ -108,67 +108,8 @@ unit_cstring (Unit *unit)
 	output_p = output = palloc(128);
 #define print_output(...) output_p += sprintf(output_p, __VA_ARGS__);
 
-	/* case 1: derived unit, or numerator with exactly one unit (exponent 1)
-	 * that is not kg, and is not byte (if binary prefixes are requested) */
-	if (derived_unit >= 0 || (n_numerator == 1 &&
-				u_numerator != UNIT_kg &&
-				!(u_numerator == UNIT_B && unit_byte_output_iec))) {
-		double	 v_abs = fabs(unit->value);
-		char	*prefix = "";
-		double	 factor = 1.0;
-
-		if (v_abs >= 1e27) {
-			// do nothing
-		} else if (v_abs >= POWER_24) {
-			prefix = "Y"; factor = 1e-24;
-		} else if (v_abs >= POWER_21) {
-			prefix = "Z"; factor = 1e-21;
-		} else if (v_abs >= POWER_18) {
-			prefix = "E"; factor = 1e-18;
-		} else if (v_abs >= POWER_15) {
-			prefix = "P"; factor = 1e-15;
-		} else if (v_abs >= POWER_12) {
-			prefix = "T"; factor = 1e-12;
-		} else if (v_abs >= POWER_9) {
-			prefix = "G"; factor = 1e-9;
-		} else if (v_abs >= POWER_6) {
-			prefix = "M"; factor = 1e-6;
-		} else if (v_abs >= POWER_3) {
-			prefix = "k"; factor = 1e-3;
-		} else if (v_abs >= POWER_0) {
-			// do nothing
-		} else if (v_abs >= POWER__3) {
-			prefix = "m"; factor = 1e3;
-		} else if (v_abs >= POWER__6) {
-			prefix = "µ"; factor = 1e6;
-		} else if (v_abs >= POWER__9) {
-			prefix = "n"; factor = 1e9;
-		} else if (v_abs >= POWER__12) {
-			prefix = "p"; factor = 1e12;
-		} else if (v_abs >= POWER__15) {
-			prefix = "f"; factor = 1e15;
-		} else if (v_abs >= POWER__18) {
-			prefix = "a"; factor = 1e18;
-		} else if (v_abs >= POWER__21) {
-			prefix = "z"; factor = 1e21;
-		} else if (v_abs >= POWER__24) {
-			prefix = "y"; factor = 1e24;
-		} /* else do nothing */
-
-		/* case 1a: derived unit, print with SI prefix and exit */
-		if (derived_unit >= 0) {
-			print_output("%s %s%s", float8out_internal (unit->value * factor),
-					prefix, derived_units[i].name);
-			return output;
-		}
-
-		/* case 1b: single unit in numerator (exponent 1), print with SI prefix and continue */
-		print_output("%s %s%s", float8out_internal (unit->value * factor),
-				prefix, base_units[u_numerator]);
-		numerator = true;
-
-	/* case 2: kg in numerator (exponent 1): print with SI prefix */
-	} else if (n_numerator == 1 && u_numerator == UNIT_kg) {
+	/* case 1a: kg in numerator (exponent 1): print with SI prefix */
+	if (n_numerator == 1 && u_numerator == UNIT_kg) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "k";
 		double	 factor = 1.0;
@@ -215,7 +156,7 @@ unit_cstring (Unit *unit)
 				prefix); /* gram with SI prefix */
 		numerator = true;
 
-	/* case 3: byte in numerator (exponent 1), and binary IEC prefix requested */
+	/* case 1b: byte in numerator (exponent 1), and binary IEC prefix requested */
 	} else if (n_numerator == 1 && u_numerator == UNIT_B && unit_byte_output_iec) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "";
@@ -243,6 +184,63 @@ unit_cstring (Unit *unit)
 
 		print_output("%s %sB", float8out_internal (unit->value * factor),
 				prefix); /* byte with binary prefix */
+		numerator = true;
+
+	/* case 2: derived unit, or numerator with exactly one unit (exponent 1)
+	 * not covered above */
+	} else if (derived_unit >= 0 || n_numerator == 1) {
+		double	 v_abs = fabs(unit->value);
+		char	*prefix = "";
+		double	 factor = 1.0;
+
+		if (v_abs >= 1e27) {
+			// do nothing
+		} else if (v_abs >= POWER_24) {
+			prefix = "Y"; factor = 1e-24;
+		} else if (v_abs >= POWER_21) {
+			prefix = "Z"; factor = 1e-21;
+		} else if (v_abs >= POWER_18) {
+			prefix = "E"; factor = 1e-18;
+		} else if (v_abs >= POWER_15) {
+			prefix = "P"; factor = 1e-15;
+		} else if (v_abs >= POWER_12) {
+			prefix = "T"; factor = 1e-12;
+		} else if (v_abs >= POWER_9) {
+			prefix = "G"; factor = 1e-9;
+		} else if (v_abs >= POWER_6) {
+			prefix = "M"; factor = 1e-6;
+		} else if (v_abs >= POWER_3) {
+			prefix = "k"; factor = 1e-3;
+		} else if (v_abs >= POWER_0) {
+			// do nothing
+		} else if (v_abs >= POWER__3) {
+			prefix = "m"; factor = 1e3;
+		} else if (v_abs >= POWER__6) {
+			prefix = "µ"; factor = 1e6;
+		} else if (v_abs >= POWER__9) {
+			prefix = "n"; factor = 1e9;
+		} else if (v_abs >= POWER__12) {
+			prefix = "p"; factor = 1e12;
+		} else if (v_abs >= POWER__15) {
+			prefix = "f"; factor = 1e15;
+		} else if (v_abs >= POWER__18) {
+			prefix = "a"; factor = 1e18;
+		} else if (v_abs >= POWER__21) {
+			prefix = "z"; factor = 1e21;
+		} else if (v_abs >= POWER__24) {
+			prefix = "y"; factor = 1e24;
+		} /* else do nothing */
+
+		/* case 2a: derived unit, print with SI prefix and exit */
+		if (derived_unit >= 0) {
+			print_output("%s %s%s", float8out_internal (unit->value * factor),
+					prefix, derived_units[i].name);
+			return output;
+		}
+
+		/* case 2b: single unit in numerator (exponent 1), print with SI prefix and continue */
+		print_output("%s %s%s", float8out_internal (unit->value * factor),
+				prefix, base_units[u_numerator]);
 		numerator = true;
 
 	/* case 3: zero or more than one unit in numerator */
