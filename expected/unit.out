@@ -200,9 +200,27 @@ SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a
  3.15576 Ms
 (1 row)
 
-SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- TODO: "yg" is parsed with rounding problems
+SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- "yg" had rounding problems in the past
  yoctogram | actual_yoctogram 
 -----------+------------------
  1 yg      | 1.00001 yg
+(1 row)
+
+SELECT '1 min'::unit AS minute; -- minute vs milliinch
+ minute 
+--------
+ 60 s
+(1 row)
+
+SELECT '1 ft'::unit AS foot; -- foot vs femtotonne
+   foot   
+----------
+ 304.8 mm
+(1 row)
+
+SELECT '1 yd'::unit AS yard; -- yard vs yoctoday
+   yard   
+----------
+ 914.4 mm
 (1 row)
 

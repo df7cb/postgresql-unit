@@ -26,14 +26,23 @@ GNU General Public License for more details.
 
 DOUBLE_R [\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 PREFIX_R (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|P|E|Z|Y)
-PFX_c_R  (y|z|a|f|p|n|µ|mu|m|d|da|h|k|M|G|T|P|E|Z|Y)
-	/* PFX_c_R: prefixes without "c" */
+PFX_f_R  (y|z|a|p|n|µ|mu|m|c|d|da|h|k|M|G|T|P|E|Z|Y)
+	/* PFX_f_R: prefixes without "f" */
+PFX_m_R  (y|z|a|f|p|n|µ|mu|c|d|da|h|k|M|G|T|P|E|Z|Y)
+	/* PFX_m_R: prefixes without "m" */
+PFX_yc_R (z|a|f|p|n|µ|mu|m|d|da|h|k|M|G|T|P|E|Z|Y)
+	/* PFX_yc_R: prefixes without "y" and "c" */
 PFX_P_R  (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|E|Z|Y)
 	/* PFX_P_R: prefixes without "P" */
 IEC_PREFIX_R (Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi)
-UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|bar|min|h|d|a)
-PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|t|bar|min|h)
-	/* PUNIT_R: units with generic prefix handling. Omissions: "d" (conflict with "cd"), "a" (conflict with "Pa") */
+UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|bar|min|h|ft|yd|mi|t|d|a|in)
+PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|bar|min|h|ft|yd|mi)
+	/* PUNIT_R: units with generic prefix handling. Omissions:
+	 *  t:  conflict with "ft"
+	 *  d:  conflict with "cd" and "yd"
+	 *  a:  conflict with "Pa"
+	 *  in: conflict with "min"
+	 */
 EXP_R    \^[\-+]?[0-9]+
 
 %%
@@ -43,7 +52,9 @@ EXP_R    \^[\-+]?[0-9]+
 	return DOUBLE;
 }
 
-{PFX_c_R}/d | /* exclude "c" prefix for "d" */
+{PFX_f_R}/t | /* exclude "f" prefix for "t" */
+{PFX_m_R}/in | /* exclude "m" prefix for "in" */
+{PFX_yc_R}/d | /* exclude "y" and "c" prefixes for "d" */
 d/a | /* flex bug? Without this, we get invalid input syntax for unit: "da", syntax error, unexpected $end, expecting UNIT */
 {PFX_P_R}/a | /* exclude "P" prefix for "a" */
 {PREFIX_R}/{PUNIT_R} { /* generic prefix matching */

@@ -2,11 +2,15 @@ SI Units for PostgreSQL
 =======================
 Christoph Berg <cb@df7cb.de>
 
-postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
-base units can be combined to named and unnamed derived units using operators
-defined in the PostgreSQL type system. SI prefixes are used for input and
-output, and quantities can be converted to arbitrary scale. Byte quantities
+**postgresql-unit** implements a *PostgreSQL datatype for SI units, plus byte*.
+The base units can be combined to named and unnamed derived units using
+operators defined in the PostgreSQL type system. SI prefixes are used for input
+and output, and quantities can be converted to arbitrary scale. Byte quantities
 can also use IEC binary prefixes for input and output.
+
+Some non-SI units are supported, namely *coherent* derived units such as
+*newton* and *joule*, *non-coherent* units such as *hours* and *litres*, and
+assorted *United States customary units* such as *inch* and *mile*.
 
 Requires PostgreSQL 9.4 or later (uses *psprintf()*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
@@ -26,9 +30,12 @@ Features
   sievert (Sv), katal (kat)*
 * non-coherent units: *minute (min), hour(h), day(d), hectare (ha), litre (l),
   tonne (t), bar, astronomical unit (au)*
+* United States customary units: *inch (in), foot (ft), yard (yd), mile (mi)*
+
 * prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
 * IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
+
 * operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@**)
 
 Examples
@@ -68,6 +75,11 @@ CREATE EXTENSION
    disk_sold_as_4tb
 ----------------------
  3.63797880709171 TiB
+
+# SELECT '500 mi'::unit AS walk_500_miles;
+ walk_500_miles
+----------------
+ 804.672 km
 ```
 
 Config
@@ -82,6 +94,7 @@ References
 
 * https://en.wikipedia.org/wiki/International_System_of_Units
 * https://en.wikipedia.org/wiki/Binary_prefix
+* https://en.wikipedia.org/wiki/United_States_customary_units
 
 License
 -------

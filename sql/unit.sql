@@ -46,4 +46,7 @@ SELECT '1 foobar'::unit AS error;
 SELECT '1 cd'::unit AS candela; -- candela vs centiday
 SELECT '1 Pa'::unit AS pascal; -- pascal vs petayear
 SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a workaround
-SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- TODO: "yg" is parsed with rounding problems
+SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- "yg" had rounding problems in the past
+SELECT '1 min'::unit AS minute; -- minute vs milliinch
+SELECT '1 ft'::unit AS foot; -- foot vs femtotonne
+SELECT '1 yd'::unit AS yard; -- yard vs yoctoday

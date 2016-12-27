@@ -50,6 +50,12 @@ const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki
 	{ "Bq",  {  0,  0, -1,  0,  0,  0,  0,  0,}, 1.0, 0         }, /* becquerel       radioactivity (decays per unit time)             s^-1 */
 	{ "Sv",  {  2,  0, -2,  0,  0,  0,  0,  0,}, 1.0, 0         }, /* sievert         equivalent dose (of ionizing radiation)  J/kg    m^2·s^-2 */
 
+	/* United States customary units */
+	{ "in",  {  1,  0,  0,  0,  0,  0,  0,  0,}, .0254, 0       }, /* inch                                                             25.4 mm */
+	{ "ft",  {  1,  0,  0,  0,  0,  0,  0,  0,}, .3048, 0       }, /* foot                                                             0.3048 m */
+	{ "yd",  {  1,  0,  0,  0,  0,  0,  0,  0,}, .9144, 0       }, /* yard                                                             0.9144 m */
+	{ "mi",  {  1,  0,  0,  0,  0,  0,  0,  0,}, 1609.344, 0    }, /* mile                                                             1.609344 km */
+
 	{ 0 }
 };
 
