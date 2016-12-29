@@ -66,6 +66,8 @@ in	f	f	f
 ft	f	f	f
 yd	f	f	f
 mi	f	f	f
+oz	f	f	f
+lb	f	f	f
 \.
 UPDATE units
 	SET unit = u::unit;

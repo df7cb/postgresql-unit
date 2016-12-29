@@ -22,51 +22,53 @@ COPY units (u, base, coherent, duplicate) FROM STDIN;
 UPDATE units
 	SET unit = u::unit;
 SELECT * FROM units;
-  u  |    unit     | base | coherent | duplicate 
------+-------------+------+----------+-----------
- m/m | 1           | t    | f        | f
- m   | 1 m         | t    | f        | f
- kg  | 1 kg        | t    | f        | f
- s   | 1 s         | t    | f        | f
- A   | 1 A         | t    | f        | f
- K   | 1 K         | t    | f        | f
- mol | 1 mol       | t    | f        | f
- cd  | 1 cd        | t    | f        | f
- B   | 1 B         | t    | f        | f
- rad | 1           | f    | t        | t
- sr  | 1           | f    | t        | t
- Hz  | 1 Hz        | f    | t        | f
- N   | 1 N         | f    | t        | f
- Pa  | 1 Pa        | f    | t        | f
- J   | 1 J         | f    | t        | f
- W   | 1 W         | f    | t        | f
- C   | 1 C         | f    | t        | f
- V   | 1 V         | f    | t        | f
- F   | 1 F         | f    | t        | f
- Ω   | 1 Ω         | f    | t        | f
- ohm | 1 Ω         | f    | t        | t
- S   | 1 S         | f    | t        | f
- Wb  | 1 Wb        | f    | t        | f
- T   | 1 T         | f    | t        | f
- H   | 1 H         | f    | t        | f
- °C  | 1 K         | f    | t        | t
- lm  | 1 cd        | f    | t        | t
- lx  | 1 lx        | f    | t        | f
- Bq  | 1 Hz        | f    | t        | t
- Gy  | 1 Gy        | f    | t        | f
- Sv  | 1 Gy        | f    | t        | t
- kat | 1 kat       | f    | t        | f
- g   | 1 g         | f    | f        | t
- l   | 0.001 m^3   | f    | f        | f
- t   | 1 Mg        | f    | f        | f
- bar | 100 kPa     | f    | f        | f
- min | 60 s        | f    | f        | f
- h   | 3.6 ks      | f    | f        | f
- d   | 86.4 ks     | f    | f        | f
- a   | 31.5576 Ms  | f    | f        | f
- in  | 25.4 mm     | f    | f        | f
- ft  | 304.8 mm    | f    | f        | f
- yd  | 914.4 mm    | f    | f        | f
- mi  | 1.609344 km | f    | f        | f
-(44 rows)
+  u  |      unit      | base | coherent | duplicate 
+-----+----------------+------+----------+-----------
+ m/m | 1              | t    | f        | f
+ m   | 1 m            | t    | f        | f
+ kg  | 1 kg           | t    | f        | f
+ s   | 1 s            | t    | f        | f
+ A   | 1 A            | t    | f        | f
+ K   | 1 K            | t    | f        | f
+ mol | 1 mol          | t    | f        | f
+ cd  | 1 cd           | t    | f        | f
+ B   | 1 B            | t    | f        | f
+ rad | 1              | f    | t        | t
+ sr  | 1              | f    | t        | t
+ Hz  | 1 Hz           | f    | t        | f
+ N   | 1 N            | f    | t        | f
+ Pa  | 1 Pa           | f    | t        | f
+ J   | 1 J            | f    | t        | f
+ W   | 1 W            | f    | t        | f
+ C   | 1 C            | f    | t        | f
+ V   | 1 V            | f    | t        | f
+ F   | 1 F            | f    | t        | f
+ Ω   | 1 Ω            | f    | t        | f
+ ohm | 1 Ω            | f    | t        | t
+ S   | 1 S            | f    | t        | f
+ Wb  | 1 Wb           | f    | t        | f
+ T   | 1 T            | f    | t        | f
+ H   | 1 H            | f    | t        | f
+ °C  | 1 K            | f    | t        | t
+ lm  | 1 cd           | f    | t        | t
+ lx  | 1 lx           | f    | t        | f
+ Bq  | 1 Hz           | f    | t        | t
+ Gy  | 1 Gy           | f    | t        | f
+ Sv  | 1 Gy           | f    | t        | t
+ kat | 1 kat          | f    | t        | f
+ g   | 1 g            | f    | f        | t
+ l   | 0.001 m^3      | f    | f        | f
+ t   | 1 Mg           | f    | f        | f
+ bar | 100 kPa        | f    | f        | f
+ min | 60 s           | f    | f        | f
+ h   | 3.6 ks         | f    | f        | f
+ d   | 86.4 ks        | f    | f        | f
+ a   | 31.5576 Ms     | f    | f        | f
+ in  | 25.4 mm        | f    | f        | f
+ ft  | 304.8 mm       | f    | f        | f
+ yd  | 914.4 mm       | f    | f        | f
+ mi  | 1.609344 km    | f    | f        | f
+ oz  | 28.349523125 g | f    | f        | f
+ lb  | 453.59237 g    | f    | f        | f
+(46 rows)
 

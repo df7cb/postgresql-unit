@@ -35,8 +35,8 @@ PFX_yc_R (z|a|f|p|n|µ|mu|m|d|da|h|k|M|G|T|P|E|Z|Y)
 PFX_P_R  (y|z|a|f|p|n|µ|mu|m|c|d|da|h|k|M|G|T|E|Z|Y)
 	/* PFX_P_R: prefixes without "P" */
 IEC_PREFIX_R (Ki|Mi|Gi|Ti|Pi|Ei|Zi|Yi)
-UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|bar|min|h|ft|yd|mi|t|d|a|in)
-PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|bar|min|h|ft|yd|mi)
+UNIT_R   (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|bar|min|h|ft|yd|mi|oz|lb|t|d|a|in)
+PUNIT_R  (m|g|s|A|K|mol|cd|B|rad|sr|Hz|N|Pa|J|W|C|V|F|Ω|ohm|S|Wb|T|H|°C|lm|lx|Bq|Gy|Sv|kat|l|bar|min|h|ft|yd|mi|oz|lb)
 	/* PUNIT_R: units with generic prefix handling. Omissions:
 	 *  t:  conflict with "ft"
 	 *  d:  conflict with "cd" and "yd"

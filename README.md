@@ -30,12 +30,11 @@ Features
   sievert (Sv), katal (kat)*
 * non-coherent units: *minute (min), hour(h), day(d), hectare (ha), litre (l),
   tonne (t), bar, astronomical unit (au)*
-* United States customary units: *inch (in), foot (ft), yard (yd), mile (mi)*
-
+* United States customary units: *inch (in), foot (ft), yard (yd), mile (mi),
+  ounce (oz), pound (lb)*
 * prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
 * IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
-
 * operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@**)
 
 Examples
