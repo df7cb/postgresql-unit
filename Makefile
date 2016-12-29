@@ -15,7 +15,7 @@ ifeq ($(HAS_CROSSTAB),yes)
 REGRESS += crosstab
 endif
 
-unit.o: unit.c unit.h defined_units.h
+unit.o: unit.c unit.h defined_units.h float8out_internal.h
 
 unitparse.yy.c: unitparse.l
 	flex -o $@ $<
