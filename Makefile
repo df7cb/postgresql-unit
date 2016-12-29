@@ -12,7 +12,7 @@ include $(PGXS)
 PG_VERSION_NUM = $(shell awk '/PG_VERSION_NUM/ { print $$3 }' $(shell $(PG_CONFIG) --includedir-server)/pg_config.h)
 HAS_CROSSTAB = $(shell [ $(PG_VERSION_NUM) -ge 90600 ] && echo yes)
 ifeq ($(HAS_CROSSTAB),yes)
-REGRESS += crosstab
+REGRESS += crosstab convert
 endif
 
 unit.o: unit.c unit.h defined_units.h float8out_internal.h
