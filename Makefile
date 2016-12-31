@@ -3,6 +3,7 @@ OBJS = unit.o unitparse.yy.o unitparse.tab.o
 EXTENSION = unit
 DATA = unit--*.sql
 REGRESS = extension tables unit prefix functions derived compare aggregate iec
+#REGRESS += upgrade
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o # unitparse.tab.*
 
 PG_CONFIG = pg_config
