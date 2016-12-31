@@ -1,7 +1,8 @@
-postgresql-unit (1.2) UNRELEASED; urgency=medium
+postgresql-unit (2) UNRELEASED; urgency=medium
 
   * Support IEC binary prefixes for byte.
   * Support United States customary units: in, ft, yd, mi, oz, lb.
+  * Add variance and stddev aggregates; bump extension version to 2.
 
  -- Christoph Berg <myon@debian.org>  Sun, 25 Dec 2016 21:18:30 +0100
 
