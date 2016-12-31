@@ -92,6 +92,7 @@ References
 ----------
 
 * https://en.wikipedia.org/wiki/International_System_of_Units
+* http://physics.nist.gov/cuu/Units/index.html
 * https://en.wikipedia.org/wiki/Binary_prefix
 * https://en.wikipedia.org/wiki/United_States_customary_units
 
