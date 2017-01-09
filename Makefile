@@ -4,7 +4,7 @@ EXTENSION = unit
 DATA = unit--1.sql unit--1--2.sql unit--2.sql
 REGRESS = extension tables unit prefix functions derived compare aggregate iec
 #REGRESS += upgrade
-EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o # unitparse.tab.*
+EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o unit-*.dump # unitparse.tab.*
 
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
