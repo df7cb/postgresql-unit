@@ -55,4 +55,4 @@ FROM
 WHERE
   u <> 'kg' AND
   dimension(u::unit) != dimension((p||u)::unit)
-ORDER BY p, u;
+ORDER BY lower(p), lower(u);
