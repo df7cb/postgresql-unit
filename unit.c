@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016 Christoph Berg
+Copyright (C) 2016-2017 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@ GNU General Public License for more details.
 #include "postgres.h"
 #include "fmgr.h"
 #include "utils/guc.h"
+#include "utils/hsearch.h"
 #include <math.h>
 
 #include "unit.h"
@@ -27,11 +28,75 @@ GNU General Public License for more details.
 #include "float8out_internal.h"
 #endif
 
+/* global variables */
+
+static bool unit_byte_output_iec;
+
+static HTAB *unit_names = NULL;
+static HTAB *unit_dimensions = NULL;
+
+/* unit definitions */
+
+void unit_get_definitions(void);
+
+void
+unit_get_definitions(void)
+{
+	HASHCTL				 hinfo = { 0 };
+	int					 i;
+	unit_names_t		*unit_name;
+	unit_dimensions_t	*unit_dim;
+
+	/* destroy old hash table */
+	if (unit_names)
+		hash_destroy(unit_names);
+
+	/* unit_names: char *name -> Unit unit */
+	hinfo.keysize = UNIT_NAME_LENGTH;
+	hinfo.entrysize = sizeof(unit_names_t);
+	Assert(UNIT_NAME_LENGTH + sizeof(Unit) == sizeof(unit_names_t));
+	unit_names = hash_create("unit_names",
+			20,
+			&hinfo,
+			HASH_ELEM); /* Set keysize and entrysize */
+
+	for (i = 0; derived_units[i].name; i++)
+	{
+		unit_name = hash_search(unit_names,
+				derived_units[i].name,
+				HASH_ENTER,
+				NULL);
+		strlcpy(unit_name->name, derived_units[i].name, UNIT_NAME_LENGTH);
+		unit_name->unit.value = derived_units[i].factor;
+		memcpy(unit_name->unit.units, derived_units[i].units, N_UNITS);
+	}
+
+	/* unit_dimensions: char dimension[N_UNITS] -> char *name */
+	if (unit_dimensions)
+		hash_destroy(unit_dimensions);
+
+	hinfo.keysize = N_UNITS;
+	hinfo.entrysize = sizeof(unit_dimensions_t);
+	Assert(N_UNITS + UNIT_NAME_LENGTH == sizeof(unit_dimensions_t));
+	unit_dimensions = hash_create("unit_dimensions",
+			20,
+			&hinfo,
+			HASH_ELEM | HASH_BLOBS);
+
+	for (i = 0; derived_units[i].name && derived_units[i].flags & U_DERIVED; i++)
+	{
+		unit_dim = hash_search(unit_dimensions,
+				derived_units[i].units,
+				HASH_ENTER,
+				NULL);
+		memcpy(unit_dim->units, derived_units[i].units, N_UNITS);
+		strlcpy(unit_dim->name, derived_units[i].name, UNIT_NAME_LENGTH);
+	}
+}
+
 /* module initialization */
 
 PG_MODULE_MAGIC;
-
-static bool unit_byte_output_iec;
 
 void _PG_init(void);
 
@@ -51,6 +116,8 @@ _PG_init(void)
 			NULL);
 
 	EmitWarningsOnPlaceholders("unit");
+
+	unit_get_definitions();
 }
 
 /* internal functions */
@@ -62,20 +129,18 @@ unit_cstring (Unit *unit)
 	int		 i;
 	int		 n_numerator = 0;
 	int		 u_numerator = -1;
-	int		 derived_unit = -1;
+	unit_dimensions_t	*derived_unit = NULL;
 	char	*output;
 	char	*output_p;
 	bool	 numerator = false;
 	bool	 denominator = false;
 
 	/* check if this is a combination of base units we have a specific name for */
-	for (i = 0; derived_units[i].name && derived_units[i].flags & U_DERIVED; i++)
-		if (! memcmp(unit->units, derived_units[i].units, N_UNITS))
-		{
-			derived_unit = i;
-			break;
-		}
-	if (derived_unit == -1) /* otherwise, sum up positive exponents */
+	derived_unit = hash_search(unit_dimensions,
+			unit->units,
+			HASH_FIND,
+			NULL);
+	if (! derived_unit) /* otherwise, sum up positive exponents */
 		for (i = 0; i < N_UNITS; i++) {
 			if (unit->units[i] > 0) {
 				n_numerator += unit->units[i];
@@ -166,7 +231,7 @@ unit_cstring (Unit *unit)
 
 	/* case 2: derived unit, or numerator with exactly one unit (exponent 1)
 	 * not covered above */
-	} else if (derived_unit >= 0 || n_numerator == 1) {
+	} else if (derived_unit || n_numerator == 1) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "";
 		double	 factor = 1.0;
@@ -210,9 +275,9 @@ unit_cstring (Unit *unit)
 		} /* else do nothing */
 
 		/* case 2a: derived unit, print with SI prefix and exit */
-		if (derived_unit >= 0) {
+		if (derived_unit) {
 			print_output("%s %s%s", float8out_internal (unit->value * factor),
-					prefix, derived_units[i].name);
+					prefix, derived_unit->name);
 			return output;
 		}
 
@@ -766,4 +831,3 @@ unit_greatest(PG_FUNCTION_ARGS)
 		PG_RETURN_POINTER(a);
 	PG_RETURN_POINTER(b);
 }
-

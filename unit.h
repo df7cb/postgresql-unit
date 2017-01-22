@@ -13,7 +13,12 @@
 
 #define N_UNITS		8
 
-extern const char *base_units[N_UNITS];
+#define UNIT_NAME_LENGTH 32
+/* longest unit names (without prefixes) observed in definitions.units:
+ * hardtranslucentarkansas (23 chars)
+ * venezuelanbolivarfuerte */
+
+extern const char *base_units[N_UNITS]; /* names of base units */
 
 typedef enum unit_flags {
 	U_DERIVED = 1,
@@ -32,6 +37,16 @@ typedef struct Unit {
 	double			value;
 	signed char		units[N_UNITS];
 } Unit;
+
+typedef struct unit_names_t {
+	char		 name[UNIT_NAME_LENGTH];
+	Unit		 unit;
+} unit_names_t;
+
+typedef struct unit_dimensions_t {
+	char		 units[N_UNITS];
+	char		 name[UNIT_NAME_LENGTH];
+} unit_dimensions_t;
 
 int unit_parse (char *s, Unit *unit); /* in unit.y */
 

@@ -12,7 +12,7 @@ Some non-SI units are supported, namely *coherent* derived units such as
 *newton* and *joule*, *non-coherent* units such as *hours* and *litres*, and
 assorted *United States customary units* such as *inch* and *mile*.
 
-Requires PostgreSQL 9.4 or later (uses *psprintf()*), flex, and bison 3 (the
+Requires PostgreSQL 9.5 or later (uses *HASH_BLOBS*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
 
 [![Build Status](https://travis-ci.org/ChristophBerg/postgresql-unit.svg?branch=master)](https://travis-ci.org/ChristophBerg/postgresql-unit)

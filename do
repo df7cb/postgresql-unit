@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 set -eux
 
 export PGDATABASE=postgres
 
-for PGVERSION in 9.6 9.5 9.4; do
+for PGVERSION in ${*:-10 9.6 9.5}; do
 	echo
 	echo "### $PGVERSION ###"
 	PG_CONFIG=/usr/lib/postgresql/$PGVERSION/bin/pg_config
 	export PGCLUSTER="$PGVERSION/main"
+	export PGPORT="54${PGVERSION/./}"
+	[ "$PGVERSION" = "9.6" ] && unset PGPORT # default version
 
 	make clean
 	make PG_CONFIG=$PG_CONFIG PROFILE="-Werror"
