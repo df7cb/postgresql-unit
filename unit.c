@@ -831,3 +831,26 @@ unit_greatest(PG_FUNCTION_ARGS)
 		PG_RETURN_POINTER(a);
 	PG_RETURN_POINTER(b);
 }
+
+/* creating new units */
+
+PG_FUNCTION_INFO_V1(unit_new);
+
+Datum
+unit_new(PG_FUNCTION_ARGS)
+{
+	char			*name = PG_GETARG_CSTRING(0);
+	Unit			*unit = (Unit *) PG_GETARG_POINTER(1);
+	unit_names_t	*unit_name;
+	bool			 found;
+
+	unit_name = hash_search(unit_names,
+			name,
+			HASH_ENTER,
+			&found);
+	if (found)
+		elog(ERROR, "Unit \"%s\" is already defined", name);
+	strlcpy(unit_name->name, name, UNIT_NAME_LENGTH);
+	unit_name->unit = *unit;
+	PG_RETURN_NULL();
+}

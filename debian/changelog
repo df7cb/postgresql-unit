@@ -1,3 +1,12 @@
+postgresql-unit (3.0) UNRELEASED; urgency=medium
+
+  * Support defining new units at runtime.
+  * Bump extension version to 3.
+  * Bump minimum supported PostgreSQL version to 9.5 so we can use
+    hash_create(HASH_BLOBS).
+
+ -- Christoph Berg <myon@debian.org>  Sun, 22 Jan 2017 16:32:46 +0100
+
 postgresql-unit (2.0) unstable; urgency=medium
 
   * Support IEC binary prefixes for byte.

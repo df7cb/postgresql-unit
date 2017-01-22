@@ -1,7 +1,9 @@
 MODULE_big = unit
 OBJS = unit.o unitparse.yy.o unitparse.tab.o
 EXTENSION = unit
-DATA = unit--1.sql unit--1--2.sql unit--2.sql
+DATA = unit--1.sql unit--1--2.sql \
+	   unit--2.sql unit--2--3.sql \
+	   unit--3.sql
 REGRESS = extension tables unit prefix functions derived compare aggregate iec
 #REGRESS += upgrade
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o unit-*.dump # unitparse.tab.*
