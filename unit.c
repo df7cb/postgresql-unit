@@ -13,6 +13,7 @@ GNU General Public License for more details.
 */
 
 #include "postgres.h"
+#include <catalog/pg_collation.h> /* C_COLLATION_OID */
 #include "fmgr.h"
 #include "utils/guc.h"
 #include "utils/hsearch.h"
@@ -32,8 +33,10 @@ GNU General Public License for more details.
 
 static bool unit_byte_output_iec;
 
-static HTAB *unit_names = NULL;
+HTAB		*unit_names = NULL;
 static HTAB *unit_dimensions = NULL;
+HTAB		*unit_prefixes = NULL;
+regex_t		 unit_prefix_regex;
 
 /* unit definitions */
 
@@ -94,6 +97,66 @@ unit_get_definitions(void)
 	}
 }
 
+void unit_get_prefixes(void);
+
+void
+unit_get_prefixes(void)
+{
+	HASHCTL				 hinfo = { 0 };
+	int					 i;
+	unit_prefixes_t		*unit_prefix;
+	int					 re_len, w_re_len;
+	char				 re[1024] = { 0 };
+	pg_wchar			*w_re;
+
+	/* destroy old hash table */
+	if (unit_prefixes)
+		hash_destroy(unit_prefixes);
+
+	/* unit_prefixes: char *name -> double factor */
+	hinfo.keysize = UNIT_NAME_LENGTH;
+	hinfo.entrysize = sizeof(unit_prefixes_t);
+	Assert(UNIT_NAME_LENGTH + sizeof(double) == sizeof(unit_prefixes_t));
+	unit_prefixes = hash_create("unit_prefixes",
+			20,
+			&hinfo,
+			HASH_ELEM); /* Set keysize and entrysize */
+
+	for (i = 0; unit_predefined_prefixes[i].prefix; i++)
+	{
+		unit_prefix = hash_search(unit_prefixes,
+				unit_predefined_prefixes[i].prefix,
+				HASH_ENTER,
+				NULL);
+		strlcpy(unit_prefix->prefix, unit_predefined_prefixes[i].prefix, UNIT_NAME_LENGTH);
+		unit_prefix->factor = unit_predefined_prefixes[i].factor;
+
+		/* append to regexp */
+		if (*re)
+			strlcat(re, "|", sizeof(re));
+		strlcat(re, unit_predefined_prefixes[i].prefix, sizeof(re));
+	}
+
+	/* compile prefix regexp */
+	re_len = strlen(re);
+	w_re = (pg_wchar *) palloc((re_len + 1) * sizeof(pg_wchar));
+	w_re_len = pg_mb2wchar_with_len(re, w_re, re_len);
+	i = pg_regcomp(&unit_prefix_regex,
+			w_re, w_re_len,
+			REG_BASIC, C_COLLATION_OID);
+	pfree(w_re);
+	if (i != REG_OKAY)
+	{
+		char        errMsg[100];
+
+		pg_regerror(i, &unit_prefix_regex, errMsg, sizeof(errMsg));
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
+				 errmsg("regular expression failed: %s", errMsg)));
+	}
+
+}
+
 /* module initialization */
 
 PG_MODULE_MAGIC;
@@ -118,12 +181,13 @@ _PG_init(void)
 	EmitWarningsOnPlaceholders("unit");
 
 	unit_get_definitions();
+	unit_get_prefixes();
 }
 
 /* internal functions */
 
 /* format Unit as string */
-static char *
+char *
 unit_cstring (Unit *unit)
 {
 	int		 i;
@@ -567,12 +631,9 @@ unit_mul(PG_FUNCTION_ARGS)
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
-	int		 i;
 
 	result = (Unit *) palloc(sizeof(Unit));
-	result->value = a->value * b->value;
-	for (i = 0; i < N_UNITS; i++)
-		result->units[i] = a->units[i] + b->units[i];
+	unit_mult_internal(a, b, result);
 	PG_RETURN_POINTER(result);
 }
 
@@ -614,18 +675,9 @@ unit_div(PG_FUNCTION_ARGS)
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
-	int		 i;
-
-	if (b->value == 0)
-		ereport(ERROR,
-				(errcode(ERRCODE_DIVISION_BY_ZERO),
-				 errmsg("division by zero-valued unit: \"%s\"",
-					 unit_cstring(b))));
 
 	result = (Unit *) palloc(sizeof(Unit));
-	result->value = a->value / b->value;
-	for (i = 0; i < N_UNITS; i++)
-		result->units[i] = a->units[i] - b->units[i];
+	unit_div_internal(a, b, result);
 	PG_RETURN_POINTER(result);
 }
 
@@ -697,7 +749,6 @@ unit_at(PG_FUNCTION_ARGS)
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
 	char	*b = PG_GETARG_CSTRING(1);
 	Unit	 bu;
-	//int		 i;
 
 	if (unit_parse(b, &bu) > 0)
 		ereport(ERROR,

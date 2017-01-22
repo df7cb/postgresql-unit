@@ -23,20 +23,18 @@ struct yyunit_buffer_state *yyunit_scan_string(char *str);
 void yyunit_delete_buffer(struct yyunit_buffer_state *buffer);
 void yyerror (char const *s);
 
-static Unit *yyunit; /* parsing result gets stored here */
+static Unit *unit_parse_result; /* parsing result gets stored here */
 %}
 
 %define parse.error verbose
 %define api.prefix {yyunit}
 
 %define api.value.type union
-%token <double> DOUBLE
-%token <double> PREFIX
+%token <Unit> DOUBLE
 %token <Unit> UNIT
 %token <int> EXPONENT
-%token ERROR
-%type  <double> dbl maybe_prefix;
-%type  <Unit> input dimension
+%token ERR
+%type  <Unit> input expr
 %type  <int> maybe_exp
 
 %left '/'
@@ -45,50 +43,34 @@ static Unit *yyunit; /* parsing result gets stored here */
 %%
 
 input:
-  dbl dimension {
-	int i;
-	yyunit->value = $1 * $2.value;
-	for (i = 0; i < N_UNITS; i++)
-		yyunit->units[i] = $2.units[i];
+  expr {
+	*unit_parse_result = $1;
   }
 ;
 
-dbl:
-  %empty { $$ = 1.0; }
-| DOUBLE
-;
-
-dimension:
-  %empty { $$.value = 1.0; bzero(&$$.units, N_UNITS); }
-| maybe_prefix UNIT maybe_exp {
+expr:
+  DOUBLE {
+	$$ = $1;
+  }
+| UNIT maybe_exp {
 	int i;
-	if ($3 != 1) {
-		$$.value = pow($1 * $2.value, $3);
+	if ($2 != 1) {
+		$$.value = pow($1.value, $2);
 		for (i = 0; i < N_UNITS; i++)
-			$$.units[i] = $2.units[i] * $3;
+			$$.units[i] = $1.units[i] * $2;
 	} else {
-		$$.value = $1 * $2.value;
-		for (i = 0; i < N_UNITS; i++)
-			$$.units[i] = $2.units[i];
+		$$ = $1;
 	}
   }
-| dimension '*' dimension {
-	int i;
-	$$.value = $1.value * $3.value;
-	for (i = 0; i < N_UNITS; i++)
-		$$.units[i] = $1.units[i] + $3.units[i];
+| expr expr %prec '*' {
+	unit_mult_internal(&$1, &$2, &$$);
   }
-| dimension '/' dimension {
-	int i;
-	$$.value = $1.value / $3.value;
-	for (i = 0; i < N_UNITS; i++)
-		$$.units[i] = $1.units[i] - $3.units[i];
+| expr '*' expr {
+	unit_mult_internal(&$1, &$3, &$$);
   }
-;
-
-maybe_prefix:
-  %empty { $$ = 1.0; }
-| PREFIX
+| expr '/' expr {
+	unit_div_internal(&$1, &$3, &$$);
+  }
 ;
 
 maybe_exp:
@@ -105,7 +87,7 @@ unit_parse (char *s, Unit *unit)
 	struct yyunit_buffer_state *buf;
 	int ret;
 
-	yyunit = unit;
+	unit_parse_result = unit;
 	buf = yyunit_scan_string(s);
 	ret = yyunitparse();
 	yyunit_delete_buffer(buf);

@@ -54,10 +54,9 @@ extern int yyunitdebug;
   enum yyunittokentype
   {
     DOUBLE = 258,
-    PREFIX = 259,
-    UNIT = 260,
-    EXPONENT = 261,
-    ERROR = 262
+    UNIT = 259,
+    EXPONENT = 260,
+    ERR = 261
   };
 #endif
 
@@ -67,25 +66,19 @@ extern int yyunitdebug;
 union YYUNITSTYPE
 {
 
+  /* DOUBLE  */
+  Unit DOUBLE;
   /* UNIT  */
   Unit UNIT;
   /* input  */
   Unit input;
-  /* dimension  */
-  Unit dimension;
-  /* DOUBLE  */
-  double DOUBLE;
-  /* PREFIX  */
-  double PREFIX;
-  /* dbl  */
-  double dbl;
-  /* maybe_prefix  */
-  double maybe_prefix;
+  /* expr  */
+  Unit expr;
   /* EXPONENT  */
   int EXPONENT;
   /* maybe_exp  */
   int maybe_exp;
-#line 89 "unitparse.tab.h" /* yacc.c:1909  */
+#line 82 "unitparse.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;

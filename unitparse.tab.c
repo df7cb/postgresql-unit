@@ -83,7 +83,7 @@ struct yyunit_buffer_state *yyunit_scan_string(char *str);
 void yyunit_delete_buffer(struct yyunit_buffer_state *buffer);
 void yyerror (char const *s);
 
-static Unit *yyunit; /* parsing result gets stored here */
+static Unit *unit_parse_result; /* parsing result gets stored here */
 
 #line 89 "unitparse.tab.c" /* yacc.c:339  */
 
@@ -129,10 +129,9 @@ extern int yyunitdebug;
   enum yyunittokentype
   {
     DOUBLE = 258,
-    PREFIX = 259,
-    UNIT = 260,
-    EXPONENT = 261,
-    ERROR = 262
+    UNIT = 259,
+    EXPONENT = 260,
+    ERR = 261
   };
 #endif
 
@@ -142,25 +141,19 @@ extern int yyunitdebug;
 union YYUNITSTYPE
 {
 
+  /* DOUBLE  */
+  Unit DOUBLE;
   /* UNIT  */
   Unit UNIT;
   /* input  */
   Unit input;
-  /* dimension  */
-  Unit dimension;
-  /* DOUBLE  */
-  double DOUBLE;
-  /* PREFIX  */
-  double PREFIX;
-  /* dbl  */
-  double dbl;
-  /* maybe_prefix  */
-  double maybe_prefix;
+  /* expr  */
+  Unit expr;
   /* EXPONENT  */
   int EXPONENT;
   /* maybe_exp  */
   int maybe_exp;
-#line 164 "unitparse.tab.c" /* yacc.c:355  */
+#line 157 "unitparse.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;
@@ -177,7 +170,7 @@ int yyunitparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 181 "unitparse.tab.c" /* yacc.c:358  */
+#line 174 "unitparse.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -417,23 +410,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  4
+#define YYFINAL  7
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   10
+#define YYLAST   15
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  10
+#define YYNTOKENS  9
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  6
+#define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  12
+#define YYNRULES  9
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  15
+#define YYNSTATES  13
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   262
+#define YYMAXUTOK   261
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -446,7 +439,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     9,     2,     2,     2,     2,     8,     2,     2,
+       2,     2,     8,     2,     2,     2,     2,     7,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -468,15 +461,14 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7
+       5,     6
 };
 
 #if YYUNITDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    48,    48,    57,    58,    62,    63,    75,    81,    90,
-      91,    95,    96
+       0,    46,    46,    52,    55,    65,    68,    71,    77,    78
 };
 #endif
 
@@ -485,9 +477,8 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "DOUBLE", "PREFIX", "UNIT", "EXPONENT",
-  "ERROR", "'/'", "'*'", "$accept", "input", "dbl", "dimension",
-  "maybe_prefix", "maybe_exp", YY_NULLPTR
+  "$end", "error", "$undefined", "DOUBLE", "UNIT", "EXPONENT", "ERR",
+  "'/'", "'*'", "$accept", "input", "expr", "maybe_exp", YY_NULLPTR
 };
 #endif
 
@@ -496,16 +487,16 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262,    47,    42
+       0,   256,   257,   258,   259,   260,   261,    47,    42
 };
 # endif
 
-#define YYPACT_NINF -7
+#define YYPACT_NINF -3
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-7)))
+  (!!((Yystate) == (-3)))
 
-#define YYTABLE_NINF -10
+#define YYTABLE_NINF -1
 
 #define yytable_value_is_error(Yytable_value) \
   0
@@ -514,8 +505,8 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       1,    -7,     7,    -4,    -7,    -7,    -6,     3,    -4,    -4,
-       4,     0,     0,    -7,    -7
+       9,    -3,    -1,     3,    -2,    -3,    -3,    -3,     9,     9,
+       7,     7,     7
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -523,57 +514,55 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       3,     4,     0,     5,     1,    10,     2,     0,     5,     5,
-      11,     8,     7,    12,     6
+       0,     3,     8,     0,     2,     9,     4,     1,     0,     0,
+       5,     7,     6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,    -7,    -3,    -7,    -7
+      -3,    -3,     0,    -3
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     6,     7,    14
+      -1,     3,    10,     6
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_int8 yytable[] =
+static const yytype_uint8 yytable[] =
 {
-       5,    -9,     8,     9,     1,    11,    12,     4,    10,     9,
-      13
+       4,     1,     2,     7,     5,     8,     9,     0,    11,    12,
+       1,     2,     1,     2,     0,     9
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       4,     5,     8,     9,     3,     8,     9,     0,     5,     9,
-       6
+       0,     3,     4,     0,     5,     7,     8,    -1,     8,     9,
+       3,     4,     3,     4,    -1,     8
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    11,    12,     0,     4,    13,    14,     8,     9,
-       5,    13,    13,     6,    15
+       0,     3,     4,    10,    11,     5,    12,     0,     7,     8,
+      11,    11,    11
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    10,    11,    12,    12,    13,    13,    13,    13,    14,
-      14,    15,    15
+       0,     9,    10,    11,    11,    11,    11,    11,    12,    12
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2,     0,     1,     0,     3,     3,     3,     0,
-       1,     0,     1
+       0,     2,     1,     1,     2,     2,     3,     3,     0,     1
 };
 
 
@@ -1250,81 +1239,68 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 48 "unitparse.y" /* yacc.c:1646  */
+#line 46 "unitparse.y" /* yacc.c:1646  */
     {
-	int i;
-	yyunit->value = (*(double*)(&yyvsp[-1])) * (*(Unit*)(&yyvsp[0])).value;
-	for (i = 0; i < N_UNITS; i++)
-		yyunit->units[i] = (*(Unit*)(&yyvsp[0])).units[i];
+	*unit_parse_result = (*(Unit*)(&yyvsp[0]));
   }
-#line 1261 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1247 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 57 "unitparse.y" /* yacc.c:1646  */
-    { (*(double*)(&yyval)) = 1.0; }
-#line 1267 "unitparse.tab.c" /* yacc.c:1646  */
+#line 52 "unitparse.y" /* yacc.c:1646  */
+    {
+	(*(Unit*)(&yyval)) = (*(Unit*)(&yyvsp[0]));
+  }
+#line 1255 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
-  case 5:
-#line 62 "unitparse.y" /* yacc.c:1646  */
-    { (*(Unit*)(&yyval)).value = 1.0; bzero(&(*(Unit*)(&yyval)).units, N_UNITS); }
-#line 1273 "unitparse.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 6:
-#line 63 "unitparse.y" /* yacc.c:1646  */
+  case 4:
+#line 55 "unitparse.y" /* yacc.c:1646  */
     {
 	int i;
 	if ((*(int*)(&yyvsp[0])) != 1) {
-		(*(Unit*)(&yyval)).value = pow((*(double*)(&yyvsp[-2])) * (*(Unit*)(&yyvsp[-1])).value, (*(int*)(&yyvsp[0])));
+		(*(Unit*)(&yyval)).value = pow((*(Unit*)(&yyvsp[-1])).value, (*(int*)(&yyvsp[0])));
 		for (i = 0; i < N_UNITS; i++)
 			(*(Unit*)(&yyval)).units[i] = (*(Unit*)(&yyvsp[-1])).units[i] * (*(int*)(&yyvsp[0]));
 	} else {
-		(*(Unit*)(&yyval)).value = (*(double*)(&yyvsp[-2])) * (*(Unit*)(&yyvsp[-1])).value;
-		for (i = 0; i < N_UNITS; i++)
-			(*(Unit*)(&yyval)).units[i] = (*(Unit*)(&yyvsp[-1])).units[i];
+		(*(Unit*)(&yyval)) = (*(Unit*)(&yyvsp[-1]));
 	}
   }
-#line 1290 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1270 "unitparse.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 65 "unitparse.y" /* yacc.c:1646  */
+    {
+	unit_mult_internal(&(*(Unit*)(&yyvsp[-1])), &(*(Unit*)(&yyvsp[0])), &(*(Unit*)(&yyval)));
+  }
+#line 1278 "unitparse.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 68 "unitparse.y" /* yacc.c:1646  */
+    {
+	unit_mult_internal(&(*(Unit*)(&yyvsp[-2])), &(*(Unit*)(&yyvsp[0])), &(*(Unit*)(&yyval)));
+  }
+#line 1286 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 75 "unitparse.y" /* yacc.c:1646  */
+#line 71 "unitparse.y" /* yacc.c:1646  */
     {
-	int i;
-	(*(Unit*)(&yyval)).value = (*(Unit*)(&yyvsp[-2])).value * (*(Unit*)(&yyvsp[0])).value;
-	for (i = 0; i < N_UNITS; i++)
-		(*(Unit*)(&yyval)).units[i] = (*(Unit*)(&yyvsp[-2])).units[i] + (*(Unit*)(&yyvsp[0])).units[i];
+	unit_div_internal(&(*(Unit*)(&yyvsp[-2])), &(*(Unit*)(&yyvsp[0])), &(*(Unit*)(&yyval)));
   }
-#line 1301 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1294 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 81 "unitparse.y" /* yacc.c:1646  */
-    {
-	int i;
-	(*(Unit*)(&yyval)).value = (*(Unit*)(&yyvsp[-2])).value / (*(Unit*)(&yyvsp[0])).value;
-	for (i = 0; i < N_UNITS; i++)
-		(*(Unit*)(&yyval)).units[i] = (*(Unit*)(&yyvsp[-2])).units[i] - (*(Unit*)(&yyvsp[0])).units[i];
-  }
-#line 1312 "unitparse.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 9:
-#line 90 "unitparse.y" /* yacc.c:1646  */
-    { (*(double*)(&yyval)) = 1.0; }
-#line 1318 "unitparse.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 11:
-#line 95 "unitparse.y" /* yacc.c:1646  */
+#line 77 "unitparse.y" /* yacc.c:1646  */
     { (*(int*)(&yyval)) = 1; }
-#line 1324 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1300 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1328 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1304 "unitparse.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1552,7 +1528,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 99 "unitparse.y" /* yacc.c:1906  */
+#line 81 "unitparse.y" /* yacc.c:1906  */
 
 
 /* parse a given string and return the result via the second argument */
@@ -1562,7 +1538,7 @@ unit_parse (char *s, Unit *unit)
 	struct yyunit_buffer_state *buf;
 	int ret;
 
-	yyunit = unit;
+	unit_parse_result = unit;
 	buf = yyunit_scan_string(s);
 	ret = yyunitparse();
 	yyunit_delete_buffer(buf);

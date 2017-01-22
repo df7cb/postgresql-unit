@@ -17,6 +17,15 @@ const char *base_units[N_UNITS] = {
 
 const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki/International_System_of_Units */
 	/* name     m  kg   s   A   K  mol cd   B   factor  flags */
+	{ "m",   {  1,  0,  0,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* meter           length                    */
+	{ "kg",  {  0,  1,  0,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* kilogram        mass                      */
+	{ "s",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* second          time                      */
+	{ "A",   {  0,  0,  0,  1,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* ampere          electrical current        */
+	{ "K",   {  0,  0,  0,  0,  1,  0,  0,  0,}, 1.0, U_DERIVED }, /* kelvin          thermodynamic temperature */
+	{ "mol", {  0,  0,  0,  0,  0,  1,  0,  0,}, 1.0, U_DERIVED }, /* mole            amount of substance       */
+	{ "cd",  {  0,  0,  0,  0,  0,  0,  1,  0,}, 1.0, U_DERIVED }, /* candela         luminous intensity        */
+	{ "B",   {  0,  0,  0,  0,  0,  0,  0,  1,}, 1.0, U_DERIVED }, /* byte            information characters    */
+
 	{ "Hz",  {  0,  0, -1,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* hertz           frequency                                        s^-1 */
 	{ "N",   {  1,  1, -2,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* newton          force, weight                                    kg·m·s^-2 */
 	{ "Pa",  { -1,  1, -2,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* pascal          pressure, stress                         N/m^2   kg·m^-1·s^-2 */
@@ -59,6 +68,43 @@ const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki
 	{ "lb",  {  0,  1,  0,  0,  0,  0,  0,  0,}, .45359237, 0   }, /* pound                                                            453.59237 g */
 
 	{ 0 }
+};
+
+const struct prefixes_t
+unit_predefined_prefixes[] = {
+	{ "y",  1e-24 },
+	{ "z",  1e-21 },
+	{ "a",  1e-18 },
+	{ "f",  1e-15 },
+	{ "p",  1e-12 },
+	{ "n",  1e-9 },
+	{ "µ",  1e-6 },
+	{ "mu", 1e-6 },
+	{ "m",  1e-3 },
+	{ "c",  1e-2 },
+	{ "d",  1e-1 },
+
+	{ "da", 1e1 },
+	{ "h",  1e2 },
+	{ "k",  1e3 },
+	{ "M",  1e6 },
+	{ "G",  1e9 },
+	{ "T",  1e12 },
+	{ "P",  1e15 },
+	{ "E",  1e18 },
+	{ "Z",  1e21 },
+	{ "Y",  1e24 },
+
+	{ "Ki", 0x1p+10 },
+	{ "Mi", 0x1p+20 },
+	{ "Gi", 0x1p+30 },
+	{ "Ti", 0x1p+40 },
+	{ "Pi", 0x1p+50 },
+	{ "Ei", 0x1p+60 },
+	{ "Zi", 0x1p+70 },
+	{ "Yi", 0x1p+80 },
+
+	{ 0 },
 };
 
 #endif /* _DEFINED_UNITS_H */
