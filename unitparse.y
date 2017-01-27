@@ -39,6 +39,7 @@ static Unit *unit_parse_result; /* parsing result gets stored here */
 
 %left '/'
 %precedence '*' /* * binds stronger than / */
+%left '+' '-'
 
 %%
 
@@ -61,6 +62,12 @@ expr:
 	} else {
 		$$ = $1;
 	}
+  }
+| expr '+' expr {
+	unit_add_internal(&$1, &$3, &$$);
+  }
+| expr '-' expr {
+	unit_sub_internal(&$1, &$3, &$$);
   }
 | expr expr %prec '*' {
 	unit_mult_internal(&$1, &$2, &$$);

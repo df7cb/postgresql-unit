@@ -84,6 +84,33 @@ char *unit_cstring (Unit *unit);
 
 /* static functions */
 
+/* test if two Units have the same dimension */
+static inline void
+test_same_dimension (char *op, Unit *a, Unit *b)
+{
+	if (memcmp(a->units, b->units, N_UNITS))
+		ereport(ERROR,
+				(errcode(ERRCODE_DATA_EXCEPTION),
+				 errmsg("dimension mismatch in \"%s\" operation: \"%s\", \"%s\"",
+					 op, unit_cstring(a), unit_cstring(b))));
+}
+
+static inline void
+unit_add_internal (Unit *a, Unit *b, Unit *result)
+{
+	test_same_dimension("+", a, b);
+	result->value = a->value + b->value;
+	memcpy(result->units, a->units, N_UNITS);
+}
+
+static inline void
+unit_sub_internal (Unit *a, Unit *b, Unit *result)
+{
+	test_same_dimension("-", a, b);
+	result->value = a->value - b->value;
+	memcpy(result->units, a->units, N_UNITS);
+}
+
 static inline void
 unit_mult_internal (Unit *a, Unit *b, Unit *result)
 {

@@ -93,6 +93,7 @@ EXP_R    \^[\-+]?[0-9]+
 	name = hash_search(unit_names, yytext, HASH_FIND, NULL);
 	if (name)
 	{
+		elog(DEBUG1, "unit %s found in unit_names", name->name);
 		yyunitlval.UNIT = name->unit;
 		return UNIT;
 	}
@@ -113,9 +114,13 @@ EXP_R    \^[\-+]?[0-9]+
 
 	pfree(data);
 	if (match != REG_OKAY)
+	{
+		char	errMsg[100];
+		pg_regerror(match, &unit_prefix_regex, errMsg, sizeof(errMsg));
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-				 errmsg("Unknown prefix on unit \"%s\" in unit input", yytext)));
+				 errmsg("Unknown prefix on unit \"%s\" in unit input: %s", yytext, errMsg)));
+	}
 
 	if (pmatch.rm_so != 0)
 		elog(ERROR,
@@ -145,6 +150,8 @@ EXP_R    \^[\-+]?[0-9]+
 	return EXPONENT;
 }
 
+\+ return '+';
+-  return '-';
 \* return '*';
 \/ return '/';
 

@@ -138,6 +138,7 @@ unit_get_prefixes(void)
 	}
 
 	/* compile prefix regexp */
+	elog(DEBUG1, "unit prefixes regexp is %s", re);
 	re_len = strlen(re);
 	w_re = (pg_wchar *) palloc((re_len + 1) * sizeof(pg_wchar));
 	w_re_len = pg_mb2wchar_with_len(re, w_re, re_len);
@@ -381,17 +382,6 @@ unit_cstring (Unit *unit)
 	return output;
 }
 
-/* test if two Units have the same dimension */
-static inline void
-test_same_dimension (char *op, Unit *a, Unit *b)
-{
-	if (memcmp(a->units, b->units, N_UNITS))
-		ereport(ERROR,
-				(errcode(ERRCODE_DATA_EXCEPTION),
-				 errmsg("dimension mismatch in \"%s\" operation: \"%s\", \"%s\"",
-					 op, unit_cstring(a), unit_cstring(b))));
-}
-
 /* input and output */
 
 char *yyerrstr; /* copy of error catched by yyuniterror() */
@@ -586,10 +576,8 @@ unit_add(PG_FUNCTION_ARGS)
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
 
-	test_same_dimension("+", a, b);
 	result = (Unit *) palloc(sizeof(Unit));
-	result->value = a->value + b->value;
-	memcpy(result->units, a->units, N_UNITS);
+	unit_add_internal(a, b, result);
 	PG_RETURN_POINTER(result);
 }
 
@@ -602,10 +590,8 @@ unit_sub(PG_FUNCTION_ARGS)
 	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
 	Unit	*result;
 
-	test_same_dimension("-", a, b);
 	result = (Unit *) palloc(sizeof(Unit));
-	result->value = a->value - b->value;
-	memcpy(result->units, a->units, N_UNITS);
+	unit_sub_internal(a, b, result);
 	PG_RETURN_POINTER(result);
 }
 
