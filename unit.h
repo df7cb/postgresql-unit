@@ -3,7 +3,6 @@
 
 #include <postgres.h>
 #include <utils/hsearch.h>
-#include <regex/regex.h>
 
 /* indices */
 #define UNIT_m		0 /* meter */
@@ -66,15 +65,6 @@ typedef struct unit_dimensions_t {
 	char		 units[N_UNITS];
 	char		 name[UNIT_NAME_LENGTH];
 } unit_dimensions_t;
-
-extern HTAB		*unit_prefixes;
-
-typedef struct unit_prefixes_t {
-	char		 prefix[UNIT_NAME_LENGTH];
-	double		 factor;
-} unit_prefixes_t;
-
-extern regex_t	 unit_prefix_regex;
 
 /* parser interface */
 

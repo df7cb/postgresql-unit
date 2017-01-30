@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016 Christoph Berg
+Copyright (C) 2016-2017 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,11 +35,12 @@ static Unit *unit_parse_result; /* parsing result gets stored here */
 %token <int> EXPONENT
 %token ERR
 %type  <Unit> input expr
-%type  <int> maybe_exp
+/*%type  <int> maybe_exp */
 
+%left '+' '-'
 %left '/'
 %precedence '*' /* * binds stronger than / */
-%left '+' '-'
+%left '|'		/* tightly binding division for fractions */
 
 %%
 
@@ -50,10 +51,12 @@ input:
 ;
 
 expr:
-  DOUBLE {
-	$$ = $1;
+  DOUBLE
+| UNIT
+| '(' expr ')' {
+	$$ = $2;
   }
-| UNIT maybe_exp {
+| expr EXPONENT {
 	int i;
 	if ($2 != 1) {
 		$$.value = pow($1.value, $2);
@@ -78,12 +81,17 @@ expr:
 | expr '/' expr {
 	unit_div_internal(&$1, &$3, &$$);
   }
+| expr '|' expr {
+	unit_div_internal(&$1, &$3, &$$);
+  }
 ;
 
+/*
 maybe_exp:
   %empty { $$ = 1; }
 | EXPONENT
 ;
+*/
 
 %%
 

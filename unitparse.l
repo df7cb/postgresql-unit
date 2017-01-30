@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016 Christoph Berg
+Copyright (C) 2016-2017 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,6 +15,9 @@ GNU General Public License for more details.
 %{
 #include "unit.h"
 #include "unitparse.tab.h"
+#include <executor/spi.h>
+#include <utils/builtins.h> /* CStringGetTextDatum */
+#include <catalog/pg_type.h> /* TEXTOID */
 
 #define when(x) if (!strcmp(yytext, x))
 %}
@@ -24,8 +27,17 @@ GNU General Public License for more details.
 %option nounput
 %option noinput
 
+ /* UTF-8 support, see http://stackoverflow.com/questions/9611682/flexlexer-support-for-unicode */
+U       [\x80-\xbf]
+U2      [\xc2-\xdf]
+U3      [\xe0-\xef]
+U4      [\xf0-\xf4]
+UTF8    {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
+ALPHA   [a-zA-Z_]|{UTF8}
+ALNUM   [a-zA-Z0-9_]|{UTF8}
+
 DOUBLE_R [\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
-UNIT_R   [a-zA-Z_][a-zA-Z_0-9]*
+UNIT_R   {ALPHA}{ALNUM}*
 EXP_R    \^[\-+]?[0-9]+
 
 %%
@@ -81,15 +93,14 @@ EXP_R    \^[\-+]?[0-9]+
 
 {UNIT_R}    {
 	unit_names_t	*name;
-	int			yylen;
-	pg_wchar   *data;
-	int			data_len;
-	bool		match;
-	regmatch_t	pmatch;
-	char		p[UNIT_NAME_LENGTH]; /* prefix string found */
-	unit_prefixes_t *prefix;
+	int			ret;
+	Oid			argtypes[1];
+	Datum		values[1];
+	double		factor;
+	Unit	   *unitp;
+	bool		is_null;
 
-	/* Check if it's a unit without any prefix */
+	/* Check if it's a predefined or previously seen unit */
 	name = hash_search(unit_names, yytext, HASH_FIND, NULL);
 	if (name)
 	{
@@ -98,50 +109,77 @@ EXP_R    \^[\-+]?[0-9]+
 		return UNIT;
 	}
 
-	/* Check if it starts with a prefix we know */
-	/* Convert data string to wide characters */
-	yylen = strlen(yytext);
-	data = (pg_wchar *) palloc((yylen + 1) * sizeof(pg_wchar));
-	data_len = pg_mb2wchar_with_len(yytext, data, yylen);
+	SPI_connect();
 
-	/* Perform RE match and return result */
-	match = pg_regexec(&unit_prefix_regex, data, data_len,
-		0,		 /* start at beginning */
-		NULL,	 /* no details */
-		1,		 /* nmatch */
-		&pmatch, /* store start/end here */
-		0);		 /* no flags */
+	argtypes[0] = TEXTOID;
+	values[0] = CStringGetTextDatum(yytext);
 
-	pfree(data);
-	if (match != REG_OKAY)
+	/* look up unit definition without prefix first */
+	ret = SPI_execute_with_args("SELECT name, unit "
+								"FROM unit_units WHERE "
+								"name = $1",
+								1, /* nargs */
+								argtypes,
+								values,
+								NULL, /* nulls */
+								true, /* read only */
+								0); /* limit */
+	if (ret != SPI_OK_SELECT)
+		elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
+
+	if (SPI_processed == 1) /* found definition */
 	{
-		char	errMsg[100];
-		pg_regerror(match, &unit_prefix_regex, errMsg, sizeof(errMsg));
-		ereport(ERROR,
-				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-				 errmsg("Unknown prefix on unit \"%s\" in unit input: %s", yytext, errMsg)));
+		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null));
+		if (is_null)
+			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+		yyunitlval.UNIT = *unitp;
+
+		elog(DEBUG1, "unit %s (value %g)",
+				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+				unitp->value);
+	}
+	else /* no result, try lookup with prefix */
+	{
+		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit "
+									"FROM unit_prefixes CROSS JOIN unit_units WHERE "
+									"prefix||name = $1 AND "
+									"$1 LIKE prefix||'%' AND "
+									"$1 LIKE '%'||name",
+									1, /* nargs */
+									argtypes,
+									values,
+									NULL, /* nulls */
+									true, /* read only */
+									0); /* limit */
+		if (ret != SPI_OK_SELECT)
+			elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
+
+		if (SPI_processed == 0)
+			elog(ERROR, "unit \"%s\" is not known", yytext);
+		if (SPI_processed > 1)
+			elog(ERROR, "unit \"%s\" is ambiguous", yytext);
+
+		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
+		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
+		if (is_null)
+			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+		yyunitlval.UNIT = *unitp;
+		yyunitlval.UNIT.value *= factor;
+
+		elog(DEBUG1, "prefix %s (%g), unit %s (value %g)",
+				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+				factor,
+				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
+				unitp->value);
 	}
 
-	if (pmatch.rm_so != 0)
-		elog(ERROR,
-			 "Regex match expected at position 0, but found at %ld", pmatch.rm_so);
+	/* store computed unit in hash table */
+	name = hash_search(unit_names, yytext, HASH_ENTER, NULL);
+	strlcpy(name->name, yytext, UNIT_NAME_LENGTH);
+	name->unit = yyunitlval.UNIT;
 
-	strlcpy(p, yytext, pmatch.rm_so);
-	prefix = hash_search(unit_prefixes, p, HASH_FIND, NULL);
-	if (! prefix)
-		ereport(ERROR,
-				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-				 errmsg("Prefix \"%s\" on input unit \"%s\" not found in hash table", p, yytext)));
+	SPI_finish();
 
-	/* Now see if the remainder is a known unit */
-	name = hash_search(unit_names, yytext + pmatch.rm_so, HASH_FIND, NULL);
-	if (! name)
-		ereport(ERROR,
-				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-				 errmsg("Unknown unit \"%s-%s\" in unit input", prefix->prefix, yytext + pmatch.rm_so)));
-
-	yyunitlval.UNIT = name->unit;
-	yyunitlval.UNIT.value *= prefix->factor;
 	return UNIT;
 }
 
@@ -152,8 +190,12 @@ EXP_R    \^[\-+]?[0-9]+
 
 \+ return '+';
 -  return '-';
-\* return '*';
 \/ return '/';
+\* return '*';
+\| return '|';
+
+\( return '(';
+\) return ')';
 
 [ \t\n]* /* eat whitespace */
 

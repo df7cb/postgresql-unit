@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016 Christoph Berg
+Copyright (C) 2016-2017 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,6 +31,20 @@ CREATE TYPE unit (
 	input = unit_in,
 	output = unit_out,
 	alignment = double
+);
+
+-- prefix/unit definition tables
+
+CREATE TABLE unit_prefixes (
+	prefix varchar(32) PRIMARY KEY,
+	factor double precision NOT NULL,
+	definition text NOT NULL
+);
+
+CREATE TABLE unit_units (
+	name varchar(32) PRIMARY KEY,
+	unit unit, -- TODO: NOT NULL
+	definition text NOT NULL
 );
 
 -- constructors

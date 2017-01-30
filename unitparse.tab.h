@@ -76,9 +76,7 @@ union YYUNITSTYPE
   Unit expr;
   /* EXPONENT  */
   int EXPONENT;
-  /* maybe_exp  */
-  int maybe_exp;
-#line 82 "unitparse.tab.h" /* yacc.c:1909  */
+#line 80 "unitparse.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;

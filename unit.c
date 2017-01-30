@@ -35,8 +35,6 @@ static bool unit_byte_output_iec;
 
 HTAB		*unit_names = NULL;
 static HTAB *unit_dimensions = NULL;
-HTAB		*unit_prefixes = NULL;
-regex_t		 unit_prefix_regex;
 
 /* unit definitions */
 
@@ -86,8 +84,10 @@ unit_get_definitions(void)
 			&hinfo,
 			HASH_ELEM | HASH_BLOBS);
 
-	for (i = 0; derived_units[i].name && derived_units[i].flags & U_DERIVED; i++)
+	for (i = 0; derived_units[i].name; i++)
 	{
+		if (! derived_units[i].flags & U_DERIVED)
+			continue;
 		unit_dim = hash_search(unit_dimensions,
 				derived_units[i].units,
 				HASH_ENTER,
@@ -95,67 +95,6 @@ unit_get_definitions(void)
 		memcpy(unit_dim->units, derived_units[i].units, N_UNITS);
 		strlcpy(unit_dim->name, derived_units[i].name, UNIT_NAME_LENGTH);
 	}
-}
-
-void unit_get_prefixes(void);
-
-void
-unit_get_prefixes(void)
-{
-	HASHCTL				 hinfo = { 0 };
-	int					 i;
-	unit_prefixes_t		*unit_prefix;
-	int					 re_len, w_re_len;
-	char				 re[1024] = { 0 };
-	pg_wchar			*w_re;
-
-	/* destroy old hash table */
-	if (unit_prefixes)
-		hash_destroy(unit_prefixes);
-
-	/* unit_prefixes: char *name -> double factor */
-	hinfo.keysize = UNIT_NAME_LENGTH;
-	hinfo.entrysize = sizeof(unit_prefixes_t);
-	Assert(UNIT_NAME_LENGTH + sizeof(double) == sizeof(unit_prefixes_t));
-	unit_prefixes = hash_create("unit_prefixes",
-			20,
-			&hinfo,
-			HASH_ELEM); /* Set keysize and entrysize */
-
-	for (i = 0; unit_predefined_prefixes[i].prefix; i++)
-	{
-		unit_prefix = hash_search(unit_prefixes,
-				unit_predefined_prefixes[i].prefix,
-				HASH_ENTER,
-				NULL);
-		strlcpy(unit_prefix->prefix, unit_predefined_prefixes[i].prefix, UNIT_NAME_LENGTH);
-		unit_prefix->factor = unit_predefined_prefixes[i].factor;
-
-		/* append to regexp */
-		if (*re)
-			strlcat(re, "|", sizeof(re));
-		strlcat(re, unit_predefined_prefixes[i].prefix, sizeof(re));
-	}
-
-	/* compile prefix regexp */
-	elog(DEBUG1, "unit prefixes regexp is %s", re);
-	re_len = strlen(re);
-	w_re = (pg_wchar *) palloc((re_len + 1) * sizeof(pg_wchar));
-	w_re_len = pg_mb2wchar_with_len(re, w_re, re_len);
-	i = pg_regcomp(&unit_prefix_regex,
-			w_re, w_re_len,
-			REG_BASIC, C_COLLATION_OID);
-	pfree(w_re);
-	if (i != REG_OKAY)
-	{
-		char        errMsg[100];
-
-		pg_regerror(i, &unit_prefix_regex, errMsg, sizeof(errMsg));
-		ereport(ERROR,
-				(errcode(ERRCODE_INVALID_REGULAR_EXPRESSION),
-				 errmsg("regular expression failed: %s", errMsg)));
-	}
-
 }
 
 /* module initialization */
@@ -182,7 +121,6 @@ _PG_init(void)
 	EmitWarningsOnPlaceholders("unit");
 
 	unit_get_definitions();
-	unit_get_prefixes();
 }
 
 /* internal functions */

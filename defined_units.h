@@ -17,14 +17,14 @@ const char *base_units[N_UNITS] = {
 
 const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki/International_System_of_Units */
 	/* name     m  kg   s   A   K  mol cd   B   factor  flags */
-	{ "m",   {  1,  0,  0,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* meter           length                    */
-	{ "kg",  {  0,  1,  0,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* kilogram        mass                      */
-	{ "s",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* second          time                      */
-	{ "A",   {  0,  0,  0,  1,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* ampere          electrical current        */
-	{ "K",   {  0,  0,  0,  0,  1,  0,  0,  0,}, 1.0, U_DERIVED }, /* kelvin          thermodynamic temperature */
-	{ "mol", {  0,  0,  0,  0,  0,  1,  0,  0,}, 1.0, U_DERIVED }, /* mole            amount of substance       */
-	{ "cd",  {  0,  0,  0,  0,  0,  0,  1,  0,}, 1.0, U_DERIVED }, /* candela         luminous intensity        */
-	{ "B",   {  0,  0,  0,  0,  0,  0,  0,  1,}, 1.0, U_DERIVED }, /* byte            information characters    */
+	{ "m",   {  1,  0,  0,  0,  0,  0,  0,  0,}, 1.0, 0 }, /* meter           length                    */
+	{ "kg",  {  0,  1,  0,  0,  0,  0,  0,  0,}, 1.0, 0 }, /* kilogram        mass                      */
+	{ "s",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 1.0, 0 }, /* second          time                      */
+	{ "A",   {  0,  0,  0,  1,  0,  0,  0,  0,}, 1.0, 0 }, /* ampere          electrical current        */
+	{ "K",   {  0,  0,  0,  0,  1,  0,  0,  0,}, 1.0, 0 }, /* kelvin          thermodynamic temperature */
+	{ "mol", {  0,  0,  0,  0,  0,  1,  0,  0,}, 1.0, 0 }, /* mole            amount of substance       */
+	{ "cd",  {  0,  0,  0,  0,  0,  0,  1,  0,}, 1.0, 0 }, /* candela         luminous intensity        */
+	{ "B",   {  0,  0,  0,  0,  0,  0,  0,  1,}, 1.0, 0 }, /* byte            information characters    */
 
 	{ "Hz",  {  0,  0, -1,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* hertz           frequency                                        s^-1 */
 	{ "N",   {  1,  1, -2,  0,  0,  0,  0,  0,}, 1.0, U_DERIVED }, /* newton          force, weight                                    kg·m·s^-2 */
