@@ -30,17 +30,17 @@ static Unit *unit_parse_result; /* parsing result gets stored here */
 %define api.prefix {yyunit}
 
 %define api.value.type union
-%token <Unit> DOUBLE
+%token <double> DOUBLE
 %token <Unit> UNIT
 %token <int> EXPONENT
 %token ERR
 %type  <Unit> input expr
-/*%type  <int> maybe_exp */
+%type  <double> number
 
 %left '+' '-'
 %left '/'
-%precedence '*' /* * binds stronger than / */
-%left '|'		/* tightly binding division for fractions */
+%left '*' /* * binds stronger than / */
+%left UMINUS	/* unary minus */
 
 %%
 
@@ -51,7 +51,10 @@ input:
 ;
 
 expr:
-  DOUBLE
+  number {
+	$$.value = $1;
+	memset(&$$.units, 0, N_UNITS);
+  }
 | UNIT
 | '(' expr ')' {
 	$$ = $2;
@@ -81,18 +84,21 @@ expr:
 | expr '/' expr {
 	unit_div_internal(&$1, &$3, &$$);
   }
-| expr '|' expr {
-	unit_div_internal(&$1, &$3, &$$);
+| '/' expr {
+	Unit nominator = { 1.0, {0} };
+	unit_div_internal(&nominator, &$2, &$$);
+  }
+| '-' expr %prec UMINUS {
+	$$ = $2;
+	$$.value *= -1;
   }
 ;
 
-/*
-maybe_exp:
-  %empty { $$ = 1; }
-| EXPONENT
-;
-*/
-
+number:
+  DOUBLE
+| DOUBLE '|' DOUBLE {
+    $$ = $1 / $3;
+  }
 %%
 
 /* parse a given string and return the result via the second argument */

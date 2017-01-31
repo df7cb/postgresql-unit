@@ -56,7 +56,8 @@ extern int yyunitdebug;
     DOUBLE = 258,
     UNIT = 259,
     EXPONENT = 260,
-    ERR = 261
+    ERR = 261,
+    UMINUS = 262
   };
 #endif
 
@@ -66,17 +67,19 @@ extern int yyunitdebug;
 union YYUNITSTYPE
 {
 
-  /* DOUBLE  */
-  Unit DOUBLE;
   /* UNIT  */
   Unit UNIT;
   /* input  */
   Unit input;
   /* expr  */
   Unit expr;
+  /* DOUBLE  */
+  double DOUBLE;
+  /* number  */
+  double number;
   /* EXPONENT  */
   int EXPONENT;
-#line 80 "unitparse.tab.h" /* yacc.c:1909  */
+#line 83 "unitparse.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;

@@ -43,8 +43,7 @@ EXP_R    \^[\-+]?[0-9]+
 %%
 
 {DOUBLE_R} {
-	yyunitlval.UNIT.value = atof(yytext);
-	bzero(&yyunitlval.UNIT.units, N_UNITS);
+	yyunitlval.DOUBLE = atof(yytext);
 	return DOUBLE;
 }
 
@@ -173,12 +172,12 @@ EXP_R    \^[\-+]?[0-9]+
 				unitp->value);
 	}
 
+	SPI_finish();
+
 	/* store computed unit in hash table */
 	name = hash_search(unit_names, yytext, HASH_ENTER, NULL);
 	strlcpy(name->name, yytext, UNIT_NAME_LENGTH);
 	name->unit = yyunitlval.UNIT;
-
-	SPI_finish();
 
 	return UNIT;
 }
