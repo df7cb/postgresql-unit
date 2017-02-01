@@ -20,8 +20,14 @@
 
 #define UNIT_NAME_LENGTH 32
 /* longest unit names (without prefixes) observed in definitions.units:
+ * specificheat_glass_silica (25 chars)
  * hardtranslucentarkansas (23 chars)
  * venezuelanbolivarfuerte */
+
+#define MIN_PLURAL_LENGTH 4
+/* minimum length of input unit to consider stripping a trailing plural 's'
+ * secs
+ */
 
 extern const char *base_units[N_UNITS]; /* names of base units */
 

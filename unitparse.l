@@ -33,8 +33,8 @@ U2      [\xc2-\xdf]
 U3      [\xe0-\xef]
 U4      [\xf0-\xf4]
 UTF8    {U2}{U}|{U3}{U}{U}|{U4}{U}{U}{U}
-ALPHA   [a-zA-Z_]|{UTF8}
-ALNUM   [a-zA-Z0-9_]|{UTF8}
+ALPHA   [a-zA-Z$%'"_]|{UTF8}
+ALNUM   [a-zA-Z$%'"_0-9]|{UTF8}
 
 DOUBLE_R [\-+]?[0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 UNIT_R   {ALPHA}{ALNUM}*
@@ -98,12 +98,13 @@ EXP_R    \^[\-+]?[0-9]+
 	double		factor;
 	Unit	   *unitp;
 	bool		is_null;
+	size_t		yytext_len;
 
 	/* Check if it's a predefined or previously seen unit */
 	name = hash_search(unit_names, yytext, HASH_FIND, NULL);
 	if (name)
 	{
-		elog(DEBUG1, "unit %s found in unit_names", name->name);
+		elog(DEBUG1, "unit %s found in unit_names hash table", name->name);
 		yyunitlval.UNIT = name->unit;
 		return UNIT;
 	}
@@ -114,7 +115,7 @@ EXP_R    \^[\-+]?[0-9]+
 	values[0] = CStringGetTextDatum(yytext);
 
 	/* look up unit definition without prefix first */
-	ret = SPI_execute_with_args("SELECT name, unit "
+	ret = SPI_execute_with_args("SELECT unit "
 								"FROM unit_units WHERE "
 								"name = $1",
 								1, /* nargs */
@@ -128,7 +129,7 @@ EXP_R    \^[\-+]?[0-9]+
 
 	if (SPI_processed == 1) /* found definition */
 	{
-		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null));
+		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
 		if (is_null)
 			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
 		yyunitlval.UNIT = *unitp;
@@ -136,14 +137,46 @@ EXP_R    \^[\-+]?[0-9]+
 		elog(DEBUG1, "unit %s (value %g)",
 				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
 				unitp->value);
+
+		goto found;
 	}
-	else /* no result, try lookup with prefix */
+
+	/* look up definition with prefix */
+	ret = SPI_execute_with_args("SELECT prefix, factor, name, unit "
+								"FROM unit_prefixes CROSS JOIN unit_units WHERE "
+								"prefix||name = $1 AND "
+								"$1 LIKE prefix||'%' AND "
+								"$1 LIKE '%'||name",
+								1, /* nargs */
+								argtypes,
+								values,
+								NULL, /* nulls */
+								true, /* read only */
+								0); /* limit */
+	if (ret != SPI_OK_SELECT)
+		elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
+
+	if (SPI_processed > 1)
+		elog(ERROR, "unit \"%s\" is ambiguous", yytext);
+
+	if (SPI_processed == 1) /* found definition */
 	{
-		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit "
-									"FROM unit_prefixes CROSS JOIN unit_units WHERE "
-									"prefix||name = $1 AND "
-									"$1 LIKE prefix||'%' AND "
-									"$1 LIKE '%'||name",
+		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
+		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
+		if (is_null)
+			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+		yyunitlval.UNIT = *unitp;
+		yyunitlval.UNIT.value *= factor;
+
+		goto found;
+	}
+
+	/* look up unit definition with plural 's' removed */
+	yytext_len = strlen(yytext);
+	if (yytext_len >= MIN_PLURAL_LENGTH && yytext[yytext_len - 1] == 's') {
+		ret = SPI_execute_with_args("SELECT unit "
+									"FROM unit_units WHERE "
+									"name = substring($1 for length($1) - 1)",
 									1, /* nargs */
 									argtypes,
 									values,
@@ -153,24 +186,63 @@ EXP_R    \^[\-+]?[0-9]+
 		if (ret != SPI_OK_SELECT)
 			elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
 
-		if (SPI_processed == 0)
-			elog(ERROR, "unit \"%s\" is not known", yytext);
+		if (SPI_processed == 1) /* found definition */
+		{
+			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
+			if (is_null)
+				elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+			yyunitlval.UNIT = *unitp;
+
+			elog(DEBUG1, "unit %s (value %g)",
+					SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+					unitp->value);
+
+			goto found;
+		}
+
+		/* look up definition with prefix */
+		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit "
+									"FROM unit_prefixes CROSS JOIN unit_units WHERE "
+									"prefix||name = substring($1 for length($1) - 1) AND "
+									"substring($1 for length($1) - 1) LIKE prefix||'%' AND "
+									"substring($1 for length($1) - 1) LIKE '%'||name",
+									1, /* nargs */
+									argtypes,
+									values,
+									NULL, /* nulls */
+									true, /* read only */
+									0); /* limit */
+		if (ret != SPI_OK_SELECT)
+			elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
+
 		if (SPI_processed > 1)
 			elog(ERROR, "unit \"%s\" is ambiguous", yytext);
 
-		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
-		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
-		if (is_null)
-			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
-		yyunitlval.UNIT = *unitp;
-		yyunitlval.UNIT.value *= factor;
+		if (SPI_processed == 1) /* found definition */
+		{
+			factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
+			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
+			if (is_null)
+				elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+			yyunitlval.UNIT = *unitp;
+			yyunitlval.UNIT.value *= factor;
 
-		elog(DEBUG1, "prefix %s (%g), unit %s (value %g)",
-				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
-				factor,
-				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
-				unitp->value);
+			goto found;
+		}
 	}
+
+	/* nothing found, error out */
+	elog(ERROR, "unit \"%s\" is not known", yytext);
+
+found:
+
+	/*
+	elog(DEBUG1, "prefix %s (%g), unit %s (value %g)",
+			SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+			factor,
+			SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
+			unitp->value);
+			*/
 
 	SPI_finish();
 
