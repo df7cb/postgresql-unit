@@ -38,6 +38,15 @@ SELECT '-1 m/s'::unit;
 SELECT '10 dm^3'::unit, '10l'::unit;
 SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
 SELECT '1 foobar'::unit AS error;
+
+-- test parser arithmetic
+SELECT '1|10'::unit, '1|10 m'::unit;
+SELECT '2 m + 3 m - 4 m'::unit, '6 m - 3 m - 2 m'::unit, '6 m - 3 m + 1 m'::unit;
+SELECT '2 m * 3 m'::unit, '2 m / 3 m'::unit, '10 m / 5 m / 2 m'::unit;
+SELECT '2 m^2 + 3 m * 4 m'::unit, '2 m * 3 m / 4 m * 5 m'::unit;
+SELECT '2 m * (1 m + 3 m)'::unit;
+SELECT '- m'::unit, '/ m'::unit;
+
 -- problematic cases
 SELECT '1 cd'::unit AS candela; -- candela vs centiday
 SELECT '1 Pa'::unit AS pascal; -- pascal vs petayear
@@ -47,6 +56,11 @@ SELECT '1 min'::unit AS minute; -- minute vs milliinch
 SELECT '1 ft'::unit AS foot; -- foot vs femtotonne
 SELECT '1 yd'::unit AS yard; -- yard vs yoctoday
 
+-- units whose definition changed between v2 and 3
+SELECT 'a'::unit AS are;
+SELECT 'da'::unit AS day;
+SELECT 'rad'::unit AS radiation;
+
 -- check which prefix/unit combinations produce other dimensions (parser conflicts)
 SELECT
   p, u, (p||u)::unit
@@ -54,5 +68,6 @@ FROM
   prefixes CROSS JOIN units
 WHERE
   u <> 'kg' AND
-  dimension(u::unit) != dimension((p||u)::unit)
+  dimension(u::unit) != dimension((p||u)::unit) AND
+  p||u NOT IN ('dat') -- skip ambiguous unit
 ORDER BY lower(p), lower(u);

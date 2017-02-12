@@ -1,12 +1,15 @@
+definitions.units.patched
 powers
 regression.diffs
 regression.out
 results/
 tags
+unit--2--3.sql
+unit--3.sql
 unit.o
-unit.so
 unitparse.tab.o
 unitparse.yy.c
 unitparse.yy.o
+unit.so
 unittest
 unittest.o

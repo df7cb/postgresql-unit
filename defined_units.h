@@ -48,10 +48,10 @@ const struct derived_unit_t derived_units[] = { /* https://en.wikipedia.org/wiki
 	{ "t",   {  0,  1,  0,  0,  0,  0,  0,  0,}, 1000, 0        }, /* tonne                                                            1e3 kg */
 	{ "bar", { -1,  1, -2,  0,  0,  0,  0,  0,}, 100000, 0      }, /* bar                                                              100 kPa */
 	{ "min", {  0,  0,  1,  0,  0,  0,  0,  0,}, 60, 0          }, /* minute                                                           60 s */
-	{ "h",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 3600, 0        }, /* hour                                                             60 min */
+//	{ "h",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 3600, 0        }, /* hour                                                             60 min */
 	{ "d",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 86400, 0       }, /* day                                                              24 h */
-	{ "a",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 365.25 * 86400, 0 }, /* julian year                                                   365.25 d */
-	{ "rad", {  0,  0,  0,  0,  0,  0,  0,  0,}, 1.0, 0         }, /* radian          angle                                            m·m^-1 */
+//	{ "a",   {  0,  0,  1,  0,  0,  0,  0,  0,}, 365.25 * 86400, 0 }, /* julian year                                                   365.25 d */
+//	{ "rad", {  0,  0,  0,  0,  0,  0,  0,  0,}, 1.0, 0         }, /* radian          angle                                            m·m^-1 */
 	{ "sr",  {  0,  0,  0,  0,  0,  0,  0,  0,}, 1.0, 0         }, /* steradian       solid angle                                      m^2·m^-2 */
 	{ "ohm", {  2,  1, -3, -2,  0,  0,  0,  0,}, 1.0, 0         }, /* ohm             electric resistance, impedance           V/A     kg·m^2·s^-3·A^-2 */
 	{ "°C",  {  0,  0,  0,  0,  1,  0,  0,  0,}, 1.0, 0         }, /* degree Celsius  temperature relative to 273.15           K       K */

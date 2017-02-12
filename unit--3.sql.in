@@ -41,11 +41,15 @@ CREATE TABLE unit_prefixes (
 	definition text NOT NULL
 );
 
+COPY unit_prefixes FROM '@MODULEDIR@/unit_prefixes.data';
+
 CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
 	unit unit, -- TODO: NOT NULL
 	definition text NOT NULL
 );
+
+COPY unit_units FROM '@MODULEDIR@/unit_units.data';
 
 -- constructors
 
@@ -558,4 +562,9 @@ CREATE AGGREGATE stddev(unit)
 CREATE FUNCTION unit_new(cstring, unit)
 	RETURNS void
 	AS '$libdir/unit'
-	LANGUAGE C IMMUTABLE STRICT;
+	LANGUAGE C VOLATILE STRICT;
+
+CREATE FUNCTION unit_is_hashed(cstring)
+	RETURNS bool
+	AS '$libdir/unit'
+	LANGUAGE C VOLATILE STRICT;

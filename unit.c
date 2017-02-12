@@ -32,6 +32,7 @@ GNU General Public License for more details.
 /* global variables */
 
 static bool unit_byte_output_iec;
+static bool unit_output_base_units;
 
 HTAB		*unit_names = NULL;
 static HTAB *unit_dimensions = NULL;
@@ -63,6 +64,8 @@ unit_get_definitions(void)
 
 	for (i = 0; derived_units[i].name; i++)
 	{
+		if (derived_units[i].flags & U_DERIVED)
+			break; // FIXME: split tables
 		unit_name = hash_search(unit_names,
 				derived_units[i].name,
 				HASH_ENTER,
@@ -118,6 +121,18 @@ _PG_init(void)
 			NULL,
 			NULL);
 
+	DefineCustomBoolVariable("unit.output_base_units",
+			"Output unit values using base units without prefixes",
+			"Set to on to output unit values using base units only "
+			"and without prefixes",
+			&unit_output_base_units,
+			false,
+			PGC_USERSET,
+			0, /* no flags */
+			NULL,
+			NULL,
+			NULL);
+
 	EmitWarningsOnPlaceholders("unit");
 
 	unit_get_definitions();
@@ -155,7 +170,7 @@ unit_cstring (Unit *unit)
 #define print_output(...) output_p += sprintf(output_p, __VA_ARGS__);
 
 	/* case 1a: kg in numerator (exponent 1): print with SI prefix */
-	if (n_numerator == 1 && u_numerator == UNIT_kg) {
+	if (!unit_output_base_units && n_numerator == 1 && u_numerator == UNIT_kg) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "k";
 		double	 factor = 1.0;
@@ -203,7 +218,7 @@ unit_cstring (Unit *unit)
 		numerator = true;
 
 	/* case 1b: byte in numerator (exponent 1), and binary IEC prefix requested */
-	} else if (n_numerator == 1 && u_numerator == UNIT_B && unit_byte_output_iec) {
+	} else if (!unit_output_base_units && n_numerator == 1 && u_numerator == UNIT_B && unit_byte_output_iec) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "";
 		double	 factor = 1.0;
@@ -234,7 +249,7 @@ unit_cstring (Unit *unit)
 
 	/* case 2: derived unit, or numerator with exactly one unit (exponent 1)
 	 * not covered above */
-	} else if (derived_unit || n_numerator == 1) {
+	} else if (!unit_output_base_units && (derived_unit || n_numerator == 1)) {
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "";
 		double	 factor = 1.0;
@@ -828,4 +843,14 @@ unit_new(PG_FUNCTION_ARGS)
 	strlcpy(unit_name->name, name, UNIT_NAME_LENGTH);
 	unit_name->unit = *unit;
 	PG_RETURN_NULL();
+}
+
+PG_FUNCTION_INFO_V1(unit_is_hashed);
+
+Datum
+unit_is_hashed(PG_FUNCTION_ARGS)
+{
+	char			*name = PG_GETARG_CSTRING(0);
+
+	PG_RETURN_BOOL (hash_search(unit_names, name, HASH_FIND, NULL) != NULL);
 }

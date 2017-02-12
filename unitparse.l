@@ -156,8 +156,14 @@ EXP_R    \^[\-+]?[0-9]+
 	if (ret != SPI_OK_SELECT)
 		elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
 
-	if (SPI_processed > 1)
-		elog(ERROR, "unit \"%s\" is ambiguous", yytext);
+	if (SPI_processed > 2)
+		elog(ERROR, "unit \"%s\" is ambiguous, %ld prefix/name combinations found", yytext, SPI_processed);
+	if (SPI_processed == 2)
+		elog(ERROR, "unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
+			 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+			 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
+			 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 1),
+			 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 3));
 
 	if (SPI_processed == 1) /* found definition */
 	{
@@ -171,7 +177,7 @@ EXP_R    \^[\-+]?[0-9]+
 		goto found;
 	}
 
-	/* look up unit definition with plural 's' removed */
+	/* if unit is long enough, look up unit definition with plural 's' removed */
 	yytext_len = strlen(yytext);
 	if (yytext_len >= MIN_PLURAL_LENGTH && yytext[yytext_len - 1] == 's') {
 		ret = SPI_execute_with_args("SELECT unit "
@@ -215,8 +221,14 @@ EXP_R    \^[\-+]?[0-9]+
 		if (ret != SPI_OK_SELECT)
 			elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
 
-		if (SPI_processed > 1)
-			elog(ERROR, "unit \"%s\" is ambiguous", yytext);
+		if (SPI_processed > 2)
+			elog(ERROR, "unit \"%s\" is ambiguous, %ld prefix/name combinations found", yytext, SPI_processed);
+		if (SPI_processed == 2)
+			elog(ERROR, "unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
+				 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+				 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
+				 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 1),
+				 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 3));
 
 		if (SPI_processed == 1) /* found definition */
 		{
