@@ -16,7 +16,8 @@ kelvin	1 K	K
 radian	1	1
 sr	1	1
 steradian	1	sr
-US$	1	1
+B	1 B	B
+byte	1 B	B
 bit	0.125 B	1|8 B
 one	1	1
 two	2	2
@@ -114,6 +115,7 @@ longquintilliard	1.00000000000000009e+33	quintilliard
 longsextilliard	1.00000000000000009e+39	sextilliard
 longseptilliard	1.00000000000000009e+45	septilliard
 longoctilliard	9.99999999999999993e+50	octilliard
+metricounce	0.0250000000000000014 kg	25 g
 longnonilliard	1.00000000000000005e+57	nonilliard
 longnoventilliard	1.00000000000000005e+57	noventilliard
 longdecilliard	9.99999999999999875e+62	decilliard
@@ -177,7 +179,6 @@ CURRENT	1 A	ampere
 AMOUNT	1 mol	mole
 ANGLE	1	radian
 SOLID_ANGLE	1	steradian
-MONEY	1	US$
 FORCE	1 m*kg/s^2	newton
 PRESSURE	1 kg/m*s^2	FORCE / AREA
 STRESS	1 kg/m*s^2	FORCE / AREA
@@ -236,7 +237,6 @@ poiseuille	1 kg/m*s	N s / m^2
 mayer	1000 m^2/s^2*K	J/g K
 mired	1000000 K^-1	/ microK
 crocodile	1000000 m^2*kg/s^3*A	megavolt
-metricounce	0.0250000000000000014 kg	25 g
 mounce	0.0250000000000000014 kg	metricounce
 finsenunit	100000 kg/s^3	1e5 W/m^2
 fluxunit	1.00000000000000004e-26 kg/s^2	1e-26 W/m^2 Hz
@@ -280,7 +280,7 @@ ppt	9.9999999999999998e-13	1e-12
 partspertrillion	9.9999999999999998e-13	ppt
 karat	0.0416666666666666644	1|24
 caratgold	0.0416666666666666644	karat
-gammil	0.00100000000000000002 kg/m^3	mg/l
+gammil	0.000999999999999999804 kg/m^3	mg/l
 basispoint	0.000100000000000000005	0.01 %
 fine	0.00100000000000000002	1|1000
 TEMPERATURE	1 K	kelvin
@@ -305,8 +305,11 @@ mu0	1.25663706143591729e-06 m*kg/s^2*A^2	4 pi 1e-7 H/m
 epsilon0	8.85418781762038916e-12 s^4*A^2/m^3*kg	1/mu0 c^2
 energy	89875517873681760 m^2/s^2	c^2
 e	1.60217662080000009e-19 s*A	1.6021766208e-19 C
-hbar	15.9154943091895333 m^2*kg/s	hplanck / 2 pi
-spin	15.9154943091895333 m^2*kg/s	hbar
+eV	1.60217662080000009e-19 m^2*kg/s^2	e V
+electronvolt	1.60217662080000009e-19 m^2*kg/s^2	eV
+hplanck	6.62607003945499709e-34 m^2*kg/s	4.135667662e-15 eV s
+hbar	1.05457180005237273e-34 m^2*kg/s	hplanck / 2 pi
+spin	1.05457180005237273e-34 m^2*kg/s	hbar
 G	6.67408000000000034e-11 m^3/kg*s^2	6.67408e-11 N m^2 / kg^2
 coulombconst	8987551787.36817741 m^3*kg/s^4*A^2	1/4 pi epsilon0
 atomicmassunit	1.66053903999999989e-27 kg	1.660539040e-27 kg
@@ -320,8 +323,8 @@ N_A	6.02214085854916197e+23 mol^-1	avogadro
 boltzmann	1.38064851999999986e-23 m^2*kg/s^2*K	1.38064852e-23 J/K
 k	1.38064851999999986e-23 m^2*kg/s^2*K	boltzmann
 kboltzmann	1.38064851999999986e-23 m^2*kg/s^2*K	boltzmann
-stefanboltzmann	1.64960217662267085e-113 kg/s^3*K^4	pi^2 k^4 / 60 hbar^3 c^2
-sigma	1.64960217662267085e-113 kg/s^3*K^4	stefanboltzmann
+stefanboltzmann	5.67036681748245458e-08 kg/s^3*K^4	pi^2 k^4 / 60 hbar^3 c^2
+sigma	5.67036681748245458e-08 kg/s^3*K^4	stefanboltzmann
 wiendisplacement	0.00289777290000000015 m*K	2.8977729e-3 m K
 K_J90	483597900000000 s^2*A/m^2*kg	483597.9 GHz/V
 K_J	483597852500000 s^2*A/m^2*kg	483597.8525 GHz/V
@@ -351,20 +354,25 @@ H2O10C	9804.0022044999987 kg/m^2*s^2	0.99973 force gram / cm^3
 H2O15C	9798.11821449999661 kg/m^2*s^2	0.99913 force gram / cm^3
 H2O18C	9793.11682299999666 kg/m^2*s^2	0.99862 force gram / cm^3
 H2O20C	9789.29222949999894 kg/m^2*s^2	0.99823 force gram / cm^3
-Gb	0.795774715459476645 A	gilbert
 H2O25C	9777.91651549999733 kg/m^2*s^2	0.99707 force gram / cm^3
 H2O50C	9689.65666549999878 kg/m^2*s^2	0.98807 force gram / cm^3
 H2O100C	9398.49722699999984 kg/m^2*s^2	0.95838 force gram / cm^3
+inch	0.0254000000000000024 m	2.54 cm
+in	0.0254000000000000024 m	inch
+foot	0.304800000000000015 m	12 inch
+feet	0.304800000000000015 m	foot
+ft	0.304800000000000015 m	foot
 Rinfinity	10973731.5685389992 m^-1	10973731.568539 /m
 R_H	10967760 m^-1	10967760 /m
 alpha	0.00729735256639999982	7.2973525664e-3
 bohrradius	5.2917721067488903e-11 m	alpha / 4 pi Rinfinity
+prout	2.97203763158400022e-14 m^2*kg/s^2	185.5 keV
 planckmass	2.17650999999999988e-08 kg	2.17651e-8 kg
 m_P	2.17650999999999988e-08 kg	planckmass
-plancktime	8.13613336729019522e-09 s	hbar / planckmass c^2
-t_P	8.13613336729019522e-09 s	plancktime
-plancklength	2.43915142079574432 m	plancktime c
-l_P	2.43915142079574432 m	plancklength
+plancktime	5.39105895420116605e-44 s	hbar / planckmass c^2
+t_P	5.39105895420116605e-44 s	plancktime
+plancklength	1.61619881510287697e-35 m	plancktime c
+l_P	1.61619881510287697e-35 m	plancklength
 deuteronchargeradius	2.14129999999999991e-15 m	2.1413e-15 m
 protonchargeradius	8.75099999999999961e-16 m	0.8751e-15 m
 electronmass	9.10938355570385163e-31 kg	5.48579909070e-4 u
@@ -385,16 +393,16 @@ tritonmass	5.00735666459732467e-27 kg	3.01550071632 u
 m_t	5.00735666459732467e-27 kg	tritonmass
 helionmass	5.00641269865007681e-27 kg	3.01493224673 u
 m_h	5.00641269865007681e-27 kg	helionmass
-electronwavelength	3.66176364359244155e+23 m	hplanck / m_e c
-lambda_C	3.66176364359244155e+23 m	electronwavelength
-protonwavelength	1.99425880846978941e+20 m	hplanck / m_p c
-lambda_Cp	1.99425880846978941e+20 m	protonwavelength
-neutronwavelength	1.99151366822870155e+20 m	hplanck / m_n c
-lambda_Cn	1.99151366822870155e+20 m	neutronwavelength
-bohrmagneton	1399624504486.49829 m^2*A	e hbar / 2 electronmass
-mu_B	1399624504486.49829 m^2*A	bohrmagneton
-nuclearmagneton	762259328.645251274 m^2*A	e hbar /  2 protonmass
-mu_N	762259328.645251274 m^2*A	nuclearmagneton
+electronwavelength	2.42631023703734403e-12 m	hplanck / m_e c
+lambda_C	2.42631023703734403e-12 m	electronwavelength
+protonwavelength	1.32140985417208943e-15 m	hplanck / m_p c
+lambda_Cp	1.32140985417208943e-15 m	protonwavelength
+neutronwavelength	1.31959090502153181e-15 m	hplanck / m_n c
+lambda_Cn	1.31959090502153181e-15 m	neutronwavelength
+bohrmagneton	9.27400999566503245e-24 m^2*A	e hbar / 2 electronmass
+mu_B	9.27400999566503245e-24 m^2*A	bohrmagneton
+nuclearmagneton	5.05078369983137966e-27 m^2*A	e hbar /  2 protonmass
+mu_N	5.05078369983137966e-27 m^2*A	nuclearmagneton
 mu_mu	-4.49044826000000025e-26 m^2*A	-4.49044826e-26 J/T
 mu_p	1.4106067872999999e-26 m^2*A	1.4106067873e-26 J/T
 mu_e	-9.28476462000000064e-24 m^2*A	-928.4764620e-26 J/T
@@ -409,19 +417,17 @@ hyl	9.80664999999999942 kg	kgf s^2 / m
 mmHg	133.32238741499998 kg/m*s^2	mm Hg
 torr	133.32236842105263 kg/m*s^2	atm / 760
 tor	1 kg/m*s^2	Pa
+inHg	3386.3886403409997 kg/m*s^2	inch Hg
+inH2O	249.08890999999997 kg/m*s^2	inch water
 mmH2O	9.80664999999999765 kg/m*s^2	mm water
-eV	1.60217662080000009e-19 m^2*kg/s^2	e V
-electronvolt	1.60217662080000009e-19 m^2*kg/s^2	eV
 lightsecond	299792458 m	c s
 lightminute	17987547480 m	c min
-parsec	3.42510763348656138e-40 kg	au / 4.84813681113334e-06
-pc	3.42510763348656138e-40 kg	parsec
-rydberg	328984196036450176 m^2*kg/s^2	hplanck c Rinfinity
+rydberg	2.17987232481131225e-18 m^2*kg/s^2	hplanck c Rinfinity
 crith	8.9885000000000011e-05 kg	0.089885 gram
-lorentz	46.6864481456200693 s^2*A/m*kg	bohrmagneton / hplanck c
-cminv	2997924580000 m^2*kg/s^2	hplanck c / cm
-invcm	2997924580000 m^2*kg/s^2	cminv
-wavenumber	2997924580000 m^2*kg/s^2	cminv
+lorentz	46.6864481456200764 s^2*A/m*kg	bohrmagneton / hplanck c
+cminv	1.98644582400837055e-23 m^2*kg/s^2	hplanck c / cm
+invcm	1.98644582400837055e-23 m^2*kg/s^2	cminv
+wavenumber	1.98644582400837055e-23 m^2*kg/s^2	cminv
 dyne	1.00000000000000008e-05 m*kg/s^2	cm gram / s^2
 dyn	1.00000000000000008e-05 m*kg/s^2	dyne
 erg	1.00000000000000009e-07 m^2*kg/s^2	cm dyne
@@ -466,6 +472,7 @@ Mx	1.00000000000000002e-08 m^2*kg/s^2*A	maxwell
 oersted	79.5774715459476596 A/m	gauss / mu0
 Oe	79.5774715459476596 A/m	oersted
 gilbert	0.795774715459476645 A	gauss cm / mu0
+Gb	0.795774715459476645 A	gilbert
 Gi	0.795774715459476645 A	gilbert
 unitpole	1.25663706143591724e-07 m^2*kg/s^2*A	4 pi maxwell
 emu	0.00100000000000000024 m^2*A	erg/gauss
@@ -499,8 +506,6 @@ siemensunit	0.953400000000000025 m^2*kg/s^3*A^2	0.9534 ohm
 copperconductivity	58000000 s^3*A^2/m^3*kg	58 siemens m / mm^2
 IACS	58000000 s^3*A^2/m^3*kg	copperconductivity
 copperdensity	8889.99999999999818 kg/m^3	8.89 g/cm^3
-ouncecopper	3.43252786584860234e-05 m	oz / ft^2 copperdensity
-ozcu	3.43252786584860234e-05 m	ouncecopper
 LUMINOUS_INTENSITY	1 cd	candela
 candle	1.02000000000000002 cd	1.02 candela
 hefnerunit	0.918000000000000038 cd	0.9 candle
@@ -616,9 +621,11 @@ gauss_k	0.0172020989500000013	0.01720209895
 gaussianyear	31558196.0153947473 s	(2 pi / gauss_k) days
 astronomicalunit	149597870700 m	149597870700 m
 au	149597870700 m	astronomicalunit
+parsec	30856775814671944 m	au / 4.84813681113334e-06
+pc	30856775814671944 m	parsec
 solarmass	1.98909999999999989e+30 kg	1.9891e30 kg
 sunmass	1.98909999999999989e+30 kg	solarmass
-sundist	1.66054073009663501e-45 kg	1.0000010178 au
+sundist	149598022960.712799 m	1.0000010178 au
 moondist	384400000 m	3.844e8 m
 sundist_near	147100000000 m	1.471e11 m
 sundist_far	152100000000 m	1.521e11 m
@@ -654,12 +661,12 @@ plutoradius	1151000 m	1151 km
 moongravity	1.62000000000000011 m/s^2	1.62 m/s^2
 atomicmass	9.10938355570385163e-31 kg	electronmass
 atomiccharge	1.60217662080000009e-19 s*A	e
-atomicaction	15.9154943091895333 m^2*kg/s	hbar
+atomicaction	1.05457180005237273e-34 m^2*kg/s	hbar
 atomiclength	5.2917721067488903e-11 m	bohrradius
-atomictime	8.31470860991300367e+88 s	hbar^3/coulombconst^2 atomicmass e^4
-atomicvelocity	6.36435064055029763e-100 m/s	atomiclength / atomictime
-atomicenergy	1.9141373505518501e-88 m^2*kg/s^2	hbar / atomictime
-hartree	1.9141373505518501e-88 m^2*kg/s^2	atomicenergy
+atomictime	2.41888432660259616e-17 s	hbar^3/coulombconst^2 atomicmass e^4
+atomicvelocity	2187691.26268280903 m/s	atomiclength / atomictime
+atomicenergy	4.35974464944156321e-18 m^2*kg/s^2	hbar / atomictime
+hartree	4.35974464944156321e-18 m^2*kg/s^2	atomicenergy
 thermalcoulomb	1 m^2*kg/s^2*K	J/K
 thermalampere	1 m^2*kg/s^3*K	W/K
 thermalfarad	1 m^2*kg/s^2*K^2	J/K^2
@@ -669,11 +676,6 @@ thermalhenry	1 s^4*K^2/m^2*kg	J K^2/W^2
 thermalvolt	1 K	K
 US	1.00000200000399997	1200|3937 m/ft
 int	0.999998000000000054	3937|1200 ft/m
-inch	0.0254000000000000024 m	2.54 cm
-in	0.0254000000000000024 m	inch
-foot	0.304800000000000015 m	12 inch
-feet	0.304800000000000015 m	foot
-ft	0.304800000000000015 m	foot
 yard	0.914400000000000102 m	3 ft
 yd	0.914400000000000102 m	yard
 mile	1609.34400000000005 m	5280 ft
@@ -750,31 +752,36 @@ appound	0.37324172160000002 kg	troypound
 apounce	0.0311034768000000017 kg	troyounce
 apdram	0.00388793460000000021 kg	1|8 apounce
 apscruple	0.0012959782 kg	1|3 apdram
-usgallon	0.00378541178399999971 m^3	231 in^3
-gill	2.49999500000000009e-13	1|4 pint
-usquart	0.000946352945999999928 m^3	1|4 usgallon
-uspint	0.000473176472999999964 m^3	1|2 usquart
-usgill	0.000118294118249999991 m^3	1|4 uspint
-usfluidounce	2.95735295624999978e-05 m^3	1|16 uspint
-pt	9.99998000000000037e-13	pint
-usfloz	2.95735295624999978e-05 m^3	usfluidounce
-liquidbarrel	0.119240471195999995 m^3	31.5 usgallon
-beerkeg	0.0586738826519999923 m^3	15.5 usgallon
-ponykeg	0.0293369413259999962 m^3	1|2 beerkeg
-winekeg	0.0454249414079999983 m^3	12 usgallon
-petroleumbarrel	0.158987294927999984 m^3	42 usgallon
-barrel	0.158987294927999984 m^3	petroleumbarrel
-bbl	0.158987294927999984 m^3	barrel
-ushogshead	0.238480942391999989 m^3	2 liquidbarrel
-usfirkin	0.0340687060560000005 m^3	9 usgallon
-usbushel	0.0352390701668800002 m^3	2150.42 in^3
-uspeck	0.00880976754172000005 m^3	1|4 usbushel
-drygallon	0.00440488377086000003 m^3	1|2 uspeck
-dryquart	0.00110122094271500001 m^3	1|4 drygallon
-drypint	0.000550610471357500003 m^3	1|2 dryquart
-drybarrel	0.115627123583999999 m^3	7056 in^3
-cranberrybarrel	0.0954710348639999928 m^3	5826 in^3
-heapedbushel	0.0450355316732726427 m^3	1.278 usbushel
+usgallon	0.00378541178400000145 m^3	231 in^3
+gallon	0.00378541178400000145 m^3	usgallon
+gal	0.00378541178400000145 m^3	gallon
+quart	0.000946352946000000362 m^3	1|4 gallon
+pint	0.000473176473000000181 m^3	1|2 quart
+gill	0.000118294118250000045 m^3	1|4 pint
+usquart	0.000946352946000000362 m^3	1|4 usgallon
+uspint	0.000473176473000000181 m^3	1|2 usquart
+usgill	0.000118294118250000045 m^3	1|4 uspint
+usfluidounce	2.95735295625000113e-05 m^3	1|16 uspint
+qt	0.000946352946000000362 m^3	quart
+pt	0.000473176473000000181 m^3	pint
+usfloz	2.95735295625000113e-05 m^3	usfluidounce
+liquidbarrel	0.11924047119600005 m^3	31.5 usgallon
+beerkeg	0.0586738826520000201 m^3	15.5 usgallon
+ponykeg	0.02933694132600001 m^3	1|2 beerkeg
+winekeg	0.0454249414080000191 m^3	12 usgallon
+petroleumbarrel	0.158987294928000067 m^3	42 usgallon
+barrel	0.158987294928000067 m^3	petroleumbarrel
+bbl	0.158987294928000067 m^3	barrel
+ushogshead	0.2384809423920001 m^3	2 liquidbarrel
+usfirkin	0.0340687060560000143 m^3	9 usgallon
+usbushel	0.0352390701668800141 m^3	2150.42 in^3
+uspeck	0.00880976754172000352 m^3	1|4 usbushel
+drygallon	0.00440488377086000176 m^3	1|2 uspeck
+dryquart	0.00110122094271500044 m^3	1|4 drygallon
+drypint	0.00055061047135750022 m^3	1|2 dryquart
+drybarrel	0.115627123584000041 m^3	7056 in^3
+cranberrybarrel	0.0954710348640000345 m^3	5826 in^3
+heapedbushel	0.0450355316732726565 m^3	1.278 usbushel
 wheatbushel	27.2155422000000016 kg	60 lb
 soybeanbushel	27.2155422000000016 kg	60 lb
 cornbushel	25.4011727200000017 kg	56 lb
@@ -783,14 +790,14 @@ barleybushel	21.772433760000002 kg	48 lb
 oatbushel	14.5149558400000007 kg	32 lb
 ricebushel	20.4116566500000012 kg	45 lb
 canada_oatbushel	15.4221405800000007 kg	34 lb
-ponyvolume	2.95735295624999978e-05 m^3	1 usfloz
-jigger	4.43602943437499983e-05 m^3	1.5 usfloz
-shot	4.43602943437499983e-05 m^3	jigger
+ponyvolume	2.95735295625000113e-05 m^3	1 usfloz
+jigger	4.43602943437500187e-05 m^3	1.5 usfloz
+shot	4.43602943437500187e-05 m^3	jigger
 eushot	2.50000000000000046e-05 m^3	25 ml
-fifth	0.000757082356799999986 m^3	1|5 usgallon
+fifth	0.000757082356800000311 m^3	1|5 usgallon
 winebottle	0.000750000000000000124 m^3	750 ml
 winesplit	0.000187500000000000031 m^3	1|4 winebottle
-wineglass	0.000118294118249999991 m^3	4 usfloz
+wineglass	0.000118294118250000045 m^3	4 usfloz
 magnum	0.00150000000000000046 m^3	1.5 liter
 metrictenth	0.000375000000000000062 m^3	375 ml
 metricfifth	0.000750000000000000124 m^3	750 ml
@@ -800,10 +807,9 @@ jeroboam	0.00300000000000000093 m^3	2 magnum
 rehoboam	0.00450000000000000139 m^3	3 magnum
 methuselah	0.00600000000000000186 m^3	4 magnum
 salmanazar	0.00900000000000000279 m^3	6 magnum
-rollwallpaper	2.78709120000000032 m^2	30 ft^2
 balthazar	0.0120000000000000037 m^3	8 magnum
 nebuchadnezzar	0.0150000000000000046 m^3	10 magnum
-gpg	0.0171180610452709506 kg/m^3	grains/usgallon
+gpg	0.0171180610452709436 kg/m^3	grains/usgallon
 shoeiron	0.000529166666666666717 m	1|48 inch
 shoeounce	0.000396875000000000038 m	1|64 inch
 shoesize_delta	0.00846666666666666748 m	1|3 inch
@@ -812,11 +818,6 @@ shoe_women0	0.162983333333333341 m	(7+11|12) inch
 shoe_boys0	0.0698500000000000093 m	(3+11|12) inch
 shoe_girls0	0.0444500000000000034 m	(3+7|12) inch
 europeshoesize	0.00666666666666666623 m	2|3 cm
-buck	1	US$
-fin	5	5 US$
-sawbuck	10	10 US$
-usgrand	1000	1000 US$
-greenback	1	US$
 key	1 kg	kg
 lid	0.0283495231250000014 kg	1 oz
 usfootballfield	91.4400000000000119 m	100 yards
@@ -841,47 +842,47 @@ brhundredweight	50.8023454400000034 kg	8 stone
 longhundredweight	50.8023454400000034 kg	brhundredweight
 longton	1016.0469088000001 kg	20 brhundredweight
 brton	1016.0469088000001 kg	longton
-brgallon	0.00454609000000000089 m^3	4.54609 l
-brbarrel	0.163659240000000039 m^3	36 brgallon
-brbushel	0.0363687200000000072 m^3	8 brgallon
-brheapedbushel	0.0464792241600000128 m^3	1.278 brbushel
-brquarter	0.290949760000000057 m^3	8 brbushel
-brchaldron	1.30927392000000031 m^3	36 brbushel
-bag	0.145474880000000029 m^3	4 brbushel
-bucket	0.0181843600000000036 m^3	4 brgallon
-last	1.4547488000000004 m^3	40 brbushel
-pottle	0.00227304500000000045 m^3	0.5 brgallon
-pin	0.0204574050000000049 m^3	4.5 brgallon
-puncheon	0.327318480000000078 m^3	72 brgallon
-seam	0.290949760000000057 m^3	8 brbushel
-coomb	0.145474880000000029 m^3	4 brbushel
-boll	0.218212320000000043 m^3	6 brbushel
-firlot	0.0545530800000000107 m^3	1|4 boll
-brfirkin	0.0409148100000000098 m^3	9 brgallon
-cran	0.170478375000000043 m^3	37.5 brgallon
-brwinehogshead	0.238669725000000055 m^3	52.5 brgallon
-brhogshead	0.238669725000000055 m^3	brwinehogshead
-brbeerhogshead	0.245488860000000059 m^3	54 brgallon
-brbeerbutt	0.490977720000000117 m^3	2 brbeerhogshead
+brgallon	0.00454609000000000176 m^3	4.54609 l
+brbarrel	0.163659240000000067 m^3	36 brgallon
+brbushel	0.0363687200000000141 m^3	8 brgallon
+brheapedbushel	0.0464792241600000197 m^3	1.278 brbushel
+brquarter	0.290949760000000113 m^3	8 brbushel
+brchaldron	1.30927392000000054 m^3	36 brbushel
+bag	0.145474880000000056 m^3	4 brbushel
+bucket	0.018184360000000007 m^3	4 brgallon
+last	1.45474880000000062 m^3	40 brbushel
+pottle	0.00227304500000000088 m^3	0.5 brgallon
+pin	0.0204574050000000084 m^3	4.5 brgallon
+puncheon	0.327318480000000134 m^3	72 brgallon
+seam	0.290949760000000113 m^3	8 brbushel
+coomb	0.145474880000000056 m^3	4 brbushel
+boll	0.218212320000000071 m^3	6 brbushel
+firlot	0.0545530800000000177 m^3	1|4 boll
+brfirkin	0.0409148100000000167 m^3	9 brgallon
+cran	0.170478375000000071 m^3	37.5 brgallon
+brwinehogshead	0.238669725000000083 m^3	52.5 brgallon
+brhogshead	0.238669725000000083 m^3	brwinehogshead
+brbeerhogshead	0.245488860000000086 m^3	54 brgallon
+brbeerbutt	0.490977720000000173 m^3	2 brbeerhogshead
 registerton	2.83168465920000045 m^3	100 ft^3
 shippington	1.13267386368000023 m^3	40 ft^3
 brshippington	1.18930755686400014 m^3	42 ft^3
 freightton	1.13267386368000023 m^3	shippington
 displacementton	0.991089630720000114 m^3	35 ft^3
-waterton	1.01832416000000014 m^3	224 brgallon
-strike	0.0705000000000000071 m^3	70.5 l
-amber	0.145474880000000029 m^3	4 brbushel
-imperialgallon	0.00454609000000000089 m^3	brgallon
-imperialbarrel	0.163659240000000039 m^3	brbarrel
-imperialbushel	0.0363687200000000072 m^3	brbushel
-imperialheapedbushel	0.0464792241600000128 m^3	brheapedbushel
-imperialquarter	0.290949760000000057 m^3	brquarter
-imperialchaldron	1.30927392000000031 m^3	brchaldron
-imperialwinehogshead	0.238669725000000055 m^3	brwinehogshead
-imperialhogshead	0.238669725000000055 m^3	brhogshead
-imperialbeerhogshead	0.245488860000000059 m^3	brbeerhogshead
-imperialbeerbutt	0.490977720000000117 m^3	brbeerbutt
-imperialfirkin	0.0409148100000000098 m^3	brfirkin
+waterton	1.01832416000000037 m^3	224 brgallon
+strike	0.070500000000000021 m^3	70.5 l
+amber	0.145474880000000056 m^3	4 brbushel
+imperialgallon	0.00454609000000000176 m^3	brgallon
+imperialbarrel	0.163659240000000067 m^3	brbarrel
+imperialbushel	0.0363687200000000141 m^3	brbushel
+imperialheapedbushel	0.0464792241600000197 m^3	brheapedbushel
+imperialquarter	0.290949760000000113 m^3	brquarter
+imperialchaldron	1.30927392000000054 m^3	brchaldron
+imperialwinehogshead	0.238669725000000083 m^3	brwinehogshead
+imperialhogshead	0.238669725000000083 m^3	brhogshead
+imperialbeerhogshead	0.245488860000000086 m^3	brbeerhogshead
+imperialbeerbutt	0.490977720000000173 m^3	brbeerbutt
+imperialfirkin	0.0409148100000000167 m^3	brfirkin
 hide	485622.770688000077 m^2	120 acre
 virgate	121405.692672000019 m^2	1|4 hide
 nook	60702.8463360000096 m^2	1|2 virgate
@@ -889,40 +890,41 @@ rood	1011.71410560000015 m^2	furlong rod
 englishcarat	0.000205303477227722776 kg	troyounce/151.5
 mancus	0.0566990462500000028 kg	2 oz
 mast	1.13398092500000014 kg	2.5 lb
-basebox	20.2322175999999985 m^2	31360 in^2
+nailkeg	45.3592370000000003 kg	100 lbs
+basebox	20.232217600000002 m^2	31360 in^2
 metre	1 m	meter
 gramme	0.00100000000000000002 kg	gram
 litre	0.00100000000000000024 m^3	liter
 dioptre	1 m^-1	diopter
 geometricpace	1.52400000000000002 m	5 ft
 pace	0.762000000000000011 m	2.5 ft
-USmilitarypace	0.762000000000000011 m	30 in
-USdoubletimepace	0.914399999999999991 m	36 in
-fingerbreadth	0.0222249999999999982 m	7|8 in
-fingerlength	0.114299999999999999 m	4.5 in
-finger	0.0222249999999999982 m	fingerbreadth
-palmlength	0.203199999999999992 m	8 in
+USmilitarypace	0.762000000000000122 m	30 in
+USdoubletimepace	0.914400000000000102 m	36 in
+fingerbreadth	0.0222250000000000017 m	7|8 in
+fingerlength	0.114300000000000013 m	4.5 in
+finger	0.0222250000000000017 m	fingerbreadth
+palmlength	0.203200000000000019 m	8 in
 hand	0.10160000000000001 m	4 inch
 shaftment	0.152400000000000008 m	6 inch
 smoot	1.70179999999999998 m	5 ft + 7 in
-uscup	0.000236588236499999982 m^3	8 usfloz
-ustablespoon	1.47867647812499989e-05 m^3	1|16 uscup
-usteaspoon	4.92892159374999963e-06 m^3	1|3 ustablespoon
-ustbl	1.47867647812499989e-05 m^3	ustablespoon
-ustbsp	1.47867647812499989e-05 m^3	ustablespoon
-ustblsp	1.47867647812499989e-05 m^3	ustablespoon
-ustsp	4.92892159374999963e-06 m^3	usteaspoon
+uscup	0.000236588236500000091 m^3	8 usfloz
+ustablespoon	1.47867647812500057e-05 m^3	1|16 uscup
+usteaspoon	4.92892159375000132e-06 m^3	1|3 ustablespoon
+ustbl	1.47867647812500057e-05 m^3	ustablespoon
+ustbsp	1.47867647812500057e-05 m^3	ustablespoon
+ustblsp	1.47867647812500057e-05 m^3	ustablespoon
+ustsp	4.92892159375000132e-06 m^3	usteaspoon
 metriccup	0.000250000000000000059 m^3	250 ml
 stickbutter	0.113398092500000006 kg	1|4 lb
 legalcup	0.000240000000000000033 m^3	240 ml
 legaltablespoon	1.50000000000000021e-05 m^3	1|16 legalcup
 legaltbsp	1.50000000000000021e-05 m^3	legaltablespoon
-number1can	0.000295735295624999998 m^3	10 usfloz
-number2can	0.000561897061687499947 m^3	19 usfloz
-number2_5can	0.000828058827749999951 m^3	3.5 uscups
-number3can	0.000946352945999999928 m^3	4 uscups
-number5can	0.0016561176554999999 m^3	7 uscups
-number10can	0.00310522060406249979 m^3	105 usfloz
+number1can	0.000295735295625000106 m^3	10 usfloz
+number2can	0.000561897061687500164 m^3	19 usfloz
+number2_5can	0.000828058827750000276 m^3	3.5 uscups
+number3can	0.000946352946000000362 m^3	4 uscups
+number5can	0.00165611765550000055 m^3	7 uscups
+number10can	0.00310522060406250109 m^3	105 usfloz
 brtablespoon	1.50000000000000021e-05 m^3	15 ml
 brteaspoon	5.00000000000000041e-06 m^3	1|3 brtablespoon
 brdessertspoon	1.00000000000000008e-05 m^3	2 brteaspoon
@@ -941,6 +943,10 @@ austsp	5.00000000000000126e-06 m^3	australiateaspoon
 etto	0.100000000000000006 kg	100 g
 etti	0.100000000000000006 kg	etto
 catty	0.5 kg	0.5 kg
+oldcatty	0.604789826666666697 kg	4|3 lbs
+tael	0.0377993641666666685 kg	1|16 oldcatty
+mace	0.00377993641666666711 kg	0.1 tael
+oldpicul	60.478982666666667 kg	100 oldcatty
 picul	50 kg	100 catty
 seer	0.933104304000000107 kg	14400 grain
 ser	0.933104304000000107 kg	seer
@@ -951,47 +957,47 @@ chittak	0.0583190190000000067 kg	1|16 seer
 tola	0.0116638038000000024 kg	1|5 chittak
 ollock	0.000250000000000000059 m^3	1|4 liter
 japancup	0.000200000000000000037 m^3	200 ml
-butter	958.611418535173129 kg/m^3	8 oz/uscup
-butter_clarified	814.8197057548972 kg/m^3	6.8 oz/uscup
-cocoa_butter	1078.43784585206981 kg/m^3	9 oz/uscup
-shortening	808.828384389052303 kg/m^3	6.75 oz/uscup
-oil	898.698204876724844 kg/m^3	7.5 oz/uscup
-cakeflour_sifted	419.39249560913828 kg/m^3	3.5 oz/uscup
-cakeflour_spooned	479.305709267586565 kg/m^3	4 oz/uscup
-cakeflour_scooped	539.218922926034907 kg/m^3	4.5 oz/uscup
-flour_sifted	479.305709267586565 kg/m^3	4 oz/uscup
-flour_spooned	509.262316096810707 kg/m^3	4.25 oz/uscup
-flour_scooped	599.132136584483305 kg/m^3	5 oz/uscup
-breadflour_sifted	509.262316096810707 kg/m^3	4.25 oz/uscup
-breadflour_spooned	539.218922926034907 kg/m^3	4.5 oz/uscup
-breadflour_scooped	659.04535024293159 kg/m^3	5.5 oz/uscup
-cornstarch	507.210340527644973 kg/m^3	120 grams/uscup
-dutchcocoa_sifted	317.006462829778116 kg/m^3	75 g/uscup
-dutchcocoa_spooned	388.861261071194463 kg/m^3	92 g/uscup
-dutchcocoa_scooped	401.54151958438564 kg/m^3	95 g/uscup
-cocoa_sifted	317.006462829778116 kg/m^3	75 g/uscup
-cocoa_spooned	346.593732693890786 kg/m^3	82 g/uscup
-cocoa_scooped	401.54151958438564 kg/m^3	95 g/uscup
-heavycream	980.606658353447074 kg/m^3	232 g/uscup
-milk	1022.87418673075069 kg/m^3	242 g/uscup
-sourcream	1022.87418673075069 kg/m^3	242 g/uscup
-molasses	1348.04730731508721 kg/m^3	11.25 oz/uscup
-cornsyrup	1378.00391414431124 kg/m^3	11.5 oz/uscup
-honey	1407.96052097353549 kg/m^3	11.75 oz/uscup
-sugar	845.350567546075013 kg/m^3	200 g/uscup
-powdered_sugar	479.305709267586565 kg/m^3	4 oz/uscup
-brownsugar_light	917.20536578749136 kg/m^3	217 g/uscup
-brownsugar_dark	1010.19392821755969 kg/m^3	239 g/uscup
-baking_powder	933.267026570866733 kg/m^3	4.6 grams / ustsp
-salt	1217.30481726634798 kg/m^3	6 g / ustsp
-koshersalt	568.075581390962384 kg/m^3	2.8 g / ustsp
-koshersalt_morton	973.84385381307834 kg/m^3	4.8 g / ustsp
+butter	958.611418535172675 kg/m^3	8 oz/uscup
+butter_clarified	814.819705754896859 kg/m^3	6.8 oz/uscup
+cocoa_butter	1078.43784585206936 kg/m^3	9 oz/uscup
+shortening	808.828384389051962 kg/m^3	6.75 oz/uscup
+oil	898.69820487672439 kg/m^3	7.5 oz/uscup
+cakeflour_sifted	419.392495609138052 kg/m^3	3.5 oz/uscup
+cakeflour_spooned	479.305709267586337 kg/m^3	4 oz/uscup
+cakeflour_scooped	539.218922926034679 kg/m^3	4.5 oz/uscup
+flour_sifted	479.305709267586337 kg/m^3	4 oz/uscup
+flour_spooned	509.26231609681048 kg/m^3	4.25 oz/uscup
+flour_scooped	599.132136584482964 kg/m^3	5 oz/uscup
+breadflour_sifted	509.26231609681048 kg/m^3	4.25 oz/uscup
+breadflour_spooned	539.218922926034679 kg/m^3	4.5 oz/uscup
+breadflour_scooped	659.045350242931249 kg/m^3	5.5 oz/uscup
+cornstarch	507.210340527644746 kg/m^3	120 grams/uscup
+dutchcocoa_sifted	317.006462829777945 kg/m^3	75 g/uscup
+dutchcocoa_spooned	388.861261071194292 kg/m^3	92 g/uscup
+dutchcocoa_scooped	401.541519584385469 kg/m^3	95 g/uscup
+cocoa_sifted	317.006462829777945 kg/m^3	75 g/uscup
+cocoa_spooned	346.593732693890615 kg/m^3	82 g/uscup
+cocoa_scooped	401.541519584385469 kg/m^3	95 g/uscup
+heavycream	980.606658353446619 kg/m^3	232 g/uscup
+milk	1022.87418673075024 kg/m^3	242 g/uscup
+sourcream	1022.87418673075024 kg/m^3	242 g/uscup
+molasses	1348.04730731508653 kg/m^3	11.25 oz/uscup
+cornsyrup	1378.00391414431078 kg/m^3	11.5 oz/uscup
+honey	1407.96052097353481 kg/m^3	11.75 oz/uscup
+sugar	845.350567546074672 kg/m^3	200 g/uscup
+powdered_sugar	479.305709267586337 kg/m^3	4 oz/uscup
+brownsugar_light	917.205365787490905 kg/m^3	217 g/uscup
+brownsugar_dark	1010.19392821755923 kg/m^3	239 g/uscup
+baking_powder	933.267026570866506 kg/m^3	4.6 grams / ustsp
+salt	1217.30481726634753 kg/m^3	6 g / ustsp
+koshersalt	568.075581390962157 kg/m^3	2.8 g / ustsp
+koshersalt_morton	973.843853813077999 kg/m^3	4.8 g / ustsp
 egg	0.0500000000000000028 kg	50 grams
 eggwhite	0.0299999999999999989 kg	30 grams
 eggyolk	0.0186000000000000019 kg	18.6 grams
-eggvolume	4.68247551406249956e-05 m^3	3 ustablespoons + 1|2 ustsp
-eggwhitevolume	2.95735295624999978e-05 m^3	2 ustablespoons
-eggyolkvolume	1.72512255781249978e-05 m^3	3.5 ustsp
+eggvolume	4.68247551406250227e-05 m^3	3 ustablespoons + 1|2 ustsp
+eggwhitevolume	2.95735295625000113e-05 m^3	2 ustablespoons
+eggyolkvolume	1.72512255781250046e-05 m^3	3.5 ustsp
 ethanoldensity	789.299999999999955 kg/m^3	0.7893 g/cm^3
 alcoholdensity	789.299999999999955 kg/m^3	ethanoldensity
 baumeconst	145	145
@@ -1006,14 +1012,14 @@ reyn	6894.75729316835987 kg/m*s	psi sec
 lbf	4.44822161526049964 m*kg/s^2	lb force
 lbm	0.453592370000000022 kg	lb
 kip	4448.22161526049968 m*kg/s^2	1000 lbf
-ksi	6894757.2931683613 kg/m*s^2	kip / in^2
+ksi	6894757.29316835944 kg/m*s^2	kip / in^2
 mil	2.54000000000000041e-05 m	0.001 inch
 thou	2.54000000000000041e-05 m	0.001 inch
 tenth	2.54000000000000025e-06 m	0.0001 inch
 millionth	2.54000000000000025e-08 m	1e-6 inch
-circularinch	0.000506707479097497689 m^2	1|4 pi in^2
-circleinch	0.000506707479097497689 m^2	circularinch
-cylinderinch	1.28703699690764425e-05 m^3	circleinch inch
+circularinch	0.000506707479097497798 m^2	1|4 pi in^2
+circleinch	0.000506707479097497798 m^2	circularinch
+cylinderinch	1.28703699690764458e-05 m^3	circleinch inch
 circularmil	5.06707479097497917e-10 m^2	1|4 pi mil^2
 cmil	5.06707479097497917e-10 m^2	circularmil
 cental	45.3592370000000003 kg	100 pound
@@ -1026,14 +1032,15 @@ australiapoint	0.000254000000000000048 m	0.01 inch
 sabin	0.0929030400000000062 m^2	ft^2
 standardgauge	1.43510000000000004 m	4 ft + 8.5 in
 flag	0.464515200000000017 m^2	5 ft^2
-fillpower	0.000578036672001338995 m^3/kg	in^3 / ounce
+rollwallpaper	2.78709120000000032 m^2	30 ft^2
+fillpower	0.000578036672001339211 m^3/kg	in^3 / ounce
 pinlength	0.00158750000000000015 m	1|16 inch
 buttonline	0.000635000000000000148 m	1|40 inch
 beespace	0.00635000000000000061 m	1|4 inch
 diamond	0.487680000000000058 m	8|5 ft
-retmaunit	0.0444499999999999965 m	1.75 in
-U	0.0444499999999999965 m	retmaunit
-RU	0.0444499999999999965 m	U
+retmaunit	0.0444500000000000034 m	1.75 in
+U	0.0444500000000000034 m	retmaunit
+RU	0.0444500000000000034 m	U
 ENERGY	1 m^2*kg/s^2	joule
 WORK	1 m^2*kg/s^2	joule
 calorie_th	4.18400000000000016 m^2*kg/s^2	4.184 J
@@ -1177,6 +1184,11 @@ ENTROPY	1 m^2*kg/s^2*K	ENERGY / TEMPERATURE
 langley	41840 kg/s^2	thermcalorie/cm^2
 poncelet	980.664999999999964 m^2*kg/s^3	100 kg force m / s
 frigorie	4185.80000000000018 m^2*kg/s^2	1000 cal_15
+airwatt	0.999233430733786898 m^2*kg/s^3	8.5 (ft^3/min) inH2O
+perm_0C	5.72134946709451128e-11 s/m	grain / hr ft^2 inHg
+perm_zero	5.72134946709451128e-11 s/m	perm_0C
+perm_0	5.72134946709451128e-11 s/m	perm_0C
+perm	5.72134946709451128e-11 s/m	perm_0C
 perm_23C	5.74522610462651931e-11 s/m	grain / hr ft^2 in Hg23C
 perm_twentythree	5.74522610462651931e-11 s/m	perm_23C
 pair	2	2
@@ -1329,10 +1341,10 @@ lbboxboard	0.00488242763638305037 kg/m^2	poundboxboard
 poundpaperboard	0.00488242763638305037 kg/m^2	poundboxboard
 lbpaperboard	0.00488242763638305037 kg/m^2	poundpaperboard
 paperM	0.000453592370000000043 kg	lb / 1000
-pointthickness	2.54000000000000008e-05 m	0.001 in
+pointthickness	2.54000000000000041e-05 m	0.001 in
 paperdensity	799.999999999999886 kg/m^3	0.8 g/cm^3
-papercaliper	20.3199999999999967 kg/m^2	in paperdensity
-paperpoint	0.0203199999999999978 kg/m^2	pointthickness paperdensity
+papercaliper	20.3200000000000003 kg/m^2	in paperdensity
+paperpoint	0.0203200000000000013 kg/m^2	pointthickness paperdensity
 fournierpoint	0.000348826666666666692 m	0.1648 inch / 12
 bertholdpoint	0.000375939849624060173 m	1|2660 m
 INpoint	0.000400000000000000019 m	0.4 mm
@@ -1353,6 +1365,7 @@ Q	0.000250000000000000005 m	1|4 mm
 didotpoint	0.000376064999999999971 m	germandidotpoint
 europeanpoint	0.000376064999999999971 m	didotpoint
 cicero	0.00451277999999999922 m	12 didotpoint
+stick	0.0508000000000000049 m	2 in
 excelsior	0.00105437941054379409 m	3 oldpoint
 brilliant	0.00123010931230109325 m	3.5 oldpoint
 diamondtype	0.0014058392140583922 m	4 oldpoint
@@ -1395,9 +1408,11 @@ missal	0.0180511199999999969 m	48 didotpoint
 kleine_sabon	0.0270766799999999988 m	72 didotpoint
 grobe_sabon	0.0315894599999999998 m	84 didotpoint
 INFORMATION	0.125 B	bit
+nat	0.180336880111120507 B	(1/0.693147180559945) bits
+hartley	0.415241011860920384 B	3.321928094887363 bits
+ban	0.415241011860920384 B	hartley
+dit	0.415241011860920384 B	hartley
 bps	0.125 B/s	bit/sec
-byte	1 B	8 bit
-B	1 B	byte
 octet	1 B	8 bits
 nybble	0.5 B	4 bits
 nibble	0.5 B	nybble
@@ -1419,25 +1434,8 @@ minorsixth	1.59999999999999987	musicalfourth minorthird
 majorseventh	1.875	musicalfifth majorthird
 minorseventh	1.79999999999999982	musicalfifth minorthird
 pythagoreancomma	1.01364326477050781	musicalfifth^12 / octave^7
-wholenote	1	1
-MUSICAL_NOTE_LENGTH	1	wholenote
-halfnote	0.5	1|2 wholenote
-quarternote	0.25	1|4 wholenote
-eighthnote	0.125	1|8 wholenote
-sixteenthnote	0.0625	1|16 wholenote
-thirtysecondnote	0.03125	1|32 wholenote
-sixtyfourthnote	0.015625	1|64 wholenote
 dotted	1.5	3|2
 doubledotted	1.75	7|4
-breve	2	doublewholenote
-semibreve	1	wholenote
-minimnote	0.5	halfnote
-crotchet	0.25	quarternote
-quaver	0.125	eighthnote
-semiquaver	0.0625	sixteenthnote
-demisemiquaver	0.03125	thirtysecondnote
-hemidemisemiquaver	0.015625	sixtyfourthnote
-semidemisemiquaver	0.015625	hemidemisemiquaver
 woolyarnrun	3225.45108066963303 m/kg	1600 yard/pound
 yarncut	604.772077625556221 m/kg	300 yard/pound
 cottonyarncount	1693.36181735155742 m/kg	840 yard/pound
@@ -1446,8 +1444,8 @@ worstedyarncount	1128.90787823437176 m/kg	1680 ft/pound
 metricyarncount	1000 m/kg	meter/gram
 manchesteryarnnumber	1.93771346818952303e-06 kg/m	drams/1000 yards
 pli	17.8579673228346465 kg/m	lb/in
-typp	2015.90692541852036 m/kg	1000 yd/lb
-asbestoscut	201.590692541852036 m/kg	100 yd/lb
+typp	2015.90692541852059 m/kg	1000 yd/lb
+asbestoscut	201.590692541852064 m/kg	100 yd/lb
 tex	9.99999999999999955e-07 kg/m	gram / km
 drex	9.99999999999999955e-08 kg/m	0.1 tex
 poumar	4.96054647856517937e-07 kg/m	lb / 1e6 yard
@@ -1458,8 +1456,8 @@ bolt	36.5760000000000005 m	cottonbolt
 heer	548.6400000000001 m	600 yards
 cut	274.32000000000005 m	300 yards
 lea	274.32000000000005 m	300 yards
-sailmakersyard	0.723899999999999988 m	28.5 in
-sailmakersounce	0.0428283125998513217 kg/m^2	oz / sailmakersyard 36 inch
+sailmakersyard	0.723900000000000099 m	28.5 in
+sailmakersounce	0.0428283125998513148 kg/m^2	oz / sailmakersyard 36 inch
 silkmomme	0.00433446057048713501 kg/m^2	momme / 25 yards 1.49 inch
 silkmm	0.00433446057048713501 kg/m^2	silkmomme
 mcg	1.00000000000000006e-09 kg	microgram
@@ -1475,13 +1473,8 @@ megohm	1000000 m^2*kg/s^3*A^2	megaohm
 kilohm	1000 m^2*kg/s^3*A^2	kiloohm
 microhm	9.99999999999999955e-07 m^2*kg/s^3*A^2	microohm
 megalerg	0.100000000000000006 m^2*kg/s^2	megaerg
-unitedstatesdollar	1	US$
-usdollar	1	US$
 USpennyweight	0.00250000000000000005 kg	2.5 grams
 USnickelweight	0.0050000000000000001 kg	5 grams
-USdimeweight	0.00226796185000000027 kg	US$ 0.10 / (20 US$ / lb)
-USquarterweight	0.00566990462500000045 kg	US$ 0.25 / (20 US$ / lb)
-UShalfdollarweight	0.0113398092500000009 kg	US$ 0.50 / (20 US$ / lb)
 USdollarmass	0.00809999999999999956 kg	8.1 grams
 cord	3.62455636377600054 m^3	4*4*8 ft^3
 facecord	1.81227818188800027 m^3	1|2 cord
@@ -1492,18 +1485,24 @@ boardfoot	0.00235973721600000021 m^3	ft^2 inch
 boardfeet	0.00235973721600000021 m^3	boardfoot
 fbm	0.00235973721600000021 m^3	boardfoot
 stack	3.05821943193600099 m^3	4 yard^3
+rick	1.20818545459200033 m^3	4 ft 8 ft 16 in
 stere	1 m^3	m^3
 timberfoot	0.0283168465920000043 m^3	ft^3
-standard	4.67227968767999968 m^3	120 12 ft 11 in 1.5 in
+standard	4.67227968768000146 m^3	120 12 ft 11 in 1.5 in
 hoppusfoot	0.0360541288631335277 m^3	(4/pi) ft^3
 hoppusboardfoot	0.0030045107385944605 m^3	1|12 hoppusfoot
 hoppuston	1.80270644315667639 m^3	50 hoppusfoot
 deal	0.0648927734400000095 m^3	12 ft 11 in 2.5 in
 wholedeal	0.0324463867200000047 m^3	12 ft 11 in 1.25 in
 splitdeal	0.0162231933600000024 m^3	12 ft 11 in 5|8 in
+poundcut	119.826427316896584 kg/m^3	pound / gallon
+lbcut	119.826427316896584 kg/m^3	poundcut
 FLUID_FLOW	1 m^3/s	VOLUME / TIME
 cumec	1 m^3/s	m^3/s
 cusec	0.0283168465920000043 m^3/s	ft^3/s
+gph	1.05150327333333364e-06 m^3/s	gal/hr
+gpm	6.30901964000000305e-05 m^3/s	gal/min
+mgd	0.0438126363888889023 m^3/s	megagal/day
 cfs	0.0283168465920000043 m^3/s	ft^3/s
 cfh	7.86579072000000036e-06 m^3/s	ft^3/hour
 cfm	0.000471947443200000096 m^3/s	ft^3/min
@@ -1605,6 +1604,7 @@ sizeXring	0.0662500000000000033 m	66.25 mm
 sizeYring	0.0675000000000000044 m	67.50 mm
 sizeZring	0.0687500000000000056 m	68.75 mm
 mph	0.447039999999999993 m/s	mile/hr
+mpg	425143.707430271839 m^-2	mile/gal
 kph	0.27777777777777779 m/s	km/hr
 fL	3.42625909963539055 cd/m^2	footlambert
 fpm	0.00508000000000000031 m/s	ft/min
@@ -1631,6 +1631,7 @@ pf	9.9999999999999998e-13 s^4*A^2/m^2*kg	pF
 gr	6.47989100000000081e-05 kg	grain
 nt	1 m*kg/s^2	N
 hz	1 s^-1	Hz
+dry	1.16364718614718621	drygallon/gallon
 nmile	1852 m	nauticalmile
 beV	1.60217662080000021e-10 m^2*kg/s^2	GeV
 bev	1.60217662080000021e-10 m^2*kg/s^2	beV
@@ -1913,26 +1914,26 @@ heredium	5046.68159999999898 m^2	2 iugera
 heredia	5046.68159999999898 m^2	heredium
 centuria	504668.159999999916 m^2	100 heredia
 centurium	504668.159999999916 m^2	centuria
-sextarius	0.000580102065599999916 m^3	35.4 in^3
-sextarii	0.000580102065599999916 m^3	sextarius
-cochlearia	1.20854596999999971e-05 m^3	1|48 sextarius
-cyathi	4.83418387999999885e-05 m^3	1|12 sextarius
-acetabula	7.25127581999999895e-05 m^3	1|8 sextarius
-quartaria	0.000145025516399999979 m^3	1|4 sextarius
-quartarius	0.000145025516399999979 m^3	quartaria
-heminae	0.000290051032799999958 m^3	1|2 sextarius
-hemina	0.000290051032799999958 m^3	heminae
-cheonix	0.000870153098399999874 m^3	1.5 sextarii
-semodius	0.00464081652479999933 m^3	8 sextarius
-semodii	0.00464081652479999933 m^3	semodius
-modius	0.00928163304959999866 m^3	16 sextarius
-modii	0.00928163304959999866 m^3	modius
-congius	0.0034806123935999995 m^3	12 heminae
-congii	0.0034806123935999995 m^3	congius
-amphora	0.027844899148799996 m^3	8 congii
-amphorae	0.027844899148799996 m^3	amphora
-culleus	0.556897982975999906 m^3	20 amphorae
-quadrantal	0.027844899148799996 m^3	amphora
+sextarius	0.000580102065600000241 m^3	35.4 in^3
+sextarii	0.000580102065600000241 m^3	sextarius
+cochlearia	1.20854597000000039e-05 m^3	1|48 sextarius
+cyathi	4.83418388000000156e-05 m^3	1|12 sextarius
+acetabula	7.25127582000000302e-05 m^3	1|8 sextarius
+quartaria	0.00014502551640000006 m^3	1|4 sextarius
+quartarius	0.00014502551640000006 m^3	quartaria
+heminae	0.000290051032800000121 m^3	1|2 sextarius
+hemina	0.000290051032800000121 m^3	heminae
+cheonix	0.000870153098400000416 m^3	1.5 sextarii
+semodius	0.00464081652480000193 m^3	8 sextarius
+semodii	0.00464081652480000193 m^3	semodius
+modius	0.00928163304960000386 m^3	16 sextarius
+modii	0.00928163304960000386 m^3	modius
+congius	0.00348061239360000167 m^3	12 heminae
+congii	0.00348061239360000167 m^3	congius
+amphora	0.0278448991488000133 m^3	8 congii
+amphorae	0.0278448991488000133 m^3	amphora
+culleus	0.556897982976000239 m^3	20 amphorae
+quadrantal	0.0278448991488000133 m^3	amphora
 libra	0.327364093320000049 kg	5052 grain
 librae	0.327364093320000049 kg	libra
 romanpound	0.327364093320000049 kg	libra
@@ -1958,44 +1959,44 @@ scriptulum	0.00113668087958333341 kg	1|24 uncia
 scrupula	0.00113668087958333341 kg	scriptulum
 romanobol	0.000568340439791666704 kg	1|2 scrupula
 romanaspound	0.272803411100000059 kg	4210 grain
-egyptianroyalcubit	0.524001999999999968 m	20.63 in
-egyptianpalm	0.0748574285714285609 m	1|7 egyptianroyalcubit
-egyptiandigit	0.0187143571428571402 m	1|4 egyptianpalm
-egyptianshortcubit	0.449144571428571338 m	6 egyptianpalm
-doubleremen	0.740663999999999989 m	29.16 in
-remendigit	0.0185166000000000011 m	1|40 doubleremen
-greekfoot	0.316229999999999956 m	12.45 in
-greekfeet	0.316229999999999956 m	greekfoot
-greekcubit	0.474344999999999906 m	1.5 greekfoot
-pous	0.316229999999999956 m	greekfoot
-podes	0.316229999999999956 m	greekfoot
-orguia	1.89737999999999962 m	6 greekfoot
-greekfathom	1.89737999999999962 m	orguia
-stadion	189.737999999999971 m	100 orguia
-akaina	3.16229999999999967 m	10 greekfeet
-plethron	31.6229999999999976 m	10 akaina
-greekfinger	0.0197643749999999972 m	1|16 greekfoot
-homericcubit	0.395287499999999958 m	20 greekfingers
-shortgreekcubit	0.355758749999999957 m	18 greekfingers
+egyptianroyalcubit	0.524002000000000079 m	20.63 in
+egyptianpalm	0.0748574285714285748 m	1|7 egyptianroyalcubit
+egyptiandigit	0.0187143571428571437 m	1|4 egyptianpalm
+egyptianshortcubit	0.449144571428571449 m	6 egyptianpalm
+doubleremen	0.7406640000000001 m	29.16 in
+remendigit	0.0185166000000000046 m	1|40 doubleremen
+greekfoot	0.316230000000000011 m	12.45 in
+greekfeet	0.316230000000000011 m	greekfoot
+greekcubit	0.474345000000000017 m	1.5 greekfoot
+pous	0.316230000000000011 m	greekfoot
+podes	0.316230000000000011 m	greekfoot
+orguia	1.89738000000000007 m	6 greekfoot
+greekfathom	1.89738000000000007 m	orguia
+stadion	189.738 m	100 orguia
+akaina	3.16230000000000011 m	10 greekfeet
+plethron	31.6230000000000011 m	10 akaina
+greekfinger	0.0197643750000000007 m	1|16 greekfoot
+homericcubit	0.395287500000000014 m	20 greekfingers
+shortgreekcubit	0.355758750000000012 m	18 greekfingers
 ionicfoot	0.295999999999999985 m	296 mm
 doricfoot	0.326000000000000012 m	326 mm
-olympiccubit	0.462915000000000021 m	25 remendigit
-olympicfoot	0.308609999999999995 m	2|3 olympiccubit
-olympicfinger	0.0192881249999999997 m	1|16 olympicfoot
-olympicfeet	0.308609999999999995 m	olympicfoot
-olympicdakylos	0.0192881249999999997 m	olympicfinger
-olympicpalm	0.0771524999999999989 m	1|4 olympicfoot
-olympicpalestra	0.0771524999999999989 m	olympicpalm
+olympiccubit	0.462915000000000132 m	25 remendigit
+olympicfoot	0.308610000000000051 m	2|3 olympiccubit
+olympicfinger	0.0192881250000000032 m	1|16 olympicfoot
+olympicfeet	0.308610000000000051 m	olympicfoot
+olympicdakylos	0.0192881250000000032 m	olympicfinger
+olympicpalm	0.0771525000000000127 m	1|4 olympicfoot
+olympicpalestra	0.0771525000000000127 m	olympicpalm
 olympicspithame	0.228600000000000025 m	3|4 foot
 olympicspan	0.228600000000000025 m	olympicspithame
-olympicbema	0.771525000000000016 m	2.5 olympicfeet
-olympicpace	0.771525000000000016 m	olympicbema
-olympicorguia	1.85165999999999986 m	6 olympicfeet
-olympicfathom	1.85165999999999986 m	olympicorguia
-olympiccord	18.5166000000000004 m	60 olympicfeet
-olympicamma	18.5166000000000004 m	olympiccord
-olympicplethron	30.8610000000000007 m	100 olympicfeet
-olympicstadion	185.165999999999997 m	600 olympicfeet
+olympicbema	0.771525000000000127 m	2.5 olympicfeet
+olympicpace	0.771525000000000127 m	olympicbema
+olympicorguia	1.85166000000000031 m	6 olympicfeet
+olympicfathom	1.85166000000000031 m	olympicorguia
+olympiccord	18.5166000000000039 m	60 olympicfeet
+olympicamma	18.5166000000000039 m	olympiccord
+olympicplethron	30.8610000000000042 m	100 olympicfeet
+olympicstadion	185.166000000000025 m	600 olympicfeet
 greekkotyle	0.000270000000000000058 m^3	270 ml
 xestes	0.000540000000000000115 m^3	2 greekkotyle
 khous	0.00324000000000000069 m^3	12 greekkotyle
@@ -2013,24 +2014,23 @@ atticdrachmae	0.00437392642500000067 kg	1|2 atticstater
 atticobol	0.00072898773750000004 kg	1|6 atticdrachmae
 atticmina	0.437392642500000095 kg	50 atticstaters
 attictalent	26.2435585500000066 kg	60 atticmina
-northerncubit	0.675640000000000018 m	26.6 in
-northernfoot	0.337820000000000009 m	1|2 northerncubit
+northerncubit	0.675640000000000129 m	26.6 in
+northernfoot	0.337820000000000065 m	1|2 northerncubit
 sumeriancubit	0.494999999999999996 m	495 mm
 kus	0.494999999999999996 m	sumeriancubit
 sumerianfoot	0.32999999999999996 m	2|3 sumeriancubit
-assyriancubit	0.548640000000000017 m	21.6 in
-assyrianfoot	0.274320000000000008 m	1|2 assyriancubit
-assyrianpalm	0.0914399999999999935 m	1|3 assyrianfoot
-assyriansusi	0.00457199999999999968 m	1|20 assyrianpalm
-susi	0.00457199999999999968 m	assyriansusi
-persianroyalcubit	0.640079999999999982 m	7 assyrianpalm
-hashimicubit	0.649223999999999912 m	25.56 in
-blackcubit	0.540511999999999992 m	21.28 in
-arabicfeet	0.270255999999999996 m	1|2 blackcubit
-㎼	9.99999999999999955e-07 m^2*kg/s^3	µW
-arabicfoot	0.270255999999999996 m	arabicfeet
-arabicinch	0.0225213333333333307 m	1|12 arabicfoot
-arabicmile	2162.04799999999977 m	4000 blackcubit
+assyriancubit	0.548640000000000128 m	21.6 in
+assyrianfoot	0.274320000000000064 m	1|2 assyriancubit
+assyrianpalm	0.0914400000000000213 m	1|3 assyrianfoot
+assyriansusi	0.00457200000000000141 m	1|20 assyrianpalm
+susi	0.00457200000000000141 m	assyriansusi
+persianroyalcubit	0.640080000000000204 m	7 assyrianpalm
+hashimicubit	0.649224000000000023 m	25.56 in
+blackcubit	0.540512000000000103 m	21.28 in
+arabicfeet	0.270256000000000052 m	1|2 blackcubit
+arabicfoot	0.270256000000000052 m	arabicfeet
+arabicinch	0.0225213333333333376 m	1|12 arabicfoot
+arabicmile	2162.04800000000023 m	4000 blackcubit
 silverdirhem	0.00291595095000000016 kg	45 grain
 tradedirhem	0.00311034768000000017 kg	48 grain
 silverkirat	0.00018224693437500001 kg	1|16 silverdirhem
@@ -2042,8 +2042,8 @@ tradewukiyeh	0.0311034768000000017 kg	10 tradedirhem
 traderotl	0.37324172160000002 kg	12 tradewukiyeh
 arabictradepound	0.37324172160000002 kg	traderotl
 parasang	5632.70399999999972 m	3.5 mile
-biblicalcubit	0.55371999999999999 m	21.8 in
-hebrewcubit	0.446531999999999929 m	17.58 in
+biblicalcubit	0.553720000000000101 m	21.8 in
+hebrewcubit	0.446531999999999984 m	17.58 in
 li	578.900719424460476 m	10|27.8 mile
 liang	0.103948251458333335 kg	11|3 oz
 timepoint	720 s	1|5 hour
@@ -2057,17 +2057,14 @@ periot	6.74988645833333373e-09 kg	1|20 droit
 blanc	2.81245269097222222e-10 kg	1|24 periot
 hundredweight	45.3592370000000003 kg	ushundredweight
 scruple	0.0012959782 kg	apscruple
-fluidounce	2.95735295624999978e-05 m^3	usfluidounce
-gallon	0.00378541178399999971 m^3	usgallon
-bushel	0.0352390701668800002 m^3	usbushel
-cup	0.000236588236499999982 m^3	uscup
-tablespoon	1.47867647812499989e-05 m^3	ustablespoon
-teaspoon	4.92892159374999963e-06 m^3	usteaspoon
-dollar	1	US$
-pony	2.95735295624999978e-05 m^3	ponyvolume
-grand	1000	usgrand
-firkin	0.0340687060560000005 m^3	usfirkin
-hogshead	0.238480942391999989 m^3	ushogshead
+fluidounce	2.95735295625000113e-05 m^3	usfluidounce
+bushel	0.0352390701668800141 m^3	usbushel
+cup	0.000236588236500000091 m^3	uscup
+tablespoon	1.47867647812500057e-05 m^3	ustablespoon
+teaspoon	4.92892159375000132e-06 m^3	usteaspoon
+pony	2.95735295625000113e-05 m^3	ponyvolume
+firkin	0.0340687060560000143 m^3	usfirkin
+hogshead	0.2384809423920001 m^3	ushogshead
 ångström	1.00000000000000004e-10 m	angstrom
 Å	1.00000000000000004e-10 m	angstrom
 Å	1.00000000000000004e-10 m	angstrom
@@ -2087,15 +2084,15 @@ röntgen	0.000257999999999999983 s*A/kg	roentgen
 ℈	0.0012959782 kg	scruple
 ℥	0.0283495231250000014 kg	ounce
 ℔	0.453592370000000022 kg	lb
-ℎ	100 m^2*kg/s	hplanck
-ℏ	15.9154943091895333 m^2*kg/s	hbar
+ℎ	6.62607003945499709e-34 m^2*kg/s	hplanck
+ℏ	1.05457180005237273e-34 m^2*kg/s	hbar
 ‰	0.00100000000000000002	1|1000
 ‱	0.000100000000000000005	1|10000
 ㍱	100 kg/m*s^2	hPa
 ㍲	86400 s	da
-㍳	1.66053903999999986e-45 kg	au
+㍳	149597870700 m	au
 ㍴	100000 kg/m*s^2	bar
-㍶	3.42510763348656138e-40 kg	pc
+㍶	30856775814671944 m	pc
 ㎀	9.9999999999999998e-13 A	pA
 ㎁	1.00000000000000006e-09 A	nA
 ㎂	9.99999999999999955e-07 A	µA
@@ -2154,6 +2151,7 @@ röntgen	0.000257999999999999983 s*A/kg	roentgen
 ㎹	1000000 m^2*kg/s^3*A	MV
 ㎺	9.9999999999999998e-13 m^2*kg/s^3	pW
 ㎻	1.00000000000000006e-09 m^2*kg/s^3	nW
+㎼	9.99999999999999955e-07 m^2*kg/s^3	µW
 ㎽	0.00100000000000000002 m^2*kg/s^3	mW
 ㎾	1000 m^2*kg/s^3	kW
 ㎿	1000000 m^2*kg/s^3	MW
@@ -2165,7 +2163,7 @@ röntgen	0.000257999999999999983 s*A/kg	roentgen
 ㏆	1 s*A/kg	C/kg
 ㏉	1 m^2/s^2	Gy
 ㏊	10000 m^2	ha
-㏌	0.025399999999999999 m	in
+㏌	0.0254000000000000024 m	in
 ㏏	1000000 kg	kt
 ㏐	1 cd	lm
 ㏓	1 cd/m^2	lx
@@ -2222,15 +2220,11 @@ squarearcmin	8.46159499407523867e-08	squareminute
 squarearcsec	2.35044305390978853e-11	squaresecond
 sphericalrightangle	1.57079632679489656	0.5 pi sr
 octant	1.57079632679489656	0.5 pi sr
-hplanck	6.62607003945499709e-34 m^2*kg/s	4.135667662e-15 eV s
 gasconstant	8.3144598635874285 m^2*kg/s^2*K*mol	k N_A
 R	8.3144598635874285 m^2*kg/s^2*K*mol	gasconstant
 molarvolume	0.0224139621193082256 m^3	mol R stdtemp / atm
 loschmidt	2.68678104589168735e+25 m^-3	avogadro mol / molarvolume
-prout	2.97203763158400022e-14 m^2*kg/s^2	185.5 keV
 electronradius	2.81794032333921876e-15 m	(1/4 pi epsilon0) e^2 / electronmass c^2
-inHg	3386.3886403409997 kg/m*s^2	inch Hg
-inH2O	249.08890999999997 kg/m*s^2	inch water
 lightyear	9460730472580800 m	c julianyear
 ly	9460730472580800 m	lightyear
 amagatvolume	0.0224139621193082256 m^3	molarvolume
@@ -2238,6 +2232,8 @@ amagat	44.6150481863517854 mol/m^3	mol/amagatvolume
 kcal_mol	6.94769534335999871e-21 m^2*kg/s^2	kcal_th / mol N_A
 abfarad	1000000000 s^4*A^2/m^2*kg	abampere sec / abvolt
 abhenry	1.00000000000000006e-09 m^2*kg/s^2*A^2	abvolt sec / abamp
+ouncecopper	3.43252786584860234e-05 m	oz / ft^2 copperdensity
+ozcu	3.43252786584860234e-05 m	ouncecopper
 LUMINOUS_FLUX	1 cd	lumen
 LUMINOUS_ENERGY	1 s*cd	talbot
 ILLUMINANCE	1 cd/m^2	lux
@@ -2253,29 +2249,25 @@ uston	907.184740000000033 kg	shortton
 quarterweight	226.796185000000008 kg	1|4 uston
 usassayton	0.0291666666666666637 kg	mg uston / troyounce
 brassayton	0.0326666666666666702 kg	mg brton / troyounce
-gal	0.00378541178399999971 m^3	gallon
-quart	0.000946352945999999928 m^3	1|4 gallon
-pint	0.000473176472999999964 m^3	1|2 quart
-fluiddram	3.69669119531249972e-06 m^3	1|8 usfloz
-minimvolume	6.161151992187499e-08 m^3	1|60 fluiddram
-qt	0.000946352945999999928 m^3	quart
-floz	2.95735295624999978e-05 m^3	fluidounce
-fldr	3.69669119531249972e-06 m^3	fluiddram
-usbeerbarrel	0.117347765303999985 m^3	2 beerkegs
-bu	0.0352390701668800002 m^3	bushel
-peck	0.00880976754172000005 m^3	1|4 bushel
-brpeck	0.00909218000000000179 m^3	1|4 brbushel
-pk	0.00880976754172000005 m^3	peck
-reputedquart	0.000757681666666666816 m^3	1|6 brgallon
-reputedpint	0.000378840833333333408 m^3	1|2 reputedquart
-brwinebottle	0.000757681666666666816 m^3	reputedquart
-clarkdegree	0.0142537675233002422 kg/m^3	grains/brgallon
+fluiddram	3.69669119531250141e-06 m^3	1|8 usfloz
+minimvolume	6.16115199218750165e-08 m^3	1|60 fluiddram
+floz	2.95735295625000113e-05 m^3	fluidounce
+fldr	3.69669119531250141e-06 m^3	fluiddram
+usbeerbarrel	0.11734776530400004 m^3	2 beerkegs
+bu	0.0352390701668800141 m^3	bushel
+peck	0.00880976754172000352 m^3	1|4 bushel
+brpeck	0.00909218000000000352 m^3	1|4 brbushel
+pk	0.00880976754172000352 m^3	peck
+reputedquart	0.000757681666666666924 m^3	1|6 brgallon
+reputedpint	0.000378840833333333462 m^3	1|2 reputedquart
+brwinebottle	0.000757681666666666924 m^3	reputedquart
+clarkdegree	0.0142537675233002387 kg/m^3	grains/brgallon
 footballfield	91.4400000000000119 m	usfootballfield
 UK	0.999998261154855572	UKlength_SJJ
 brquarterweight	12.7005863600000009 kg	1|4 brhundredweight
-brquart	0.00113652250000000022 m^3	1|4 brgallon
-kilderkin	0.0818296200000000196 m^3	2 brfirkin
-imperialquart	0.00113652250000000022 m^3	brquart
+brquart	0.00113652250000000044 m^3	1|4 brgallon
+kilderkin	0.0818296200000000334 m^3	2 brfirkin
+imperialquart	0.00113652250000000044 m^3	brquart
 barleycorn	0.00846665194444444491 m	1|3 UKinch
 nail	0.0571499006249999997 m	1|16 UKyard
 pole	5.02919125500000064 m	16.5 UKft
@@ -2288,12 +2280,12 @@ goad	1.37159761499999999 m	4.5 UKft
 aluminium	26.9815390000000015	aluminum
 sulphur	32.0660000000000025	sulfur
 palmwidth	0.10160000000000001 m	hand
-tbl	1.47867647812499989e-05 m^3	tablespoon
-tbsp	1.47867647812499989e-05 m^3	tablespoon
-tblsp	1.47867647812499989e-05 m^3	tablespoon
-Tb	1.47867647812499989e-05 m^3	tablespoon
-tsp	4.92892159374999963e-06 m^3	teaspoon
-saltspoon	1.23223039843749991e-06 m^3	1|4 tsp
+tbl	1.47867647812500057e-05 m^3	tablespoon
+tbsp	1.47867647812500057e-05 m^3	tablespoon
+tblsp	1.47867647812500057e-05 m^3	tablespoon
+Tb	1.47867647812500057e-05 m^3	tablespoon
+tsp	4.92892159375000132e-06 m^3	teaspoon
+saltspoon	1.23223039843750033e-06 m^3	1|4 tsp
 slug	14.5939029372063622 kg	lbf s^2 / ft
 slugf	143.117298239154763 m*kg/s^2	slug force
 slinch	175.126835246476361 kg	lbf s^2 / inch
@@ -2312,12 +2304,12 @@ naturalgas_HHV	38264937.344642736 kg/m*s^2	1027 btu/ft^3
 naturalgas_LHV	34650819.6012830958 kg/m*s^2	930 btu/ft^3
 naturalgas	38264937.344642736 kg/m*s^2	naturalgas_HHV
 coal_US	24250848.8403365314 m^2/s^2	22 GJ / uston
-ethanol_HHV	23412166674.8845406 kg/m*s^2	84000 btu/usgallon
-ethanol_LHV	21098821634.3899956 kg/m*s^2	75700 btu/usgallon
-diesel	36372473227.0527573 kg/m*s^2	130500 btu/usgallon
-gasoline_LHV	32052371042.996685 kg/m*s^2	115000 btu/usgallon
-gasoline_HHV	34839533742.3877029 kg/m*s^2	125000 btu/usgallon
-gasoline	34839533742.3877029 kg/m*s^2	gasoline_HHV
+ethanol_HHV	23412166674.8845291 kg/m*s^2	84000 btu/usgallon
+ethanol_LHV	21098821634.3899841 kg/m*s^2	75700 btu/usgallon
+diesel	36372473227.052742 kg/m*s^2	130500 btu/usgallon
+gasoline_LHV	32052371042.9966736 kg/m*s^2	115000 btu/usgallon
+gasoline_HHV	34839533742.3876877 kg/m*s^2	125000 btu/usgallon
+gasoline	34839533742.3876877 kg/m*s^2	gasoline_HHV
 celsiusheatunit	1897.83047608000015 m^2*kg/s^2	cal lb degC / gram K
 chu	1897.83047608000015 m^2*kg/s^2	celsiusheatunit
 Rvalue	0.176110183682305826 s^3*K/kg	degF ft^2 hr / btu
@@ -2325,29 +2317,16 @@ Uvalue	5.67826334111348796 kg/s^3*K	1/Rvalue
 clausius	4184 m^2*kg/s^2*K	1e3 cal/K
 tonrefrigeration	3516.85284206666756 m^2*kg/s^3	uston 144 btu / lb day
 tonref	3516.85284206666756 m^2*kg/s^3	tonrefrigeration
-airwatt	0.999233430733786898 m^2*kg/s^3	8.5 (ft^3/min) inH2O
-perm_0C	5.72134946709451128e-11 s/m	grain / hr ft^2 inHg
-perm_zero	5.72134946709451128e-11 s/m	perm_0C
-perm_0	5.72134946709451128e-11 s/m	perm_0C
-perm	5.72134946709451128e-11 s/m	perm_0C
 olddidotpoint	0.000375971510382829216 m	1|72 frenchinch
 frenchprinterspoint	0.000375971510382829216 m	olddidotpoint
 majorsecond	1.125	musicalfifth^2 / octave
 pythagoreanthird	1.265625	majorsecond musicalfifth^2 / octave
 syntoniccomma	1.01249999999999996	pythagoreanthird / majorthird
 denier	1.11111111111111096e-07 kg/m	1|9 tex
-$	1	dollar
-poundcut	119.826427316896641 kg/m^3	pound / gallon
-lbcut	119.826427316896641 kg/m^3	poundcut
-gph	1.05150327333333322e-06 m^3/s	gal/hr
-gpm	6.30901963999999898e-05 m^3/s	gal/min
-mgd	0.0438126363888888884 m^3/s	megagal/day
-mpg	425143.707430272072 m^-2	mile/gal
 rpm	0.104719755119659766 s^-1	rev/min
 rps	6.28318530717958623 s^-1	rev/sec
 mbh	293.071070172222278 m^2*kg/s^3	1e3 btu/hour
-hd	0.238480942391999989 m^3	hogshead
-dry	1.16364718614718621	drygallon/gallon
+hd	0.2384809423920001 m^3	hogshead
 RADIATION_DOSE	1 m^2/s^2	gray
 Denz	999.972000783977819 kg/m^3	Maz/Volm
 Mag	253.241945744048564 m*kg/s^2	Maz gravity
@@ -2431,20 +2410,17 @@ irishdrybarrel	0.114105808805735218 m^3	2 irishstrike
 irishquarter	0.224645811086291197 m^3	2 irishbarrel
 ton	907.184740000000033 kg	uston
 quarter	226.796185000000008 kg	quarterweight
-cent	0.0100000000000000002	$ 0.01
-penny	0.0100000000000000002	cent
-minim	6.161151992187499e-08 m^3	minimvolume
+minim	6.16115199218750165e-08 m^3	minimvolume
 °	0.0174532925199432955	degree
-¢	0.0100000000000000002	cent
 ′	0.00029088820866572158	'
 ″	4.84813681109535984e-06	"
 ㎈	4.18400000000000016 m^2*kg/s^2	cal
 ㎉	4184 m^2*kg/s^2	kcal
 assayton	0.0291666666666666637 kg	mg ton / troyounce
-brpint	0.000568261250000000112 m^3	1|2 brquart
-imperialpint	0.000568261250000000112 m^3	brpint
-brcup	0.000284130625000000056 m^3	1|2 brpint
-brteacup	0.000189420416666666704 m^3	1|3 brpint
+brpint	0.00056826125000000022 m^3	1|2 brquart
+imperialpint	0.00056826125000000022 m^3	brpint
+brcup	0.00028413062500000011 m^3	1|2 brpint
+brteacup	0.000189420416666666731 m^3	1|3 brpint
 tsi	13789514.5863367189 kg/m*s^2	ton force / inch^2
 tonf	8896.44323052099935 m*kg/s^2	ton force
 refrigeration	3.87666666666666737 m^2/s^3	tonref / ton
@@ -2458,28 +2434,28 @@ alequart	0.00115528198540962952 m^3	1|4 alegallon
 scotsquart	0.00338895825302971141 m^3	1|4 scotsgallon
 trondrop	0.00192776757250000025 kg	1|16 tronounce
 irishpottle	0.00178290326258961278 m^3	1|2 irishgallon
-brfluidounce	2.84130625000000083e-05 m^3	1|20 brpint
-brfloz	2.84130625000000083e-05 m^3	brfluidounce
-brgill	0.000142065312500000028 m^3	1|4 brpint
-noggin	0.000142065312500000028 m^3	brgill
-imperialfluidounce	2.84130625000000083e-05 m^3	brfluidounce
-imperialfloz	2.84130625000000083e-05 m^3	brfloz
-imperialgill	0.000142065312500000028 m^3	brgill
+brfluidounce	2.84130625000000117e-05 m^3	1|20 brpint
+brfloz	2.84130625000000117e-05 m^3	brfluidounce
+brgill	0.000142065312500000055 m^3	1|4 brpint
+noggin	0.000142065312500000055 m^3	brgill
+imperialfluidounce	2.84130625000000117e-05 m^3	brfluidounce
+imperialfloz	2.84130625000000117e-05 m^3	brfloz
+imperialgill	0.000142065312500000055 m^3	brgill
 winepint	0.000473174004662454647 m^3	1|2 winequart
 beerpint	0.000577640992704814759 m^3	1|2 beerquart
 alepint	0.000577640992704814759 m^3	1|2 alequart
 scotspint	0.0016944791265148557 m^3	1|2 scotsquart
 jug	0.0016944791265148557 m^3	scotspint
 irishquart	0.000891451631294806388 m^3	1|2 irishpottle
-brdram	3.55163281250000104e-06 m^3	1|8 brfloz
-imperialdram	3.55163281250000104e-06 m^3	brdram
+brdram	3.55163281250000146e-06 m^3	1|8 brfloz
+imperialdram	3.55163281250000146e-06 m^3	brdram
 choppin	0.000847239563257427852 m^3	1|2 scotspint
 irishpint	0.000445725815647403194 m^3	1|2 irishquart
-brminim	5.91938802083333471e-08 m^3	1|60 brdram
-brscruple	1.18387760416666694e-06 m^3	1|3 brdram
-fluidscruple	1.18387760416666694e-06 m^3	brscruple
-imperialminim	5.91938802083333471e-08 m^3	brminim
-imperialscruple	1.18387760416666694e-06 m^3	brscruple
+brminim	5.91938802083333537e-08 m^3	1|60 brdram
+brscruple	1.18387760416666715e-06 m^3	1|3 brdram
+fluidscruple	1.18387760416666715e-06 m^3	brscruple
+imperialminim	5.91938802083333537e-08 m^3	brminim
+imperialscruple	1.18387760416666715e-06 m^3	brscruple
 mutchkin	0.000423619781628713926 m^3	1|2 choppin
 irishnoggin	0.000111431453911850799 m^3	1|4 irishpint
 scotsgill	0.000105904945407178481 m^3	1|4 mutchkin

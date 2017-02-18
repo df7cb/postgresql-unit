@@ -11,18 +11,18 @@ open F, "< :encoding(utf-8)", $file or die "$file: $!";
 
 my $dbh = DBI->connect("dbi:Pg:", '', '',
 	{AutoCommit => 1, PrintError => 0, RaiseError => 0}
-);
+) || die "PG connection failed";
 $dbh->do("SET synchronous_commit = off");
 $dbh->do("TRUNCATE unit_prefixes, unit_units");
 
-my $skip = 0;
+my $skip_british = 0;
 my @todo;
 
 while (<F>) {
 	# skip over locale specific parts
-	$skip = 1 if /^!var UNITS_ENGLISH GB/;
-	$skip = 0 if /^!endvar/;
-	next if ($skip);
+	$skip_british = 1 if /^!var UNITS_ENGLISH GB/;
+	$skip_british = 0 if /^!endvar/;
+	next if ($skip_british);
 
 	s/\s*#.*//;
 	next if /^\s*$/; # skip emtpy lines
@@ -36,12 +36,8 @@ while (<F>) {
 
 	my ($unit, $def) = ($1, $2);
 	next if ($unit =~ /[(\[]/); # skip functions and table definitions
-	my $is_prefix = ($unit =~ s/-$//); # it's a prefix if it ends with '-'
-	#print "$unit = $def\n";
 
-	$def = '1|8 B' if ($unit eq 'bit'); # bit is a base unit in definitions.units; we have byte as base unit instead
-	$def = '1' if ($unit eq 'wholenote'); # wholenote is a base unit in definitions.units; use 1 instead
-	$def = '1' if ($unit eq 'US$'); # for debugging, pretend US$ is a unit so we can see which non-currency units are not imported
+	my $is_prefix = ($unit =~ s/-$//); # it's a prefix if it ends with '-'
 	$def = $unit if ($def eq '!'); # base unit
 	$def = 1 if ($def eq '!dimensionless');
 
@@ -93,6 +89,7 @@ foreach my $u (@todo) {
 	if ($u->{is_prefix}) {
 		print "Prefix $u->{unit}: $u->{def}\n";
 	} else {
+		next if ($u->{error} =~ /dollar|euro|pence|quid|shilling/); # skip currencies so we can see the rest better
 		print "$u->{unit}: $u->{def} ($u->{error})\n";
 	}
 }

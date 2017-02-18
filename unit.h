@@ -24,9 +24,9 @@
  * hardtranslucentarkansas (23 chars)
  * venezuelanbolivarfuerte */
 
-#define MIN_PLURAL_LENGTH 4
+#define MIN_PLURAL_LENGTH 3
 /* minimum length of input unit to consider stripping a trailing plural 's'
- * secs
+ * lbs secs
  */
 
 extern const char *base_units[N_UNITS]; /* names of base units */
