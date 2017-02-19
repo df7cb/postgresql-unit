@@ -16,12 +16,7 @@ CREATE TABLE unit_units (
 
 COPY unit_units FROM '@MODULEDIR@/unit_units.data';
 
--- creating new units
-
-CREATE FUNCTION unit_new(cstring, unit)
-	RETURNS void
-	AS '$libdir/unit'
-	LANGUAGE C VOLATILE STRICT;
+-- internal functions
 
 CREATE FUNCTION unit_is_hashed(cstring)
 	RETURNS bool

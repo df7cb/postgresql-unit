@@ -557,12 +557,7 @@ CREATE AGGREGATE stddev(unit)
 	initcond = '(0,0,0)'
 );
 
--- creating new units
-
-CREATE FUNCTION unit_new(cstring, unit)
-	RETURNS void
-	AS '$libdir/unit'
-	LANGUAGE C VOLATILE STRICT;
+-- internal functions
 
 CREATE FUNCTION unit_is_hashed(cstring)
 	RETURNS bool
