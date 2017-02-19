@@ -2,7 +2,6 @@
 ---
 # versions to run on
 env:
-  - PG_SUPPORTED_VERSIONS=9.4
   - PG_SUPPORTED_VERSIONS=9.5
   - PG_SUPPORTED_VERSIONS=9.6
 
