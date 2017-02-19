@@ -47,49 +47,6 @@ EXP_R    \^[\-+]?[0-9]+
 	return DOUBLE;
 }
 
- /*
-	bzero(&yyunitlval.UNIT.units, N_UNITS);
-	     when ("y") yyunitlval.UNIT.value = 1e-24;
-	else when ("z") yyunitlval.UNIT.value = 1e-21;
-	else when ("a") yyunitlval.UNIT.value = 1e-18;
-	else when ("f") yyunitlval.UNIT.value = 1e-15;
-	else when ("p") yyunitlval.UNIT.value = 1e-12;
-	else when ("n") yyunitlval.UNIT.value = 1e-9;
-	else when ("µ") yyunitlval.UNIT.value = 1e-6;
-	else when ("mu") yyunitlval.UNIT.value = 1e-6;
-	else when ("m") yyunitlval.UNIT.value = 1e-3;
-	else when ("c") yyunitlval.UNIT.value = 1e-2;
-	else when ("d") yyunitlval.UNIT.value = 1e-1;
-
-	else when ("da") yyunitlval.UNIT.value = 1e1;
-	else when ("h") yyunitlval.UNIT.value = 1e2;
-	else when ("k") yyunitlval.UNIT.value = 1e3;
-	else when ("M") yyunitlval.UNIT.value = 1e6;
-	else when ("G") yyunitlval.UNIT.value = 1e9;
-	else when ("T") yyunitlval.UNIT.value = 1e12;
-	else when ("P") yyunitlval.UNIT.value = 1e15;
-	else when ("E") yyunitlval.UNIT.value = 1e18;
-	else when ("Z") yyunitlval.UNIT.value = 1e21;
-	else when ("Y") yyunitlval.UNIT.value = 1e24;
-	else return ERR;
-	return PREFIX;
- }
-
- {IEC_PREFIX_R}/B { / * IEC binary prefixes for Bytes only * /
-	bzero(&yyunitlval.UNIT.units, N_UNITS);
-	     when ("Ki") yyunitlval.UNIT.value = 0x1p+10;
-	else when ("Mi") yyunitlval.UNIT.value = 0x1p+20;
-	else when ("Gi") yyunitlval.UNIT.value = 0x1p+30;
-	else when ("Ti") yyunitlval.UNIT.value = 0x1p+40;
-	else when ("Pi") yyunitlval.UNIT.value = 0x1p+50;
-	else when ("Ei") yyunitlval.UNIT.value = 0x1p+60;
-	else when ("Zi") yyunitlval.UNIT.value = 0x1p+70;
-	else when ("Yi") yyunitlval.UNIT.value = 0x1p+80;
-	else return ERR;
-	return PREFIX;
-}
- */
-
 {UNIT_R}    {
 	unit_names_t	*name;
 	int			ret;
@@ -131,7 +88,7 @@ EXP_R    \^[\-+]?[0-9]+
 	{
 		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
 		if (is_null)
-			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+			elog(ERROR, "unit \"%s\" definition is NULL", yytext);
 		yyunitlval.UNIT = *unitp;
 
 		elog(DEBUG1, "unit %s (value %g)",
@@ -170,7 +127,7 @@ EXP_R    \^[\-+]?[0-9]+
 		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
 		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
 		if (is_null)
-			elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+			elog(ERROR, "unit \"%s\" definition is NULL", yytext);
 		yyunitlval.UNIT = *unitp;
 		yyunitlval.UNIT.value *= factor;
 
@@ -196,7 +153,7 @@ EXP_R    \^[\-+]?[0-9]+
 		{
 			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
 			if (is_null)
-				elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+				elog(ERROR, "unit \"%s\" definition is NULL", yytext);
 			yyunitlval.UNIT = *unitp;
 
 			elog(DEBUG1, "unit %s (value %g)",
@@ -235,7 +192,7 @@ EXP_R    \^[\-+]?[0-9]+
 			factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
 			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
 			if (is_null)
-				elog(ERROR, "unit \"%s\" definition is NULL", yytext); // FIXME unit_units.name
+				elog(ERROR, "unit \"%s\" definition is NULL", yytext);
 			yyunitlval.UNIT = *unitp;
 			yyunitlval.UNIT.value *= factor;
 
@@ -247,14 +204,6 @@ EXP_R    \^[\-+]?[0-9]+
 	elog(ERROR, "unit \"%s\" is not known", yytext);
 
 found:
-
-	/*
-	elog(DEBUG1, "prefix %s (%g), unit %s (value %g)",
-			SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
-			factor,
-			SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
-			unitp->value);
-			*/
 
 	SPI_finish();
 

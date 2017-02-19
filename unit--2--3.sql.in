@@ -10,7 +10,7 @@ COPY unit_prefixes FROM '@MODULEDIR@/unit_prefixes.data';
 
 CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
-	unit unit, -- TODO: NOT NULL
+	unit unit NOT NULL,
 	definition text NOT NULL
 );
 
