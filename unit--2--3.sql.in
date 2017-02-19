@@ -1,3 +1,8 @@
+-- type definition
+
+ALTER FUNCTION unit_in(cstring)
+	SET search_path = @extschema@;
+
 -- prefix/unit definition tables
 
 CREATE TABLE unit_prefixes (
@@ -15,6 +20,11 @@ CREATE TABLE unit_units (
 );
 
 COPY unit_units FROM '@MODULEDIR@/unit_units.data';
+
+-- operators
+
+ALTER FUNCTION unit_at(unit, cstring)
+	SET search_path = @extschema@;
 
 -- internal functions
 

@@ -346,6 +346,7 @@ yyuniterror (char *s)
 	yyerrstr = pstrdup(s);
 }
 
+/* needs search_path = @extschema@ due to use of unit_parse() */
 PG_FUNCTION_INFO_V1 (unit_in);
 
 Datum
@@ -678,6 +679,7 @@ unit_pow(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+/* needs search_path = @extschema@ due to use of unit_parse() */
 PG_FUNCTION_INFO_V1(unit_at);
 
 Datum
