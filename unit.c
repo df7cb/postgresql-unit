@@ -34,8 +34,8 @@ GNU General Public License for more details.
 static bool unit_byte_output_iec;
 static bool unit_output_base_units;
 
-HTAB		*unit_names = NULL;
-static HTAB *unit_dimensions = NULL;
+HTAB		*unit_names;
+static HTAB *unit_dimensions;
 
 /* unit definitions */
 
@@ -49,11 +49,10 @@ unit_get_definitions(void)
 	unit_names_t		*unit_name;
 	unit_dimensions_t	*unit_dim;
 
-	/* destroy old hash table */
-	if (unit_names)
-		hash_destroy(unit_names);
-
-	/* unit_names: char *name -> Unit unit */
+	/* unit_names: char *name -> Unit unit
+	 * Lookup table that initially contains the base units and will cache all
+	 * units resolved at run time
+	 */
 	hinfo.keysize = UNIT_NAME_LENGTH;
 	hinfo.entrysize = sizeof(unit_names_t);
 	Assert(UNIT_NAME_LENGTH + sizeof(Unit) == sizeof(unit_names_t));
@@ -75,10 +74,9 @@ unit_get_definitions(void)
 		memcpy(unit_name->unit.units, derived_units[i].units, N_UNITS);
 	}
 
-	/* unit_dimensions: char dimension[N_UNITS] -> char *name */
-	if (unit_dimensions)
-		hash_destroy(unit_dimensions);
-
+	/* unit_dimensions: char dimension[N_UNITS] -> char *name
+	 * Lookup table for formatting the well-known derived units on output
+	 */
 	hinfo.keysize = N_UNITS;
 	hinfo.entrysize = sizeof(unit_dimensions_t);
 	Assert(N_UNITS + UNIT_NAME_LENGTH == sizeof(unit_dimensions_t));

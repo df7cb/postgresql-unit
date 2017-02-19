@@ -44,13 +44,6 @@ struct derived_unit_t {
 
 extern const struct derived_unit_t derived_units[];
 
-struct prefixes_t {
-	char		*prefix;
-	double		 factor;
-};
-
-extern const struct prefixes_t unit_predefined_prefixes[];
-
 /* type def */
 
 typedef struct Unit {
