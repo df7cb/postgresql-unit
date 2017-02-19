@@ -1,9 +1,11 @@
 #!/usr/bin/perl
 
+# load definitions.units.patched into the unit_prefixes and unit_units tables
+# existing data is wiped!
+
 use strict;
 use warnings;
 use DBD::Pg;
-#use Encode qw(decode);
 
 my $file = "definitions.units.patched";
 
@@ -46,6 +48,9 @@ while (<F>) {
 	push @todo, $u;
 }
 
+# try repeatedly to insert units, unfortunately the input data contains some
+# forward references
+
 my ($n_todo, $new_n_todo);
 do {
 	$n_todo = @todo;
@@ -55,22 +60,25 @@ do {
 	foreach my $u (@todo) {
 		my ($unit, $def, $is_prefix) = ($u->{unit}, $u->{def}, $u->{is_prefix});
 		if ($is_prefix) {
-			my $ret = $dbh->do("INSERT INTO unit_prefixes (prefix, factor, definition) VALUES (?, value(?::unit), ?)",
+			my $ret = $dbh->do("INSERT INTO unit_prefixes (prefix, factor, definition, dump) VALUES (?, value(?::unit), ?, NULL)",
 				undef,
 				$unit, $def, $def);
 			next if defined $ret;
 			# see if the prefix is defined in terms of another prefix
 			# (we can't simply inject all prefixes as units because conflicts exist, e.g. on 'T')
-			$ret = $dbh->do("INSERT INTO unit_prefixes (prefix, factor, definition) SELECT ?, factor, ? FROM unit_prefixes WHERE prefix = ?",
+			$ret = $dbh->do("INSERT INTO unit_prefixes (prefix, factor, definition, dump) SELECT ?, factor, ?, NULL FROM unit_prefixes WHERE prefix = ?",
 				undef,
 				$unit, $def, $def);
 			next if defined $ret and $ret > 0;
 		} else {
 			my ($is_hashed) = $dbh->selectrow_array("SELECT unit_is_hashed(?)", undef, $unit);
 			if ($is_hashed and not $u->{is_base}) {
+				# if the unit we are defining now was successfully used before,
+				# something went wrong. It indicates that the new unit could
+				# also be parsed as prefix-otherknownunit, e.g. "ft" vs "f-t"
 				print "Unit $unit has already been used before being defined. Bad.\n";
 			}
-			my $ret = $dbh->do("INSERT INTO unit_units (name, unit, definition) VALUES (?, ?, ?)",
+			my $ret = $dbh->do("INSERT INTO unit_units (name, unit, definition, dump) VALUES (?, ?, ?, NULL)",
 				undef,
 				$unit, $def, $def);
 			next if defined $ret;

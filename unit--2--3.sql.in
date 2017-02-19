@@ -8,16 +8,22 @@ ALTER FUNCTION unit_in(cstring)
 CREATE TABLE unit_prefixes (
 	prefix varchar(32) PRIMARY KEY,
 	factor double precision NOT NULL,
-	definition text NOT NULL
+	definition text NOT NULL,
+	dump boolean DEFAULT true
 );
+
+SELECT pg_catalog.pg_extension_config_dump('unit_prefixes', 'WHERE dump');
 
 COPY unit_prefixes FROM '@MODULEDIR@/unit_prefixes.data';
 
 CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
 	unit unit NOT NULL,
-	definition text NOT NULL
+	definition text NOT NULL,
+	dump boolean DEFAULT true
 );
+
+SELECT pg_catalog.pg_extension_config_dump('unit_units', 'WHERE dump');
 
 COPY unit_units FROM '@MODULEDIR@/unit_units.data';
 
