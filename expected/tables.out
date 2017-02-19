@@ -33,7 +33,6 @@ SELECT * FROM units;
  mol | 1 mol          | t    | f        | f
  cd  | 1 cd           | t    | f        | f
  B   | 1 B            | t    | f        | f
- rad | 1              | f    | t        | t
  sr  | 1              | f    | t        | t
  Hz  | 1 Hz           | f    | t        | f
  N   | 1 N            | f    | t        | f
@@ -54,16 +53,17 @@ SELECT * FROM units;
  lx  | 1 lx           | f    | t        | f
  Bq  | 1 Hz           | f    | t        | t
  Gy  | 1 Gy           | f    | t        | f
+ rad | 10 mGy         | f    | f        | t
  Sv  | 1 Gy           | f    | t        | t
  kat | 1 kat          | f    | t        | f
  g   | 1 g            | f    | f        | t
+ a   | 100 m^2        | f    | f        | f
  l   | 0.001 m^3      | f    | f        | f
  t   | 1 Mg           | f    | f        | f
  bar | 100 kPa        | f    | f        | f
  min | 60 s           | f    | f        | f
  h   | 3.6 ks         | f    | f        | f
  d   | 86.4 ks        | f    | f        | f
- a   | 31.5576 Ms     | f    | f        | f
  in  | 25.4 mm        | f    | f        | f
  ft  | 304.8 mm       | f    | f        | f
  yd  | 914.4 mm       | f    | f        | f

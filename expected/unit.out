@@ -175,9 +175,46 @@ SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
 (1 row)
 
 SELECT '1 foobar'::unit AS error;
-ERROR:  invalid input syntax for unit: "1 foobar", syntax error, unexpected ERROR, expecting $end
+ERROR:  unit "foobar" is not known
 LINE 1: SELECT '1 foobar'::unit AS error;
                ^
+-- test parser arithmetic
+SELECT '1|10'::unit, '1|10 m'::unit;
+ unit |  unit  
+------+--------
+ 0.1  | 100 mm
+(1 row)
+
+SELECT '2 m + 3 m - 4 m'::unit, '6 m - 3 m - 2 m'::unit, '6 m - 3 m + 1 m'::unit;
+ unit | unit | unit 
+------+------+------
+ 1 m  | 1 m  | 4 m
+(1 row)
+
+SELECT '2 m * 3 m'::unit, '2 m / 3 m'::unit, '10 m / 5 m / 2 m'::unit;
+ unit  |       unit        |  unit  
+-------+-------------------+--------
+ 6 m^2 | 0.666666666666667 | 1 m^-1
+(1 row)
+
+SELECT '2 m^2 + 3 m * 4 m'::unit, '2 m * 3 m / 4 m * 5 m'::unit;
+  unit  | unit 
+--------+------
+ 14 m^2 | 0.3
+(1 row)
+
+SELECT '2 m * (1 m + 3 m)'::unit;
+ unit  
+-------
+ 8 m^2
+(1 row)
+
+SELECT '- m'::unit, '/ m'::unit;
+ unit |  unit  
+------+--------
+ -1 m | 1 m^-1
+(1 row)
+
 -- problematic cases
 SELECT '1 cd'::unit AS candela; -- candela vs centiday
  candela 
@@ -189,12 +226,6 @@ SELECT '1 Pa'::unit AS pascal; -- pascal vs petayear
  pascal 
 --------
  1 Pa
-(1 row)
-
-SELECT '1 da'::unit AS deciyear; -- theoretically unambiguous, but flex wanted a workaround
-  deciyear  
-------------
- 3.15576 Ms
 (1 row)
 
 SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- "yg" had rounding problems in the past
@@ -221,6 +252,25 @@ SELECT '1 yd'::unit AS yard; -- yard vs yoctoday
  914.4 mm
 (1 row)
 
+-- units whose definition changed between v2 and 3
+SELECT 'a'::unit AS are;
+   are   
+---------
+ 100 m^2
+(1 row)
+
+SELECT 'da'::unit AS day;
+   day   
+---------
+ 86.4 ks
+(1 row)
+
+SELECT 'rad'::unit AS radiation;
+ radiation 
+-----------
+ 10 mGy
+(1 row)
+
 -- check which prefix/unit combinations produce other dimensions (parser conflicts)
 SELECT
   p, u, (p||u)::unit
@@ -228,14 +278,28 @@ FROM
   prefixes CROSS JOIN units
 WHERE
   u <> 'kg' AND
-  dimension(u::unit) != dimension((p||u)::unit)
+  dimension(u::unit) != dimension((p||u)::unit) AND
+  p||u NOT IN ('dat') -- skip ambiguous unit
 ORDER BY lower(p), lower(u);
- p | u  |   unit   
----+----+----------
- c | d  | 1 cd
- f | t  | 304.8 mm
- m | in | 60 s
- P | a  | 1 Pa
- y | d  | 914.4 mm
-(5 rows)
+ p |  u  |             unit              
+---+-----+-------------------------------
+ a | t   | 98.0665 kPa
+ c | d   | 1 cd
+ c | h   | 20.1168 m
+ d | a   | 86.4 ks
+ f | t   | 304.8 mm
+ G | s   | 100 µT
+ h | bar | 1.05457180005237e-34 m^2*kg/s
+ h | d   | 0.238480942392 m^3
+ k | in  | 600 g
+ m | h   | 1 mH
+ m | in  | 60 s
+ n | t   | 1 N
+ P | a   | 1 Pa
+ p | a   | 1 Pa
+ p | h   | 10 klx
+ p | in  | 0.020457405 m^3
+ p | t   | 0.000473176473 m^3
+ y | d   | 914.4 mm
+(18 rows)
 

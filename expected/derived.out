@@ -433,7 +433,6 @@ SELECT * FROM u;
  1 cd  | 2 kcd  | 200 µcd  | 0.002 cd^-1          | 1600 cd^2
  1 B   | 2 kB   | 200 µB   | 0.002 B^-1           | 1600 B^2
  1     | 2000   | 0.0002   | 0.002                | 1600
- 1     | 2000   | 0.0002   | 0.002                | 1600
  1 Hz  | 2 kHz  | 200 µHz  | 2 ms                 | 1600 s^-2
  1 N   | 2 kN   | 200 µN   | 0.002 s^2/m*kg       | 1600 m^2*kg^2/s^4
  1 Pa  | 2 kPa  | 200 µPa  | 0.002 m*s^2/kg       | 1600 kg^2/m^2*s^4
@@ -455,7 +454,7 @@ SELECT * FROM u;
  1 Gy  | 2 kGy  | 200 µGy  | 0.002 s^2/m^2        | 1600 m^4/s^4
  1 Gy  | 2 kGy  | 200 µGy  | 0.002 s^2/m^2        | 1600 m^4/s^4
  1 kat | 2 kkat | 200 µkat | 2 ms/mol             | 1600 mol^2/s^2
-(32 rows)
+(31 rows)
 
 SELECT u, u::text::unit AS "text::unit", "2k"::text::unit, "200µ"::text::unit, "500th_inverse"::text::unit, "1600_square"::text::unit FROM u;
    u   | text::unit |   2k   |   200µ   |    500th_inverse     |      1600_square      
@@ -469,7 +468,6 @@ SELECT u, u::text::unit AS "text::unit", "2k"::text::unit, "200µ"::text::unit, 
  1 mol | 1 mol      | 2 kmol | 200 µmol | 0.002 mol^-1         | 1600 mol^2
  1 cd  | 1 cd       | 2 kcd  | 200 µcd  | 0.002 cd^-1          | 1600 cd^2
  1 B   | 1 B        | 2 kB   | 200 µB   | 0.002 B^-1           | 1600 B^2
- 1     | 1          | 2000   | 0.0002   | 0.002                | 1600
  1     | 1          | 2000   | 0.0002   | 0.002                | 1600
  1 Hz  | 1 Hz       | 2 kHz  | 200 µHz  | 2 ms                 | 1600 s^-2
  1 N   | 1 N        | 2 kN   | 200 µN   | 0.002 s^2/m*kg       | 1600 m^2*kg^2/s^4
@@ -492,7 +490,7 @@ SELECT u, u::text::unit AS "text::unit", "2k"::text::unit, "200µ"::text::unit, 
  1 Gy  | 1 Gy       | 2 kGy  | 200 µGy  | 0.002 s^2/m^2        | 1600 m^4/s^4
  1 Gy  | 1 Gy       | 2 kGy  | 200 µGy  | 0.002 s^2/m^2        | 1600 m^4/s^4
  1 kat | 1 kat      | 2 kkat | 200 µkat | 2 ms/mol             | 1600 mol^2/s^2
-(32 rows)
+(31 rows)
 
 -- test i/o
 SELECT

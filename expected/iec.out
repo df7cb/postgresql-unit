@@ -71,17 +71,20 @@ VALUES
 
 -- errors
 SELECT '1 kiB'::unit;
-ERROR:  invalid input syntax for unit: "1 kiB", syntax error, unexpected ERROR, expecting $end
+ERROR:  unit "kiB" is not known
 LINE 1: SELECT '1 kiB'::unit;
                ^
 SELECT '1 Ki'::unit;
-ERROR:  invalid input syntax for unit: "1 Ki", syntax error, unexpected ERROR, expecting $end
+ERROR:  unit "Ki" is not known
 LINE 1: SELECT '1 Ki'::unit;
                ^
-SELECT '1 Kim'::unit;
-ERROR:  invalid input syntax for unit: "1 Kim", syntax error, unexpected ERROR, expecting $end
-LINE 1: SELECT '1 Kim'::unit;
-               ^
+-- used to be an error in v2
+SELECT '1 Kim'::unit AS "1024 m";
+  1024 m  
+----------
+ 1.024 km
+(1 row)
+
 -- binary prefix output
 SET unit.byte_output_iec = 'foobar';
 ERROR:  parameter "unit.byte_output_iec" requires a Boolean value

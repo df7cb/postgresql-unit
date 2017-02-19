@@ -7,7 +7,7 @@ SELECT *, definition::unit AS parsed_definition, unit / definition::unit AS devi
   FROM unit_units WHERE unit <> definition::unit;
 
 -- prefix-unit combinations that are ambiguous
-/* runs several minutes:
+/*
 CREATE OR REPLACE FUNCTION valid_unit(u text)
 RETURNS boolean LANGUAGE plpgsql
 AS $$
@@ -20,13 +20,14 @@ WHEN OTHERS THEN
 END;
 $$;
 
-SELECT prefix, name
+-- takes about 5min to run with cold cache, and about 3s with the hash table filled
+SELECT prefix||name AS unit, prefix, name
 FROM unit_prefixes CROSS JOIN unit_units
 WHERE NOT valid_unit(prefix||name)
-ORDER BY prefix, name;
+ORDER BY prefix||name, prefix;
 */
 
-SELECT 'daA'::unit;
+SELECT 'daA'::unit; -- ambiguous in original definitions.units
 SELECT 'dasb'::unit;
 SELECT 'dat'::unit;
 SELECT 'dau'::unit;
@@ -39,4 +40,6 @@ SELECT 'Gint'::unit;
 SELECT 'Mint'::unit;
 SELECT 'Pint'::unit;
 SELECT 'Tint'::unit;
+SELECT 'Yint'::unit;
 SELECT 'yoctodecillion'::unit;
+SELECT 'Zint'::unit;

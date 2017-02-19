@@ -66,7 +66,7 @@ WITH
 	('min'),
 	('h'),
 	('d'),
-	('a'))
+	('julianyear'))
 SELECT
   l1.u, l2.u, l1.u::unit @ l2.u::cstring
 FROM

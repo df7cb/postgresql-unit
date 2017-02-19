@@ -35,7 +35,8 @@ VALUES
 -- errors
 SELECT '1 kiB'::unit;
 SELECT '1 Ki'::unit;
-SELECT '1 Kim'::unit;
+-- used to be an error in v2
+SELECT '1 Kim'::unit AS "1024 m";
 
 -- binary prefix output
 SET unit.byte_output_iec = 'foobar';

@@ -31,7 +31,6 @@ K	t	f	f
 mol	t	f	f
 cd	t	f	f
 B	t	f	f
-rad	f	t	t
 sr	f	t	t
 Hz	f	t	f
 N	f	t	f
@@ -52,16 +51,17 @@ lm	f	t	t
 lx	f	t	f
 Bq	f	t	t
 Gy	f	t	f
+rad	f	f	t
 Sv	f	t	t
 kat	f	t	f
 g	f	f	t
+a	f	f	f
 l	f	f	f
 t	f	f	f
 bar	f	f	f
 min	f	f	f
 h	f	f	f
 d	f	f	f
-a	f	f	f
 in	f	f	f
 ft	f	f	f
 yd	f	f	f

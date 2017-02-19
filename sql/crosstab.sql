@@ -85,5 +85,6 @@ SELECT
 FROM
   prefixes CROSS JOIN units
 WHERE
-  u <> 'kg'
+  u <> 'kg' AND
+  (p||u) <> 'dat' -- ambiguous
 \crosstabview
