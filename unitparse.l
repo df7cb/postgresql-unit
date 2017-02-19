@@ -157,7 +157,7 @@ EXP_R    \^[\-+]?[0-9]+
 		elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
 
 	if (SPI_processed > 2)
-		elog(ERROR, "unit \"%s\" is ambiguous, %ld prefix/name combinations found", yytext, SPI_processed);
+		elog(ERROR, "unit \"%s\" is ambiguous, %lu prefix/name combinations found", yytext, (uint64)SPI_processed); /* SPI_processed was uint32 before 9.6 */
 	if (SPI_processed == 2)
 		elog(ERROR, "unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
 			 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
@@ -222,7 +222,7 @@ EXP_R    \^[\-+]?[0-9]+
 			elog(ERROR, "internal error determining definition of unit \"%s\"", yytext);
 
 		if (SPI_processed > 2)
-			elog(ERROR, "unit \"%s\" is ambiguous, %ld prefix/name combinations found", yytext, SPI_processed);
+			elog(ERROR, "unit \"%s\" is ambiguous, %lu prefix/name combinations found", yytext, (uint64)SPI_processed); /* SPI_processed was uint32 before 9.6 */
 		if (SPI_processed == 2)
 			elog(ERROR, "unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
 				 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
