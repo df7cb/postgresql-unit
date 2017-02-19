@@ -7,7 +7,7 @@ DATA = unit_prefixes.data unit_units.data \
 DATA_built = unit--2--3.sql unit--3.sql
 REGRESS = extension tables unit prefix units functions derived compare aggregate iec
 #REGRESS += upgrade
-EXTRA_CLEAN = unitparse.yy.* definitions.units.patched powers powers.o unittest unittest.o unit-*.dump # unitparse.tab.*
+EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o unit-*.dump # unitparse.tab.*
 
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
@@ -40,7 +40,6 @@ unitparse.tab.o: unit.h defined_units.h
 	sed -e "s!@MODULEDIR@!$(datadir)/$(datamoduledir)!g" $< > $@
 
 # unit definitions from GNU units
-all: definitions.units.patched
 definitions.units.patched: definitions.units definitions.units.patch
 	cp $< $@
 	patch $@ definitions.units.patch
