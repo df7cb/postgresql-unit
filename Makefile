@@ -6,7 +6,6 @@ DATA = unit_prefixes.data unit_units.data \
 	   unit--2.sql
 DATA_built = unit--2--3.sql unit--3.sql
 REGRESS = extension tables unit prefix units functions derived compare aggregate iec
-#REGRESS += upgrade
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unittest unittest.o unit-*.dump # unitparse.tab.*
 
 PG_CONFIG = pg_config
@@ -18,6 +17,9 @@ HAS_CROSSTAB = $(shell [ $(PG_VERSION_NUM) -ge 90600 ] && echo yes)
 ifeq ($(HAS_CROSSTAB),yes)
 REGRESS += crosstab convert
 endif
+
+# upgrade testing, not enabled by default
+#REGRESS += upgrade
 
 unit.o: unit.c unit.h defined_units.h float8out_internal.h
 
