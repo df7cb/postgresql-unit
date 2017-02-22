@@ -1,9 +1,9 @@
-SELECT * FROM unit_prefixes ORDER BY factor, prefix;
+SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
 
-SELECT * FROM unit_units ORDER BY dimension(unit), unit, name;
+SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name;
 
 -- units that do not conform to their original definition
-SELECT *, definition::unit AS parsed_definition, unit / definition::unit AS deviation
+SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation
   FROM unit_units WHERE unit <> definition::unit;
 
 -- prefix-unit combinations that are ambiguous
