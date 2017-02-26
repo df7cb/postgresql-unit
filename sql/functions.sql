@@ -46,6 +46,17 @@ SELECT second(.02) ^ -1 AS hertz;
 SELECT ampere(4) ^ 0 AS unity;
 SELECT '0'::unit ^ 0 AS unity;
 
+-- test roots
+SELECT sqrt('4'::unit);
+SELECT sqrt('4 m^2'::unit);
+SELECT |/'16 s^-4'::unit;
+SELECT sqrt('-4 m^2'::unit) AS error;
+SELECT sqrt('4 m'::unit) AS error;
+SELECT cbrt('8'::unit);
+SELECT cbrt('8 m^3'::unit);
+SELECT ||/'-27 s^-6'::unit;
+SELECT cbrt('-4 m'::unit) AS error;
+
 WITH
   v(u) AS (VALUES
 	(NULL),

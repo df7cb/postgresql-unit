@@ -29,6 +29,26 @@ COPY unit_units FROM '@MODULEDIR@/unit_units.data';
 
 -- operators
 
+CREATE FUNCTION sqrt(unit)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_sqrt'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR |/ (
+	rightarg = unit,
+	procedure = sqrt
+);
+
+CREATE FUNCTION cbrt(unit)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_cbrt'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR ||/ (
+	rightarg = unit,
+	procedure = cbrt
+);
+
 ALTER FUNCTION unit_at(unit, cstring)
 	SET search_path = @extschema@;
 

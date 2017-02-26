@@ -679,6 +679,64 @@ unit_pow(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+PG_FUNCTION_INFO_V1(unit_sqrt);
+
+Datum
+unit_sqrt(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*result;
+	int		 i;
+
+	/* compute root of value */
+	if (a->value < 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+				 errmsg("cannot take square root of a negative-valued unit")));
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = sqrt(a->value);
+
+	/* compute root of base units */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] % 2 != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take square root of a unit with odd \"%s\" exponent",
+						 base_units[i])));
+		result->units[i] = a->units[i] >> 1;
+	}
+
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(unit_cbrt);
+
+Datum
+unit_cbrt(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*result;
+	int		 i;
+
+	/* compute root of value */
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = cbrt(a->value);
+
+	/* compute root of base units */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] % 3 != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take cube root of a unit with \"%s\" exponent not divisible by three",
+						 base_units[i])));
+		result->units[i] = a->units[i] / 3;
+	}
+
+	PG_RETURN_POINTER(result);
+}
+
 /* needs search_path = @extschema@ due to use of unit_parse() */
 PG_FUNCTION_INFO_V1(unit_at);
 

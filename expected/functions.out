@@ -197,6 +197,49 @@ SELECT '0'::unit ^ 0 AS unity;
  1
 (1 row)
 
+-- test roots
+SELECT sqrt('4'::unit);
+ sqrt 
+------
+ 2
+(1 row)
+
+SELECT sqrt('4 m^2'::unit);
+ sqrt 
+------
+ 2 m
+(1 row)
+
+SELECT |/'16 s^-4'::unit;
+ ?column? 
+----------
+ 4 s^-2
+(1 row)
+
+SELECT sqrt('-4 m^2'::unit) AS error;
+ERROR:  cannot take square root of a negative-valued unit
+SELECT sqrt('4 m'::unit) AS error;
+ERROR:  cannot take square root of a unit with odd "m" exponent
+SELECT cbrt('8'::unit);
+ cbrt 
+------
+ 2
+(1 row)
+
+SELECT cbrt('8 m^3'::unit);
+ cbrt 
+------
+ 2 m
+(1 row)
+
+SELECT ||/'-27 s^-6'::unit;
+ ?column? 
+----------
+ -3 s^-2
+(1 row)
+
+SELECT cbrt('-4 m'::unit) AS error;
+ERROR:  cannot take cube root of a unit with "m" exponent not divisible by three
 WITH
   v(u) AS (VALUES
 	(NULL),

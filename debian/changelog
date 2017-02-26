@@ -2,6 +2,7 @@ postgresql-unit (3.0) UNRELEASED; urgency=medium
 
   * Support defining new units at runtime.
   * Extension is not relocatable after installation anymore.
+  * Add sqrt() and cbrt() functions.
   * Bump extension version to 3.
   * Bump minimum supported PostgreSQL version to 9.5 so we can use
     hash_create(HASH_BLOBS).

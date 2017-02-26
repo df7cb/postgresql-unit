@@ -232,6 +232,26 @@ CREATE OPERATOR ^ (
 	procedure = unit_pow
 );
 
+CREATE FUNCTION sqrt(unit)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_sqrt'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR |/ (
+	rightarg = unit,
+	procedure = sqrt
+);
+
+CREATE FUNCTION cbrt(unit)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_cbrt'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR ||/ (
+	rightarg = unit,
+	procedure = cbrt
+);
+
 CREATE FUNCTION unit_at(unit, cstring)
 	RETURNS cstring
 	SET search_path = @extschema@
