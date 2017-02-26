@@ -2615,31 +2615,31 @@ SELECT 'daA'::unit; -- ambiguous in original definitions.units
 (1 row)
 
 SELECT 'dasb'::unit;
-ERROR:  unit "dasb" is ambiguous, "da-sb" vs. "d-asb"
+ERROR:  unit "dasb" is ambiguous, "d-asb" vs. "da-sb"
 LINE 1: SELECT 'dasb'::unit;
                ^
 SELECT 'dat'::unit;
-ERROR:  unit "dat" is ambiguous, "da-t" vs. "d-at"
+ERROR:  unit "dat" is ambiguous, "d-at" vs. "da-t"
 LINE 1: SELECT 'dat'::unit;
                ^
 SELECT 'dau'::unit;
-ERROR:  unit "dau" is ambiguous, "da-u" vs. "d-au"
+ERROR:  unit "dau" is ambiguous, "d-au" vs. "da-u"
 LINE 1: SELECT 'dau'::unit;
                ^
 SELECT 'daustbl'::unit;
-ERROR:  unit "daustbl" is ambiguous, "da-ustbl" vs. "d-austbl"
+ERROR:  unit "daustbl" is ambiguous, "d-austbl" vs. "da-ustbl"
 LINE 1: SELECT 'daustbl'::unit;
                ^
 SELECT 'daustblsp'::unit;
-ERROR:  unit "daustblsp" is ambiguous, "da-ustblsp" vs. "d-austblsp"
+ERROR:  unit "daustblsp" is ambiguous, "d-austblsp" vs. "da-ustblsp"
 LINE 1: SELECT 'daustblsp'::unit;
                ^
 SELECT 'daustbsp'::unit;
-ERROR:  unit "daustbsp" is ambiguous, "da-ustbsp" vs. "d-austbsp"
+ERROR:  unit "daustbsp" is ambiguous, "d-austbsp" vs. "da-ustbsp"
 LINE 1: SELECT 'daustbsp'::unit;
                ^
 SELECT 'daustsp'::unit;
-ERROR:  unit "daustsp" is ambiguous, "da-ustsp" vs. "d-austsp"
+ERROR:  unit "daustsp" is ambiguous, "d-austsp" vs. "da-ustsp"
 LINE 1: SELECT 'daustsp'::unit;
                ^
 SELECT 'Eint'::unit;
@@ -2667,7 +2667,7 @@ ERROR:  unit "Yint" is ambiguous, "Y-int" vs. "Yi-nt"
 LINE 1: SELECT 'Yint'::unit;
                ^
 SELECT 'yoctodecillion'::unit;
-ERROR:  unit "yoctodecillion" is ambiguous, "yocto-decillion" vs. "y-octodecillion"
+ERROR:  unit "yoctodecillion" is ambiguous, "y-octodecillion" vs. "yocto-decillion"
 LINE 1: SELECT 'yoctodecillion'::unit;
                ^
 SELECT 'Zint'::unit;

@@ -103,7 +103,8 @@ EXP_R    \^[\-+]?[0-9]+
 								"FROM unit_prefixes CROSS JOIN unit_units WHERE "
 								"prefix||name = $1 AND "
 								"$1 LIKE prefix||'%' AND "
-								"$1 LIKE '%'||name",
+								"$1 LIKE '%'||name "
+								"ORDER BY prefix",
 								1, /* nargs */
 								argtypes,
 								values,
@@ -168,7 +169,8 @@ EXP_R    \^[\-+]?[0-9]+
 									"FROM unit_prefixes CROSS JOIN unit_units WHERE "
 									"prefix||name = substring($1 for length($1) - 1) AND "
 									"substring($1 for length($1) - 1) LIKE prefix||'%' AND "
-									"substring($1 for length($1) - 1) LIKE '%'||name",
+									"substring($1 for length($1) - 1) LIKE '%'||name "
+									"ORDER BY prefix",
 									1, /* nargs */
 									argtypes,
 									values,
