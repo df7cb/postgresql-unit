@@ -52,9 +52,6 @@ EXP_R    \^[\-+]?[0-9]+
 	int			ret;
 	Oid			argtypes[1];
 	Datum		values[1];
-	double		factor;
-	Unit	   *unitp;
-	bool		is_null;
 	size_t		yytext_len;
 
 	/* Check if it's a predefined or previously seen unit */
@@ -62,8 +59,8 @@ EXP_R    \^[\-+]?[0-9]+
 	if (name)
 	{
 		elog(DEBUG1, "unit %s found in unit_names hash table", name->name);
-		yyunitlval.UNIT = name->unit;
-		return UNIT;
+		yyunitlval.UNIT_SHIFT = name->unit_shift;
+		return UNIT_SHIFT;
 	}
 
 	SPI_connect();
@@ -72,7 +69,7 @@ EXP_R    \^[\-+]?[0-9]+
 	values[0] = CStringGetTextDatum(yytext);
 
 	/* look up unit definition without prefix first */
-	ret = SPI_execute_with_args("SELECT unit "
+	ret = SPI_execute_with_args("SELECT unit, shift "
 								"FROM unit_units WHERE "
 								"name = $1",
 								1, /* nargs */
@@ -86,10 +83,17 @@ EXP_R    \^[\-+]?[0-9]+
 
 	if (SPI_processed == 1) /* found definition */
 	{
+		Unit	   *unitp;
+		double		shift;
+		bool		is_null;
+
 		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
 		if (is_null)
 			elog(ERROR, "unit \"%s\" definition is NULL", yytext);
-		yyunitlval.UNIT = *unitp;
+		yyunitlval.UNIT_SHIFT.unit = *unitp;
+
+		shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null));
+		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
 
 		elog(DEBUG1, "unit %s (value %g)",
 				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
@@ -99,7 +103,7 @@ EXP_R    \^[\-+]?[0-9]+
 	}
 
 	/* look up definition with prefix */
-	ret = SPI_execute_with_args("SELECT prefix, factor, name, unit "
+	ret = SPI_execute_with_args("SELECT prefix, factor, name, unit, shift "
 								"FROM unit_prefixes CROSS JOIN unit_units WHERE "
 								"prefix||name = $1 AND "
 								"$1 LIKE prefix||'%' AND "
@@ -125,12 +129,21 @@ EXP_R    \^[\-+]?[0-9]+
 
 	if (SPI_processed == 1) /* found definition */
 	{
+		double		factor;
+		Unit	   *unitp;
+		double		shift;
+		bool		is_null;
+
 		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
 		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
 		if (is_null)
 			elog(ERROR, "unit \"%s\" definition is NULL", yytext);
-		yyunitlval.UNIT = *unitp;
-		yyunitlval.UNIT.value *= factor;
+
+		yyunitlval.UNIT_SHIFT.unit = *unitp;
+		yyunitlval.UNIT_SHIFT.unit.value *= factor;
+
+		shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null));
+		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
 
 		goto found;
 	}
@@ -138,7 +151,7 @@ EXP_R    \^[\-+]?[0-9]+
 	/* if unit is long enough, look up unit definition with plural 's' removed */
 	yytext_len = strlen(yytext);
 	if (yytext_len >= MIN_PLURAL_LENGTH && yytext[yytext_len - 1] == 's') {
-		ret = SPI_execute_with_args("SELECT unit "
+		ret = SPI_execute_with_args("SELECT unit, shift "
 									"FROM unit_units WHERE "
 									"name = substring($1 for length($1) - 1)",
 									1, /* nargs */
@@ -152,10 +165,17 @@ EXP_R    \^[\-+]?[0-9]+
 
 		if (SPI_processed == 1) /* found definition */
 		{
+			Unit	   *unitp;
+			double		shift;
+			bool		is_null;
+
 			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
 			if (is_null)
 				elog(ERROR, "unit \"%s\" definition is NULL", yytext);
-			yyunitlval.UNIT = *unitp;
+			yyunitlval.UNIT_SHIFT.unit = *unitp;
+
+			shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null));
+			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
 
 			elog(DEBUG1, "unit %s (value %g)",
 					SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
@@ -165,7 +185,7 @@ EXP_R    \^[\-+]?[0-9]+
 		}
 
 		/* look up definition with prefix */
-		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit "
+		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit, shift "
 									"FROM unit_prefixes CROSS JOIN unit_units WHERE "
 									"prefix||name = substring($1 for length($1) - 1) AND "
 									"substring($1 for length($1) - 1) LIKE prefix||'%' AND "
@@ -191,12 +211,20 @@ EXP_R    \^[\-+]?[0-9]+
 
 		if (SPI_processed == 1) /* found definition */
 		{
+			double		factor;
+			Unit	   *unitp;
+			double		shift;
+			bool		is_null;
+
 			factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
 			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 4, &is_null));
 			if (is_null)
 				elog(ERROR, "unit \"%s\" definition is NULL", yytext);
-			yyunitlval.UNIT = *unitp;
-			yyunitlval.UNIT.value *= factor;
+			yyunitlval.UNIT_SHIFT.unit = *unitp;
+			yyunitlval.UNIT_SHIFT.unit.value *= factor;
+
+			shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null));
+			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
 
 			goto found;
 		}
@@ -212,9 +240,9 @@ found:
 	/* store computed unit in hash table */
 	name = hash_search(unit_names, yytext, HASH_ENTER, NULL);
 	strlcpy(name->name, yytext, UNIT_NAME_LENGTH);
-	name->unit = yyunitlval.UNIT;
+	name->unit_shift = yyunitlval.UNIT_SHIFT;
 
-	return UNIT;
+	return UNIT_SHIFT;
 }
 
 {EXP_R} {

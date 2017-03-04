@@ -14,18 +14,19 @@ CREATE TABLE unit_prefixes (
 
 SELECT pg_catalog.pg_extension_config_dump('unit_prefixes', 'WHERE dump');
 
-COPY unit_prefixes FROM '@MODULEDIR@/unit_prefixes.data';
+COPY unit_prefixes (prefix, factor, definition, dump) FROM '@MODULEDIR@/unit_prefixes.data';
 
 CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
 	unit unit NOT NULL,
+	shift double precision, -- NULL means 0.0 here
 	definition text NOT NULL,
 	dump boolean DEFAULT true
 );
 
 SELECT pg_catalog.pg_extension_config_dump('unit_units', 'WHERE dump');
 
-COPY unit_units FROM '@MODULEDIR@/unit_units.data';
+COPY unit_units (name, unit, shift, definition, dump) FROM '@MODULEDIR@/unit_units.data';
 
 -- operators
 

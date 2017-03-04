@@ -3,6 +3,7 @@
 # load definitions.units.patched into the unit_prefixes and unit_units tables
 # existing data is wiped!
 
+use utf8;
 use strict;
 use warnings;
 use DBD::Pg;
@@ -47,6 +48,16 @@ while (<F>) {
 
 	my $u = { unit => $unit, def => $def, is_prefix => $is_prefix };
 	$u->{is_base} = ($u->{unit} eq $u->{def});
+
+	# shifted units
+	if ($unit =~ /^(℃|°C|degC|degcelsius)$/) {
+		$u->{shift} = '273.15'; # 0 °C in K
+	} elsif ($unit =~ /^(℉|°F|degF|degfahrenheit)$/) {
+		$u->{shift} = '255.3722222222222222'; # 0 °F in K
+	} elsif ($unit =~ /^(degreaumur)$/) {
+		$u->{shift} = '273.15'; # 0 °Ré in K
+	}
+
 	push @todo, $u;
 }
 
@@ -60,7 +71,7 @@ do {
 
 	my @new_todo;
 	foreach my $u (@todo) {
-		my ($unit, $def, $is_prefix) = ($u->{unit}, $u->{def}, $u->{is_prefix});
+		my ($unit, $def, $shift, $is_prefix) = ($u->{unit}, $u->{def}, $u->{shift}, $u->{is_prefix});
 		if ($is_prefix) {
 			my $ret = $dbh->do("INSERT INTO unit_prefixes (prefix, factor, definition, dump) VALUES (?, value(?::unit), ?, NULL)",
 				undef,
@@ -80,9 +91,9 @@ do {
 				# also be parsed as prefix-otherknownunit, e.g. "ft" vs "f-t"
 				print "Unit $unit has already been used before being defined. Bad.\n";
 			}
-			my $ret = $dbh->do("INSERT INTO unit_units (name, unit, definition, dump) VALUES (?, ?, ?, NULL)",
+			my $ret = $dbh->do("INSERT INTO unit_units (name, unit, shift, definition, dump) VALUES (?, ?, ?, ?, NULL)",
 				undef,
-				$unit, $def, $def);
+				$unit, $def, $shift, $def);
 			next if defined $ret;
 			$u->{error} = $dbh->errstr;
 		}

@@ -54,7 +54,7 @@ extern int yyunitdebug;
   enum yyunittokentype
   {
     DOUBLE = 258,
-    UNIT = 259,
+    UNIT_SHIFT = 259,
     EXPONENT = 260,
     ERR = 261,
     UMINUS = 262
@@ -67,12 +67,12 @@ extern int yyunitdebug;
 union YYUNITSTYPE
 {
 
-  /* UNIT  */
-  Unit UNIT;
+  /* UNIT_SHIFT  */
+  UnitShift UNIT_SHIFT;
   /* input  */
-  Unit input;
+  UnitShift input;
   /* expr  */
-  Unit expr;
+  UnitShift expr;
   /* DOUBLE  */
   double DOUBLE;
   /* number  */

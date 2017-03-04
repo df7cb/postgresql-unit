@@ -1,0 +1,112 @@
+SELECT * FROM unit_units WHERE name IN (
+	'K', 'kelvin',
+	'℃', '°C', 'degC', 'degcelsius',
+	'℉', '°F', 'degF', 'degfahrenheit',
+	'°R', 'degR', 'degrankine', 'degreerankine', 'degreesrankine', 'tempR', 'temprankine',
+	'degreaumur')
+ORDER BY name;
+      name      |        unit         |      shift       |   definition   | dump 
+----------------+---------------------+------------------+----------------+------
+ ℃              | 1 K                 |           273.15 | degC           | 
+ ℉              | 555.555555555556 mK | 255.372222222222 | degF           | 
+ °C             | 1 K                 |           273.15 | degC           | 
+ degC           | 1 K                 |           273.15 | K              | 
+ degcelsius     | 1 K                 |           273.15 | K              | 
+ degF           | 555.555555555556 mK | 255.372222222222 | 5|9 * degC     | 
+ degfahrenheit  | 555.555555555556 mK | 255.372222222222 | 5|9 * degC     | 
+ degR           | 555.555555555556 mK |                  | degrankine     | 
+ degrankine     | 555.555555555556 mK |                  | degreesrankine | 
+ degreaumur     | 1.25 K              |           273.15 | 10|8 * degC    | 
+ degreerankine  | 555.555555555556 mK |                  | degF           | 
+ degreesrankine | 555.555555555556 mK |                  | degF           | 
+ °F             | 555.555555555556 mK | 255.372222222222 | degF           | 
+ K              | 1 K                 |                  | K              | 
+ kelvin         | 1 K                 |                  | K              | 
+ °R             | 555.555555555556 mK |                  | degR           | 
+ tempR          | 555.555555555556 mK |                  | degrankine     | 
+ temprankine    | 555.555555555556 mK |                  | degrankine     | 
+(18 rows)
+
+-- Kelvin
+SELECT '0 K'::unit, 'K'::unit, '1 K'::unit, '273.15 K'::unit;
+ unit | unit | unit |   unit   
+------+------+------+----------
+ 0 K  | 1 K  | 1 K  | 273.15 K
+(1 row)
+
+-- Celsius
+SELECT '-273.15 ℃'::unit, '0 ℃'::unit, '1 ℃'::unit, '℃'::unit;
+ unit |   unit   |   unit   | unit 
+------+----------+----------+------
+ 0 K  | 273.15 K | 274.15 K | 1 K
+(1 row)
+
+SELECT '-273.15 °C'::unit, '0 °C'::unit, '1 °C'::unit, '°C'::unit;
+ unit |   unit   |   unit   | unit 
+------+----------+----------+------
+ 0 K  | 273.15 K | 274.15 K | 1 K
+(1 row)
+
+SELECT '-273.15 degC'::unit, '0 degC'::unit, '1 degC'::unit, 'degC'::unit;
+ unit |   unit   |   unit   | unit 
+------+----------+----------+------
+ 0 K  | 273.15 K | 274.15 K | 1 K
+(1 row)
+
+SELECT '-273.15 degcelsius'::unit, '0 degcelsius'::unit, '1 degcelsius'::unit, 'degcelsius'::unit;
+ unit |   unit   |   unit   | unit 
+------+----------+----------+------
+ 0 K  | 273.15 K | 274.15 K | 1 K
+(1 row)
+
+-- Fahrenheit
+SELECT '-459.67 ℉'::unit, '0 ℉'::unit, '1 ℉'::unit, '℉'::unit;
+ unit |        unit        |        unit        |        unit         
+------+--------------------+--------------------+---------------------
+ 0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
+(1 row)
+
+SELECT '-459.67 °F'::unit, '0 °F'::unit, '1 °F'::unit, '°F'::unit;
+ unit |        unit        |        unit        |        unit         
+------+--------------------+--------------------+---------------------
+ 0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
+(1 row)
+
+SELECT '-459.67 degF'::unit, '0 degF'::unit, '1 degF'::unit, 'degF'::unit;
+ unit |        unit        |        unit        |        unit         
+------+--------------------+--------------------+---------------------
+ 0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
+(1 row)
+
+SELECT '-459.67 degfahrenheit'::unit, '0 degfahrenheit'::unit, '1 degfahrenheit'::unit, 'degfahrenheit'::unit;
+ unit |        unit        |        unit        |        unit         
+------+--------------------+--------------------+---------------------
+ 0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
+(1 row)
+
+-- Rankine
+SELECT '491.67 degR'::unit, '0 degR'::unit, '1 degR'::unit, 'degR'::unit;
+   unit   | unit |        unit         |        unit         
+----------+------+---------------------+---------------------
+ 273.15 K | 0 K  | 555.555555555556 mK | 555.555555555556 mK
+(1 row)
+
+-- Réaumur
+SELECT '-218.52 degreaumur'::unit, '0 degreaumur'::unit, '1 degreaumur'::unit, 'degreaumur'::unit;
+        unit         |   unit   |  unit   |  unit  
+---------------------+----------+---------+--------
+ -56.843418860808 fK | 273.15 K | 274.4 K | 1.25 K
+(1 row)
+
+SELECT '0 K'::unit @ 'K', '0 K'::unit @ '°C', '0 K'::unit @ '°F', '0 K'::unit @ '°R', '0 K'::unit @ 'degreaumur';
+ ?column? |  ?column?  |  ?column?  | ?column? |      ?column?      
+----------+------------+------------+----------+--------------------
+ 0 K      | -273.15 °C | -459.67 °F | 0 °R     | -218.52 degreaumur
+(1 row)
+
+SELECT '273.15 K'::unit @ 'K', '273.15 K'::unit @ '°C', '273.15 K'::unit @ '°F', '273.15 K'::unit @ '°R', '273.15 K'::unit @ 'degreaumur';
+ ?column? | ?column? |      ?column?       | ?column?  |   ?column?   
+----------+----------+---------------------+-----------+--------------
+ 273.15 K | 0 °C     | 31.9999999999999 °F | 491.67 °R | 0 degreaumur
+(1 row)
+

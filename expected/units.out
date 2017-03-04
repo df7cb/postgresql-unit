@@ -517,8 +517,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  avogadro                  | 6.02214085854916e+23 mol^-1         | grams/amu mol
  N_A                       | 6.02214085854916e+23 mol^-1         | avogadro
  ℉                         | 555.555555555556 mK                 | degF
- degF                      | 555.555555555556 mK                 | 5|9 degC
- degfahrenheit             | 555.555555555556 mK                 | 5|9 degC
+ degF                      | 555.555555555556 mK                 | 5|9 * degC
+ degfahrenheit             | 555.555555555556 mK                 | 5|9 * degC
  degR                      | 555.555555555556 mK                 | degrankine
  degrankine                | 555.555555555556 mK                 | degreesrankine
  degreerankine             | 555.555555555556 mK                 | degF
@@ -540,7 +540,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  TEMPERATURE_DIFFERENCE    | 1 K                                 | kelvin
  tempK                     | 1 K                                 | K
  thermalvolt               | 1 K                                 | K
- degreaumur                | 1.25 K                              | 10|8 degC
+ degreaumur                | 1.25 K                              | 10|8 * degC
  standardtemp              | 273.15 K                            | 273.15 K
  stdtemp                   | 273.15 K                            | standardtemp
  stdatmT0                  | 288.15 K                            | 288.15 K
@@ -1009,8 +1009,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  röntgen                   | 0.000258 s*A/kg                     | roentgen
  sievertunit               | 0.00216204 s*A/kg                   | 8.38 rontgen
  ㏆                        | 1 s*A/kg                            | C/kg
- tog                       | 0.1 s^3*K/kg                        | 0.1 degC m^2 / W
- clo                       | 0.155 s^3*K/kg                      | 0.155 degC m^2 / W
+ tog                       | 0.1 s^3*K/kg                        | 0.1 * degC m^2 / W
+ clo                       | 0.155 s^3*K/kg                      | 0.155 * degC m^2 / W
  Rvalue                    | 0.176110183682306 s^3*K/kg          | degF ft^2 hr / btu
  RSI                       | 1 s^3*K/kg                          | degC m^2 / W
  THERMAL_INSULANCE         | 1 s^3*K/kg                          | THERMAL_RESISTIVITY LENGTH
@@ -1903,12 +1903,12 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  calorie_IT                | 4.1868 J                            | 4.1868 J
  cal_mean                  | 4.19002 J                           | 4.19002 J
  kpm                       | 9.80665 J                           | kp meter
- btu_th                    | 1.05435026448889 kJ                 | cal_th lb degF / gram K
+ btu_th                    | 1.05435026448889 kJ                 | cal_th lb (degF) / gram K
  britishthermalunit        | 1.05505585262 kJ                    | btu
  btu                       | 1.05505585262 kJ                    | btu_IT
- btu_IT                    | 1.05505585262 kJ                    | cal_IT lb degF / gram K
- btu_mean                  | 1.05586727897078 kJ                 | cal_mean lb degF / gram K
- celsiusheatunit           | 1.89783047608 kJ                    | cal lb degC / gram K
+ btu_IT                    | 1.05505585262 kJ                    | cal_IT lb (degF) / gram K
+ btu_mean                  | 1.05586727897078 kJ                 | cal_mean lb (degF) / gram K
+ celsiusheatunit           | 1.89783047608 kJ                    | cal lb (degC) / gram K
  chu                       | 1.89783047608 kJ                    | celsiusheatunit
  Wh                        | 3.6 kJ                              | W hour
  ㎉                        | 4.184 kJ                            | kcal

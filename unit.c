@@ -55,7 +55,7 @@ unit_get_definitions(void)
 	 */
 	hinfo.keysize = UNIT_NAME_LENGTH;
 	hinfo.entrysize = sizeof(unit_names_t);
-	Assert(UNIT_NAME_LENGTH + sizeof(Unit) == sizeof(unit_names_t));
+	Assert(UNIT_NAME_LENGTH + sizeof(UnitShift) == sizeof(unit_names_t));
 	unit_names = hash_create("unit_names",
 			20,
 			&hinfo,
@@ -70,8 +70,9 @@ unit_get_definitions(void)
 				HASH_ENTER,
 				NULL);
 		strlcpy(unit_name->name, derived_units[i].name, UNIT_NAME_LENGTH);
-		unit_name->unit.value = derived_units[i].factor;
-		memcpy(unit_name->unit.units, derived_units[i].units, N_UNITS);
+		unit_name->unit_shift.unit.value = derived_units[i].factor;
+		memcpy(unit_name->unit_shift.unit.units, derived_units[i].units, N_UNITS);
+		unit_name->unit_shift.shift = 0.0;
 	}
 
 	/* unit_dimensions: char dimension[N_UNITS] -> char *name
@@ -352,16 +353,16 @@ PG_FUNCTION_INFO_V1 (unit_in);
 Datum
 unit_in (PG_FUNCTION_ARGS)
 {
-	char	*str = PG_GETARG_CSTRING(0);
-	Unit	*result;
+	char		*str = PG_GETARG_CSTRING(0);
+	UnitShift	*result;
 
-	result = (Unit *) palloc(sizeof(Unit));
+	result = (UnitShift *) palloc(sizeof(UnitShift));
 	if (unit_parse(str, result) > 0)
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
 				 errmsg("invalid input syntax for unit: \"%s\", %s",
 					 str, yyerrstr)));
-	PG_RETURN_POINTER(result);
+	PG_RETURN_POINTER(&result->unit);
 }
 
 PG_FUNCTION_INFO_V1(unit_out);
@@ -743,22 +744,22 @@ PG_FUNCTION_INFO_V1(unit_at);
 Datum
 unit_at(PG_FUNCTION_ARGS)
 {
-	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
-	char	*b = PG_GETARG_CSTRING(1);
-	Unit	 bu;
+	Unit		*a = (Unit *) PG_GETARG_POINTER(0);
+	char		*b = PG_GETARG_CSTRING(1);
+	UnitShift	 bu;
 
 	if (unit_parse(b, &bu) > 0)
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
 				 errmsg("invalid input syntax for unit: \"%s\", %s",
 					 b, yyerrstr)));
-	test_same_dimension("@", a, &bu);
-	if (bu.value == 0)
+	test_same_dimension("@", a, &bu.unit);
+	if (bu.unit.value == 0)
 		ereport(ERROR,
 				(errcode(ERRCODE_DIVISION_BY_ZERO),
 				 errmsg("division by zero-valued unit: \"%s\"", b)));
 	PG_RETURN_CSTRING(psprintf("%s %s%s",
-				float8out_internal (a->value / bu.value),
+				float8out_internal ((a->value - bu.shift) / bu.unit.value),
 				(atof(b) > 0 ? "* " : ""),
 				b));
 }

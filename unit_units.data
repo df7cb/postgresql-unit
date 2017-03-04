@@ -285,17 +285,17 @@ basispoint	0.000100000000000000005	\N	0.01 %	\N
 fine	0.00100000000000000002	\N	1|1000	\N
 TEMPERATURE	1 K	\N	kelvin	\N
 TEMPERATURE_DIFFERENCE	1 K	\N	kelvin	\N
-degcelsius	1 K	\N	K	\N
-degC	1 K	\N	K	\N
-degfahrenheit	0.55555555555555558 K	\N	5|9 degC	\N
-degF	0.55555555555555558 K	\N	5|9 degC	\N
+degcelsius	1 K	273.149999999999977	K	\N
+degC	1 K	273.149999999999977	K	\N
+degfahrenheit	0.55555555555555558 K	255.372222222222234	5|9 * degC	\N
+degF	0.55555555555555558 K	255.372222222222234	5|9 * degC	\N
 degreesrankine	0.55555555555555558 K	\N	degF	\N
 degrankine	0.55555555555555558 K	\N	degreesrankine	\N
 degreerankine	0.55555555555555558 K	\N	degF	\N
 degR	0.55555555555555558 K	\N	degrankine	\N
 tempR	0.55555555555555558 K	\N	degrankine	\N
 temprankine	0.55555555555555558 K	\N	degrankine	\N
-degreaumur	1.25 K	\N	10|8 degC	\N
+degreaumur	1.25 K	273.149999999999977	10|8 * degC	\N
 degK	1 K	\N	K	\N
 tempK	1 K	\N	K	\N
 pi	3.14159265358979312	\N	3.14159265358979323846	\N
@@ -1056,9 +1056,9 @@ cal_20	4.18189999999999973 m^2*kg/s^2	\N	calorie_20	\N
 calorie_twenty	4.18189999999999973 m^2*kg/s^2	\N	calorie_20  	\N
 cal_mean	4.19001999999999963 m^2*kg/s^2	\N	4.19002 J	\N
 thermie	4185800.00000000047 m^2*kg/s^2	\N	1e6 cal_15	\N
-btu_IT	1055.05585262000022 m^2*kg/s^2	\N	cal_IT lb degF / gram K	\N
-btu_th	1054.35026448888902 m^2*kg/s^2	\N	cal_th lb degF / gram K	\N
-btu_mean	1055.86727897077799 m^2*kg/s^2	\N	cal_mean lb degF / gram K	\N
+btu_IT	1055.05585262000022 m^2*kg/s^2	\N	cal_IT lb (degF) / gram K	\N
+btu_th	1054.35026448888902 m^2*kg/s^2	\N	cal_th lb (degF) / gram K	\N
+btu_mean	1055.86727897077799 m^2*kg/s^2	\N	cal_mean lb (degF) / gram K	\N
 ECtherm	105506000 m^2*kg/s^2	\N	1.05506e8 J	\N
 UStherm	105480400 m^2*kg/s^2	\N	1.054804e8 J	\N
 therm	105480400 m^2*kg/s^2	\N	UStherm	\N
@@ -1178,8 +1178,8 @@ THERMAL_INSULANCE	1 s^3*K/kg	\N	THERMAL_RESISTIVITY LENGTH	\N
 THERMAL_INSULATION	1 s^3*K/kg	\N	THERMAL_RESISTIVITY LENGTH	\N
 europeanUvalue	1 kg/s^3*K	\N	watt / m^2 K	\N
 RSI	1 s^3*K/kg	\N	degC m^2 / W	\N
-clo	0.154999999999999999 s^3*K/kg	\N	0.155 degC m^2 / W	\N
-tog	0.100000000000000006 s^3*K/kg	\N	0.1 degC m^2 / W	\N
+clo	0.154999999999999999 s^3*K/kg	\N	0.155 * degC m^2 / W	\N
+tog	0.100000000000000006 s^3*K/kg	\N	0.1 * degC m^2 / W	\N
 ENTROPY	1 m^2*kg/s^2*K	\N	ENERGY / TEMPERATURE	\N
 langley	41840 kg/s^2	\N	thermcalorie/cm^2	\N
 poncelet	980.664999999999964 m^2*kg/s^3	\N	100 kg force m / s	\N
@@ -2067,12 +2067,12 @@ hogshead	0.2384809423920001 m^3	\N	ushogshead	\N
 Å	1.00000000000000004e-10 m	\N	angstrom	\N
 Å	1.00000000000000004e-10 m	\N	angstrom	\N
 röntgen	0.000257999999999999983 s*A/kg	\N	roentgen	\N
-°C	1 K	\N	degC	\N
-°F	0.55555555555555558 K	\N	degF	\N
+°C	1 K	273.149999999999977	degC	\N
+°F	0.55555555555555558 K	255.372222222222234	degF	\N
 °K	1 K	\N	K	\N
 °R	0.55555555555555558 K	\N	degR	\N
-℃	1 K	\N	degC	\N
-℉	0.55555555555555558 K	\N	degF	\N
+℃	1 K	273.149999999999977	degC	\N
+℉	0.55555555555555558 K	255.372222222222234	degF	\N
 K	1 K	\N	K	\N
 ℓ	0.00100000000000000024 m^3	\N	liter	\N
 Ω	1 m^2*kg/s^3*A^2	\N	ohm	\N
@@ -2308,7 +2308,7 @@ diesel	36372473227.052742 kg/m*s^2	\N	130500 btu/usgallon	\N
 gasoline_LHV	32052371042.9966736 kg/m*s^2	\N	115000 btu/usgallon	\N
 gasoline_HHV	34839533742.3876877 kg/m*s^2	\N	125000 btu/usgallon	\N
 gasoline	34839533742.3876877 kg/m*s^2	\N	gasoline_HHV	\N
-celsiusheatunit	1897.83047608000015 m^2*kg/s^2	\N	cal lb degC / gram K	\N
+celsiusheatunit	1897.83047608000015 m^2*kg/s^2	\N	cal lb (degC) / gram K	\N
 chu	1897.83047608000015 m^2*kg/s^2	\N	celsiusheatunit	\N
 Rvalue	0.176110183682305826 s^3*K/kg	\N	degF ft^2 hr / btu	\N
 Uvalue	5.67826334111348796 kg/s^3*K	\N	1/Rvalue	\N

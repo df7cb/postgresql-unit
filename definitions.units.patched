@@ -780,8 +780,8 @@ degC                    K
 tempF(x) units=[1;K] domain=[-459.67,) range=[0,) \
                 (x+(-32)) degF + stdtemp ; (tempF+(-stdtemp))/degF + 32
 tempfahrenheit() tempF
-degfahrenheit           5|9 degC
-degF                    5|9 degC
+degfahrenheit           5|9 * degC
+degF                    5|9 * degC
 
 
 degreesrankine          degF              # The Rankine scale has the
@@ -793,7 +793,7 @@ temprankine             degrankine
 
 tempreaumur(x)    units=[1;K] domain=[-218.52,) range=[0,) \
                   x degreaumur+stdtemp ; (tempreaumur+(-stdtemp))/degreaumur
-degreaumur              10|8 degC # The Reaumur scale was used in Europe and
+degreaumur              10|8 * degC # The Reaumur scale was used in Europe and
                                   # particularly in France.  It is defined
                                   # to be 0 at the freezing point of water
                                   # and 80 at the boiling point.  Reaumur
@@ -2944,9 +2944,9 @@ thermie              1e6 cal_15      # Heat required to raise the
 
 btu                     btu_IT       # International Table BTU is the default
 britishthermalunit      btu
-btu_IT                  cal_IT lb degF / gram K
-btu_th                  cal_th lb degF / gram K
-btu_mean                cal_mean lb degF / gram K
+btu_IT                  cal_IT lb (degF) / gram K
+btu_th                  cal_th lb (degF) / gram K
+btu_mean                cal_mean lb (degF) / gram K
 quad                    quadrillion btu
 
 ECtherm                 1.05506e8 J    # Exact definition, close to 1e5 btu
@@ -3107,7 +3107,7 @@ uranium_natural         0.7% uranium_pure        # Natural uranium: 0.7% U-235
 
 # Celsius heat unit: energy to raise a pound of water 1 degC
 
-celsiusheatunit         cal lb degC / gram K
+celsiusheatunit         cal lb (degC) / gram K
 chu                     celsiusheatunit
 
 POWER                   watt
@@ -3167,13 +3167,13 @@ Rvalue                  degF ft^2 hr / btu
 Uvalue                  1/Rvalue
 europeanUvalue          watt / m^2 K
 RSI                     degC m^2 / W
-clo                     0.155 degC m^2 / W # Supposed to be the insulance
+clo                     0.155 * degC m^2 / W # Supposed to be the insulance
                                            # required to keep a resting person
                                            # comfortable indoors.  The value
                                            # given is from NIST and the CRC,
                                            # but [5] gives a slightly different
                                            # value of 0.875 ft^2 degF hr / btu.
-tog                     0.1 degC m^2 / W   # Also used for clothing.
+tog                     0.1 * degC m^2 / W   # Also used for clothing.
 
 
 # The bel was defined by engineers of Bell Laboratories to describe the

@@ -51,13 +51,18 @@ typedef struct Unit {
 	signed char		units[N_UNITS];
 } Unit;
 
+typedef struct UnitShift {
+	Unit			unit;
+	double			shift;
+} UnitShift;
+
 /* hash table and regex interface */
 
 extern HTAB		*unit_names;
 
 typedef struct unit_names_t {
 	char		 name[UNIT_NAME_LENGTH];
-	Unit		 unit;
+	UnitShift	 unit_shift;
 } unit_names_t;
 
 typedef struct unit_dimensions_t {
@@ -67,7 +72,7 @@ typedef struct unit_dimensions_t {
 
 /* parser interface */
 
-int unit_parse (char *s, Unit *unit); /* in unit.y */
+int unit_parse (char *s, UnitShift *unit); /* in unit.y */
 
 char *unit_cstring (Unit *unit);
 

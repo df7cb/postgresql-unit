@@ -23,7 +23,7 @@ struct yyunit_buffer_state *yyunit_scan_string(char *str);
 void yyunit_delete_buffer(struct yyunit_buffer_state *buffer);
 void yyerror (char const *s);
 
-static Unit *unit_parse_result; /* parsing result gets stored here */
+static UnitShift *unit_parse_result; /* parsing result gets stored here */
 %}
 
 %define parse.error verbose
@@ -31,10 +31,10 @@ static Unit *unit_parse_result; /* parsing result gets stored here */
 
 %define api.value.type union
 %token <double> DOUBLE
-%token <Unit> UNIT
+%token <UnitShift> UNIT_SHIFT
 %token <int> EXPONENT
 %token ERR
-%type  <Unit> input expr
+%type  <UnitShift> input expr
 %type  <double> number
 
 %left '+' '-'
@@ -52,45 +52,56 @@ input:
 
 expr:
   number {
-	$$.value = $1;
-	memset(&$$.units, 0, N_UNITS);
+	$$.unit.value = $1;
+	memset(&$$.unit.units, 0, N_UNITS);
+	$$.shift = 0.0;
   }
-| UNIT
+| UNIT_SHIFT
 | '(' expr ')' {
 	$$ = $2;
+	$$.shift = 0.0;
   }
 | expr EXPONENT {
 	int i;
 	if ($2 != 1) {
-		$$.value = pow($1.value, $2);
+		$$.unit.value = pow($1.unit.value, $2);
 		for (i = 0; i < N_UNITS; i++)
-			$$.units[i] = $1.units[i] * $2;
+			$$.unit.units[i] = $1.unit.units[i] * $2;
 	} else {
 		$$ = $1;
 	}
+	$$.shift = 0.0;
   }
 | expr '+' expr {
-	unit_add_internal(&$1, &$3, &$$);
+	unit_add_internal(&$1.unit, &$3.unit, &$$.unit);
+	$$.shift = 0.0;
   }
 | expr '-' expr {
-	unit_sub_internal(&$1, &$3, &$$);
+	unit_sub_internal(&$1.unit, &$3.unit, &$$.unit);
+	$$.shift = 0.0;
   }
 | expr expr %prec '*' {
-	unit_mult_internal(&$1, &$2, &$$);
+	unit_mult_internal(&$1.unit, &$2.unit, &$$.unit);
+	$$.unit.value += $2.shift; /* shift is evaluated exactly here */
+	$$.shift = 0.0;
   }
 | expr '*' expr {
-	unit_mult_internal(&$1, &$3, &$$);
+	unit_mult_internal(&$1.unit, &$3.unit, &$$.unit);
+	$$.shift = 0.0;
   }
 | expr '/' expr {
-	unit_div_internal(&$1, &$3, &$$);
+	unit_div_internal(&$1.unit, &$3.unit, &$$.unit);
+	$$.shift = 0.0;
   }
 | '/' expr {
 	Unit nominator = { 1.0, {0} };
-	unit_div_internal(&nominator, &$2, &$$);
+	unit_div_internal(&nominator, &$2.unit, &$$.unit);
+	$$.shift = 0.0;
   }
 | '-' expr %prec UMINUS {
 	$$ = $2;
-	$$.value *= -1;
+	$$.unit.value *= -1;
+	$$.shift = 0.0;
   }
 ;
 
@@ -103,12 +114,12 @@ number:
 
 /* parse a given string and return the result via the second argument */
 int
-unit_parse (char *s, Unit *unit)
+unit_parse (char *s, UnitShift *unit_shift)
 {
 	struct yyunit_buffer_state *buf;
 	int ret;
 
-	unit_parse_result = unit;
+	unit_parse_result = unit_shift;
 	buf = yyunit_scan_string(s);
 	ret = yyunitparse();
 	yyunit_delete_buffer(buf);
