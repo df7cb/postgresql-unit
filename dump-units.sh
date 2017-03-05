@@ -4,6 +4,6 @@
 psql <<-EOT
 	SET extra_float_digits = 3;
 	SET unit.output_base_units = on;
-	\copy unit_prefixes to 'unit_prefixes.data'
-	\copy unit_units to 'unit_units.data'
+	\copy (SELECT prefix, factor, definition, dump FROM unit_prefixes ORDER BY ordering) to 'unit_prefixes.data'
+	\copy (SELECT name, unit, shift, definition, dump FROM unit_units ORDER BY ordering) to 'unit_units.data'
 EOT
