@@ -8,7 +8,7 @@ ALTER FUNCTION unit_in(cstring)
 CREATE TABLE unit_prefixes (
 	prefix varchar(32) PRIMARY KEY,
 	factor double precision NOT NULL,
-	definition text NOT NULL,
+	definition text, -- original definition, informational
 	dump boolean DEFAULT true
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
 	unit unit NOT NULL,
 	shift double precision, -- NULL means 0.0 here
-	definition text NOT NULL,
+	definition text, -- original definition, informational
 	dump boolean DEFAULT true
 );
 
