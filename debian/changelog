@@ -6,6 +6,7 @@ postgresql-unit (3.0) UNRELEASED; urgency=medium
   * Bump extension version to 3.
   * Bump minimum supported PostgreSQL version to 9.5 so we can use
     hash_create(HASH_BLOBS).
+  * Bump license to GPL-3+ to match GNU units' license.
 
  -- Christoph Berg <myon@debian.org>  Sun, 22 Jan 2017 16:32:46 +0100
 
