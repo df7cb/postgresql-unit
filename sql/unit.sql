@@ -69,4 +69,4 @@ WHERE
   u <> 'kg' AND
   dimension(u::unit) != dimension((p||u)::unit) AND
   p||u NOT IN ('dat') -- skip ambiguous unit
-ORDER BY lower(p), lower(u);
+ORDER BY lower(p) COLLATE "C", lower(u) COLLATE "C";

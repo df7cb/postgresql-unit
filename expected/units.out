@@ -1,4 +1,4 @@
-SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
+SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COLLATE "C";
   prefix  |        factor        | definition 
 ----------+----------------------+------------
  y        |                1e-24 | yocto
@@ -20,10 +20,10 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
  Aki      | 2.32568039361378e-09 | 12^-8
  Sevi     | 2.79081647233653e-08 | 12^-7
  Hesi     | 3.34897976680384e-07 | 12^-6
- µ        |                1e-06 | micro
  micro    |                1e-06 | 1e-6
  mu       |                1e-06 | micro
  u        |                1e-06 | micro
+ µ        |                1e-06 | micro
  μ        |                1e-06 | micro
  Queni    | 4.01877572016461e-06 | 12^-5
  Quedri   | 4.82253086419753e-05 | 12^-4
@@ -39,16 +39,16 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
  ⅛        |                0.125 | 1|8
  ⅙        |    0.166666666666667 | 1|6
  ⅕        |                  0.2 | 1|5
- ¼        |                 0.25 | 1|4
  quarter  |                 0.25 | 1|4
+ ¼        |                 0.25 | 1|4
  ⅓        |    0.333333333333333 | 1|3
  ⅜        |                0.375 | 3|8
  ⅖        |                  0.4 | 2|5
- ½        |                  0.5 | 1|2
  demi     |                  0.5 | 0.5
  half     |                  0.5 | 0.5
  hemi     |                  0.5 | 0.5
  semi     |                  0.5 | 0.5
+ ½        |                  0.5 | 1|2
  ⅗        |                  0.6 | 3|5
  ⅝        |                0.625 | 5|8
  ⅔        |    0.666666666666667 | 2|3
@@ -57,11 +57,11 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
  ⅚        |    0.833333333333333 | 5|6
  ⅞        |                0.875 | 7|8
  int      |             0.999998 | int
- british  |    0.999998261154856 | UK
  UK       |    0.999998261154856 | UK
+ british  |    0.999998261154856 | UK
+ US       |       1.000002000004 | US
  geodetic |       1.000002000004 | US
  survey   |       1.000002000004 | US
- US       |       1.000002000004 | US
  double   |                    2 | 2
  treble   |                    3 | 3
  triple   |                    3 | 3
@@ -82,8 +82,8 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
  Quena    |               248832 | 12^5
  M        |              1000000 | mega
  mega     |              1000000 | 1e6
- mebi     |              1048576 | 2^20
  Mi       |              1048576 | mebi
+ mebi     |              1048576 | 2^20
  Hesa     |              2985984 | 12^6
  Seva     |             35831808 | 12^7
  Aka      |            429981696 | 12^8
@@ -96,28 +96,28 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix;
  Lefa     |         743008370688 | 12^11
  T        |        1000000000000 | tera
  tera     |        1000000000000 | 1e12
- tebi     |        1099511627776 | 2^40
  Ti       |        1099511627776 | tebi
+ tebi     |        1099511627776 | 2^40
  Zennila  |        8916100448256 | 12^12
  P        |                1e+15 | peta
  peta     |                1e+15 | 1e15
- pebi     | 1.12589990684262e+15 | 2^50
  Pi       | 1.12589990684262e+15 | pebi
+ pebi     | 1.12589990684262e+15 | 2^50
  E        |                1e+18 | exa
  exa      |                1e+18 | 1e18
  Ei       | 1.15292150460685e+18 | exbi
  exbi     | 1.15292150460685e+18 | 2^60
  Z        |                1e+21 | zetta
  zetta    |                1e+21 | 1e21
- zebi     | 1.18059162071741e+21 | 2^70
  Zi       | 1.18059162071741e+21 | zebi
+ zebi     | 1.18059162071741e+21 | 2^70
  Y        |                1e+24 | yotta
  yotta    |                1e+24 | 1e24
  Yi       | 1.20892581961463e+24 | yobi
  yobi     | 1.20892581961463e+24 | 2^80
 (114 rows)
 
-SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name;
+SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name COLLATE "C";
            name            |                unit                 |                  definition                   
 ---------------------------+-------------------------------------+-----------------------------------------------
  g0000000                  | -6                                  | (-6)
@@ -135,30 +135,30 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  mas                       | 4.84813681109536e-09                | milliarcsec
  squarearcmin              | 8.46159499407524e-08                | squareminute
  squareminute              | 8.46159499407524e-08                | 1|60^2 squaredegree
- ㏙                        | 1e-06                               | ppm
  partspermillion           | 1e-06                               | ppm
  ppm                       | 1e-06                               | 1e-6
+ ㏙                        | 1e-06                               | ppm
  centesimalsecond          | 1.5707963267949e-06                 | 1|100 centesimalminute
- ''                        | 4.84813681109536e-06                | "
  "                         | 4.84813681109536e-06                | arcsec
- ″                         | 4.84813681109536e-06                | "
+ ''                        | 4.84813681109536e-06                | "
  arcsec                    | 4.84813681109536e-06                | 1|60 arcmin
  arcsecond                 | 4.84813681109536e-06                | arcsec
+ ″                         | 4.84813681109536e-06                | "
  seclongitude              | 7.27220521664304e-05                | circle (seconds/day)
- ‱                         | 0.0001                              | 1|10000
  basispoint                | 0.0001                              | 0.01 %
  mou_proportion            | 0.0001                              | 1|10000
+ ‱                         | 0.0001                              | 1|10000
  centesimalminute          | 0.00015707963267949                 | 1|100 grade
  '                         | 0.000290888208665722                | arcmin
- ′                         | 0.000290888208665722                | '
  arcmin                    | 0.000290888208665722                | 1|60 degree
  arcminute                 | 0.000290888208665722                | arcmin
+ ′                         | 0.000290888208665722                | '
  squaredegree              | 0.000304617419786709                | 1|180^2 pi^2 sr
  milangle                  | 0.00098174770424681                 | 1|6400 circle
- ‰                         | 0.001                               | 1|1000
  fine                      | 0.001                               | 1|1000
  mill                      | 0.001                               | 0.001
  rin_proportion            | 0.001                               | 1|1000
+ ‰                         | 0.001                               | 1|1000
  earthflattening           | 0.00335281969789619                 | 1|298.25642
  proof                     | 0.005                               | 1|200
  alpha                     | 0.0072973525664                     | 7.2973525664e-3
@@ -170,10 +170,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  gon                       | 0.015707963267949                   | 1|100 rightangle
  grade                     | 0.015707963267949                   | gon
  gauss_k                   | 0.01720209895                       | 0.01720209895
- °                         | 0.0174532925199433                  | degree
  arcdeg                    | 0.0174532925199433                  | degree
  deg                       | 0.0174532925199433                  | degree
  degree                    | 0.0174532925199433                  | 1|360 circle
+ °                         | 0.0174532925199433                  | degree
  caratgold                 | 0.0416666666666667                  | karat
  karat                     | 0.0416666666666667                  | 1|24
  tithe                     | 0.1                                 | 1|10
@@ -187,17 +187,17 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  UK                        | 0.999998261154856                   | UKlength_SJJ
  UKlength_SJJ              | 0.999998261154856                   | 0.91439841 meter / yard
  UKlength_B                | 0.999999125109361                   | 0.9143992 meter / yard
- ㏛                        | 1                                   | sr
  ANGLE                     | 1                                   | radian
+ SOLID_ANGLE               | 1                                   | steradian
  capita                    | 1                                   | people
  death                     | 1                                   | people
  one                       | 1                                   | 1
  people                    | 1                                   | 1
  person                    | 1                                   | people
  radian                    | 1                                   | 1
- SOLID_ANGLE               | 1                                   | steradian
  sr                        | 1                                   | 1
  steradian                 | 1                                   | sr
+ ㏛                        | 1                                   | sr
  US                        | 1.000002000004                      | 1200|3937 m/ft
  hydrogen                  | 1.00794                             | 1.00794
  syntoniccomma             | 1.0125                              | pythagoreanthird / majorthird
@@ -481,8 +481,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  longnovemdecillion        | 1e+114                              | million^19
  longvigintillion          | 1e+120                              | million^20
  centillion                | 1e+303                              | 1e303
- bit                       | 125 mB                              | 1|8 B
  INFORMATION               | 125 mB                              | bit
+ bit                       | 125 mB                              | 1|8 B
  nat                       | 180.336880111121 mB                 | (1/0.693147180559945) bits
  nyp                       | 250 mB                              | 2 bits
  ban                       | 415.24101186092 mB                  | hartley
@@ -494,52 +494,52 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  byte                      | 1 B                                 | B
  octet                     | 1 B                                 | 8 bits
  ㎅                        | 1 kB                                | kB
- ㎆                        | 1 MB                                | MB
  meg                       | 1 MB                                | megabyte
- ㎇                        | 1 GB                                | GB
+ ㎆                        | 1 MB                                | MB
  gig                       | 1 GB                                | gigabyte
+ ㎇                        | 1 GB                                | GB
  hefnercandle              | 918 mcd                             | hefnerunit
  hefnerunit                | 918 mcd                             | 0.9 candle
- ㏅                        | 1 cd                                | cd
- ㏐                        | 1 cd                                | lm
+ LUMINOUS_FLUX             | 1 cd                                | lumen
+ LUMINOUS_INTENSITY        | 1 cd                                | candela
  candela                   | 1 cd                                | cd
  cd                        | 1 cd                                | cd
  lm                        | 1 cd                                | lumen
  lumen                     | 1 cd                                | cd sr
- LUMINOUS_FLUX             | 1 cd                                | lumen
- LUMINOUS_INTENSITY        | 1 cd                                | candela
+ ㏅                        | 1 cd                                | cd
+ ㏐                        | 1 cd                                | lm
  candle                    | 1.02 cd                             | 1.02 candela
  violle                    | 20.17 cd                            | 20.17 cd
- ㏖                        | 1 mol                               | mol
  AMOUNT                    | 1 mol                               | mole
  mol                       | 1 mol                               | mol
  mole                      | 1 mol                               | mol
- avogadro                  | 6.02214085854916e+23 mol^-1         | grams/amu mol
+ ㏖                        | 1 mol                               | mol
  N_A                       | 6.02214085854916e+23 mol^-1         | avogadro
- ℉                         | 555.555555555556 mK                 | degF
+ avogadro                  | 6.02214085854916e+23 mol^-1         | grams/amu mol
  degF                      | 555.555555555556 mK                 | 5|9 * degC
- degfahrenheit             | 555.555555555556 mK                 | 5|9 * degC
  degR                      | 555.555555555556 mK                 | degrankine
+ degfahrenheit             | 555.555555555556 mK                 | 5|9 * degC
  degrankine                | 555.555555555556 mK                 | degreesrankine
  degreerankine             | 555.555555555556 mK                 | degF
  degreesrankine            | 555.555555555556 mK                 | degF
- °F                        | 555.555555555556 mK                 | degF
- °R                        | 555.555555555556 mK                 | degR
  tempR                     | 555.555555555556 mK                 | degrankine
  temprankine               | 555.555555555556 mK                 | degrankine
- ℃                         | 1 K                                 | degC
- K                         | 1 K                                 | K
- °C                        | 1 K                                 | degC
- degC                      | 1 K                                 | K
- degcelsius                | 1 K                                 | K
- degK                      | 1 K                                 | K
+ °F                        | 555.555555555556 mK                 | degF
+ °R                        | 555.555555555556 mK                 | degR
+ ℉                         | 555.555555555556 mK                 | degF
  K                         | 1 K                                 | K
- °K                        | 1 K                                 | K
- kelvin                    | 1 K                                 | K
  TEMPERATURE               | 1 K                                 | kelvin
  TEMPERATURE_DIFFERENCE    | 1 K                                 | kelvin
+ degC                      | 1 K                                 | K
+ degK                      | 1 K                                 | K
+ degcelsius                | 1 K                                 | K
+ kelvin                    | 1 K                                 | K
  tempK                     | 1 K                                 | K
  thermalvolt               | 1 K                                 | K
+ °C                        | 1 K                                 | degC
+ °K                        | 1 K                                 | K
+ ℃                         | 1 K                                 | degC
+ K                         | 1 K                                 | K
  degreaumur                | 1.25 K                              | 10|8 * degC
  standardtemp              | 273.15 K                            | 273.15 K
  stdtemp                   | 273.15 K                            | standardtemp
@@ -557,14 +557,14 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  intamp                    | 999.835 mA                          | intampere
  intampere                 | 999.835 mA                          | 0.999835 A
  A                         | 1 A                                 | A
+ CURRENT                   | 1 A                                 | ampere
  amp                       | 1 A                                 | ampere
  ampere                    | 1 A                                 | A
- CURRENT                   | 1 A                                 | ampere
  galvat                    | 1 A                                 | ampere
+ Bi                        | 10 A                                | biot
  abA                       | 10 A                                | abampere
  abamp                     | 10 A                                | abampere
  abampere                  | 10 A                                | 10 A
- Bi                        | 10 A                                | biot
  biot                      | 10 A                                | abA
  ㎄                        | 1 kA                                | kA
  plancktime                | 5.39105895420117e-44 s              | hbar / planckmass c^2
@@ -583,10 +583,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  blink                     | 864 ms                              | 1e-5 day
  decimalsecond             | 864 ms                              | 1|100 decimalminute 
  siderealsecond            | 997.269566435185 ms                 | 1|60 siderealminute
+ TIME                      | 1 s                                 | second
  s                         | 1 s                                 | s
  sec                       | 1 s                                 | s
  second                    | 1 s                                 | s
- TIME                      | 1 s                                 | second
  timeounce                 | 7.5 s                               | 1|8 timeostent
  siderealminute            | 59.8361739861111 s                  | 1|60 siderealhour
  min                       | 60 s                                | minute
@@ -612,10 +612,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  lune                      | 85.0480933333333 ks                 | 1|30 lunation
  earthday                  | 86.16409054 ks                      | siderealday
  siderealday               | 86.16409054 ks                      | 86164.09054 s
- ㍲                        | 86.4 ks                             | da
  d                         | 86.4 ks                             | day
  da                        | 86.4 ks                             | day
  day                       | 86.4 ks                             | 24 hr
+ ㍲                        | 86.4 ks                             | da
  marsday                   | 88.6426632 ks                       | 1.02595675 day
  plutoday                  | 551.81088 ks                        | 6.3867 day
  sennight                  | 604.8 ks                            | 7 day
@@ -667,9 +667,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  millennia                 | 31.5569259746784 Gs                 | millennium
  millennium                | 31.5569259746784 Gs                 | 1000 years
  cron                      | 31.5569259746784 Ts                 | 1e6 years
+ LUMINOUS_ENERGY           | 1 s*cd                              | talbot
  lumberg                   | 1 s*cd                              | talbot
  lumerg                    | 1 s*cd                              | talbot
- LUMINOUS_ENERGY           | 1 s*cd                              | talbot
  talbot                    | 1 s*cd                              | lumen s
  atomiccharge              | 160.21766208 zC                     | e
  e                         | 160.21766208 zC                     | 1.6021766208e-19 C
@@ -688,33 +688,33 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  faraday_phys              | 96.5219 kC                          | 96521.9 C
  eotvos                    | 1e-09 s^-2                          | 1e-9 Gal/cm
  rpm                       | 104.71975511966 mHz                 | rev/min
- ㎐                        | 1 Hz                                | Hz
- ㏃                        | 1 Hz                                | Bq
- becquerel                 | 1 Hz                                | /s
  Bq                        | 1 Hz                                | becquerel
  FREQUENCY                 | 1 Hz                                | hertz
+ Hz                        | 1 Hz                                | hertz
+ becquerel                 | 1 Hz                                | /s
  hertz                     | 1 Hz                                | /s
  hz                        | 1 Hz                                | Hz
- Hz                        | 1 Hz                                | hertz
  pulsatance                | 1 Hz                                | radian / sec
+ ㎐                        | 1 Hz                                | Hz
+ ㏃                        | 1 Hz                                | Bq
  rps                       | 6.28318530717959 Hz                 | rev/sec
  K_apex1961                | 11.4 Hz                             | 11.4 (cd/m^2) / lx s
- k1250                     | 12.5 Hz                             | 12.5 (cd/m^2) / lx s
  K_apex1971                | 12.5 Hz                             | 12.5 (cd/m^2) / lx s
  K_lum                     | 12.5 Hz                             | K_apex1971
+ k1250                     | 12.5 Hz                             | 12.5 (cd/m^2) / lx s
  k1400                     | 14 Hz                               | 14   (cd/m^2) / lx s
  C_apex1961                | 224 Hz                              | 224 lx / lx s
  C_illum                   | 224 Hz                              | C_apex1961
  c250                      | 250 Hz                              | 250 lx / lx s
  C_apex1971                | 322 Hz                              | 322 lx / lx s
  ㎑                        | 1 kHz                               | kHz
- ㎒                        | 1 MHz                               | MHz
  rutherford                | 1 MHz                               | 1e6 Bq
+ ㎒                        | 1 MHz                               | MHz
  ㎓                        | 1 GHz                               | GHz
  Ci                        | 37 GHz                              | curie
  curie                     | 37 GHz                              | 3.7e10 Bq
- ㎔                        | 1 THz                               | THz
  fresnel                   | 1 THz                               | 1e12 Hz
+ ㎔                        | 1 THz                               | THz
  bps                       | 125 mB/s                            | bit/sec
  cdromspeed                | 153.6 kB/s                          | 75 2048 bytes / sec
  cdaudiospeed              | 176.4 kB/s                          | 44.1 kHz 2*16 bits
@@ -748,9 +748,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  m_alpha                   | 6.64465722924162 yg                 | alphaparticlemass
  blanc                     | 281.245269097222 ng                 | 1|24 periot
  iupenicillin              | 600 ng                              | 0.6 microgram
- ㎍                        | 1 µg                                | µg
  gamma                     | 1 µg                                | microgram
  mcg                       | 1 µg                                | microgram
+ ㎍                        | 1 µg                                | µg
  periot                    | 6.74988645833333 µg                 | 1|20 droit
  m_P                       | 21.7651 µg                          | planckmass
  planckmass                | 21.7651 µg                          | 2.17651e-8 kg
@@ -785,9 +785,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  aeginaobol                | 1.03678256 g                        | 1|6 aeginadrachmae
  scriptulum                | 1.13668087958333 g                  | 1|24 uncia
  scrupula                  | 1.13668087958333 g                  | scriptulum
- ℈                         | 1.2959782 g                         | scruple
  apscruple                 | 1.2959782 g                         | 1|3 apdram
  scruple                   | 1.2959782 g                         | apscruple
+ ℈                         | 1.2959782 g                         | scruple
  mercpennyweight           | 1.457975475 g                       | 1|20 mercounce
  towerpennyweight          | 1.457975475 g                       | 1|20 towerounce
  dwt                       | 1.55517384 g                        | pennyweight
@@ -823,10 +823,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  romanounce                | 27.28034111 g                       | uncia
  uncia                     | 27.28034111 g                       | 1|12 libra
  unciae                    | 27.28034111 g                       | uncia
- ℥                         | 28.349523125 g                      | ounce
  lid                       | 28.349523125 g                      | 1 oz
  ounce                     | 28.349523125 g                      | 1|16 pound
  oz                        | 28.349523125 g                      | ounce
+ ℥                         | 28.349523125 g                      | ounce
  silverwukiyeh             | 29.1595095 g                        | 10 silverdirhem
  mercounce                 | 29.1595095 g                        | 1|15 mercpound
  towerounce                | 29.1595095 g                        | 1|12 towerpound
@@ -875,10 +875,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  funt                      | 409.51718 g                         | 409.51718 grams
  mercpound                 | 437.3926425 g                       | 6750 grain
  atticmina                 | 437.3926425 g                       | 50 atticstaters
- ℔                         | 453.59237 g                         | lb
  lb                        | 453.59237 g                         | pound
  lbm                       | 453.59237 g                         | lb
  pound                     | 453.59237 g                         | 0.45359237 kg
+ ℔                         | 453.59237 g                         | lb
  frenchpound               | 489.505846609816 g                  | 9216 frenchgrain
  catty                     | 500 g                               | 0.5 kg
  pfund                     | 500 g                               | 500 g
@@ -891,12 +891,12 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  seer                      | 933.104304 g                        | 14400 grain
  ser                       | 933.104304 g                        | seer
  glug                      | 980.665 g                           | gram force s^2 / cm
- ㎏                        | 1 kg                                | kg
+ MASS                      | 1 kg                                | kilogram
  key                       | 1 kg                                | kg
  kg                        | 1 kg                                | kg
  kilogram                  | 1 kg                                | kg
- MASS                      | 1 kg                                | kilogram
  pakistanseer              | 1 kg                                | 1 kg
+ ㎏                        | 1 kg                                | kg
  mast                      | 1.133980925 kg                      | 2.5 lb
  clove                     | 3.17514659 kg                       | 7 lb
  woolclove                 | 3.17514659 kg                       | 7 lb
@@ -991,15 +991,15 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  finsenunit                | 100 Mg/s^3                          | 1e5 W/m^2
  sigma                     | 56.7036681748245 µg/s^3*K^4         | stefanboltzmann
  stefanboltzmann           | 56.7036681748245 µg/s^3*K^4         | pi^2 k^4 / 60 hbar^3 c^2
- europeanUvalue            | 1 kg/s^3*K                          | watt / m^2 K
  THERMAL_ADMITTANCE        | 1 kg/s^3*K                          | THERMAL_CONDUCTIVITY / LENGTH
+ europeanUvalue            | 1 kg/s^3*K                          | watt / m^2 K
  Uvalue                    | 5.67826334111349 kg/s^3*K           | 1/Rvalue
+ Jy                        | 10 yg/s^2                           | jansky
  fluxunit                  | 10 yg/s^2                           | 1e-26 W/m^2 Hz
  jansky                    | 10 yg/s^2                           | fluxunit
- Jy                        | 10 yg/s^2                           | jansky
  langley                   | 41.84 Mg/s^2                        | thermcalorie/cm^2
- gauss                     | 100 µT                              | abvolt sec / cm^2
  Gs                        | 100 µT                              | gauss
+ gauss                     | 100 µT                              | abvolt sec / cm^2
  T                         | 1 T                                 | tesla
  tesla                     | 1 T                                 | Wb/m^2
  mechanicalohm             | 1 g/s                               | dyn s / cm
@@ -1019,8 +1019,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  l_P                       | 1.61619881510288e-35 m              | plancklength
  plancklength              | 1.61619881510288e-35 m              | plancktime c
  protonchargeradius        | 875.1 am                            | 0.8751e-15 m
- ㎙                        | 1 fm                                | fm
  fermi                     | 1 fm                                | 1e-15 m
+ ㎙                        | 1 fm                                | fm
  lambda_Cn                 | 1.31959090502153 fm                 | neutronwavelength
  neutronwavelength         | 1.31959090502153 fm                 | hplanck / m_n c
  lambda_Cp                 | 1.32140985417209 fm                 | protonwavelength
@@ -1036,17 +1036,17 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  lambda_C                  | 2.42631023703734 pm                 | electronwavelength
  atomiclength              | 52.9177210674889 pm                 | bohrradius
  bohrradius                | 52.9177210674889 pm                 | alpha / 4 pi Rinfinity
- Å                         | 100 pm                              | angstrom
- Å                         | 100 pm                              | angstrom
  angstrom                  | 100 pm                              | 1e-10 m
+ Å                         | 100 pm                              | angstrom
  ångström                  | 100 pm                              | angstrom
+ Å                         | 100 pm                              | angstrom
  angstromstar              | 100.001495 pm                       | 1.00001495 angstrom
  ㎚                        | 1 nm                                | nm
  texscaledpoint            | 5.36285100577695 nm                 | 1|65536 texpoint
  texsp                     | 5.36285100577695 nm                 | texscaledpoint
  millionth                 | 25.4 nm                             | 1e-6 inch
- ㎛                        | 1 µm                                | µm
  micron                    | 1 µm                                | micrometer
+ ㎛                        | 1 µm                                | µm
  tenth                     | 2.54 µm                             | 0.0001 inch
  dmtee                     | 3 µm                                | dmteefine
  dmteefine                 | 3 µm                                | 3 micron
@@ -1067,10 +1067,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  dmtf                      | 25 µm                               | dmtfine
  dmtfine                   | 25 µm                               | 25 micron
  dmtred                    | 25 µm                               | dmtfine
- ㏕                        | 25.4 µm                             | mil
  mil                       | 25.4 µm                             | 0.001 inch
  pointthickness            | 25.4 µm                             | 0.001 in
  thou                      | 25.4 µm                             | 0.001 inch
+ ㏕                        | 25.4 µm                             | mil
  mou                       | 30.3030303030303 µm                 | 1|10000 shaku
  ouncecopper               | 34.325278658486 µm                  | oz / ft^2 copperdensity
  ozcu                      | 34.325278658486 µm                  | ouncecopper
@@ -1182,9 +1182,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  arabicinch                | 22.5213333333333 mm                 | 1|12 arabicfoot
  romaninch                 | 24.6666666666667 mm                 | 1|12 romanfoot
  irishinch                 | 25.3999558333333 mm                 | UKinch
- ㏌                        | 25.4 mm                             | in
  in                        | 25.4 mm                             | inch
  inch                      | 25.4 mm                             | 2.54 cm
+ ㏌                        | 25.4 mm                             | in
  scotsinch                 | 25.5371293108095 mm                 | 1.00540054 UKinch
  frenchinch                | 27.0699487475637 mm                 | 1|12 frenchfoot
  frenchthumb               | 27.0699487475637 mm                 | frenchinch
@@ -1202,10 +1202,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  sizeDring                 | 41.25 mm                            | 41.25 mm
  sizeEring                 | 42.5 mm                             | 42.50 mm
  sizeFring                 | 43.75 mm                            | 43.75 mm
- retmaunit                 | 44.45 mm                            | 1.75 in
  RU                        | 44.45 mm                            | U
- shoe_girls0               | 44.45 mm                            | (3+7|12) inch
  U                         | 44.45 mm                            | retmaunit
+ retmaunit                 | 44.45 mm                            | 1.75 in
+ shoe_girls0               | 44.45 mm                            | (3+7|12) inch
  sizeGring                 | 45 mm                               | 45.00 mm
  sizeHring                 | 46.25 mm                            | 46.25 mm
  sizeIring                 | 47.5 mm                             | 47.50 mm
@@ -1319,8 +1319,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  olympicpace               | 771.525 mm                          | olympicbema
  irishyard                 | 914.39841 mm                        | 3 irishfeet
  bronzeyard11              | 914.3998 mm                         | 914.39980 mm
- internationalyard         | 914.4 mm                            | yard
  USdoubletimepace          | 914.4 mm                            | 36 in
+ internationalyard         | 914.4 mm                            | yard
  yard                      | 914.4 mm                            | 3 ft
  yd                        | 914.4 mm                            | yard
  mendenhallyard            | 914.401828803658 mm                 | surveyyard
@@ -1409,9 +1409,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  lea                       | 274.32 m                            | 300 yards
  heer                      | 548.64 m                            | 600 yards
  li                        | 578.90071942446 m                   | 10|27.8 mile
- ㎞                        | 1 km                                | km
  click                     | 1 km                                | km
  klick                     | 1 km                                | click
+ ㎞                        | 1 km                                | km
  verst                     | 1.0668 km                           | 500 sazhen
  versta                    | 1.0668 km                           | verst
  romanmile                 | 1.48 km                             | 8 stadia
@@ -1455,25 +1455,25 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  sunradius                 | 696 Mm                              | 6.96e8 m
  lightminute               | 17.98754748 Gm                      | c min
  sundist_near              | 147.1 Gm                            | 1.471e11 m
- ㍳                        | 149.5978707 Gm                      | au
  astronomicalunit          | 149.5978707 Gm                      | 149597870700 m
  au                        | 149.5978707 Gm                      | astronomicalunit
+ ㍳                        | 149.5978707 Gm                      | au
  sundist                   | 149.598022960713 Gm                 | 1.0000010178 au
  sundist_far               | 152.1 Gm                            | 1.521e11 m
  spat                      | 1 Tm                                | 1e12 m
  lightyear                 | 9.4607304725808 Pm                  | c julianyear
  ly                        | 9.4607304725808 Pm                  | lightyear
- ㍶                        | 30.8567758146719 Pm                 | pc
  parsec                    | 30.8567758146719 Pm                 | au / 4.84813681113334e-06
  pc                        | 30.8567758146719 Pm                 | parsec
+ ㍶                        | 30.8567758146719 Pm                 | pc
  wiendisplacement          | 0.0028977729 m*K                    | 2.8977729e-3 m K
  debye                     | 3.33564095198152e-30 m*s*A          | 1e-18 statcoul cm
  jerk                      | 304.8 mm/s^3                        | ft / s^3
  Gal                       | 10 mm/s^2                           | cm / s^2
  galileo                   | 10 mm/s^2                           | Gal
  celo                      | 304.8 mm/s^2                        | ft / s^2
- ㎨                        | 1 m/s^2                             | m/s^2
  ACCELERATION              | 1 m/s^2                             | VELOCITY / TIME
+ ㎨                        | 1 m/s^2                             | m/s^2
  moongravity               | 1.62 m/s^2                          | 1.62 m/s^2
  force                     | 9.80665 m/s^2                       | gravity
  gravity                   | 9.80665 m/s^2                       | 9.80665 m/s^2
@@ -1488,8 +1488,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  knot                      | 514.444444444444 mm/s               | nauticalmile / hr
  admiraltyknot             | 514.773333333333 mm/s               | brknot
  brknot                    | 514.773333333333 mm/s               | brnauticalmile / hr
- ㎧                        | 1 m/s                               | m/s
  VELOCITY                  | 1 m/s                               | LENGTH / TIME
+ ㎧                        | 1 m/s                               | m/s
  Vl                        | 1.70254340277778 m/s                | Vlos
  Vlos                      | 1.70254340277778 m/s                | Grafut/Tim
  mach                      | 331.46 m/s                          | 331.46 m/s
@@ -1616,8 +1616,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  B1paper                   | 0.707 m^2                           | 707 mm 1000 mm
  Epaper                    | 0.96515936 m^2                      | 34 inch 44 inch
  A0paper                   | 0.999949 m^2                        | 841 mm 1189 mm
- ㎡                        | 1 m^2                               | m^2
  AREA                      | 1 m^2                               | LENGTH^2
+ ㎡                        | 1 m^2                               | m^2
  C0paper                   | 1.189349 m^2                        | 917 mm 1297 mm
  B0paper                   | 1.414 m^2                           | 1000 mm 1414 mm
  edoma                     | 1.544536271809 m^2                  | (5.8*2.9) shaku^2
@@ -1660,8 +1660,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  jia                       | 9699.17355371901 m^2                | 2934 ping
  甲                        | 9699.17355371901 m^2                | jia
  chou_area                 | 9917.35537190083 m^2                | 10 tan_area
- ㏊                        | 10000 m^2                           | ha
  hectare                   | 10000 m^2                           | hectoare
+ ㏊                        | 10000 m^2                           | ha
  dessiatine                | 10925.397504 m^2                    | 2400 sazhen^2
  dessjatine                | 10925.397504 m^2                    | dessiatine
  nook                      | 60702.846336 m^2                    | 1|2 virgate
@@ -1692,16 +1692,16 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  refrigeration             | 3.87666666666667 m^2/s^3            | tonref / ton
  banana_dose               | 100 nGy                             | 0.1e-6 sievert
  rep                       | 8.38 mGy                            | 8.38 mGy
- ㎭                        | 10 mGy                              | rad
  rad                       | 10 mGy                              | 1e-2 Gy
  rem                       | 10 mGy                              | 1e-2 Sv
- ㏉                        | 1 Gy                                | Gy
- ㏜                        | 1 Gy                                | Sv
- gray                      | 1 Gy                                | J/kg
+ ㎭                        | 10 mGy                              | rad
  Gy                        | 1 Gy                                | gray
  RADIATION_DOSE            | 1 Gy                                | gray
- sievert                   | 1 Gy                                | J/kg
  Sv                        | 1 Gy                                | sievert
+ gray                      | 1 Gy                                | J/kg
+ sievert                   | 1 Gy                                | J/kg
+ ㏉                        | 1 Gy                                | Gy
+ ㏜                        | 1 Gy                                | Sv
  water_fusion_heat         | 333.61087982237 kGy                 | 6.01 kJ/mol / (18.015 g/mol)
  water_vaporization_heat   | 2.2564 MGy                          | 2256.4 J/g
  tnt                       | 4.61207052490764 MGy                | 1e9 cal_th / ton
@@ -1795,8 +1795,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  specificheat_ammonia      | 4600 m^2/s^2*K                      | 4.6 J/g K
  specificheat_helium       | 5193.2 m^2/s^2*K                    | 5.1932 J/g K
  specificheat_hydrogen     | 14300 m^2/s^2*K                     | 14.3 J/g K
- lentor                    | 0.0001 m^2/s                        | stokes
  St                        | 0.0001 m^2/s                        | stokes
+ lentor                    | 0.0001 m^2/s                        | stokes
  stoke                     | 0.0001 m^2/s                        | stokes
  stokes                    | 0.0001 m^2/s                        | cm^2 / s
  KINEMATIC_VISCOSITY       | 1 m^2/s                             | VISCOSITY / DENSITY
@@ -1837,22 +1837,22 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  boilerhorsepower          | 9.8095 kW                           | 9809.50 W
  ㎿                        | 1 MW                                | MW
  solarluminosity           | 384.6 YW                            | 384.6e24 W
- thermalampere             | 1 m^2*kg/s^3*K                      | W/K
  THERMAL_CONDUCTANCE       | 1 m^2*kg/s^3*K                      | POWER / TEMPERATURE_DIFFERENCE
+ thermalampere             | 1 m^2*kg/s^3*K                      | W/K
  abohm                     | 1 nΩ                                | abvolt / abamp
  microhm                   | 1 µΩ                                | microohm
  siemensunit               | 953.4 mΩ                            | 0.9534 ohm
- Ω                         | 1 Ω                                 | ohm
- ohm                       | 1 Ω                                 | V/A
  RESISTANCE                | 1 Ω                                 | ohm
+ ohm                       | 1 Ω                                 | V/A
  Ω                         | 1 Ω                                 | ohm
+ Ω                         | 1 Ω                                 | ohm
  intohm                    | 1.000495 Ω                          | 1.000495 ohm
- ㏀                        | 1 kΩ                                | kΩ
  kilohm                    | 1 kΩ                                | kiloohm
+ ㏀                        | 1 kΩ                                | kΩ
  R_K90                     | 25.812807 kΩ                        | 25812.807 ohm
  R_K                       | 25.8128074555 kΩ                    | 25812.8074555 ohm
- ㏁                        | 1 MΩ                                | MΩ
  megohm                    | 1 MΩ                                | megaohm
+ ㏁                        | 1 MΩ                                | MΩ
  statohm                   | 898.755178736818 GΩ                 | statvolt / statamp
  ㎴                        | 1 pV                                | pV
  ㎵                        | 1 nV                                | nV
@@ -1865,37 +1865,37 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  daniell                   | 1.042 V                             | 1.042 V
  statvolt                  | 299.792458 V                        | dyne cm / statamp sec
  ㎸                        | 1 kV                                | kV
- ㎹                        | 1 MV                                | MV
  crocodile                 | 1 MV                                | megavolt
+ ㎹                        | 1 MV                                | MV
  cminv                     | 19.8644582400837 yJ                 | hplanck c / cm
  invcm                     | 19.8644582400837 yJ                 | cminv
  wavenumber                | 19.8644582400837 yJ                 | cminv
  kcal_mol                  | 6.94769534336 zJ                    | kcal_th / mol N_A
+ eV                        | 160.21766208 zJ                     | e V
  electronvolt              | 160.21766208 zJ                     | eV
  ev                        | 160.21766208 zJ                     | eV
- eV                        | 160.21766208 zJ                     | e V
  rydberg                   | 2.17987232481131 aJ                 | hplanck c Rinfinity
  atomicenergy              | 4.35974464944156 aJ                 | hbar / atomictime
  hartree                   | 4.35974464944156 aJ                 | atomicenergy
  prout                     | 29.72037631584 fJ                   | 185.5 keV
- bev                       | 160.21766208 pJ                     | beV
  beV                       | 160.21766208 pJ                     | GeV
+ bev                       | 160.21766208 pJ                     | beV
  erg                       | 100 nJ                              | cm dyne
  megalerg                  | 100 mJ                              | megaerg
  ENERGY                    | 1 J                                 | joule
  J                         | 1 J                                 | joule
- joule                     | 1 J                                 | N m
  WORK                      | 1 J                                 | joule
+ joule                     | 1 J                                 | N m
  duty                      | 1.3558179483314 J                   | ft lbf
  cal_20                    | 4.1819 J                            | calorie_20
  calorie_20                | 4.1819 J                            | 4.18190 J
  calorie_twenty            | 4.1819 J                            | calorie_20  
- ㎈                        | 4.184 J                             | cal
  cal                       | 4.184 J                             | calorie
+ cal_th                    | 4.184 J                             | calorie_th
  calorie                   | 4.184 J                             | cal_th
  calorie_th                | 4.184 J                             | 4.184 J
- cal_th                    | 4.184 J                             | calorie_th
  thermcalorie              | 4.184 J                             | calorie_th
+ ㎈                        | 4.184 J                             | cal
  cal_15                    | 4.1858 J                            | calorie_15
  calorie_15                | 4.1858 J                            | 4.18580 J
  calorie_fifteen           | 4.1858 J                            | cal_15
@@ -1911,14 +1911,14 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  celsiusheatunit           | 1.89783047608 kJ                    | cal lb (degC) / gram K
  chu                       | 1.89783047608 kJ                    | celsiusheatunit
  Wh                        | 3.6 kJ                              | W hour
- ㎉                        | 4.184 kJ                            | kcal
  Calorie                   | 4.184 kJ                            | kilocalorie
+ ㎉                        | 4.184 kJ                            | kcal
  frigorie                  | 4.1858 kJ                           | 1000 cal_15
  hph                       | 2.68451953769617 MJ                 | hp hour
  kWh                       | 3.6 MJ                              | kilowatt hour
  thermie                   | 4.1858 MJ                           | 1e6 cal_15
- therm                     | 105.4804 MJ                         | UStherm
  UStherm                   | 105.4804 MJ                         | 1.054804e8 J
+ therm                     | 105.4804 MJ                         | UStherm
  ECtherm                   | 105.506 MJ                          | 1.05506e8 J
  barreloil                 | 6.119323945196 GJ                   | 5.8 Mbtu
  toncoal                   | 29.3076 GJ                          | 7e9 cal_IT
@@ -1933,41 +1933,41 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  thermalcoulomb            | 1 m^2*kg/s^2*K                      | J/K
  clausius                  | 4184 m^2*kg/s^2*K                   | 1e3 cal/K
  R_1976                    | 8.31432 m^2*kg/s^2*K*mol            | 8.31432e3 N m/(kmol K)
- gasconstant               | 8.31445986358743 m^2*kg/s^2*K*mol   | k N_A
  R                         | 8.31445986358743 m^2*kg/s^2*K*mol   | gasconstant
+ gasconstant               | 8.31445986358743 m^2*kg/s^2*K*mol   | k N_A
  abhenry                   | 1 nH                                | abvolt sec / abamp
  mh                        | 1 mH                                | mH
  H                         | 1 H                                 | henry
- henry                     | 1 H                                 | Wb/A
  INDUCTANCE                | 1 H                                 | henry
+ henry                     | 1 H                                 | Wb/A
  stathenry                 | 898.755178736818 GH                 | statvolt sec / statamp
- maxwell                   | 10 nWb                              | abvolt sec
  Mx                        | 10 nWb                              | maxwell
+ maxwell                   | 10 nWb                              | abvolt sec
  unitpole                  | 125.663706143592 nWb                | 4 pi maxwell
  kappline                  | 60 µWb                              | 6000 maxwell
- ㏝                        | 1 Wb                                | Wb
  Wb                        | 1 Wb                                | weber
  weber                     | 1 Wb                                | V s
+ ㏝                        | 1 Wb                                | Wb
  statmaxwell               | 299.792458 Wb                       | statvolt sec
- ℏ                         | 1.05457180005237e-34 m^2*kg/s       | hbar
  atomicaction              | 1.05457180005237e-34 m^2*kg/s       | hbar
  hbar                      | 1.05457180005237e-34 m^2*kg/s       | hplanck / 2 pi
  spin                      | 1.05457180005237e-34 m^2*kg/s       | hbar
- ℎ                         | 6.626070039455e-34 m^2*kg/s         | hplanck
+ ℏ                         | 1.05457180005237e-34 m^2*kg/s       | hbar
  hplanck                   | 6.626070039455e-34 m^2*kg/s         | 4.135667662e-15 eV s
+ ℎ                         | 6.626070039455e-34 m^2*kg/s         | hplanck
  planck                    | 1 m^2*kg/s                          | J s
  ㎣                        | 1e-09 m^3                           | mm^3
- ㎕                        | 1e-09 m^3                           | µL
  lambda                    | 1e-09 m^3                           | microliter
+ ㎕                        | 1e-09 m^3                           | µL
  drop                      | 5e-08 m^3                           | 1|20 ml
  brminim                   | 5.91938802083334e-08 m^3            | 1|60 brdram
  imperialminim             | 5.91938802083334e-08 m^3            | brminim
  minim                     | 6.1611519921875e-08 m^3             | minimvolume
  minimvolume               | 6.1611519921875e-08 m^3             | 1|60 fluiddram
+ cc                        | 1e-06 m^3                           | cm^3
  ㎖                        | 1e-06 m^3                           | mL
  ㎤                        | 1e-06 m^3                           | cm^3
  ㏄                        | 1e-06 m^3                           | cc
- cc                        | 1e-06 m^3                           | cm^3
  brscruple                 | 1.18387760416667e-06 m^3            | 1|3 brdram
  fluidscruple              | 1.18387760416667e-06 m^3            | brscruple
  imperialscruple           | 1.18387760416667e-06 m^3            | brscruple
@@ -1989,8 +1989,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  dsp                       | 1e-05 m^3                           | dessertspoon
  cochlearia                | 1.20854597e-05 m^3                  | 1|48 sextarius
  cylinderinch              | 1.28703699690764e-05 m^3            | circleinch inch
- tablespoon                | 1.478676478125e-05 m^3              | ustablespoon
  Tb                        | 1.478676478125e-05 m^3              | tablespoon
+ tablespoon                | 1.478676478125e-05 m^3              | ustablespoon
  tbl                       | 1.478676478125e-05 m^3              | tablespoon
  tblsp                     | 1.478676478125e-05 m^3              | tablespoon
  tbsp                      | 1.478676478125e-05 m^3              | tablespoon
@@ -2086,12 +2086,12 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  qt                        | 0.000946352946 m^3                  | quart
  quart                     | 0.000946352946 m^3                  | 1|4 gallon
  usquart                   | 0.000946352946 m^3                  | 1|4 usgallon
- ℓ                         | 0.001 m^3                           | liter
- l                         | 0.001 m^3                           | liter
  L                         | 0.001 m^3                           | liter
+ l                         | 0.001 m^3                           | liter
  liter                     | 0.001 m^3                           | 1000 cc
  litre                     | 0.001 m^3                           | liter
  metricquart               | 0.001 m^3                           | 1 liter
+ ℓ                         | 0.001 m^3                           | liter
  oldliter                  | 0.001000028 m^3                     | 1.000028 dm^3
  choinix                   | 0.00108 m^3                         | 4 greekkotyle
  dryquart                  | 0.001101220942715 m^3               | 1|4 drygallon
@@ -2245,9 +2245,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  irishtun                  | 0.898583244345165 m^3               | 2 irishpipe
  winetun                   | 0.953918793399509 m^3               | 2 winebutt
  displacementton           | 0.99108963072 m^3                   | 35 ft^3
- ㎥                        | 1 m^3                               | m^3
- stere                     | 1 m^3                               | m^3
  VOLUME                    | 1 m^3                               | LENGTH^3
+ stere                     | 1 m^3                               | m^3
+ ㎥                        | 1 m^3                               | m^3
  ㎘                        | 1 m^3                               | kL
  waterton                  | 1.01832416 m^3                      | 224 brgallon
  freightton                | 1.13267386368 m^3                   | shippington
@@ -2294,8 +2294,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cfs                       | 0.028316846592 m^3/s                | ft^3/s
  cusec                     | 0.028316846592 m^3/s                | ft^3/s
  mgd                       | 0.0438126363888889 m^3/s            | megagal/day
- cumec                     | 1 m^3/s                             | m^3/s
  FLUID_FLOW                | 1 m^3/s                             | VOLUME / TIME
+ cumec                     | 1 m^3/s                             | m^3/s
  sverdrup                  | 1000000 m^3/s                       | 1e6 m^3 / sec
  coulombconst              | 8987551787.36818 m^3*kg/s^4*A^2     | 1/4 pi epsilon0
  preece                    | 10000000000000 m^3*kg/s^3*A^2       | 1e13 ohm m
@@ -2356,8 +2356,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cornsyrup                 | 1.37800391414431 Mg/m^3             | 11.5 oz/uscup
  honey                     | 1.40796052097353 Mg/m^3             | 11.75 oz/uscup
  copperdensity             | 8.89 Mg/m^3                         | 8.89 g/cm^3
- copperconductivity        | 58000000 s^3*A^2/m^3*kg             | 58 siemens m / mm^2
  IACS                      | 58000000 s^3*A^2/m^3*kg             | copperconductivity
+ copperconductivity        | 58000000 s^3*A^2/m^3*kg             | 58 siemens m / mm^2
  epsilon0                  | 8.85418781762039e-12 s^4*A^2/m^3*kg | 1/mu0 c^2
  mpg                       | 425143.707430272 m^-2               | mile/gal
  skot                      | 318.309886183791 µlx                | 1e-3 apostilb
@@ -2366,7 +2366,6 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  asb                       | 318.309886183791 mlx                | apostilb
  blondel                   | 318.309886183791 mlx                | apostilb
  equivalentlux             | 318.309886183791 mlx                | cd / pi m^2
- ㏓                        | 1 lx                                | lx
  EXITANCE                  | 1 lx                                | lux
  ILLUMINANCE               | 1 lx                                | lux
  LUMINANCE                 | 1 lx                                | nit
@@ -2374,6 +2373,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  lx                        | 1 lx                                | lux
  metercandle               | 1 lx                                | lumen/m^2
  nit                       | 1 lx                                | cd/m^2
+ ㏓                        | 1 lx                                | lx
  fL                        | 3.42625909963539 lx                 | footlambert
  footlambert               | 3.42625909963539 lx                 | cd / pi ft^2
  footcandle                | 10.7639104167097 lx                 | lumen/ft^2
@@ -2479,15 +2479,15 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  fourier                   | 1 s^3*K^2/m^2*kg                    | thermalohm
  thermalohm                | 1 s^3*K^2/m^2*kg                    | K^2/W
  statmho                   | 1.11265005605362 pS                 | /statohm
- ℧                         | 1 S                                 | mho
  CONDUCTANCE               | 1 S                                 | siemens
- mho                       | 1 S                                 | siemens
  S                         | 1 S                                 | siemens
+ mho                       | 1 S                                 | siemens
  siemens                   | 1 S                                 | A/V
+ ℧                         | 1 S                                 | mho
  abmho                     | 1000 MS                             | /abohm
  thermalhenry              | 1 s^4*K^2/m^2*kg                    | J K^2/W^2
- ㎊                        | 1 pF                                | pF
  pf                        | 1 pF                                | pF
+ ㎊                        | 1 pF                                | pF
  cmcapacitance             | 1.11265005605362 pF                 | statfarad
  statfarad                 | 1.11265005605362 pF                 | statamp sec / statvolt
  ㎋                        | 1 nF                                | nF
@@ -2505,8 +2505,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  R_H                       | 10967760 m^-1                       | 10967760 /m
  Rinfinity                 | 10973731.568539 m^-1                | 10973731.568539 /m
  lapserate                 | 6.5 mK/m                            | 6.5 K/km
- oe                        | 79.5774715459477 A/m                | Oe
  Oe                        | 79.5774715459477 A/m                | oersted
+ oe                        | 79.5774715459477 A/m                | Oe
  oersted                   | 79.5774715459477 A/m                | gauss / mu0
  perm                      | 57.2134946709451 ps/m               | perm_0C
  perm_0                    | 57.2134946709451 ps/m               | perm_0C
@@ -2526,34 +2526,34 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  flick                     | 10 Tg/m*s^3                         | W / cm^2 sr micrometer
  barad                     | 100 mPa                             | barye
  barye                     | 100 mPa                             | dyne/cm^2
- ㎩                        | 1 Pa                                | Pa
- pa                        | 1 Pa                                | Pa
- Pa                        | 1 Pa                                | pascal
- pascal                    | 1 Pa                                | N/m^2
  PRESSURE                  | 1 Pa                                | FORCE / AREA
+ Pa                        | 1 Pa                                | pascal
  STRESS                    | 1 Pa                                | FORCE / AREA
+ pa                        | 1 Pa                                | Pa
+ pascal                    | 1 Pa                                | N/m^2
  tor                       | 1 Pa                                | Pa
+ ㎩                        | 1 Pa                                | Pa
  mmH2O                     | 9.80665 Pa                          | mm water
+ vac                       | 100 Pa                              | millibar
  ㍱                        | 100 Pa                              | hPa
  ㏔                        | 100 Pa                              | mb
- vac                       | 100 Pa                              | millibar
  torr                      | 133.322368421053 Pa                 | atm / 760
  mmHg                      | 133.322387415 Pa                    | mm Hg
  inH2O                     | 249.08891 Pa                        | inch water
  osi                       | 430.922330823022 Pa                 | ounce force / inch^2
- ㎪                        | 1 kPa                               | kPa
  pieze                     | 1 kPa                               | sthene / m^2
+ ㎪                        | 1 kPa                               | kPa
  inHg                      | 3.386388640341 kPa                  | inch Hg
  psi                       | 6.89475729316836 kPa                | pound force / inch^2
  psia                      | 6.89475729316836 kPa                | psi
  at                        | 98.0665 kPa                         | technicalatmosphere
  technicalatmosphere       | 98.0665 kPa                         | kgf / cm^2
- ㍴                        | 100 kPa                             | bar
  b                         | 100 kPa                             | bar
  bar                       | 100 kPa                             | 1e5 Pa
+ ㍴                        | 100 kPa                             | bar
+ Patm                      | 101.325 kPa                         | atm
  atm                       | 101.325 kPa                         | 101325 Pa
  atmosphere                | 101.325 kPa                         | atm
- Patm                      | 101.325 kPa                         | atm
  stdatmP0                  | 101.325 kPa                         | atm
  ㎫                        | 1 MPa                               | MPa
  ksi                       | 6.89475729316836 MPa                | kip / in^2
@@ -2574,8 +2574,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  fueloil                   | 39.7 GPa                            | 39.7 MJ/liter
  P                         | 100 g/m*s                           | poise
  poise                     | 100 g/m*s                           | gram / cm s
- poiseuille                | 1 kg/m*s                            | N s / m^2
  VISCOSITY                 | 1 kg/m*s                            | FORCE TIME / AREA
+ poiseuille                | 1 kg/m*s                            | N s / m^2
  reyn                      | 6.89475729316836 Mg/m*s             | psi sec
  lorentz                   | 46.6864481456201 s^2*A/m*kg         | bohrmagneton / hplanck c
  THERMAL_RESISTIVITY       | 1 s^3*K/m*kg                        | 1/THERMAL_CONDUCTIVITY

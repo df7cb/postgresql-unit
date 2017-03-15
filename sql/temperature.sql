@@ -4,7 +4,7 @@ SELECT * FROM unit_units WHERE name IN (
 	'℉', '°F', 'degF', 'degfahrenheit',
 	'°R', 'degR', 'degrankine', 'degreerankine', 'degreesrankine', 'tempR', 'temprankine',
 	'degreaumur')
-ORDER BY name;
+ORDER BY name COLLATE "C";
 
 -- Kelvin
 SELECT '0 K'::unit, 'K'::unit, '1 K'::unit, '273.15 K'::unit;

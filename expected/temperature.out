@@ -4,27 +4,27 @@ SELECT * FROM unit_units WHERE name IN (
 	'℉', '°F', 'degF', 'degfahrenheit',
 	'°R', 'degR', 'degrankine', 'degreerankine', 'degreesrankine', 'tempR', 'temprankine',
 	'degreaumur')
-ORDER BY name;
+ORDER BY name COLLATE "C";
       name      |        unit         |      shift       |   definition   | dump 
 ----------------+---------------------+------------------+----------------+------
- ℃              | 1 K                 |           273.15 | degC           | 
- ℉              | 555.555555555556 mK | 255.372222222222 | degF           | 
- °C             | 1 K                 |           273.15 | degC           | 
+ K              | 1 K                 |                  | K              | 
  degC           | 1 K                 |           273.15 | K              | 
- degcelsius     | 1 K                 |           273.15 | K              | 
  degF           | 555.555555555556 mK | 255.372222222222 | 5|9 * degC     | 
- degfahrenheit  | 555.555555555556 mK | 255.372222222222 | 5|9 * degC     | 
  degR           | 555.555555555556 mK |                  | degrankine     | 
+ degcelsius     | 1 K                 |           273.15 | K              | 
+ degfahrenheit  | 555.555555555556 mK | 255.372222222222 | 5|9 * degC     | 
  degrankine     | 555.555555555556 mK |                  | degreesrankine | 
  degreaumur     | 1.25 K              |           273.15 | 10|8 * degC    | 
  degreerankine  | 555.555555555556 mK |                  | degF           | 
  degreesrankine | 555.555555555556 mK |                  | degF           | 
- °F             | 555.555555555556 mK | 255.372222222222 | degF           | 
- K              | 1 K                 |                  | K              | 
  kelvin         | 1 K                 |                  | K              | 
- °R             | 555.555555555556 mK |                  | degR           | 
  tempR          | 555.555555555556 mK |                  | degrankine     | 
  temprankine    | 555.555555555556 mK |                  | degrankine     | 
+ °C             | 1 K                 |           273.15 | degC           | 
+ °F             | 555.555555555556 mK | 255.372222222222 | degF           | 
+ °R             | 555.555555555556 mK |                  | degR           | 
+ ℃              | 1 K                 |           273.15 | degC           | 
+ ℉              | 555.555555555556 mK | 255.372222222222 | degF           | 
 (18 rows)
 
 -- Kelvin
