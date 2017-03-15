@@ -107,6 +107,10 @@ typedef struct Unit {
 } Unit;
 ```
 
+All operators and functions operate with that base-units-only format.
+Conversion from and to other unit representations is done on input, output, and
+using the `@` operator only.
+
 Prefixes and Units Lookup Tables
 --------------------------------
 
@@ -116,7 +120,8 @@ Prefixes are defined in the table `unit_prefixes`:
 CREATE TABLE unit_prefixes (
     prefix varchar(32) PRIMARY KEY,
     factor double precision NOT NULL,
-    definition text NOT NULL
+    definition text, -- original definition, informational
+    dump boolean DEFAULT true
 );
 ```
 
@@ -126,7 +131,9 @@ Units are defined in the table `unit_units`:
 CREATE TABLE unit_units (
     name varchar(32) PRIMARY KEY,
     unit unit NOT NULL,
-    definition text NOT NULL
+    shift double precision, -- NULL means 0.0 here
+    definition text, -- original definition, informational
+    dump boolean DEFAULT true
 );
 ```
 
@@ -142,6 +149,135 @@ steps are repeated with the trailing 's' removed.
 If the unit definition could be resolved, the result is stored in a
 backend-local hash table to speed up the next lookup. (The function
 `unit_is_hashed()` reports if a given unit name is already cached.)
+
+The `definition` column is only provided for information of how the unit was
+originally defined.
+
+GNU Units
+---------
+
+On installation, the prefixes and units definitions tables are populated with
+data imported from the `definitions.units` found in the GNU Units tool.
+Notable omissions are currency units (we don't have a base type for them, and
+exchange rates aren't static anyway), and non-linear units such as dBm based
+on dB and other conversions based on functions and lookup tables.
+
+The `definitions.units` file is an interesting read on its own due to extensive
+comments explaining the history and origins or the units covered.
+
+User-Defined Units
+------------------
+
+To create custom prefixes and units, insert new rows into the tables:
+
+```
+# select '1 foobar'::unit;
+ERROR:  unit "foobar" is not known
+# INSERT INTO unit_prefixes VALUES ('foo', 42);
+INSERT 0 1
+# SELECT '1 foobar'::unit;
+  unit
+---------
+ 4.2 MPa
+
+# INSERT INTO unit_units VALUES ('footballfieldsize', '68m * 105m');
+INSERT 0 1
+# SELECT '1 hectare'::unit @ 'footballfieldsize' AS one_hectare;
+            one_hectare
+------------------------------------
+ 1.40056022408964 footballfieldsize
+```
+
+Input Syntax
+------------
+
+Unit values allow a fairly complex expression syntax on input.
+
+* `expr expr` denotes multiplication
+* operators + - * /
+* parentheses ()
+* multiplication binds tighter than division such that `a / b*c`
+  can be written without parentheses
+* `N|M` denotes a numeric fraction, e.g. `3|4`
+
+*Note: This covers the unit input parser for expressions like
+`'1|2m / h'::unit`. PostgreSQL operators on type unit values are a separate
+layer; PostgreSQL's operator precedence applies there.*
+
+Shifted Units
+-------------
+
+The `unit_units.shift` column is used for implementing units where 0 is not
+absolute zero in base units, i.e. most commonly for temperature units (°C, °F).
+
+Shifted units are often used in ambiguous contexts, the intended meaning
+depending on if an absolute value, or a difference between values is requested.
+If `20 °C - 15 °C` is requested, the answer `5 K` is clearly correct, but less
+so `5 °C`, because that is actually 279.15 K. On the other hand, some
+thermodynamic units are defined based on °C, such as
+`celsiusheatunit = cal lb (degC) / gram K`.
+
+This module resolves the ambiguity by only applying the `shift` offset in
+"number name" (and plain "name") expressions such as `5 °F`. In all other
+contexts, shifted units behave just like a unit defined on based units without
+a shift.
+
+```
+# SELECT '5 °F'::unit, '5 * °F'::unit, '5 °F'::unit @ '°C' AS to_celsius, '5 °F'::unit @ '1 * °C' AS celsius_increments;
+   unit   |        unit        |      to_celsius      | celsius_increments
+----------+--------------------+----------------------+--------------------
+ 258.15 K | 2.77777777777778 K | -14.9999999999999 °C | 258.15 * 1 * °C
+```
+
+PostgreSQL Operators and Functions
+----------------------------------
+
+The `unit` extension provides the following objects:
+
+```
+function avg(unit)
+function cbrt(unit)
+function dimension(unit)
+function max(unit)
+function min(unit)
+function sqrt(unit)
+function stddev_pop(unit)
+function stddev_samp(unit)
+function stddev(unit)
+function sum(unit)
+function value(unit)
+function variance(unit)
+function var_pop(unit)
+function var_samp(unit)
+operator class unit_ops for access method btree
+operator /(double precision,unit)
+operator *(double precision,unit)
+operator family unit_ops for access method btree
+operator ||/(NONE,unit)
+operator |/(NONE,unit)
+operator -(NONE,unit)
+operator @(unit,cstring)
+operator /(unit,double precision)
+operator *(unit,double precision)
+operator ^(unit,integer)
+operator <=(unit,unit)
+operator <>(unit,unit)
+operator <(unit,unit)
+operator =(unit,unit)
+operator >=(unit,unit)
+operator >(unit,unit)
+operator -(unit,unit)
+operator /(unit,unit)
+operator *(unit,unit)
+operator +(unit,unit)
+table unit_prefixes
+table unit_units
+type unit
+type unit_accum_t
+```
+
+Internal function names and constructor-like functions (`meter(5)`) are omitted
+in this list.
 
 References
 ----------
