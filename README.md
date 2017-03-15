@@ -151,6 +151,7 @@ References
 * https://en.wikipedia.org/wiki/Binary_prefix
 * https://en.wikipedia.org/wiki/United_States_customary_units
 * GNU Units: https://www.gnu.org/software/units/
+* Similar library for Ada: http://www.dmitry-kazakov.de/ada/units.htm
 
 License
 -------
