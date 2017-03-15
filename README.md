@@ -31,7 +31,7 @@ Features
   tonne (t), bar, astronomical unit (au)*
 * United States customary units: *inch (in), foot (ft), yard (yd), mile (mi),
   ounce (oz), pound (lb)*
-* about 2400 other units imported from GNU Units
+* about 2400 other units imported from GNU Units (including some humorous ones)
 * prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
 * IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
@@ -51,9 +51,9 @@ CREATE EXTENSION
  1.3 km
 
 # SELECT '120 km/h'::unit AS speed;
-    speed
--------------
- 33.3333 m/s
+        speed
+----------------------
+ 33.3333333333333 m/s
 
 # SELECT '9.81 N'::unit / 'kg' AS gravity;
   gravity
@@ -150,14 +150,14 @@ If the unit definition could be resolved, the result is stored in a
 backend-local hash table to speed up the next lookup. (The function
 `unit_is_hashed()` reports if a given unit name is already cached.)
 
-The `definition` column is only provided for information of how the unit was
+The `definition` column is only provided for information on how the unit was
 originally defined.
 
 GNU Units
 ---------
 
 On installation, the prefixes and units definitions tables are populated with
-data imported from the `definitions.units` found in the GNU Units tool.
+data imported from the `definitions.units` file found in the GNU Units tool.
 Notable omissions are currency units (we don't have a base type for them, and
 exchange rates aren't static anyway), and non-linear units such as dBm based
 on dB and other conversions based on functions and lookup tables.
@@ -213,12 +213,12 @@ absolute zero in base units, i.e. most commonly for temperature units (°C, °F)
 Shifted units are often used in ambiguous contexts, the intended meaning
 depending on if an absolute value, or a difference between values is requested.
 If `20 °C - 15 °C` is requested, the answer `5 K` is clearly correct, but less
-so `5 °C`, because that is actually 279.15 K. On the other hand, some
+so `5 °C`, because that is actually 278.15 K. On the other hand, some
 thermodynamic units are defined based on °C, such as
-`celsiusheatunit = cal lb (degC) / gram K`.
+`celsiusheatunit = cal lb (degC) / gram K` where no offset is desired.
 
 This module resolves the ambiguity by only applying the `shift` offset in
-"number name" (and plain "name") expressions such as `5 °F`. In all other
+*number name* (and plain *name*) expressions such as `5 °F`. In all other
 contexts, shifted units behave just like a unit defined on based units without
 a shift.
 
@@ -279,6 +279,17 @@ type unit_accum_t
 Internal function names and constructor-like functions (`meter(5)`) are omitted
 in this list.
 
+Details:
+
+* **function dimension(unit): unit**
+
+  Returns the dimension of a unit value, i.e. its base units with a normalized
+  value of 1.
+
+* **function value(unit): double precision**
+
+  Returns the numeric part of a unit value.
+
 References
 ----------
 
@@ -305,6 +316,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 The definitions.units file is
-Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2004, 2005, 2006
-              2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016
-Free Software Foundation, Inc
+Copyright (C) 1996-2016 Free Software Foundation, Inc.
