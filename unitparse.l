@@ -84,7 +84,7 @@ EXP_R    \^[\-+]?[0-9]+
 	if (SPI_processed == 1) /* found definition */
 	{
 		Unit	   *unitp;
-		double		shift;
+		Datum		shift;
 		bool		is_null;
 
 		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
@@ -92,8 +92,8 @@ EXP_R    \^[\-+]?[0-9]+
 			elog(ERROR, "unit \"%s\" definition is NULL", yytext);
 		yyunitlval.UNIT_SHIFT.unit = *unitp;
 
-		shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null));
-		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
+		shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null);
+		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
 		elog(DEBUG1, "unit %s (value %g)",
 				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
@@ -134,7 +134,7 @@ EXP_R    \^[\-+]?[0-9]+
 	{
 		double		factor;
 		Unit	   *unitp;
-		double		shift;
+		Datum		shift;
 		bool		is_null;
 
 		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
@@ -145,8 +145,8 @@ EXP_R    \^[\-+]?[0-9]+
 		yyunitlval.UNIT_SHIFT.unit = *unitp;
 		yyunitlval.UNIT_SHIFT.unit.value *= factor;
 
-		shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null));
-		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
+		shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null);
+		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
 		goto found;
 	}
@@ -169,7 +169,7 @@ EXP_R    \^[\-+]?[0-9]+
 		if (SPI_processed == 1) /* found definition */
 		{
 			Unit	   *unitp;
-			double		shift;
+			Datum		shift;
 			bool		is_null;
 
 			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
@@ -177,8 +177,8 @@ EXP_R    \^[\-+]?[0-9]+
 				elog(ERROR, "unit \"%s\" definition is NULL", yytext);
 			yyunitlval.UNIT_SHIFT.unit = *unitp;
 
-			shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null));
-			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
+			shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null);
+			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
 			elog(DEBUG1, "unit %s (value %g)",
 					SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
@@ -219,7 +219,7 @@ EXP_R    \^[\-+]?[0-9]+
 		{
 			double		factor;
 			Unit	   *unitp;
-			double		shift;
+			Datum		shift;
 			bool		is_null;
 
 			factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
@@ -229,8 +229,8 @@ EXP_R    \^[\-+]?[0-9]+
 			yyunitlval.UNIT_SHIFT.unit = *unitp;
 			yyunitlval.UNIT_SHIFT.unit.value *= factor;
 
-			shift = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null));
-			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : shift;
+			shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null);
+			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
 			goto found;
 		}
