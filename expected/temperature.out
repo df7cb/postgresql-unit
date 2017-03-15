@@ -60,25 +60,25 @@ SELECT '-273.15 degcelsius'::unit, '0 degcelsius'::unit, '1 degcelsius'::unit, '
 (1 row)
 
 -- Fahrenheit
-SELECT '-459.67 ℉'::unit, '0 ℉'::unit, '1 ℉'::unit, '℉'::unit;
+SELECT '-459.670000000000016 ℉'::unit, '0 ℉'::unit, '1 ℉'::unit, '℉'::unit;
  unit |        unit        |        unit        |        unit         
 ------+--------------------+--------------------+---------------------
  0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
 (1 row)
 
-SELECT '-459.67 °F'::unit, '0 °F'::unit, '1 °F'::unit, '°F'::unit;
+SELECT '-459.670000000000016 °F'::unit, '0 °F'::unit, '1 °F'::unit, '°F'::unit;
  unit |        unit        |        unit        |        unit         
 ------+--------------------+--------------------+---------------------
  0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
 (1 row)
 
-SELECT '-459.67 degF'::unit, '0 degF'::unit, '1 degF'::unit, 'degF'::unit;
+SELECT '-459.670000000000016 degF'::unit, '0 degF'::unit, '1 degF'::unit, 'degF'::unit;
  unit |        unit        |        unit        |        unit         
 ------+--------------------+--------------------+---------------------
  0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
 (1 row)
 
-SELECT '-459.67 degfahrenheit'::unit, '0 degfahrenheit'::unit, '1 degfahrenheit'::unit, 'degfahrenheit'::unit;
+SELECT '-459.670000000000016 degfahrenheit'::unit, '0 degfahrenheit'::unit, '1 degfahrenheit'::unit, 'degfahrenheit'::unit;
  unit |        unit        |        unit        |        unit         
 ------+--------------------+--------------------+---------------------
  0 K  | 255.372222222222 K | 255.927777777778 K | 555.555555555556 mK
@@ -92,10 +92,10 @@ SELECT '491.67 degR'::unit, '0 degR'::unit, '1 degR'::unit, 'degR'::unit;
 (1 row)
 
 -- Réaumur
-SELECT '-218.52 degreaumur'::unit, '0 degreaumur'::unit, '1 degreaumur'::unit, 'degreaumur'::unit;
-        unit         |   unit   |  unit   |  unit  
----------------------+----------+---------+--------
- -56.843418860808 fK | 273.15 K | 274.4 K | 1.25 K
+SELECT '-218.519999999999982 degreaumur'::unit, '0 degreaumur'::unit, '1 degreaumur'::unit, 'degreaumur'::unit;
+ unit |   unit   |  unit   |  unit  
+------+----------+---------+--------
+ 0 K  | 273.15 K | 274.4 K | 1.25 K
 (1 row)
 
 SELECT '0 K'::unit @ 'K', '0 K'::unit @ '°C', '0 K'::unit @ '°F', '0 K'::unit @ '°R', '0 K'::unit @ 'degreaumur';
