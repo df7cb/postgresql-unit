@@ -1,0 +1,54 @@
+SELECT '1 foobar'::unit;
+ERROR:  unit "foobar" is not known
+LINE 1: SELECT '1 foobar'::unit;
+               ^
+SELECT unit_is_hashed('foobar');
+ unit_is_hashed 
+----------------
+ f
+(1 row)
+
+INSERT INTO unit_prefixes VALUES ('foo', 42);
+SELECT '1 foobar'::unit;
+  unit   
+---------
+ 4.2 MPa
+(1 row)
+
+SELECT unit_is_hashed('foobar');
+ unit_is_hashed 
+----------------
+ t
+(1 row)
+
+SELECT * FROM unit_prefixes WHERE dump;
+ prefix | factor | definition | dump 
+--------+--------+------------+------
+ foo    |     42 |            | t
+(1 row)
+
+INSERT INTO unit_units VALUES ('legobrick', '9.6 mm');
+SELECT unit_is_hashed('legobricks');
+ unit_is_hashed 
+----------------
+ f
+(1 row)
+
+SELECT '1 m'::unit @ 'legobricks' AS one_meter;
+          one_meter          
+-----------------------------
+ 104.166666666667 legobricks
+(1 row)
+
+SELECT unit_is_hashed('legobricks');
+ unit_is_hashed 
+----------------
+ t
+(1 row)
+
+SELECT * FROM unit_units WHERE dump;
+   name    |  unit  | shift | definition | dump 
+-----------+--------+-------+------------+------
+ legobrick | 9.6 mm |       |            | t
+(1 row)
+

@@ -171,7 +171,7 @@ User-Defined Units
 To create custom prefixes and units, insert new rows into the tables:
 
 ```
-# select '1 foobar'::unit;
+# SELECT '1 foobar'::unit;
 ERROR:  unit "foobar" is not known
 # INSERT INTO unit_prefixes VALUES ('foo', 42);
 INSERT 0 1
@@ -180,12 +180,11 @@ INSERT 0 1
 ---------
  4.2 MPa
 
-# INSERT INTO unit_units VALUES ('footballfieldsize', '68m * 105m');
-INSERT 0 1
-# SELECT '1 hectare'::unit @ 'footballfieldsize' AS one_hectare;
-            one_hectare
-------------------------------------
- 1.40056022408964 footballfieldsize
+# INSERT INTO unit_units VALUES ('legobrick', '9.6 mm');
+# SELECT '1 m'::unit @ 'legobricks' AS one_meter;
+          one_meter
+-----------------------------
+ 104.166666666667 legobricks
 ```
 
 Input Syntax
