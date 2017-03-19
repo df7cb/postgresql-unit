@@ -148,7 +148,8 @@ steps are repeated with the trailing 's' removed.
 
 If the unit definition could be resolved, the result is stored in a
 backend-local hash table to speed up the next lookup. (The function
-`unit_is_hashed()` reports if a given unit name is already cached.)
+`unit_is_hashed()` reports if a given unit name is already cached. The function
+`unit_reset()` clears the hash table. Use it if unit definitions are changed.)
 
 The `definition` column is only provided for information on how the unit was
 originally defined.
@@ -186,6 +187,11 @@ INSERT 0 1
 -----------------------------
  104.166666666667 legobricks
 ```
+
+*Note: If user-defined (or built-in) units are changed by updating the tables,
+call `unit_reset()` to clear the hash table that caches the lookup result.
+Otherwise, sessions that have already used the unit will continue the old
+definition.*
 
 Input Syntax
 ------------
@@ -244,6 +250,8 @@ function stddev_pop(unit)
 function stddev_samp(unit)
 function stddev(unit)
 function sum(unit)
+function unit_is_hashed(cstring)
+function unit_reset()
 function value(unit)
 function variance(unit)
 function var_pop(unit)

@@ -59,3 +59,8 @@ CREATE FUNCTION unit_is_hashed(cstring)
 	RETURNS bool
 	AS '$libdir/unit'
 	LANGUAGE C VOLATILE STRICT;
+
+CREATE FUNCTION unit_reset()
+	RETURNS void
+	AS '$libdir/unit'
+	LANGUAGE C VOLATILE STRICT;

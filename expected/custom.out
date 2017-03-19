@@ -52,3 +52,28 @@ SELECT * FROM unit_units WHERE dump;
  legobrick | 9.6 mm |       |            | t
 (1 row)
 
+UPDATE unit_units SET unit = '19.1 mm' WHERE name = 'legobrick'; -- Duplo size
+SELECT '2 legobricks'::unit AS old_size;
+ old_size 
+----------
+ 19.2 mm
+(1 row)
+
+SELECT unit_reset();
+ unit_reset 
+------------
+ 
+(1 row)
+
+SELECT unit_is_hashed('legobricks');
+ unit_is_hashed 
+----------------
+ f
+(1 row)
+
+SELECT '2 legobricks'::unit AS new_size;
+ new_size 
+----------
+ 38.2 mm
+(1 row)
+

@@ -893,3 +893,16 @@ unit_is_hashed(PG_FUNCTION_ARGS)
 
 	PG_RETURN_BOOL (hash_search(unit_names, name, HASH_FIND, NULL) != NULL);
 }
+
+PG_FUNCTION_INFO_V1(unit_reset);
+
+Datum
+unit_reset(PG_FUNCTION_ARGS)
+{
+	/* reinitialize hash tables */
+	hash_destroy(unit_names);
+	hash_destroy(unit_dimensions);
+	unit_get_definitions();
+
+	PG_RETURN_VOID();
+}
