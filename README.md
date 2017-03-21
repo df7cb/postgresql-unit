@@ -190,8 +190,8 @@ INSERT 0 1
 
 *Note: If user-defined (or built-in) units are changed by updating the tables,
 call `unit_reset()` to clear the hash table that caches the lookup result.
-Otherwise, sessions that have already used the unit will continue the old
-definition.*
+Otherwise, sessions that have already used the unit will continue to use the
+old definition.*
 
 Input Syntax
 ------------
