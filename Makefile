@@ -8,6 +8,10 @@ DATA_built = unit--2--3.sql unit--3.sql
 REGRESS = extension tables unit prefix units temperature functions derived compare aggregate iec custom
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
 
+# avoid add/mult contraction so '-459.67 °F' is really '0 K'
+# problem visible on ppc64el Ubuntu trusty..zesty (Debian unaffected)
+PG_CPPFLAGS += -ffp-contract=off
+
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
