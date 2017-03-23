@@ -1,3 +1,10 @@
+postgresql-unit (3.1) experimental; urgency=medium
+
+  * Reupload to Debian, the 3.0 tarball uploaded contained generated files
+    that broke out-of-tree builds. No source changes.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 23 Mar 2017 11:25:43 +0100
+
 postgresql-unit (3.0) experimental; urgency=medium
 
   * Support defining new units at runtime.
