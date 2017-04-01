@@ -13,7 +13,6 @@ GNU General Public License for more details.
 */
 
 #include "postgres.h"
-#include <catalog/pg_collation.h> /* C_COLLATION_OID */
 #include "fmgr.h"
 #include "utils/guc.h"
 #include "utils/hsearch.h"
