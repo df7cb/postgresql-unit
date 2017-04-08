@@ -204,8 +204,9 @@ Unit values allow a fairly complex expression syntax on input.
 
 * `expr expr` denotes multiplication
 * operators + - * /
+* exponentiation: `expr^integer` or Unicode superscripts: `expr⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹`
 * parentheses ()
-* multiplication binds tighter than division such that `a / b*c`
+* multiplication binds tighter than division such that `kg/s^2*A`
   can be written without parentheses
 * `N|M` denotes a numeric fraction, e.g. `3|4`
 
