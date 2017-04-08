@@ -1,0 +1,85 @@
+SET unit.output_superscript = on;
+SELECT 'm⁰'::unit;
+ unit 
+------
+ 1
+(1 row)
+
+SELECT 'm¹'::unit;
+ unit 
+------
+ 1 m
+(1 row)
+
+SELECT 'm²'::unit;
+ unit 
+------
+ 1 m²
+(1 row)
+
+SELECT 'm⁻²'::unit;
+ unit  
+-------
+ 1 m⁻²
+(1 row)
+
+SELECT 'm³'::unit;
+ unit 
+------
+ 1 m³
+(1 row)
+
+SELECT 'm⁴'::unit;
+ unit 
+------
+ 1 m⁴
+(1 row)
+
+SELECT 'm⁵'::unit;
+ unit 
+------
+ 1 m⁵
+(1 row)
+
+SELECT 'm⁶'::unit;
+ unit 
+------
+ 1 m⁶
+(1 row)
+
+SELECT 'm⁷'::unit;
+ unit 
+------
+ 1 m⁷
+(1 row)
+
+SELECT 'm⁸'::unit;
+ unit 
+------
+ 1 m⁸
+(1 row)
+
+SELECT 'm⁹'::unit;
+ unit 
+------
+ 1 m⁹
+(1 row)
+
+SELECT 'm³⁴'::unit;
+ unit  
+-------
+ 1 m³⁴
+(1 row)
+
+SELECT 'm⁻⁵⁶'::unit;
+  unit  
+--------
+ 1 m⁻⁵⁶
+(1 row)
+
+SELECT 'm⁺⁷⁸'::unit;
+ unit  
+-------
+ 1 m⁷⁸
+(1 row)
+

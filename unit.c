@@ -30,6 +30,7 @@ GNU General Public License for more details.
 
 /* global variables */
 
+static bool unit_output_superscript;
 static bool unit_byte_output_iec;
 static bool unit_output_base_units;
 
@@ -107,6 +108,17 @@ void _PG_init(void);
 void
 _PG_init(void)
 {
+	DefineCustomBoolVariable("unit.output_superscript",
+			"Output unit exponents using Unicode superscripts",
+			"Set to on to output unit exponents using Unicode superscripts",
+			&unit_output_superscript,
+			false,
+			PGC_USERSET,
+			0, /* no flags */
+			NULL,
+			NULL,
+			NULL);
+
 	DefineCustomBoolVariable("unit.byte_output_iec",
 			"Output byte unit values with binary IEC prefixes",
 			"Set to on to output byte unit values using binary IEC prefixes "
@@ -137,6 +149,40 @@ _PG_init(void)
 }
 
 /* internal functions */
+
+static char *superscripts[] = {
+	"⁰",
+	"¹",
+	"²",
+	"³",
+	"⁴",
+	"⁵",
+	"⁶",
+	"⁷",
+	"⁸",
+	"⁹",
+};
+
+static void
+print_exponent (char **output_p, int e)
+{
+	if (unit_output_superscript) {
+		char  ascii_exp[5];
+		int   i = 0;
+
+		sprintf(ascii_exp, "%d", e);
+		if (ascii_exp[0] == '-') {
+			*output_p += sprintf(*output_p, "%s", "⁻");
+			i++;
+		}
+		for (; ascii_exp[i] != '\0'; i++) {
+			Assert (ascii_exp[i] >= '0' && ascii_exp[i] <= '9');
+			*output_p += sprintf(*output_p, "%s", superscripts[ascii_exp[i] - '0']);
+		}
+	} else {
+		*output_p += sprintf(*output_p, "^%d", e);
+	}
+}
 
 /* format Unit as string */
 char *
@@ -311,7 +357,7 @@ unit_cstring (Unit *unit)
 			if (unit->units[i] > 0) {
 				print_output("%s%s", numerator ? "*" : " ", base_units[i]);
 				if (unit->units[i] > 1)
-					print_output("^%d", unit->units[i]);
+					print_exponent(&output_p, unit->units[i]);
 				numerator = true;
 			}
 	}
@@ -322,9 +368,10 @@ unit_cstring (Unit *unit)
 			if (numerator) { /* format as .../a^x*b^y */
 				print_output("%s%s", denominator ? "*" : "/", base_units[i]);
 				if (unit->units[i] < -1)
-					print_output("^%d", -unit->units[i]);
+					print_exponent(&output_p, -unit->units[i]);
 			} else { /* format as a^-x*b^-y */
-				print_output("%s%s^%d", denominator ? "*" : " ", base_units[i], unit->units[i]);
+				print_output("%s%s", denominator ? "*" : " ", base_units[i]);
+				print_exponent(&output_p, unit->units[i]);
 			}
 			denominator = true;
 		}

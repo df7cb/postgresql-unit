@@ -32,10 +32,11 @@ static UnitShift *unit_parse_result; /* parsing result gets stored here */
 %define api.value.type union
 %token <double> DOUBLE
 %token <UnitShift> UNIT_SHIFT
-%token <int> EXPONENT
+%token <int> EXPONENT SUPER_SIGN SUPER
 %token ERR
 %type  <UnitShift> input expr
 %type  <double> number
+%type  <int> exponent super
 
 %left '+' '-'
 %left '/'
@@ -61,7 +62,7 @@ expr:
 	$$ = $2;
 	$$.shift = 0.0;
   }
-| expr EXPONENT {
+| expr exponent {
 	int i;
 	if ($2 != 1) {
 		$$.unit.value = pow($1.unit.value, $2);
@@ -110,6 +111,18 @@ number:
 | DOUBLE '|' DOUBLE {
     $$ = $1 / $3;
   }
+
+exponent:
+  EXPONENT
+| SUPER_SIGN super { $$ = $1 * $2; }
+| super
+;
+
+super:
+  SUPER
+| SUPER super { $$ = 10 * $1 + $2; }
+;
+
 %%
 
 /* parse a given string and return the result via the second argument */

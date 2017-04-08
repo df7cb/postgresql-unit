@@ -56,8 +56,10 @@ extern int yyunitdebug;
     DOUBLE = 258,
     UNIT_SHIFT = 259,
     EXPONENT = 260,
-    ERR = 261,
-    UMINUS = 262
+    SUPER_SIGN = 261,
+    SUPER = 262,
+    ERR = 263,
+    UMINUS = 264
   };
 #endif
 
@@ -79,7 +81,15 @@ union YYUNITSTYPE
   double number;
   /* EXPONENT  */
   int EXPONENT;
-#line 83 "unitparse.tab.h" /* yacc.c:1909  */
+  /* SUPER_SIGN  */
+  int SUPER_SIGN;
+  /* SUPER  */
+  int SUPER;
+  /* exponent  */
+  int exponent;
+  /* super  */
+  int super;
+#line 93 "unitparse.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;

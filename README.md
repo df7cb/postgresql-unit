@@ -93,6 +93,10 @@ Config
   Set to `on` to format values using only base types without prefixes.
   (Default: off)
 
+* `unit.output_superscript`:
+  Set to `on` to output unit exponents using Unicode superscripts.
+  (Default: off)
+
 Internal Representation
 -----------------------
 

@@ -5,7 +5,7 @@ DATA = unit_prefixes.data unit_units.data \
 	   unit--1.sql unit--1--2.sql \
 	   unit--2.sql
 DATA_built = unit--2--3.sql unit--3.sql
-REGRESS = extension tables unit prefix units temperature functions derived compare aggregate iec custom
+REGRESS = extension tables unit unicode prefix units temperature functions derived compare aggregate iec custom
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
 
 # avoid add/mult contraction so '-459.67 °F' is really '0 K'
