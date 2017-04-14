@@ -1,6 +1,7 @@
 postgresql-unit (3.2) UNRELEASED; urgency=medium
 
   * Support exponents written using Unicode superscript characters.
+  * Report 22P02/invalid_text_representation on invalid unit input.
 
  -- Christoph Berg <myon@debian.org>  Sat, 08 Apr 2017 18:36:50 +0200
 

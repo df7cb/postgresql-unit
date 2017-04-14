@@ -146,14 +146,19 @@ SUPER_9     \xe2\x81\xb9
 	if (SPI_processed > 2)
 	{
 		long		processed = SPI_processed; /* SPI_processed was uint32 before 9.6 */
-		elog(ERROR, "unit \"%s\" is ambiguous, %lu prefix/name combinations found", yytext, processed);
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("unit \"%s\" is ambiguous, %lu prefix/name combinations found",
+					 yytext, processed)));
 	}
 	if (SPI_processed == 2)
-		elog(ERROR, "unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
-			 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
-			 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
-			 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 1),
-			 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 3));
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
+					 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+					 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
+					 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 1),
+					 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 3))));
 
 	if (SPI_processed == 1) /* found definition */
 	{
@@ -231,14 +236,19 @@ SUPER_9     \xe2\x81\xb9
 		if (SPI_processed > 2)
 		{
 			long		processed = SPI_processed; /* SPI_processed was uint32 before 9.6 */
-			elog(ERROR, "unit \"%s\" is ambiguous, %lu prefix/name combinations found", yytext, processed);
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					 errmsg("unit \"%s\" is ambiguous, %lu prefix/name combinations found",
+						 yytext, processed)));
 		}
 		if (SPI_processed == 2)
-			elog(ERROR, "unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
-				 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
-				 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
-				 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 1),
-				 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 3));
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					 errmsg("unit \"%s\" is ambiguous, \"%s-%s\" vs. \"%s-%s\"", yytext,
+						 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
+						 SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3),
+						 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 1),
+						 SPI_getvalue(SPI_tuptable->vals[1], SPI_tuptable->tupdesc, 3))));
 
 		if (SPI_processed == 1) /* found definition */
 		{
@@ -262,7 +272,9 @@ SUPER_9     \xe2\x81\xb9
 	}
 
 	/* nothing found, error out */
-	elog(ERROR, "unit \"%s\" is not known", yytext);
+	ereport(ERROR,
+			(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+			 errmsg("unit \"%s\" is not known", yytext)));
 
 found:
 
