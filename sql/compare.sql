@@ -23,7 +23,7 @@ SELECT
   END AS cmp,
   a < b  AS lt, a <= b AS le,
   a = b  AS eq, a <> b AS ne,
-  a >= b AS ge, a > b  AS ge
+  a >= b AS ge, a > b  AS gt
 FROM
   va CROSS JOIN vb;
 
