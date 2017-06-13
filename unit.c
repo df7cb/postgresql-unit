@@ -48,55 +48,87 @@ unit_get_definitions(void)
 	int					 i;
 	unit_names_t		*unit_name;
 	unit_dimensions_t	*unit_dim;
+	static HTAB			*tmp_unit_names;
+	static HTAB			*tmp_unit_dimensions;
 
-	/* unit_names: char *name -> Unit unit
+	/* tmp_unit_names: char *name -> Unit unit
 	 * Lookup table that initially contains the base units and will cache all
 	 * units resolved at run time
 	 */
 	hinfo.keysize = UNIT_NAME_LENGTH;
 	hinfo.entrysize = sizeof(unit_names_t);
 	Assert(UNIT_NAME_LENGTH + sizeof(UnitShift) == sizeof(unit_names_t));
-	unit_names = hash_create("unit_names",
+	tmp_unit_names = hash_create("unit_names",
 			20,
 			&hinfo,
 			HASH_ELEM); /* Set keysize and entrysize */
 
-	for (i = 0; derived_units[i].name; i++)
+	PG_TRY();
 	{
-		if (derived_units[i].flags & U_DERIVED)
-			break; // FIXME: split tables
-		unit_name = hash_search(unit_names,
-				derived_units[i].name,
-				HASH_ENTER,
-				NULL);
-		strlcpy(unit_name->name, derived_units[i].name, UNIT_NAME_LENGTH);
-		unit_name->unit_shift.unit.value = derived_units[i].factor;
-		memcpy(unit_name->unit_shift.unit.units, derived_units[i].units, N_UNITS);
-		unit_name->unit_shift.shift = 0.0;
+		for (i = 0; derived_units[i].name; i++)
+		{
+			if (derived_units[i].flags & U_DERIVED)
+				break; // FIXME: split tables
+			unit_name = hash_search(tmp_unit_names,
+									derived_units[i].name,
+									HASH_ENTER,
+									NULL);
+			strlcpy(unit_name->name, derived_units[i].name, UNIT_NAME_LENGTH);
+			unit_name->unit_shift.unit.value = derived_units[i].factor;
+			memcpy(unit_name->unit_shift.unit.units, derived_units[i].units, N_UNITS);
+			unit_name->unit_shift.shift = 0.0;
+		}
 	}
+	PG_CATCH();
+	{
+		/* free partially initialized table */
+		hash_destroy(tmp_unit_names);
+		PG_RE_THROW();
+	}
+	PG_END_TRY();
 
-	/* unit_dimensions: char dimension[N_UNITS] -> char *name
+	/* No OOM errors were thrown, use the new table */
+	if (unit_names)
+		hash_destroy(unit_names);
+	unit_names = tmp_unit_names;
+
+	/* tmp_unit_dimensions: char dimension[N_UNITS] -> char *name
 	 * Lookup table for formatting the well-known derived units on output
 	 */
 	hinfo.keysize = N_UNITS;
 	hinfo.entrysize = sizeof(unit_dimensions_t);
 	Assert(N_UNITS + UNIT_NAME_LENGTH == sizeof(unit_dimensions_t));
-	unit_dimensions = hash_create("unit_dimensions",
+	tmp_unit_dimensions = hash_create("unit_dimensions",
 			20,
 			&hinfo,
 			HASH_ELEM | HASH_BLOBS);
 
-	for (i = 0; derived_units[i].name; i++)
+	PG_TRY();
 	{
-		if (! derived_units[i].flags & U_DERIVED)
-			continue;
-		unit_dim = hash_search(unit_dimensions,
-				derived_units[i].units,
-				HASH_ENTER,
-				NULL);
-		memcpy(unit_dim->units, derived_units[i].units, N_UNITS);
-		strlcpy(unit_dim->name, derived_units[i].name, UNIT_NAME_LENGTH);
+		for (i = 0; derived_units[i].name; i++)
+		{
+			if (! derived_units[i].flags & U_DERIVED)
+				continue;
+			unit_dim = hash_search(tmp_unit_dimensions,
+								   derived_units[i].units,
+								   HASH_ENTER,
+								   NULL);
+			memcpy(unit_dim->units, derived_units[i].units, N_UNITS);
+			strlcpy(unit_dim->name, derived_units[i].name, UNIT_NAME_LENGTH);
+		}
 	}
+	PG_CATCH();
+	{
+		/* free partially initialized table */
+		hash_destroy(tmp_unit_dimensions);
+		PG_RE_THROW();
+	}
+	PG_END_TRY();
+
+	/* No OOM errors were thrown, use the new table */
+	if (unit_dimensions)
+		hash_destroy(unit_dimensions);
+	unit_dimensions = tmp_unit_dimensions;
 }
 
 /* module initialization */
@@ -946,8 +978,6 @@ Datum
 unit_reset(PG_FUNCTION_ARGS)
 {
 	/* reinitialize hash tables */
-	hash_destroy(unit_names);
-	hash_destroy(unit_dimensions);
 	unit_get_definitions();
 
 	PG_RETURN_VOID();
