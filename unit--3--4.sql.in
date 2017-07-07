@@ -1,0 +1,16 @@
+-- convert @ from (unit, cstring) to (unit, text)
+
+DROP OPERATOR @ (unit, cstring);
+DROP FUNCTION unit_at(unit, cstring);
+
+CREATE FUNCTION unit_at(unit, text)
+	RETURNS cstring
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_at_text'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR @ (
+	leftarg = unit,
+	rightarg = text,
+	procedure = unit_at
+);

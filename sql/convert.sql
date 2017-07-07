@@ -9,7 +9,7 @@ WITH
 	('yd'),
 	('mi'))
 SELECT
-  l1.u, l2.u, l1.u::unit @ l2.u::cstring
+  l1.u, l2.u, l1.u::unit @ l2.u
 FROM
   l l1 CROSS JOIN l l2
 \crosstabview
@@ -25,7 +25,7 @@ WITH
 	('yd^2'),
 	('mi^2'))
 SELECT
-  l1.u, l2.u, l1.u::unit @ l2.u::cstring
+  l1.u, l2.u, l1.u::unit @ l2.u
 FROM
   l l1 CROSS JOIN l l2
 \crosstabview
@@ -40,7 +40,7 @@ WITH
 	('ft^3'),
 	('yd^3'))
 SELECT
-  l1.u, l2.u, l1.u::unit @ l2.u::cstring
+  l1.u, l2.u, l1.u::unit @ l2.u
 FROM
   l l1 CROSS JOIN l l2
 \crosstabview
@@ -54,7 +54,7 @@ WITH
 	('oz'),
 	('lb'))
 SELECT
-  l1.u, l2.u, l1.u::unit @ l2.u::cstring
+  l1.u, l2.u, l1.u::unit @ l2.u
 FROM
   l l1 CROSS JOIN l l2
 \crosstabview
@@ -68,7 +68,7 @@ WITH
 	('d'),
 	('julianyear'))
 SELECT
-  l1.u, l2.u, l1.u::unit @ l2.u::cstring
+  l1.u, l2.u, l1.u::unit @ l2.u
 FROM
   l l1 CROSS JOIN l l2
 \crosstabview

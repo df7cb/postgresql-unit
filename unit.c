@@ -14,6 +14,7 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "utils/builtins.h" /* cstring_to_text (needed on 9.5) */
 #include "utils/guc.h"
 #include "utils/hsearch.h"
 #include <math.h>
@@ -816,6 +817,7 @@ unit_cbrt(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+/* obsolete version of unit_at_text used in v1..3 */
 /* needs search_path = @extschema@ due to use of unit_parse() */
 PG_FUNCTION_INFO_V1(unit_at);
 
@@ -824,6 +826,32 @@ unit_at(PG_FUNCTION_ARGS)
 {
 	Unit		*a = (Unit *) PG_GETARG_POINTER(0);
 	char		*b = PG_GETARG_CSTRING(1);
+	UnitShift	 bu;
+
+	if (unit_parse(b, &bu) > 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("invalid input syntax for unit: \"%s\", %s",
+					 b, yyerrstr)));
+	test_same_dimension("@", a, &bu.unit);
+	if (bu.unit.value == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_DIVISION_BY_ZERO),
+				 errmsg("division by zero-valued unit: \"%s\"", b)));
+	PG_RETURN_CSTRING(psprintf("%s %s%s",
+				float8out_internal ((a->value - bu.shift) / bu.unit.value),
+				(atof(b) > 0 ? "* " : ""),
+				b));
+}
+
+/* needs search_path = @extschema@ due to use of unit_parse() */
+PG_FUNCTION_INFO_V1(unit_at_text);
+
+Datum
+unit_at_text(PG_FUNCTION_ARGS)
+{
+	Unit		*a = (Unit *) PG_GETARG_POINTER(0);
+	char		*b = text_to_cstring(PG_GETARG_TEXT_PP(1));
 	UnitShift	 bu;
 
 	if (unit_parse(b, &bu) > 0)
