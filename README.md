@@ -268,7 +268,7 @@ operator family unit_ops for access method btree
 operator ||/(NONE,unit)
 operator |/(NONE,unit)
 operator -(NONE,unit)
-operator @(unit,cstring)
+operator @(unit,text)
 operator /(unit,double precision)
 operator *(unit,double precision)
 operator ^(unit,integer)

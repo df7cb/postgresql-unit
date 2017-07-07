@@ -1,4 +1,4 @@
-postgresql-unit (4.0) UNRELEASED; urgency=medium
+postgresql-unit (4.0) unstable; urgency=medium
 
   * Support exponents written using Unicode superscript characters.
   * Report 22P02/invalid_text_representation on invalid unit input.

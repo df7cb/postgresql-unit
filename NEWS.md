@@ -1,3 +1,11 @@
+4.0: Jul 7, 2017
+----------------
+* Support exponents written using Unicode superscript characters.
+* Report 22P02/invalid_text_representation on invalid unit input.
+* Fix crash when unit_reset() runs into an OOM error. Patch by Andreas
+  Seltenreich, thanks!
+* Change @ operator signature to (unit, text).
+
 3.0: Mar 22, 2017
 -----------------
 * Support defining new units at runtime.
