@@ -5,6 +5,7 @@ env:
   - PG_SUPPORTED_VERSIONS=9.5
   - PG_SUPPORTED_VERSIONS=9.6
   - PG_SUPPORTED_VERSIONS=10
+  - PG_SUPPORTED_VERSIONS=11
 
 language: C
 dist: trusty
@@ -14,11 +15,13 @@ before_install:
   # apt.postgresql.org is already configured, we just need to add devel
   - |
     DIST=trusty-pgdg
-    if [ "$PG_SUPPORTED_VERSIONS" = "10" ]; then
+    case $PG_SUPPORTED_VERSIONS in
+      1*)
       # update pgdg-source.list
       sudo sed -i -e "s/pgdg.*/pgdg-testing main $PG_SUPPORTED_VERSIONS/" /etc/apt/sources.list.d/pgdg*.list
       DIST=trusty-pgdg-testing
-    fi
+      ;;
+    esac
   - sudo apt-get -qq update
 
 install:
@@ -40,5 +43,6 @@ install:
 script:
   - pg_buildext updatecontrol
   - dpkg-buildpackage -us -uc -rfakeroot
+  - for deb in ../*.deb; do echo "$deb:"; dpkg-deb --info $deb; dpkg-deb --contents $deb; done
   - sudo debi
-  - pg_buildext installcheck
+  - pg_buildext -i '--locale=C.UTF-8' installcheck
