@@ -1,3 +1,10 @@
+postgresql-unit (4.0-2) unstable; urgency=medium
+
+  * Upload with PostgreSQL 10 support.
+  * Mark package as non-native and add watch file.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 27 Sep 2017 20:42:41 +0200
+
 postgresql-unit (4.0) unstable; urgency=medium
 
   * Support exponents written using Unicode superscript characters.
