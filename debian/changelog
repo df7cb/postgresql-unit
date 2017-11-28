@@ -1,8 +1,10 @@
 postgresql-unit (4.0-3) UNRELEASED; urgency=medium
 
+  * Import definitions.units from GNU units 2.16 with 70 new units.
+    (The file header erroneously says 2.19.)
   * debian/watch: Ignore debian/ tags.
 
- -- Christoph Berg <myon@debian.org>  Sun, 19 Nov 2017 15:55:40 +0100
+ -- Christoph Berg <myon@debian.org>  Tue, 28 Nov 2017 20:23:01 +0100
 
 postgresql-unit (4.0-2) unstable; urgency=medium
 

@@ -2,10 +2,9 @@
 # This file is the units database for use with GNU units, a units conversion
 # program by Adrian Mariano adrianm@gnu.org
 #
-# June 2016 Version 2.14
+# October 2017 Version 2.19
 #
-# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2004, 2005, 2006
-#               2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016
+# Copyright (C) 1996-2002, 2004-2017
 # Free Software Foundation, Inc
 #
 # This program is free software; you can redistribute it and/or modify
@@ -65,7 +64,9 @@
 #           22. NIST Special Publication 447, Weights and Measures Standards
 #                 of the the United States: a brief history. Lewis V. Judson.
 #                 1963; rev. 1976
-#           23  CRC Handbook of Chemistry and Physics, 96th edition
+#           23. CRC Handbook of Chemistry and Physics, 96th edition
+#           24. Dictionary of Scientific Units, 6th ed.  H.G.  Jerrard and D.B.
+#                 McNeill. 1992
 #
 # Thanks to Jeff Conrad for assistance in ferreting out unit definitions.
 #
@@ -319,6 +320,17 @@ ninety                  90
 hundred                 100
 thousand                1000
 million                 1e6
+
+twoscore                two score
+threescore              three score
+fourscore               four score
+fivescore               five score
+sixscore                six score
+sevenscore              seven score
+eightscore              eight score
+ninescore               nine score
+tenscore                ten score
+twelvescore             twelve score
 
 # These number terms were described by N. Chuquet and De la Roche in the 16th
 # century as being successive powers of a million.  These definitions are still
@@ -602,9 +614,13 @@ pyron            cal_IT / cm^2 min # Measures heat flow from solar radiation,
 katal                   mol/sec    # Measure of the amount of a catalyst.  One
 kat                     katal      #   katal of catalyst enables the reaction
                                    #   to consume or produce on mol/sec.
-solarluminosity         384.6e24 W # A common yardstick for comparing the
+solarluminosity         382.8e24 W # A common yardstick for comparing the
                                    #   output of different stars.
                 # http://nssdc.gsfc.nasa.gov/planetary/factsheet/sunfact.html
+# at mean earth-sun distance
+solarirradiance		solarluminosity / (4 pi sundist^2)
+solarconstant		solarirradiance
+TSI			solarirradiance		# total solar irradiance
 
 #
 # time
@@ -1082,9 +1098,12 @@ technicalatmosphere     kgf / cm^2
 at                      technicalatmosphere
 hyl                     kgf s^2 / m   # Also gram-force s^2/m according to [15]
 mmHg                    mm Hg
-torr                    atm / 760  # These units, both named after Evangelista
-tor                     Pa         # Torricelli, should not be confused.  The
-inHg                    inch Hg    # torr is very close to the mm Hg. 
+torr                    atm / 760  # The torr, named after Evangelista
+                                   # Torricelli, and is very close to the mm Hg
+tor                     Pa         # Suggested in 1913 but seldom used [24].
+                                   # Eventually renamed the Pascal.  Don't 
+                                   # confuse the tor with the torr.  
+inHg                    inch Hg    
 inH2O                   inch water
 mmH2O                   mm water
 lightyear               c julianyear # The 365.25 day year is specified in
@@ -1792,6 +1811,11 @@ sundist                 1.0000010178 au # mean earth-sun distance
 moondist                3.844e8 m       # mean earth-moon distance
 sundist_near            1.471e11 m      # earth-sun distance at perihelion
 sundist_far             1.521e11 m      # earth-sun distance at aphelion
+moondist_min		3.564e8 m	# approximate least distance at
+                                        #    perigee 1901-2300
+moondist_max		4.067e8 m	# approximate greatest distance at
+                                        #    apogee 1901-2300
+
 
 # The following are masses for planetary systems, not just the planet itself.
 # The comments give the uncertainty in the denominators.  As noted above,
@@ -1811,7 +1835,7 @@ uranusmass              solarmass / 22902.98  # 0.03
 neptunemass             solarmass / 19412.24  # 0.04
 plutomass               solarmass / 1.35e8    # 0.07e8
 
-moonearthmassratio      0.012300034 # uncertainty 3 x 10-9
+moonearthmassratio      0.012300034 # uncertainty 3e-9
 earthmass               earthmoonmass / ( 1 + moonearthmassratio)
 moonmass                moonearthmassratio earthmass
 
@@ -1841,6 +1865,211 @@ neptuneradius           24624 km
 plutoradius             1151 km
 
 moongravity             1.62 m/s^2
+
+# The Hubble constant gives the speed at which distance galaxies are moving
+# away from the earth according to v = H0*d, where H0 is the hubble constant
+# and d is the distance to the galaxy.
+
+hubble                  70 km/s/Mpc        # approximate
+H0                      hubble
+
+# Parallax is the angular difference between the topocentric (on Earth's
+# surface) and geocentric (at Earth's center) direction toward a celestial body
+# when the body is at a given altitude.  When the body is on the horizon, the
+# parallax is the horizontal parallax; when the body is on the horizon and the
+# observer is on the equator, the parallax is the equatorial horizontal
+# parallax.  When the body is at zenith, the parallax is zero.
+
+lunarparallax  asin(earthradius_equatorial / moondist) # Moon equatorial 
+moonhp         lunarparallax                           # horizontal parallax
+                                                       # at mean distance
+
+# Light from celestial objects is attenuated by passage through Earth's
+# atmosphere.  A body near the horizon passes through much more air than an
+# object at zenith, and is consequently less bright.  Air mass is the ratio of
+# the length of the optical path at a given altitude (angle above the horizon)
+# to the length at zenith.  Air mass at zenith is by definition unity; at the
+# horizon, air mass is approximately 38, though the latter value can vary
+# considerably with atmospheric conditions.  The general formula is # E = E0
+# exp(-c X), where E0 is the value outside Earth's atmosphere, E is the value
+# seen by an observer, X is the air mass and c is the extinction coefficient.
+# A common value for c in reasonably clear air is 0.21, but values can be
+# considerably greater in urban areas.  Apparent altitude is that perceived by
+# an observer; it includes the effect of atmospheric refraction.  There is no
+# shortage of formulas for air mass
+# (https://en.wikipedia.org/wiki/Air_mass_(astronomy)); all are subject to
+# variations in local atmospheric conditions.  The formula used here is simple
+# and is in good agreement with rigorously calculated values under standard
+# conditions.
+#
+# Extraterrestrial illuminance or luminance of an object at a given altitude
+# determined with vmag() or SB_xxx() below can be multiplied by
+# atm_transmission() or atm_transmissionz() to estimate the terrestrial value.
+#
+# Kasten and Young (1989) air mass formula. alt is apparent altitude
+# Reference:
+# Kasten, F., and A.T. Young. 1989. "Revised Optical Air Mass Tables
+#     and Approximation Formula."  Applied Optics.  Vol. 28, 4735–4738.
+#     Bibcode:1989ApOpt..28.4735K. doi:10.1364/AO.28.004735.
+
+airmass(alt) units=[degree;1] domain=[0,90] noerror \
+    1 / (sin(alt) + 0.50572 (alt / degree + 6.07995)^-1.6364)
+
+# zenith is apparent zenith angle (zenith = 90 deg - alt)
+airmassz(zenith) units=[degree;1] domain=[0,90] noerror \
+    1 / (cos(zenith) + 0.50572 (96.07995 - zenith / degree)^-1.6364)
+
+# For reasonably clear air at sea level; values may need adjustment for
+# elevation and local atmospheric conditions
+# for scotopic vision (510 nm), appropriate for the dark-adapted eye
+# extinction_coeff           0.26
+# for photopic vision, appropriate for observing brighter objects such
+# as the full moon
+extinction_coeff	0.21
+
+atm_transmission(alt) units=[degree;1] domain=[0,90] noerror \
+    exp(-extinction_coeff airmass(alt))
+
+# in terms of zenith angle (zenith = 90 deg - alt)
+atm_transmissionz(zenith) units=[degree;1] domain=[0,90] noerror \
+    exp(-extinction_coeff airmassz(zenith))
+
+# Moon and Sun data at mean distances
+moonvmag	-12.74	# Moon apparent visual magnitude at mean distance
+sunvmag		-26.74	# Sun apparent visual magnitude at mean distance
+moonsd	asin(moonradius / moondist) # Moon angular semidiameter at mean distance
+sunsd	asin(sunradius / sundist)   # Sun angular semidiameter at mean distance
+
+# Visual magnitude of star or other celestial object.  The system of stellar
+# magnitudes, developed in ancient Greece, assigned magnitudes from 1
+# (brightest) to 6 (faintest visible to the naked eye).  In 1856, British
+# astronomer Norman Pogson made the system precise, with a magnitude 1 object
+# 100 times as bright as a magnitude 6 object, and each magnitude differing
+# from the next by a constant ratio; the ratio, sometimes known as Pogson's
+# ratio, is thus 100^0.2, or approximately 2.5119.  The logarithm of 100^0.2 is
+# 0.4, hence the common use of powers of 10 and base-10 logarithms.
+#
+# Reference:
+# Allen, C.W. 1976.  Astrophysical Quantities, 3rd ed. 1973, reprinted
+#     with corrections, 1976.  London: Athlone.
+#
+# The function argument is the (dimensionless) visual magnitude; reference
+# illuminance of 2.54e-6 lx is from Allen (2000, 21), and is for outside
+# Earth's atmosphere.  Illuminance values can be adjusted to terrestrial values
+# by multiplying by one of the atm_transmission functions above.
+
+# Illuminance from apparent visual magnitude
+vmag(mag) units=[1;lx] domain=[,]  range=(0,] \
+    2.54e-6 lx 10^(-0.4 mag); -2.5 log(vmag / (2.54e-6 lx))
+
+# Surface brightness of a celestial object of a given visual magnitude
+# is a logarithmic measure of the luminance the object would have if its
+# light were emitted by an object of specified solid angle; it is
+# expressed in magnitudes per solid angle.  Surface brightness can be
+# obtained from the visual magnitude by
+#    S = m + 2.5 log(pi pi k a b),
+# where k is the phase (fraction illuminated), a is the equatorial
+# radius, and b is the polar radius.  For 100% illumination (e.g., full
+# moon), this is often simplified to
+#    S = m + 2.5 log(pi k s^2),
+# where s is the object's angular semidiameter; the units of s determine
+# the units of solid angle.  The visual magnitude and semidiameter must
+# be appropriate for the object's distance; for other than 100%
+# illumination, the visual magnitude must be appropriate for the phase.
+# Luminance values are for outside Earth's atmosphere; they can be
+# adjusted to terrestrial values by multiplying by one of the atm_transmission
+# functions above.
+
+# luminance from surface brightness in magnitudes per square degree
+SB_degree(sb) units=[1;cd/m^2] domain=[,] range=(0,] \
+    vmag(sb) / squaredegree ; \
+    ~vmag(SB_degree squaredegree)
+
+# luminance from surface brightness in magnitudes per square minute
+SB_minute(sb) units=[1;cd/m^2] domain=[,] range=(0,] \
+    vmag(sb) / squareminute ; \
+    ~vmag(SB_minute squareminute)
+
+# luminance from surface brightness in magnitudes per square second
+SB_second(sb) units=[1;cd/m^2] domain=[,] range=(0,] \
+    vmag(sb) / squaresecond ; \
+    ~vmag(SB_second squaresecond)
+
+# luminance from surface brightness in magnitudes per steradian
+SB_sr(sb) units=[1;cd/m^2] domain=[,] range=(0,] \
+    vmag(sb) / sr ; \
+    ~vmag(SB_sr sr)
+
+SB()		SB_second
+SB_sec()	SB_second
+SB_min()	SB_minute
+SB_deg()	SB_degree
+
+# The brightness of one tenth-magnitude star per square degree outside
+# Earth's atmosphere; often used for night sky brightness.
+S10	SB_degree(10)
+
+# Examples for magnitude and surface brightness functions
+# Sun illuminance from visual magnitude
+#     You have: sunvmag
+#     You want:
+# 	    Definition: -26.74 = -26.74
+#     You have: vmag(sunvmag)
+#     You want: lx
+# 	    * 126134.45
+# 	    / 7.9280482e-06
+#
+# Moon surface brightness from visual magnitude and semidiameter at 100%
+# illumination (full moon):
+#     You have: moonvmag
+#     You want:
+# 	    Definition: -12.74 = -12.74
+#     You have: moonsd
+#     You want: arcsec
+# 	    * 932.59484
+# 	    / 0.001072277
+#     You have: moonvmag + 2.5 log(pi 932.59484^2)
+#     You want:
+# 	    Definition: 3.3513397
+#
+# Similar example with specific data obtained from another source (JPL
+# Horizons, https://ssd.jpl.nasa.gov/horizons.cgi); semidiameter is in
+# arcseconds
+#
+#     You have: -12.9 + 2.5 log(pi 2023.201|2^2)
+#     You want:
+# 	    Definition: 3.3679199
+#     You have: SB_second(-12.9 + 2.5 log(pi 2023.201|2^2))
+#     You want:
+# 	    Definition: 4858.6547 cd / m^2
+#
+# If surface brightness is provided by another source (e.g., Horizons),
+# it can simply be used directly:
+# You have: SB_second(3.3679199)
+# You want: cd/m^2
+#         * 4858.6546
+#         / 0.0002058183
+# The illuminance and luminance values are extraterrestrial (outside
+# Earth's atmosphere).  The values at Earth's surface are less than these
+# because of atmospheric extinction.  For example, in the last example
+# above, if the Moon were at an altitude of 55 degrees, the terrestrial
+# luminance could be calculated with
+#     You have: SB_second(3.3679199)
+#     You want: cd/m^2
+# 	    * 4858.6546
+# 	    / 0.0002058183
+#     You have: _ atm_transmission(55 deg)
+#     You want: cd/m^2
+# 	    * 3760.6356
+# 	    / 0.0002659125
+# If desired, photographic exposure can be determined with EV100(),
+# leading to acceptable combinations of aperture and exposure time.
+# For the example above, but with the Moon at 10 degrees,
+#     You have: SB_second(3.3679199) atm_transmission(10 deg)
+#     You want: EV100
+# 	    13.553962
+
+
 
 #
 # The Hartree system of atomic units, derived from fundamental units
@@ -2145,7 +2374,6 @@ eushot                  25 ml      # EU standard spirits measure
 fifth                   1|5 usgallon
 winebottle              750 ml     # US industry standard, 1979
 winesplit               1|4 winebottle
-wineglass               4 usfloz
 magnum                  1.5 liter  # Standardized in 1979, but given
                                    # as 2 qt in some references
 metrictenth             375 ml
@@ -2167,6 +2395,44 @@ methuselah              4 magnum
 salmanazar              6 magnum
 balthazar               8 magnum
 nebuchadnezzar          10 magnum
+
+# The wine glass doesn't seem to have an official standard, but the same value
+# is suggested by several organization. 
+
+# https://www.rethinkingdrinking.niaaa.nih.gov/
+# http://www.rethinkyourdrinking.ca/what-is-a-standard-drink/
+# https://www.drinkaware.co.uk/
+# https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/545937/UK_CMOs__report.pdf
+# http://www.alcohol.gov.au/internet/alcohol/publishing.nsf/content/drinksguide-cnt
+
+wineglass               150 mL     # the size of a "typical" serving
+
+# A unit of alcohol is a specified mass of pure ethyl alcohol.
+# The term is used officially in the UK, but other countries use the same
+# concept but with different values.  For example, the UK value of 8 g is
+# nominally the amount of alcohol that a typical adult can metabolize in
+# one hour.  Values for several countries, converted to a volumetric basis:
+
+alcoholunitus           14 g   / ethanoldensity
+alcoholunitca           13.6 g / ethanoldensity
+alcoholunituk            8 g   / ethanoldensity
+alcoholunitau           10 g   / ethanoldensity
+
+# Example: for 12% ABV (alcohol by volume)
+# alcoholunitus / 12% = 147.8 mL, close to the “standard” serving of 150 mL.
+
+
+# Coffee 
+#
+# The recommended ratio of coffee to water. Values vary considerably;
+# one is from the  Specialty Coffee Association of America
+# http://scaa.org/?page=resources&d=brewing-best-practices
+
+coffeeratio             55 g/L  # ± 10%
+
+# other recommendations are more loose, e.g.,
+# http://www.ncausa.org/About-Coffee/How-to-Brew-Coffee
+
 
 #
 # Water is "hard" if it contains various minerals, expecially calcium
@@ -2824,9 +3090,9 @@ pdl                     poundal
 osi                     ounce force / inch^2   # used in aviation
 psi                     pound force / inch^2
 psia                    psi             # absolute pressure
-					#   Note that gauge pressure can be given
-					#   using the gaugepressure() and
-					#   psig() nonlinear unit definitions
+                                        #   Note that gauge pressure can be given
+                                        #   using the gaugepressure() and
+                                        #   psig() nonlinear unit definitions
 tsi                     ton force / inch^2
 reyn                    psi sec
 slug                    lbf s^2 / ft
@@ -3243,6 +3509,20 @@ tnt                     1e9 cal_th / ton# So you can write tons tnt. This
                                         # is a defined, not measured, value.
 airwatt                 8.5 (ft^3/min) inH2O # Measure of vacuum power as
                                              # pressure times air flow.
+
+# Nuclear weapon yields 
+
+davycrocket             10 ton tnt         # lightest US tactical nuclear weapon
+hiroshima               15.5 kiloton tnt   # Uranium-235 fission bomb
+nagasaki                21 kiloton tnt     # Plutonium-239 fission bomb
+fatman                  nagasaki
+littleboy               hiroshima
+ivyking                 500 kiloton tnt    # most powerful fission bomb
+castlebravo             15 megaton tnt     # most powerful US test
+b53bomb                 9 megaton tnt
+                 # http://rarehistoricalphotos.com/gadget-first-atomic-bomb/
+trinity                 18 kiloton tnt     # July 16, 1945
+gadget                  trinity
 
 #
 # Permeability: The permeability or permeance, n, of a substance determines
@@ -3667,7 +3947,26 @@ dvdspeed                 1385 kB/s   # This is the "1x" speed of a DVD using
                                      # as they go from the inside to the
                                      # outside of the disc.
                        # See http://www.osta.org/technology/dvdqa/dvdqa4.htm
+#
+# The IP address space is divided into subnets.  The number of hosts
+# in a subnet depends on the length of the subnet prefix.  This is
+# often written as /N where N is the number of bits in the prefix.
+#
+# https://en.wikipedia.org/wiki/Subnetwork
+#
+# These definitions gives the number of hosts for a subnet whose
+# prefix has the specified length in bits.
+#
 
+ipv4subnetsize(prefix_len) units=[1;1]  domain=[0,32] range=[1,4294967296] \
+                         2^(32-prefix_len) ; 32-log2(ipv4subnetsize)
+ipv4classA               ipv4subnetsize(8)
+ipv4classB               ipv4subnetsize(16)
+ipv4classC               ipv4subnetsize(24)
+
+ipv6subnetsize(prefix_len) units=[1;1] domain=[0,128] \
+                         range=[1,340282366920938463463374607431768211456] \
+                         2^(128-prefix_len) ; 128-log2(ipv6subnetsize)
 
 #
 # Musical measures.  Musical intervals expressed as ratios.  Multiply
@@ -3814,7 +4113,6 @@ megalerg                megaerg    # 'L' added to make it pronounceable [18].
 # generally given in US$.
 #
 
-unitedstatesdollar      US$
 usdollar                US$
 $                       dollar
 mark                    germanymark
@@ -3840,31 +4138,20 @@ unitedkingdompound      ukpound
 poundsterling           britainpound
 yuan                    chinayuan
 
-# Some European currencies have permanent fixed exchange rates with
-# the Euro.  These rates were taken from the EC's web site:
-# http://ec.europa.eu/economy_finance/euro/adoption/conversion/index_en.htm
+# Unicode Currency Names
 
-austriaschilling        1|13.7603 euro
-belgiumfranc            1|40.3399 euro
-estoniakroon            1|15.6466 euro # Equal to 1|8 germanymark
-finlandmarkka           1|5.94573 euro
-francefranc             1|6.55957 euro
-germanymark             1|1.95583 euro
-greecedrachma           1|340.75 euro
-irelandpunt             1|0.787564 euro
-italylira               1|1936.27 euro
-luxembourgfranc         1|40.3399 euro
-netherlandsguilder      1|2.20371 euro
-portugalescudo          1|200.482 euro
-spainpeseta             1|166.386 euro
-cypruspound             1|0.585274 euro
-maltalira               1|0.429300 euro
-sloveniatolar           1|239.640 euro
-slovakiakoruna          1|30.1260 euro
+!utf8
+icelandkróna            icelandkrona
+polandzłoty             polandzloty
+tongapa’anga            tongapa'anga
+venezuelabolívar        venezuelabolivar
+vietnamđồng             vietnamdong
+mongoliatögrög          mongoliatugrik
+sãotomé&príncipedobra   saotome&principedobra
+!endutf8
 
 UKP                     GBP        # Not an ISO code, but looks like one, and
                                    # sometimes used on usenet.
-VEB                     1|1000 VEF # old venezuelan bolivar
 
 !include currency.units
 
@@ -3874,10 +4161,13 @@ VEB                     1|1000 VEF # old venezuelan bolivar
 olddollargold           23.22 grains goldprice  # Used until 1934
 newdollargold           96|7 grains goldprice   # After Jan 31, 1934
 dollargold              newdollargold
-poundgold               113 grains goldprice
+poundgold               113 grains goldprice    # British pound
+
+# Precious metals
+
 goldounce               goldprice troyounce
 silverounce             silverprice troyounce
-platinumounce		platinumprice troyounce
+platinumounce           platinumprice troyounce
 XAU                     goldounce
 XPT                     platinumounce
 XAG                     silverounce
@@ -3890,7 +4180,8 @@ USnickelweight          5 grams
 USdimeweight            US$ 0.10 / (20 US$ / lb)   # Since 1965
 USquarterweight         US$ 0.25 / (20 US$ / lb)   # Since 1965
 UShalfdollarweight      US$ 0.50 / (20 US$ / lb)   # Since 1971
-USdollarmass            8.1 grams
+USdollarweight          8.1 grams         # Weight of Susan B. Anthony and
+                                          #   Sacagawea dollar coins
 
 # British currency
 
@@ -3931,6 +4222,11 @@ brpony                  25 britainpound
 
 loony                   1 canadadollar    # This coin depicts a loon
 toony                   2 canadadollar
+
+# Cryptocurrency
+
+satoshi                 1e-8 bitcoin
+XBT                     bitcoin           # nonstandard code
 
 #
 # Units used for measuring volume of wood
@@ -4073,48 +4369,48 @@ lusec                   liter micron Hg / s  # Used in vacuum science
 
 # temperature lapse rate, -dT/dz, in troposphere
 
-lapserate	6.5 K/km	# US Std Atm (1976)
+lapserate       6.5 K/km        # US Std Atm (1976)
 
 # air molecular weight, including constituent mol wt, given
 # in Table 3, p. 3
 
-air_1976	78.084   %    28.0134 \
-	      + 20.9476  %    31.9988 \
-	      + 9340     ppm  39.948 \
-	      +  314     ppm  44.00995 \
-	      +   18.18  ppm  20.183 \
-	      +    5.24  ppm   4.0026 \
-	      +    2     ppm  16.04303 \
-	      +    1.14  ppm  83.80 \
-	      +    0.55  ppm   2.01594 \
-	      +    0.087 ppm 131.30
+air_1976        78.084   %    28.0134 \
+              + 20.9476  %    31.9988 \
+              + 9340     ppm  39.948 \
+              +  314     ppm  44.00995 \
+              +   18.18  ppm  20.183 \
+              +    5.24  ppm   4.0026 \
+              +    2     ppm  16.04303 \
+              +    1.14  ppm  83.80 \
+              +    0.55  ppm   2.01594 \
+              +    0.087 ppm 131.30
 
 # universal gas constant
-R_1976		8.31432e3 N m/(kmol K)
+R_1976          8.31432e3 N m/(kmol K)
 
 # polytropic index n
-polyndx_1976	air_1976 (kg/kmol) gravity/(R_1976 lapserate) - 1
+polyndx_1976    air_1976 (kg/kmol) gravity/(R_1976 lapserate) - 1
 
 # If desired, redefine using current values for air mol wt and R
 
-polyndx		polyndx_1976
-# polyndx	air (kg/kmol) gravity/(R lapserate) - 1
+polyndx         polyndx_1976
+# polyndx       air (kg/kmol) gravity/(R lapserate) - 1
 
 # for comparison with various references
 
-polyexpnt	(polyndx + 1) / polyndx
+polyexpnt       (polyndx + 1) / polyndx
 
 # The model assumes the following reference values:
 # sea-level temperature and pressure
 
-stdatmT0	288.15 K
-stdatmP0	atm
+stdatmT0        288.15 K
+stdatmP0        atm
 
 # "effective radius" for relation of geometric to geopotential height,
 # at a latitude at which g = 9.80665 m/s (approximately 45.543 deg); no
 # relation to actual radius
 
-earthradUSAtm	6356766 m
+earthradUSAtm   6356766 m
 
 # Temperature vs. geopotential height h
 # Assumes 15 degC at sea level
@@ -4197,13 +4493,20 @@ earthradius_eff(lat) units=[deg;m] domain=[0,90] noerror \
 # Patm appropriately, and adjust the lower domain limit on the gaugepressure
 # definition.
 
-Patm	atm
+Patm    atm
 
 gaugepressure(x) units=[Pa;Pa] domain=[-101325,) range=[0,) \
                 x + Patm ; gaugepressure+(-Patm)
 
 psig(x) units=[1;Pa] domain=[-14.6959487755135,) range=[0,) \
     gaugepressure(x psi) ; ~gaugepressure(psig) / psi
+
+
+# Pressure for underwater diving
+
+seawater             0.1 bar / meter
+msw                  meter seawater
+fsw                  foot seawater
 
 #
 # Wire Gauge
@@ -4329,10 +4632,112 @@ zincgauge[in]    \
        28 1
 
 #
+# Imperial drill bit sizes are reported in inches or in a numerical or
+# letter gauge.
+#
+
+drillgauge[in] \
+       1  0.2280 \
+       2  0.2210 \
+       3  0.2130 \
+       4  0.2090 \
+       5  0.2055 \
+       6  0.2040 \
+       7  0.2010 \
+       8  0.1990 \
+       9  0.1960 \
+      10  0.1935 \
+      11  0.1910 \
+      12  0.1890 \
+      13  0.1850 \
+      14  0.1820 \
+      15  0.1800 \
+      16  0.1770 \
+      17  0.1730 \
+      18  0.1695 \
+      19  0.1660 \
+      20  0.1610 \
+      22  0.1570 \
+      23  0.1540 \
+      24  0.1520 \
+      25  0.1495 \
+      26  0.1470 \
+      27  0.1440 \
+      28  0.1405 \
+      29  0.1360 \
+      30  0.1285 \
+      31  0.1200 \
+      32  0.1160 \
+      33  0.1130 \
+      34  0.1110 \
+      35  0.1100 \
+      36  0.1065 \
+      38  0.1015 \
+      39  0.0995 \
+      40  0.0980 \
+      41  0.0960 \
+      42  0.0935 \
+      43  0.0890 \
+      44  0.0860 \
+      45  0.0820 \
+      46  0.0810 \
+      48  0.0760 \
+      51  0.0670 \
+      52  0.0635 \
+      53  0.0595 \
+      54  0.0550 \
+      55  0.0520 \
+      56  0.0465 \
+      57  0.0430 \
+      65  0.0350 \
+      66  0.0330 \
+      68  0.0310 \
+      69  0.0292 \
+      70  0.0280 \
+      71  0.0260 \
+      73  0.0240 \
+      74  0.0225 \
+      75  0.0210 \
+      76  0.0200 \
+      78  0.0160 \
+      79  0.0145 \
+      80  0.0135 \
+      88  0.0095 \
+      104 0.0031 
+
+drillA    0.234 in
+drillB    0.238 in
+drillC    0.242 in
+drillD    0.246 in
+drillE    0.250 in
+drillF    0.257 in
+drillG    0.261 in
+drillH    0.266 in
+drillI    0.272 in
+drillJ    0.277 in
+drillK    0.281 in
+drillL    0.290 in
+drillM    0.295 in
+drillN    0.302 in
+drillO    0.316 in
+drillP    0.323 in
+drillQ    0.332 in
+drillR    0.339 in
+drillS    0.348 in
+drillT    0.358 in
+drillU    0.368 in
+drillV    0.377 in
+drillW    0.386 in
+drillX    0.397 in
+drillY    0.404 in
+drillZ    0.413 in
+
+#
 # Screw sizes
 #
-# In the USA, screw diameters are reported using a gauge number.
-# Metric screws are reported as Mxx where xx is the diameter in mm.
+# In the USA, screw diameters for both wood screws and machine screws
+# are reported using a gauge number.  Metric machine screws are
+# reported as Mxx where xx is the diameter in mm.
 #
 
 screwgauge(g) units=[1;m] range=[0,) \
@@ -4652,6 +5057,173 @@ coarsecrystalon          127 micron
 hardblackarkansas        6 micron
 hardwhitearkansas        11 micron
 washita                  35 micron
+
+#
+# Mesh systems for measuring particle sizes by sifting through a wire
+# mesh or sieve
+#
+
+# The Tyler system and US Sieve system are based on four steps for
+# each factor of 2 change in the size, so each size is 2^1|4 different
+# from the adjacent sizes.  Unfortunately, the mesh numbers are
+# arbitrary, so the sizes cannot be expressed with a functional form.
+# Various references round the values differently.  The mesh numbers
+# are supposed to correspond to the number of holes per inch, but this
+# correspondence is only approximate because it doesn't include the
+# wire size of the mesh.
+
+# The Tyler Mesh system was apparently introduced by the WS Tyler
+# company, but it appears that they no longer use it.  They follow the
+# ASTM E11 standard.
+
+meshtyler[micron] \
+          2.5 8000 \
+          3   6727 \
+          3.5 5657 \
+          4   4757 \
+          5   4000 \
+          6   3364 \
+          7   2828 \
+          8   2378 \
+          9   2000 \
+         10   1682 \
+         12   1414 \
+         14   1189 \
+         16   1000 \
+         20    841 \
+         24    707 \
+         28    595 \
+         32    500 \
+         35    420 \
+         42    354 \
+         48    297 \
+         60    250 \
+         65    210 \
+         80    177 \
+        100    149 \
+        115    125 \
+        150    105 \
+        170     88 \
+        200     74 \
+        250     63 \
+        270     53 \
+        325     44 \
+        400     37 
+
+# US Sieve size, ASTM E11
+#
+# The WS Tyler company prints the list from ASTM E11 in their catalog, 
+# http://wstyler.com/wp-content/uploads/2015/11/Product-Catalog-2.pdf
+
+sieve[micron] \
+          3.5   5600 \
+          4     4750 \
+          5     4000 \
+          6     3350 \
+          7     2800 \
+          8     2360 \
+         10     2000 \
+         12     1700 \
+         14     1400 \
+         16     1180 \
+         18     1000 \
+         20      850 \
+         25      710 \
+         30      600 \
+         35      500 \
+         40      425 \
+         45      355 \
+         50      300 \
+         60      250 \
+         70      212 \
+         80      180 \
+        100      150 \
+        120      125 \
+        140      106 \
+        170       90 \
+        200       75 \
+        230       63 \
+        270       53 \
+        325       45 \
+        400       38 \
+        450       32 \
+        500       25 \
+        625       20   # These last two values are not in the standard series
+                       # but were included in the ASTM standard because they
+meshUS()  sieve        # were in common usage.                               
+
+# British Mesh size, BS 410: 1986
+# This system appears to correspond to the Tyler and US system, but
+# with different mesh numbers.
+#
+# http://www.panadyne.com/technical/panadyne_international_sieve_chart.pdf
+# 
+
+meshbritish[micron] \
+          3    5657 \
+          3.5  4757 \
+          4    4000 \
+          5    3364 \
+          6    2828 \
+          7    2378 \
+          8    2000 \
+         10    1682 \
+         12    1414 \
+         14    1189 \
+         16    1000 \
+         18     841 \
+         22     707 \
+         25     595 \
+         30     500 \
+         36     420 \
+         44     354 \
+         52     297 \
+         60     250 \
+         72     210 \
+         85     177 \
+        100     149 \
+        120     125 \
+        150     105 \
+        170      88 \
+        200      74 \
+        240      63 \
+        300      53 \
+        350      44 \
+        400      37  
+
+# French system, AFNOR NFX11-501: 1970
+# The system appears to be based on size doubling every 3 mesh
+# numbers, though the values have been agressively rounded.
+# It's not clear if the unrounded values would be considered
+# incorrect, so this is given as a table rather than a function.
+# Functional form:
+#    meshtamis(mesh) units=[1;m] 5000 2^(1|3 (mesh-38)) micron
+#
+# http://www.panadyne.com/technical/panadyne_international_sieve_chart.pdf
+
+meshtamis[micron] \
+        17   40 \
+        18   50 \
+        19   63 \
+        20   80 \
+        21  100 \
+        22  125 \
+        23  160 \
+        24  200 \
+        25  250 \
+        26  315 \
+        27  400 \
+        28  500 \
+        29  630 \
+        30  800 \
+        31 1000 \
+        32 1250 \
+        33 1600 \
+        34 2000 \
+        35 2500 \
+        36 3150 \
+        37 4000 \
+        38 5000 
 
 #
 # Ring size. All ring sizes are given as the circumference of the ring.
@@ -5195,6 +5767,19 @@ australiasquare         (10 ft)^2   # Used for house area
 zentner                 50 kg
 doppelzentner           2 zentner
 pfund                   500 g
+
+#
+# Swedish (Sweden) pre-metric units of 1739.
+# The metric system was adopted in 1878.
+# https://sv.wikipedia.org/wiki/Verkm%C3%A5tt
+#
+
+verklinje               2.0618125 mm
+verktum                 12 verklinje
+kvarter                 6 verktum
+fot                     2 kvarter
+aln                     2 fot
+famn                    3 aln
 
 #
 # Some traditional Russian measures
@@ -5785,7 +6370,6 @@ hogshead                brhogshead
 # U+2151-               1|9  flagged as invalid UTF8.
 # U+2152-               1|10
 ℯ                       exp(1)      # U+212F, base of natural log
-
 µ-                      micro       # micro sign U+00B5
 μ-                      micro       # small mu U+03BC
 ångström                angstrom
@@ -5801,15 +6385,6 @@ röntgen                 roentgen
 ℉                       degF
 K                       K          # Kelvin symbol, U+212A
 ℓ                       liter      # unofficial abbreviation used in some places
-¢                       cent
-£                       britainpound
-¥                       japanyen
-€                       euro
-₩                       southkoreawon
-₪                       israelnewshekel
-₤                       lira
-₨                       rupee
-
 Ω                       ohm       # Ohm symbol U+2126
 Ω                       ohm       # Greek capital omega U+03A9
 ℧                       mho
@@ -5823,6 +6398,45 @@ röntgen                 roentgen
 ‱                       1|10000
 ′                       '        # U+2032
 ″                       "        # U+2033
+
+#
+# Unicode currency symbols
+#
+
+¢                       cent
+£                       britainpound
+¥                       japanyen
+€                       euro
+₩                       southkoreawon
+₪                       israelnewshekel
+₤                       lira
+₺                       turkeylira
+₨                       rupee           # unofficial legacy rupee sign
+₹                       indiarupee      # official rupee sign
+؋                       afghanafghani
+฿                       thailandbaht
+₡                       elsalvadorcolon # Also costaricacolon
+₣                       francefranc
+₦                       nigerianaira
+₧                       spainpeseta
+₫                       vietnamdong
+₭                       laokip 
+₮                       mongoliatugrik
+₯                       greecedrachma
+₱                       philippinepeso
+₲                       paraguayguarani
+₴                       ukrainehryvnia
+₵                       ghanacedi
+₸                       kazakhstantenge
+₼                       azerbaijanmanat
+₽                       russiaruble
+₾                       georgialari
+﷼                       iranrial
+﹩                      $
+￠                      ¢
+￡                      £
+￥                      ¥
+￦                      ₩
 
 #
 # Square unicode symbols starting at U+3371

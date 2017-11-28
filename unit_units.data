@@ -244,7 +244,7 @@ jansky	1.00000000000000004e-26 kg/s^2	\N	fluxunit	\N
 Jy	1.00000000000000004e-26 kg/s^2	\N	jansky	\N
 flick	10000000000 kg/m*s^3	\N	W / cm^2 sr micrometer	\N
 pfu	10000 m^-2*s^-1	\N	/ cm^2 sr s	\N
-solarluminosity	3.84599999999999986e+26 m^2*kg/s^3	\N	384.6e24 W	\N
+solarluminosity	3.82800000000000009e+26 m^2*kg/s^3	\N	382.8e24 W	\N
 sec	1 s	\N	s	\N
 minute	60 s	\N	60 s	\N
 min	60 s	\N	minute	\N
@@ -417,7 +417,7 @@ hyl	9.80664999999999942 kg	\N	kgf s^2 / m	\N
 mmHg	133.32238741499998 kg/m*s^2	\N	mm Hg	\N
 torr	133.32236842105263 kg/m*s^2	\N	atm / 760	\N
 tor	1 kg/m*s^2	\N	Pa	\N
-inHg	3386.3886403409997 kg/m*s^2	\N	inch Hg	\N
+inHg	3386.3886403409997 kg/m*s^2	\N	inch Hg    	\N
 inH2O	249.08890999999997 kg/m*s^2	\N	inch water	\N
 mmH2O	9.80664999999999765 kg/m*s^2	\N	mm water	\N
 lightsecond	299792458 m	\N	c s	\N
@@ -629,6 +629,8 @@ sundist	149598022960.712799 m	\N	1.0000010178 au	\N
 moondist	384400000 m	\N	3.844e8 m	\N
 sundist_near	147100000000 m	\N	1.471e11 m	\N
 sundist_far	152100000000 m	\N	1.521e11 m	\N
+moondist_min	356400000 m	\N	3.564e8 m	\N
+moondist_max	406700000 m	\N	4.067e8 m	\N
 mercurymass	3.30217809947539691e+23 kg	\N	solarmass / 6023600	\N
 venusmass	4.86899524142674548e+24 kg	\N	solarmass / 408523.71	\N
 earthmoonmass	6.04772457669272436e+24 kg	\N	solarmass / 328900.56	\N
@@ -659,6 +661,11 @@ uranusradius	25362000 m	\N	25362 km	\N
 neptuneradius	24624000 m	\N	24624 km	\N
 plutoradius	1151000 m	\N	1151 km	\N
 moongravity	1.62000000000000011 m/s^2	\N	1.62 m/s^2	\N
+hubble	2.268545502628827e-18 s^-1	\N	70 km/s/Mpc	\N
+H0	2.268545502628827e-18 s^-1	\N	hubble	\N
+extinction_coeff	0.209999999999999992	\N	0.21	\N
+moonvmag	-12.7400000000000002	\N	-12.74	\N
+sunvmag	-26.7399999999999984	\N	-26.74	\N
 atomicmass	9.10938355570385163e-31 kg	\N	electronmass	\N
 atomiccharge	1.60217662080000009e-19 s*A	\N	e	\N
 atomicaction	1.05457180005237273e-34 m^2*kg/s	\N	hbar	\N
@@ -797,7 +804,6 @@ eushot	2.50000000000000046e-05 m^3	\N	25 ml	\N
 fifth	0.000757082356800000311 m^3	\N	1|5 usgallon	\N
 winebottle	0.000750000000000000124 m^3	\N	750 ml	\N
 winesplit	0.000187500000000000031 m^3	\N	1|4 winebottle	\N
-wineglass	0.000118294118250000045 m^3	\N	4 usfloz	\N
 magnum	0.00150000000000000046 m^3	\N	1.5 liter	\N
 metrictenth	0.000375000000000000062 m^3	\N	375 ml	\N
 metricfifth	0.000750000000000000124 m^3	\N	750 ml	\N
@@ -809,6 +815,8 @@ methuselah	0.00600000000000000186 m^3	\N	4 magnum	\N
 salmanazar	0.00900000000000000279 m^3	\N	6 magnum	\N
 balthazar	0.0120000000000000037 m^3	\N	8 magnum	\N
 nebuchadnezzar	0.0150000000000000046 m^3	\N	10 magnum	\N
+wineglass	0.000150000000000000014 m^3	\N	150 mL	\N
+coffeeratio	54.9999999999999858 kg/m^3	\N	55 g/L	\N
 gpg	0.0171180610452709436 kg/m^3	\N	grains/usgallon	\N
 shoeiron	0.000529166666666666717 m	\N	1|48 inch	\N
 shoeounce	0.000396875000000000038 m	\N	1|64 inch	\N
@@ -1475,7 +1483,7 @@ microhm	9.99999999999999955e-07 m^2*kg/s^3*A^2	\N	microohm	\N
 megalerg	0.100000000000000006 m^2*kg/s^2	\N	megaerg	\N
 USpennyweight	0.00250000000000000005 kg	\N	2.5 grams	\N
 USnickelweight	0.0050000000000000001 kg	\N	5 grams	\N
-USdollarmass	0.00809999999999999956 kg	\N	8.1 grams	\N
+USdollarweight	0.00809999999999999956 kg	\N	8.1 grams	\N
 cord	3.62455636377600054 m^3	\N	4*4*8 ft^3	\N
 facecord	1.81227818188800027 m^3	\N	1|2 cord	\N
 cordfoot	0.453069545472000068 m^3	\N	1|8 cord	\N
@@ -1538,12 +1546,41 @@ stdatmT0	288.149999999999977 K	\N	288.15 K	\N
 stdatmP0	101325 kg/m*s^2	\N	atm	\N
 earthradUSAtm	6356766 m	\N	6356766 m	\N
 Patm	101325 kg/m*s^2	\N	atm	\N
+seawater	10000 kg/m^2*s^2	\N	0.1 bar / meter	\N
+msw	10000 kg/m*s^2	\N	meter seawater	\N
+fsw	3048 kg/m*s^2	\N	foot seawater	\N
 g00	-1	\N	(-1)	\N
 g000	-2	\N	(-2)	\N
 g0000	-3	\N	(-3)	\N
 g00000	-4	\N	(-4)	\N
 g000000	-5	\N	(-5)	\N
 g0000000	-6	\N	(-6)	\N
+drillA	0.00594360000000000114 m	\N	0.234 in	\N
+drillB	0.00604520000000000057 m	\N	0.238 in	\N
+drillC	0.00614680000000000001 m	\N	0.242 in	\N
+drillD	0.00624840000000000031 m	\N	0.246 in	\N
+drillE	0.00635000000000000061 m	\N	0.250 in	\N
+drillF	0.00652780000000000114 m	\N	0.257 in	\N
+drillG	0.00662940000000000057 m	\N	0.261 in	\N
+drillH	0.00675640000000000095 m	\N	0.266 in	\N
+drillI	0.0069088000000000014 m	\N	0.272 in	\N
+drillJ	0.00703580000000000091 m	\N	0.277 in	\N
+drillK	0.00713740000000000121 m	\N	0.281 in	\N
+drillL	0.00736600000000000015 m	\N	0.290 in	\N
+drillM	0.00749300000000000053 m	\N	0.295 in	\N
+drillN	0.00767080000000000019 m	\N	0.302 in	\N
+drillO	0.00802640000000000124 m	\N	0.316 in	\N
+drillP	0.00820420000000000177 m	\N	0.323 in	\N
+drillQ	0.00843280000000000071 m	\N	0.332 in	\N
+drillR	0.00861060000000000124 m	\N	0.339 in	\N
+drillS	0.00883920000000000018 m	\N	0.348 in	\N
+drillT	0.00909320000000000093 m	\N	0.358 in	\N
+drillU	0.00934719999999999995 m	\N	0.368 in	\N
+drillV	0.00957580000000000063 m	\N	0.377 in	\N
+drillW	0.00980440000000000131 m	\N	0.386 in	\N
+drillX	0.0100838000000000021 m	\N	0.397 in	\N
+drillY	0.0102616000000000009 m	\N	0.404 in	\N
+drillZ	0.0104901999999999999 m	\N	0.413 in	\N
 dmtxxcoarse	0.000119999999999999989 m	\N	120 micron	\N
 dmtsilver	0.000119999999999999989 m	\N	dmtxxcoarse	\N
 dmtxx	0.000119999999999999989 m	\N	dmtxxcoarse	\N
@@ -1834,6 +1871,12 @@ australiasquare	9.29030400000000078 m^2	\N	(10 ft)^2	\N
 zentner	50 kg	\N	50 kg	\N
 doppelzentner	100 kg	\N	2 zentner	\N
 pfund	0.5 kg	\N	500 g	\N
+verklinje	0.00206181249999999984 m	\N	2.0618125 mm	\N
+verktum	0.0247417499999999999 m	\N	12 verklinje	\N
+kvarter	0.148450499999999985 m	\N	6 verktum	\N
+fot	0.29690099999999997 m	\N	2 kvarter	\N
+aln	0.593801999999999941 m	\N	2 fot	\N
+famn	1.78140599999999982 m	\N	3 aln	\N
 funt	0.409517179999999981 kg	\N	409.51718 grams	\N
 zolotnik	0.00426580395833333313 kg	\N	1|96 funt	\N
 pood	16.3806872000000006 kg	\N	40 funt	\N
@@ -2172,6 +2215,16 @@ röntgen	0.000257999999999999983 s*A/kg	\N	roentgen	\N
 ㏛	1	\N	sr	\N
 ㏜	1 m^2/s^2	\N	Sv	\N
 ㏝	1 m^2*kg/s^2*A	\N	Wb	\N
+twoscore	40	\N	two score	\N
+threescore	60	\N	three score	\N
+fourscore	80	\N	four score	\N
+fivescore	100	\N	five score	\N
+sixscore	120	\N	six score	\N
+sevenscore	140	\N	seven score	\N
+eightscore	160	\N	eight score	\N
+ninescore	180	\N	nine score	\N
+tenscore	200	\N	ten score	\N
+twelvescore	240	\N	twelve score	\N
 VELOCITY	1 m/s	\N	LENGTH / TIME	\N
 ACCELERATION	1 m/s^2	\N	VELOCITY / TIME	\N
 VISCOSITY	1 kg/m*s	\N	FORCE TIME / AREA	\N
@@ -2182,6 +2235,9 @@ shake	1.00000000000000002e-08 s	\N	1e-8 sec	\N
 pyron	697.799999999999955 kg/s^3	\N	cal_IT / cm^2 min	\N
 katal	1 mol/s	\N	mol/sec	\N
 kat	1 mol/s	\N	katal	\N
+solarirradiance	1361.16369462234866 kg/s^3	\N	solarluminosity / (4 pi sundist^2)	\N
+solarconstant	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
+TSI	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
 cron	31556925974678.4023 s	\N	1e6 years	\N
 circle	6.28318530717958623	\N	2 pi radian	\N
 degree	0.0174532925199432955	\N	1|360 circle	\N
@@ -2259,6 +2315,10 @@ pk	0.00880976754172000352 m^3	\N	peck	\N
 reputedquart	0.000757681666666666924 m^3	\N	1|6 brgallon	\N
 reputedpint	0.000378840833333333462 m^3	\N	1|2 reputedquart	\N
 brwinebottle	0.000757681666666666924 m^3	\N	reputedquart	\N
+alcoholunitus	1.77372355251488662e-05 m^3	\N	14 g   / ethanoldensity	\N
+alcoholunitca	1.72304573672874716e-05 m^3	\N	13.6 g / ethanoldensity	\N
+alcoholunituk	1.01355631572279248e-05 m^3	\N	8 g   / ethanoldensity	\N
+alcoholunitau	1.26694539465349047e-05 m^3	\N	10 g   / ethanoldensity	\N
 clarkdegree	0.0142537675233002387 kg/m^3	\N	grains/brgallon	\N
 footballfield	91.4400000000000119 m	\N	usfootballfield	\N
 UK	0.999998261154855572	\N	UKlength_SJJ	\N
@@ -2423,6 +2483,16 @@ tsi	13789514.5863367189 kg/m*s^2	\N	ton force / inch^2	\N
 tonf	8896.44323052099935 m*kg/s^2	\N	ton force	\N
 refrigeration	3.87666666666666737 m^2/s^3	\N	tonref / ton	\N
 tnt	4612070.52490763925 m^2/s^2	\N	1e9 cal_th / ton	\N
+davycrocket	41840000000.0000076 m^2*kg/s^2	\N	10 ton tnt	\N
+hiroshima	64852000000000 m^2*kg/s^2	\N	15.5 kiloton tnt	\N
+nagasaki	87864000000000 m^2*kg/s^2	\N	21 kiloton tnt	\N
+fatman	87864000000000 m^2*kg/s^2	\N	nagasaki	\N
+littleboy	64852000000000 m^2*kg/s^2	\N	hiroshima	\N
+ivyking	2092000000000000 m^2*kg/s^2	\N	500 kiloton tnt	\N
+castlebravo	62760000000000000 m^2*kg/s^2	\N	15 megaton tnt	\N
+b53bomb	37656000000000000 m^2*kg/s^2	\N	9 megaton tnt	\N
+trinity	75312000000000 m^2*kg/s^2	\N	18 kiloton tnt	\N
+gadget	75312000000000 m^2*kg/s^2	\N	trinity	\N
 shaku_volume	1.80390683696468898e-05 m^3	\N	1|10 gou_volume	\N
 rin_weight	3.75000000000000035e-05 kg	\N	1|10 bu_weight	\N
 scotslink	0.226769708279988214 m	\N	1|100 scotschain	\N

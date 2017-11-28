@@ -120,6 +120,8 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COL
 SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name COLLATE "C";
            name            |                unit                 |                  definition                   
 ---------------------------+-------------------------------------+-----------------------------------------------
+ sunvmag                   | -26.74                              | -26.74
+ moonvmag                  | -12.74                              | -12.74
  g0000000                  | -6                                  | (-6)
  g000000                   | -5                                  | (-5)
  g00000                    | -4                                  | (-4)
@@ -180,6 +182,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  wari                      | 0.1                                 | wari_proportion
  wari_proportion           | 0.1                                 | 1|10
  pointangle                | 0.196349540849362                   | 1|32 circle
+ extinction_coeff          | 0.21                                | 0.21
  sign                      | 0.523598775598299                   | 1|12 circle
  UKlength_K                | 0.999981934326374                   | meter / 39.37079 inch
  UKlength_C                | 0.999991028296492                   | meter / 1.09362311 yard
@@ -287,6 +290,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  flock                     | 40                                  | 40
  forty                     | 40                                  | 40
  timer                     | 40                                  | 40
+ twoscore                  | 40                                  | two score
  calcium                   | 40.078                              | 40.078
  scandium                  | 44.95591                            | 44.955910
  titanium                  | 47.867                              | 47.867
@@ -299,6 +303,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cobalt                    | 58.9332                             | 58.93320
  shock                     | 60                                  | 60
  sixty                     | 60                                  | 60
+ threescore                | 60                                  | three score
  copper                    | 63.546                              | 63.546
  zinc                      | 65.39                               | 65.39
  gallium                   | 69.723                              | 69.723
@@ -308,6 +313,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  selenium                  | 78.96                               | 78.96
  bromine                   | 79.904                              | 79.904
  eighty                    | 80                                  | 80
+ fourscore                 | 80                                  | four score
  krypton                   | 83.8                                | 83.80
  rubidium                  | 85.4678                             | 85.4678
  strontium                 | 87.62                               | 87.62
@@ -317,6 +323,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  niobium                   | 92.90638                            | 92.90638
  molybdenum                | 95.94                               | 95.94
  technetium                | 97.9072                             | 97.9072
+ fivescore                 | 100                                 | five score
  hundred                   | 100                                 | 100
  toncount                  | 100                                 | 100
  ruthenium                 | 101.07                              | 101.07
@@ -327,6 +334,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  indium                    | 114.818                             | 114.818
  tin                       | 118.71                              | 118.710
  longhundred               | 120                                 | 120
+ sixscore                  | 120                                 | six score
  antimony                  | 121.76                              | 121.760
  iodine                    | 126.90447                           | 126.90447
  tellurium                 | 127.6                               | 127.60
@@ -334,6 +342,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cesium                    | 132.90543                           | 132.90543
  barium                    | 137.327                             | 137.327
  lanthanum                 | 138.9055                            | 138.9055
+ sevenscore                | 140                                 | seven score
  cerium                    | 140.115                             | 140.115
  praseodymium              | 140.90765                           | 140.90765
  gross                     | 144                                 | 144
@@ -344,6 +353,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  europium                  | 151.965                             | 151.965
  gadolinium                | 157.25                              | 157.25
  terbium                   | 158.92534                           | 158.92534
+ eightscore                | 160                                 | eight score
  dysprosium                | 162.5                               | 162.50
  holmium                   | 164.93032                           | 164.93032
  erbium                    | 167.26                              | 167.26
@@ -351,6 +361,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  ytterbium                 | 173.04                              | 173.04
  lutetium                  | 174.967                             | 174.967
  hafnium                   | 178.49                              | 178.49
+ ninescore                 | 180                                 | nine score
  tantalum                  | 180.9479                            | 180.9479
  tungsten                  | 183.84                              | 183.84
  rhenium                   | 186.207                             | 186.207
@@ -358,6 +369,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  iridium                   | 192.217                             | 192.217
  platinum                  | 195.08                              | 195.08
  gold                      | 196.96654                           | 196.96654
+ tenscore                  | 200                                 | ten score
  mercury                   | 200.59                              | 200.59
  thallium                  | 204.3833                            | 204.3833
  lead                      | 207.2                               | 207.2
@@ -372,6 +384,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  thorium                   | 232.0381                            | 232.0381
  neptunium                 | 237.0482                            | 237.0482
  uranium                   | 238.0289                            | 238.0289
+ twelvescore               | 240                                 | twelve score
  americium                 | 243.0614                            | 243.0614
  plutonium                 | 244.0642                            | 244.0642
  berkelium                 | 247.0703                            | 247.0703
@@ -687,6 +700,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  faraday_chem              | 96.4957 kC                          | 96495.7 C
  faraday_phys              | 96.5219 kC                          | 96521.9 C
  eotvos                    | 1e-09 s^-2                          | 1e-9 Gal/cm
+ H0                        | 2.26854550262883 aHz                | hubble
+ hubble                    | 2.26854550262883 aHz                | 70 km/s/Mpc
  rpm                       | 104.71975511966 mHz                 | rev/min
  Bq                        | 1 Hz                                | becquerel
  FREQUENCY                 | 1 Hz                                | hertz
@@ -812,7 +827,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  USnickelweight            | 5 g                                 | 5 grams
  aeginadrachmae            | 6.22069536 g                        | 1|2 aeginastater
  siscilius                 | 6.8200852775 g                      | 1|4 uncia
- USdollarmass              | 8.1 g                               | 8.1 grams
+ USdollarweight            | 8.1 g                               | 8.1 grams
  atticstater               | 8.74785285 g                        | 135 grain
  tola                      | 11.6638038 g                        | 1|5 chittak
  aeginastater              | 12.44139072 g                       | 192 grain
@@ -988,6 +1003,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  solarmass                 | 1.9891e+30 kg                       | 1.9891e30 kg
  sunmass                   | 1.9891e+30 kg                       | solarmass
  pyron                     | 697.8 kg/s^3                        | cal_IT / cm^2 min
+ TSI                       | 1.36116369462235 Mg/s^3             | solarirradiance
+ solarconstant             | 1.36116369462235 Mg/s^3             | solarirradiance
+ solarirradiance           | 1.36116369462235 Mg/s^3             | solarluminosity / (4 pi sundist^2)
  finsenunit                | 100 Mg/s^3                          | 1e5 W/m^2
  sigma                     | 56.7036681748245 µg/s^3*K^4         | stefanboltzmann
  stefanboltzmann           | 56.7036681748245 µg/s^3*K^4         | pi^2 k^4 / 60 hbar^3 c^2
@@ -1128,6 +1146,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  perl                      | 1.880325 mm                         | 5 didotpoint
  agate                     | 1.93302891933029 mm                 | 5.5 oldpoint
  ruby                      | 1.93302891933029 mm                 | agate
+ verklinje                 | 2.0618125 mm                        | 2.0618125 mm
  nonpareil                 | 2.10875882108759 mm                 | 6 oldpoint
  line                      | 2.11666666666667 mm                 | 1|12 inch
  frenchline                | 2.25582906229698 mm                 | 1|12 frenchinch
@@ -1156,15 +1175,41 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  english                   | 4.92043724920437 mm                 | 14 oldpoint
  mittel                    | 5.26491 mm                          | 14 didotpoint
  columbian                 | 5.62335685623357 mm                 | 16 oldpoint
+ drillA                    | 5.9436 mm                           | 0.234 in
  tertia                    | 6.01704 mm                          | 16 didotpoint
+ drillB                    | 6.0452 mm                           | 0.238 in
+ drillC                    | 6.1468 mm                           | 0.242 in
+ drillD                    | 6.2484 mm                           | 0.246 in
  greatprimer               | 6.32627646326276 mm                 | 18 oldpoint
  beespace                  | 6.35 mm                             | 1|4 inch
+ drillE                    | 6.35 mm                             | 0.250 in
+ drillF                    | 6.5278 mm                           | 0.257 in
+ drillG                    | 6.6294 mm                           | 0.261 in
  europeshoesize            | 6.66666666666667 mm                 | 2|3 cm
+ drillH                    | 6.7564 mm                           | 0.266 in
  text                      | 6.76917 mm                          | 18 didotpoint
+ drillI                    | 6.9088 mm                           | 0.272 in
  paragon                   | 7.02919607029196 mm                 | 20 oldpoint
+ drillJ                    | 7.0358 mm                           | 0.277 in
+ drillK                    | 7.1374 mm                           | 0.281 in
+ drillL                    | 7.366 mm                            | 0.290 in
+ drillM                    | 7.493 mm                            | 0.295 in
+ drillN                    | 7.6708 mm                           | 0.302 in
+ drillO                    | 8.0264 mm                           | 0.316 in
+ drillP                    | 8.2042 mm                           | 0.323 in
+ drillQ                    | 8.4328 mm                           | 0.332 in
  barleycorn                | 8.46665194444445 mm                 | 1|3 UKinch
  shoesize_delta            | 8.46666666666667 mm                 | 1|3 inch
+ drillR                    | 8.6106 mm                           | 0.339 in
+ drillS                    | 8.8392 mm                           | 0.348 in
+ drillT                    | 9.0932 mm                           | 0.358 in
+ drillU                    | 9.3472 mm                           | 0.368 in
+ drillV                    | 9.5758 mm                           | 0.377 in
+ drillW                    | 9.8044 mm                           | 0.386 in
  ㎝                        | 10 mm                               | cm
+ drillX                    | 10.0838 mm                          | 0.397 in
+ drillY                    | 10.2616 mm                          | 0.404 in
+ drillZ                    | 10.4902 mm                          | 0.413 in
  kleine_kanon              | 12.03408 mm                         | 32 didotpoint
  kanon                     | 13.53834 mm                         | 36 didotpoint
  meridian                  | 15.4642313546423 mm                 | 44 oldpoint
@@ -1181,6 +1226,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  fingerbreadth             | 22.225 mm                           | 7|8 in
  arabicinch                | 22.5213333333333 mm                 | 1|12 arabicfoot
  romaninch                 | 24.6666666666667 mm                 | 1|12 romanfoot
+ verktum                   | 24.74175 mm                         | 12 verklinje
  irishinch                 | 25.3999558333333 mm                 | UKinch
  in                        | 25.4 mm                             | inch
  inch                      | 25.4 mm                             | 2.54 cm
@@ -1238,6 +1284,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  hand                      | 101.6 mm                            | 4 inch
  palmwidth                 | 101.6 mm                            | hand
  fingerlength              | 114.3 mm                            | 4.5 in
+ kvarter                   | 148.4505 mm                         | 6 verktum
  shaftment                 | 152.4 mm                            | 6 inch
  shoe_women0               | 162.983333333333 mm                 | (7+11|12) inch
  gurleylink                | 201.168 mm                          | 1|50 gurleychain
@@ -1263,6 +1310,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  pes                       | 296 mm                              | romanfoot
  romanfeet                 | 296 mm                              | romanfoot
  romanfoot                 | 296 mm                              | 296 mm
+ fot                       | 296.901 mm                          | 2 kvarter
  earlyromanfoot            | 297.3 mm                            | 29.73 cm
  kanejaku                  | 303.030303030303 mm                 | shaku
  shaku                     | 303.030303030303 mm                 | 1|3.3 m
@@ -1306,6 +1354,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  blackcubit                | 540.512 mm                          | 21.28 in
  assyriancubit             | 548.64 mm                           | 21.6 in
  biblicalcubit             | 553.72 mm                           | 21.8 in
+ aln                       | 593.802 mm                          | 2 fot
  persianroyalcubit         | 640.08 mm                           | 7 assyrianpalm
  hashimicubit              | 649.224 mm                          | 25.56 in
  northerncubit             | 675.64 mm                           | 26.6 in
@@ -1339,6 +1388,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  irishpace                 | 1.52399735 m                        | 5 irishfeet
  geometricpace             | 1.524 m                             | 5 ft
  smoot                     | 1.7018 m                            | 5 ft + 7 in
+ famn                      | 1.781406 m                          | 3 aln
  ken                       | 1.81818181818182 m                  | 6 shaku
  irishfathom               | 1.82879682 m                        | 6 irishfeet
  fathom                    | 1.8288 m                            | 6 ft
@@ -1451,7 +1501,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  saturnradius              | 58.232 Mm                           | 58232 km
  jupiterradius             | 69.911 Mm                           | 69911 km
  lightsecond               | 299.792458 Mm                       | c s
+ moondist_min              | 356.4 Mm                            | 3.564e8 m
  moondist                  | 384.4 Mm                            | 3.844e8 m
+ moondist_max              | 406.7 Mm                            | 4.067e8 m
  sunradius                 | 696 Mm                              | 6.96e8 m
  lightminute               | 17.98754748 Gm                      | c min
  sundist_near              | 147.1 Gm                            | 1.471e11 m
@@ -1836,7 +1888,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  tonrefrigeration          | 3.51685284206667 kW                 | uston 144 btu / lb day
  boilerhorsepower          | 9.8095 kW                           | 9809.50 W
  ㎿                        | 1 MW                                | MW
- solarluminosity           | 384.6 YW                            | 384.6e24 W
+ solarluminosity           | 382.8 YW                            | 382.8e24 W
  THERMAL_CONDUCTANCE       | 1 m^2*kg/s^3*K                      | POWER / TEMPERATURE_DIFFERENCE
  thermalampere             | 1 m^2*kg/s^3*K                      | W/K
  abohm                     | 1 nΩ                                | abvolt / abamp
@@ -1922,8 +1974,18 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  ECtherm                   | 105.506 MJ                          | 1.05506e8 J
  barreloil                 | 6.119323945196 GJ                   | 5.8 Mbtu
  toncoal                   | 29.3076 GJ                          | 7e9 cal_IT
+ davycrocket               | 41.84 GJ                            | 10 ton tnt
  toe                       | 41.868 GJ                           | tonoil
  tonoil                    | 41.868 GJ                           | 1e10 cal_IT
+ hiroshima                 | 64.852 TJ                           | 15.5 kiloton tnt
+ littleboy                 | 64.852 TJ                           | hiroshima
+ gadget                    | 75.312 TJ                           | trinity
+ trinity                   | 75.312 TJ                           | 18 kiloton tnt
+ fatman                    | 87.864 TJ                           | nagasaki
+ nagasaki                  | 87.864 TJ                           | 21 kiloton tnt
+ ivyking                   | 2.092 PJ                            | 500 kiloton tnt
+ b53bomb                   | 37.656 PJ                           | 9 megaton tnt
+ castlebravo               | 62.76 PJ                            | 15 megaton tnt
  quad                      | 1.05505585262 EJ                    | quadrillion btu
  thermalfarad              | 1 m^2*kg/s^2*K^2                    | J/K^2
  boltzmann                 | 1.38064852e-23 m^2*kg/s^2*K         | 1.38064852e-23 J/K
@@ -1987,7 +2049,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  brdessertspoon            | 1e-05 m^3                           | 2 brteaspoon
  dessertspoon              | 1e-05 m^3                           | brdessertspoon
  dsp                       | 1e-05 m^3                           | dessertspoon
+ alcoholunituk             | 1.01355631572279e-05 m^3            | 8 g   / ethanoldensity
  cochlearia                | 1.20854597e-05 m^3                  | 1|48 sextarius
+ alcoholunitau             | 1.26694539465349e-05 m^3            | 10 g   / ethanoldensity
  cylinderinch              | 1.28703699690764e-05 m^3            | circleinch inch
  Tb                        | 1.478676478125e-05 m^3              | tablespoon
  tablespoon                | 1.478676478125e-05 m^3              | ustablespoon
@@ -2004,7 +2068,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  brtbsp                    | 1.5e-05 m^3                         | brtablespoon
  legaltablespoon           | 1.5e-05 m^3                         | 1|16 legalcup
  legaltbsp                 | 1.5e-05 m^3                         | legaltablespoon
+ alcoholunitca             | 1.72304573672875e-05 m^3            | 13.6 g / ethanoldensity
  eggyolkvolume             | 1.7251225578125e-05 m^3             | 3.5 ustsp
+ alcoholunitus             | 1.77372355251489e-05 m^3            | 14 g   / ethanoldensity
  shaku_volume              | 1.80390683696469e-05 m^3            | 1|10 gou_volume
  austbl                    | 2e-05 m^3                           | australiatablespoon
  austblsp                  | 2e-05 m^3                           | australiatablespoon
@@ -2032,12 +2098,12 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  irishnoggin               | 0.000111431453911851 m^3            | 1|4 irishpint
  gill                      | 0.00011829411825 m^3                | 1|4 pint
  usgill                    | 0.00011829411825 m^3                | 1|4 uspint
- wineglass                 | 0.00011829411825 m^3                | 4 usfloz
  brgill                    | 0.0001420653125 m^3                 | 1|4 brpint
  imperialgill              | 0.0001420653125 m^3                 | brgill
  noggin                    | 0.0001420653125 m^3                 | brgill
  quartaria                 | 0.0001450255164 m^3                 | 1|4 sextarius
  quartarius                | 0.0001450255164 m^3                 | quartaria
+ wineglass                 | 0.00015 m^3                         | 150 mL
  gou                       | 0.000180390683696469 m^3            | gou_volume
  gou_volume                | 0.000180390683696469 m^3            | 1|10 shou
  winesplit                 | 0.0001875 m^3                       | 1|4 winebottle
@@ -2312,6 +2378,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  clarkdegree               | 14.2537675233002 g/m^3              | grains/brgallon
  gpg                       | 17.1180610452709 g/m^3              | grains/usgallon
  DENSITY                   | 1 kg/m^3                            | MASS / VOLUME
+ coffeeratio               | 55 kg/m^3                           | 55 g/L
  lbcut                     | 119.826427316897 kg/m^3             | poundcut
  poundcut                  | 119.826427316897 kg/m^3             | pound / gallon
  cocoa_sifted              | 317.006462829778 kg/m^3             | 75 g/uscup
@@ -2464,6 +2531,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  H2O                       | 9.80665 Mg/m^2*s^2                  | water
  water                     | 9.80665 Mg/m^2*s^2                  | gram force/cm^3
  wc                        | 9.80665 Mg/m^2*s^2                  | water
+ seawater                  | 10 Mg/m^2*s^2                       | 0.1 bar / meter
  Hg40C                     | 132.363297045 Mg/m^2*s^2            | 13.4973 force gram / cm^3
  Hg30C                     | 132.602579305 Mg/m^2*s^2            | 13.5217 force gram / cm^3
  Hg23C                     | 132.76831169 Mg/m^2*s^2             | 13.5386 force gram / cm^3
@@ -2543,9 +2611,11 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  osi                       | 430.922330823022 Pa                 | ounce force / inch^2
  pieze                     | 1 kPa                               | sthene / m^2
  ㎪                        | 1 kPa                               | kPa
- inHg                      | 3.386388640341 kPa                  | inch Hg
+ fsw                       | 3.048 kPa                           | foot seawater
+ inHg                      | 3.386388640341 kPa                  | inch Hg    
  psi                       | 6.89475729316836 kPa                | pound force / inch^2
  psia                      | 6.89475729316836 kPa                | psi
+ msw                       | 10 kPa                              | meter seawater
  at                        | 98.0665 kPa                         | technicalatmosphere
  technicalatmosphere       | 98.0665 kPa                         | kgf / cm^2
  b                         | 100 kPa                             | bar
@@ -2579,7 +2649,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  reyn                      | 6.89475729316836 Mg/m*s             | psi sec
  lorentz                   | 46.6864481456201 s^2*A/m*kg         | bohrmagneton / hplanck c
  THERMAL_RESISTIVITY       | 1 s^3*K/m*kg                        | 1/THERMAL_CONDUCTIVITY
-(2459 rows)
+(2529 rows)
 
 -- units that do not conform to their original definition
 SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation
