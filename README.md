@@ -82,6 +82,22 @@ CREATE EXTENSION
  804.672 km
 ```
 
+Installation
+------------
+
+* Homepage: https://github.com/ChristophBerg/postgresql-unit
+* Debian package: https://tracker.debian.org/pkg/postgresql-unit
+* Arch package: https://aur.archlinux.org/packages/postgresql-unit/
+
+To compile from source, install the PostgreSQL server headers, `flex`, and
+`bison`. Example on Debian:
+
+```
+sudo apt-get install build-essential postgresql-server-dev-10 flex bison
+make PG_CONFIG=/usr/lib/postgresql/10/bin/pg_config
+sudo make install PG_CONFIG=/usr/lib/postgresql/10/bin/pg_config
+```
+
 Config
 ------
 
