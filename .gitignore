@@ -3,8 +3,7 @@ regression.diffs
 regression.out
 results/
 tags
-unit--2--3.sql
-unit--3.sql
+unit--*.sql
 unit.o
 unitparse.tab.o
 unitparse.yy.c
