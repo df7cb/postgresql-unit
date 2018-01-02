@@ -1,4 +1,4 @@
--- text functions
+-- test functions
 SELECT value('2'::unit);
  value 
 -------
