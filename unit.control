@@ -1,3 +1,3 @@
-default_version = '4'
+default_version = '5'
 comment = 'unit extension'
 relocatable = false

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016-2017 Christoph Berg
+Copyright (C) 2016-2018 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -571,7 +571,7 @@ unit_byte (PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
-/* extractors */
+/* functions without operators */
 
 PG_FUNCTION_INFO_V1(unit_value);
 
@@ -593,6 +593,20 @@ unit_dimension(PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc(sizeof(Unit));
 	result->value = 1;
+	memcpy(result->units, a->units, N_UNITS);
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(unit_round);
+
+Datum
+unit_round(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*result;
+
+	result = (Unit *) palloc(sizeof(Unit));
+	result->value = round(a->value);
 	memcpy(result->units, a->units, N_UNITS);
 	PG_RETURN_POINTER(result);
 }

@@ -1,8 +1,10 @@
--- text extractors
+-- test functions
 SELECT value('2'::unit);
 SELECT value(meter(2));
 SELECT dimension('2'::unit);
 SELECT dimension(kilogram(2));
+SELECT round(ampere(1.5));
+SELECT round(candela(-0.5));
 
 -- test unit addition/subtraction
 SELECT '1'::unit + '2' AS sum;

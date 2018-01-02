@@ -1,0 +1,4 @@
+CREATE FUNCTION round(unit)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_round'
+	LANGUAGE C IMMUTABLE STRICT;

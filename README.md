@@ -266,6 +266,7 @@ function cbrt(unit)
 function dimension(unit)
 function max(unit)
 function min(unit)
+function round(unit)
 function sqrt(unit)
 function stddev_pop(unit)
 function stddev_samp(unit)
@@ -317,6 +318,10 @@ Details:
 * **function value(unit): double precision**
 
   Returns the numeric part of a unit value.
+
+* **function round(unit): unit**
+
+  Rounds a unit value to the nearest integer (in base units).
 
 References
 ----------
