@@ -26,13 +26,11 @@ before_install:
 
 install:
   - export DEBIAN_FRONTEND=noninteractive # suppress warnings about deprecated PostgreSQL versions
-  # trusty's pg_buildext doesn't cope with PG version numbers >= 10, so upgrade that to -pgdg
-  - sudo apt-get install bison debhelper devscripts fakeroot flex postgresql-server-dev-$PG_SUPPORTED_VERSIONS postgresql-server-dev-all/$DIST
+  - sudo apt-get install bison debhelper fakeroot flex postgresql-server-dev-$PG_SUPPORTED_VERSIONS postgresql-server-dev-all/$DIST
   # install PostgreSQL $PG_SUPPORTED_VERSIONS if not there yet
   - |
     if [ ! -x /usr/lib/postgresql/$PG_SUPPORTED_VERSIONS/bin/postgres ]; then
-      sudo apt-get install postgresql-common # upgrade pg-common first ...
-      sudo /etc/init.d/postgresql stop # ... so we can stop postgresql again before installing the server
+      sudo /etc/init.d/postgresql stop # stop postgresql before installing the server
       sudo apt-get install postgresql-$PG_SUPPORTED_VERSIONS
     fi
   # stop the travis-provided cluster
@@ -44,5 +42,5 @@ script:
   - pg_buildext updatecontrol
   - dpkg-buildpackage -us -uc -rfakeroot
   - for deb in ../*.deb; do echo "$deb:"; dpkg-deb --info $deb; dpkg-deb --contents $deb; done
-  - sudo debi
+  - sudo dpkg -i ../*.deb
   - pg_buildext -i '--locale=C.UTF-8' installcheck
