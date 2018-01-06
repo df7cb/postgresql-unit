@@ -52,7 +52,7 @@ unit_get_definitions(void)
 	static HTAB			*tmp_unit_names;
 	static HTAB			*tmp_unit_dimensions;
 
-	/* tmp_unit_names: char *name -> Unit unit
+	/* unit_names: char *name -> Unit unit
 	 * Lookup table that initially contains the base units and will cache all
 	 * units resolved at run time
 	 */
@@ -66,17 +66,16 @@ unit_get_definitions(void)
 
 	PG_TRY();
 	{
-		for (i = 0; derived_units[i].name; i++)
+		for (i = 0; i < N_UNITS; i++)
 		{
-			if (derived_units[i].flags & U_DERIVED)
-				break; // FIXME: split tables
 			unit_name = hash_search(tmp_unit_names,
-									derived_units[i].name,
+									base_units[i],
 									HASH_ENTER,
 									NULL);
-			strlcpy(unit_name->name, derived_units[i].name, UNIT_NAME_LENGTH);
-			unit_name->unit_shift.unit.value = derived_units[i].factor;
-			memcpy(unit_name->unit_shift.unit.units, derived_units[i].units, N_UNITS);
+			strlcpy(unit_name->name, base_units[i], UNIT_NAME_LENGTH);
+			unit_name->unit_shift.unit.value = 1.0;
+			memset(unit_name->unit_shift.unit.units, 0, N_UNITS);
+			unit_name->unit_shift.unit.units[i] = 1;
 			unit_name->unit_shift.shift = 0.0;
 		}
 	}
@@ -93,7 +92,7 @@ unit_get_definitions(void)
 		hash_destroy(unit_names);
 	unit_names = tmp_unit_names;
 
-	/* tmp_unit_dimensions: char dimension[N_UNITS] -> char *name
+	/* unit_dimensions: char dimension[N_UNITS] -> char *name
 	 * Lookup table for formatting the well-known derived units on output
 	 */
 	hinfo.keysize = N_UNITS;
@@ -106,16 +105,14 @@ unit_get_definitions(void)
 
 	PG_TRY();
 	{
-		for (i = 0; derived_units[i].name; i++)
+		for (i = 0; si_derived_units[i].name; i++)
 		{
-			if (! derived_units[i].flags & U_DERIVED)
-				continue;
 			unit_dim = hash_search(tmp_unit_dimensions,
-								   derived_units[i].units,
+								   si_derived_units[i].units,
 								   HASH_ENTER,
 								   NULL);
-			memcpy(unit_dim->units, derived_units[i].units, N_UNITS);
-			strlcpy(unit_dim->name, derived_units[i].name, UNIT_NAME_LENGTH);
+			memcpy(unit_dim->units, si_derived_units[i].units, N_UNITS);
+			strlcpy(unit_dim->name, si_derived_units[i].name, UNIT_NAME_LENGTH);
 		}
 	}
 	PG_CATCH();

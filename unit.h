@@ -31,18 +31,12 @@
 
 extern const char *base_units[N_UNITS]; /* names of base units */
 
-typedef enum unit_flags {
-	U_DERIVED = 1,
-} unit_flags;
-
 struct derived_unit_t {
 	char		*name;
 	signed char	 units[N_UNITS];
-	double		 factor;
-	unit_flags	 flags;
 };
 
-extern const struct derived_unit_t derived_units[];
+extern const struct derived_unit_t si_derived_units[];
 
 /* type def */
 
