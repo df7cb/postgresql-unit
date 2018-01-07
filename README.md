@@ -323,6 +323,26 @@ Details:
 
   Rounds a unit value to the nearest integer (in base units).
 
+Rounding
+--------
+
+Besides the `round(unit)` function, output precision is determined by
+PostgreSQL's `extra_float_digits` GUC. Valid values range from -16 to +3.
+
+```
+# SET extra_float_digits = -12;
+SET
+# SELECT 'c'::unit AS lightspeed;
+ lightspeed
+------------
+ 300 Mm/s
+
+# SELECT '25m'::unit @ 'ft' AS feet;
+ feet
+-------
+ 82 ft
+```
+
 References
 ----------
 
@@ -336,7 +356,7 @@ References
 License
 -------
 
-Copyright (C) 2016-2017 Christoph Berg
+Copyright (C) 2016-2018 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

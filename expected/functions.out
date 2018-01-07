@@ -23,18 +23,6 @@ SELECT dimension(kilogram(2));
  1 kg
 (1 row)
 
-SELECT round(ampere(1.5));
- round 
--------
- 2 A
-(1 row)
-
-SELECT round(candela(-0.5));
- round 
--------
- -1 cd
-(1 row)
-
 -- test unit addition/subtraction
 SELECT '1'::unit + '2' AS sum;
  sum 
