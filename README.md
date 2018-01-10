@@ -8,9 +8,8 @@ operators defined in the PostgreSQL type system. SI and IEC binary prefixes are
 used for input and output, and quantities can be converted to arbitrary scale.
 
 Unit and prefix definitions are retrieved from database tables, and new
-definitions can be added at run time. The extension comes with over 2400 units
-and over 100 prefixes predefined in the definitions.units file found in *GNU
-Units*.
+definitions can be added at run time. The extension comes with over 2500 units
+and over 100 prefixes found in the definitions.units file in *GNU Units* 2.16.
 
 Requires PostgreSQL 9.5 or later (uses *HASH_BLOBS*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).

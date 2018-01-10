@@ -1,3 +1,8 @@
+5.0: Jan 10, 2018
+-----------------
+* Add rounding function.
+* Import definitions.units from GNU units 2.16 with 70 new units.
+
 4.0: Jul 7, 2017
 ----------------
 * Support exponents written using Unicode superscript characters.
