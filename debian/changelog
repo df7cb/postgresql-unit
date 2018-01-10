@@ -3,6 +3,7 @@ postgresql-unit (5.0-1) UNRELEASED; urgency=medium
   * Add rounding functions.
   * Import definitions.units from GNU units 2.16 with 70 new units.
     (The file header erroneously says 2.19.)
+  * Run upgrade tests by default.
   * debian/watch: Ignore debian/ tags.
 
  -- Christoph Berg <myon@debian.org>  Tue, 02 Jan 2018 18:53:55 +0100

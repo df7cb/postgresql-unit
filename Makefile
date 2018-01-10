@@ -24,8 +24,8 @@ ifeq ($(HAS_CROSSTAB),yes)
 REGRESS += crosstab convert
 endif
 
-# upgrade testing, not enabled by default
-#REGRESS += upgrade
+# upgrade testing
+REGRESS += upgrade
 
 unit.o: unit.c unit.h defined_units.h float8out_internal.h
 
