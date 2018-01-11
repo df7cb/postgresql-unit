@@ -1,3 +1,10 @@
+postgresql-unit (6.0-1) UNRELEASED; urgency=medium
+
+  * Add @@ operator: similar to @, but returns the value of the resulting unit
+    as double precision number.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 11 Jan 2018 20:49:44 +0100
+
 postgresql-unit (5.0-1) unstable; urgency=medium
 
   * Add rounding function.

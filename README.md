@@ -35,7 +35,7 @@ Features
 * prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
 * IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
 * other prefixes imported from GNU Units
-* operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@**)
+* operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@, @@**)
 
 Examples
 --------
@@ -285,6 +285,7 @@ operator ||/(NONE,unit)
 operator |/(NONE,unit)
 operator -(NONE,unit)
 operator @(unit,text)
+operator @@(unit,text)
 operator /(unit,double precision)
 operator *(unit,double precision)
 operator ^(unit,integer)
@@ -309,18 +310,30 @@ in this list.
 
 Details:
 
-* **function dimension(unit): unit**
+* **dimension(unit): unit**
 
   Returns the dimension of a unit value, i.e. its base units with a normalized
   value of 1.
 
-* **function value(unit): double precision**
+* **value(unit): double precision**
 
   Returns the numeric part of a unit value.
 
-* **function round(unit): unit**
+* **round(unit): unit**
 
   Rounds a unit value to the nearest integer (in base units).
+
+* **unit @ text: cstring**
+
+  Converts a unit value on the left side to the unit on the right side.
+  The units must have the same dimension. The unit on the right side can
+  include a numeric component, in which case the output is of the form
+  "val * num <unit>".
+
+* **unit @@ text: double precision**
+
+  Same as the `@` operator, but return the value of the resulting unit as
+  double precision number.
 
 Rounding
 --------

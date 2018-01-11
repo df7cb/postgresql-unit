@@ -411,16 +411,16 @@ SELECT '5dm^3'::unit @ 'l';
  5 l
 (1 row)
 
-SELECT '9.81 m/s^2'::unit @ 'N/kg';
- ?column?  
------------
- 9.81 N/kg
+SELECT '9.81 m/s^2'::unit @ 'N/kg', '9.81 m/s^2'::unit @@ 'N/kg';
+ ?column?  | ?column? 
+-----------+----------
+ 9.81 N/kg |     9.81
 (1 row)
 
-SELECT '16384 B'::unit @ '8192 B';
-  ?column?  
-------------
- 2 * 8192 B
+SELECT '16384 B'::unit @ '8192 B', '16384 B'::unit @@ '8192 B';
+  ?column?  | ?column? 
+------------+----------
+ 2 * 8192 B |        2
 (1 row)
 
 SELECT '1 hl'::unit @ '0.5 l';

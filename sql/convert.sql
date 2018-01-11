@@ -14,6 +14,21 @@ FROM
   l l1 CROSS JOIN l l2
 \crosstabview
 
+WITH
+  l(u) AS (VALUES
+	('mm'),
+	('m'),
+	('km'),
+	('in'),
+	('ft'),
+	('yd'),
+	('mi'))
+SELECT
+  l1.u, l2.u, l1.u::unit @@ l2.u
+FROM
+  l l1 CROSS JOIN l l2
+\crosstabview
+
 -- area
 WITH
   l(u) AS (VALUES

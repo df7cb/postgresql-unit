@@ -881,6 +881,29 @@ unit_at_text(PG_FUNCTION_ARGS)
 				b));
 }
 
+/* needs search_path = @extschema@ due to use of unit_parse() */
+PG_FUNCTION_INFO_V1(unit_at_double);
+
+Datum
+unit_at_double(PG_FUNCTION_ARGS)
+{
+	Unit		*a = (Unit *) PG_GETARG_POINTER(0);
+	char		*b = text_to_cstring(PG_GETARG_TEXT_PP(1));
+	UnitShift	 bu;
+
+	if (unit_parse(b, &bu) > 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("invalid input syntax for unit: \"%s\", %s",
+					 b, yyerrstr)));
+	test_same_dimension("@@", a, &bu.unit);
+	if (bu.unit.value == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_DIVISION_BY_ZERO),
+				 errmsg("division by zero-valued unit: \"%s\"", b)));
+	PG_RETURN_FLOAT8((a->value - bu.shift) / bu.unit.value);
+}
+
 /* comparisons */
 
 static int

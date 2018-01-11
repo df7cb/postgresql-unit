@@ -36,12 +36,18 @@ ALTER EXTENSION unit UPDATE TO "5";
 \! pg_dump -f unit-4-5.dump -T pg_depend_save
 :pg_depend_restore
 
+-- upgrade to version 6
+ALTER EXTENSION unit UPDATE TO "6";
+:pg_depend_save
+\! pg_dump -f unit-5-6.dump -T pg_depend_save
+:pg_depend_restore
+
 -- reinstall latest version
 DROP EXTENSION unit CASCADE;
 CREATE EXTENSION unit;
 :pg_depend_save
-\! pg_dump -f unit-5.dump -T pg_depend_save
+\! pg_dump -f unit-6.dump -T pg_depend_save
 :pg_depend_restore
 
 -- different ordering in unit_accum_t expected:
-\! diff -u --label unit-4-5.dump unit-4-5.dump --label unit-5.dump unit-5.dump | sed -e 's/@@.*@@/@@/'
+\! diff -u --label unit-5-6.dump unit-5-6.dump --label unit-6.dump unit-6.dump | sed -e 's/@@.*@@/@@/'

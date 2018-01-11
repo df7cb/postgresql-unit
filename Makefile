@@ -6,7 +6,8 @@ DATA = unit_prefixes.data unit_units.data \
 	   unit--2.sql
 DATA_built = unit--2--3.sql unit--3.sql \
 			 unit--3--4.sql unit--4.sql \
-			 unit--4--5.sql unit--5.sql
+			 unit--4--5.sql unit--5.sql \
+			 unit--5--6.sql unit--6.sql
 REGRESS = extension tables unit unicode prefix units temperature functions round derived compare aggregate iec custom
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
 

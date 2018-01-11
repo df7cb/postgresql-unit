@@ -1,0 +1,11 @@
+CREATE FUNCTION unit_at_double(unit, text)
+	RETURNS double precision
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_at_double'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR @@ (
+	leftarg = unit,
+	rightarg = text,
+	procedure = unit_at_double
+);
