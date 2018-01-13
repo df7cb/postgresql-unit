@@ -2,14 +2,17 @@ SI Units for PostgreSQL
 =======================
 Christoph Berg <cb@df7cb.de>
 
-**postgresql-unit** implements a *PostgreSQL datatype for SI units, plus byte*.
+**postgresql-unit** implements a *PostgreSQL datatype for
+[SI units](https://en.wikipedia.org/wiki/International_System_of_Units), plus byte*.
 The eight base units can be combined to arbitrarily complex derived units using
-operators defined in the PostgreSQL type system. SI and IEC binary prefixes are
+operators defined in the PostgreSQL type system. SI and
+[IEC binary](https://en.wikipedia.org/wiki/Binary_prefix) prefixes are
 used for input and output, and quantities can be converted to arbitrary scale.
 
 Unit and prefix definitions are retrieved from database tables, and new
 definitions can be added at run time. The extension comes with over 2500 units
-and over 100 prefixes found in the definitions.units file in *GNU Units* 2.16.
+and over 100 prefixes found in the [definitions.units file](definitions.units)
+in [*GNU Units*](https://www.gnu.org/software/units/) 2.16.
 
 Requires PostgreSQL 9.5 or later (uses *HASH_BLOBS*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
@@ -182,8 +185,9 @@ Notable omissions are currency units (we don't have a base type for them, and
 exchange rates aren't static anyway), and non-linear units such as dBm based
 on dB and other conversions based on functions and lookup tables.
 
-The `definitions.units` file is an interesting read on its own due to extensive
-comments explaining the history and origins or the units covered.
+The [definitions.units](definitions.units) file is an interesting read on its
+own due to extensive comments explaining the history and origin of the units
+covered.
 
 User-Defined Units
 ------------------
@@ -323,16 +327,16 @@ Details:
 
   Rounds a unit value to the nearest integer (in base units).
 
-* **unit @ text: cstring**
+* **unit @ text: cstring** -- scale conversion, output with unit
 
-  Converts a unit value on the left side to the unit on the right side.
-  The units must have the same dimension. The unit on the right side can
-  include a numeric component, in which case the output is of the form
-  "val * num <unit>".
+  Converts a unit value on the left side to the scale of the unit on the right
+  side. The units must have the same dimension. The unit on the right side can
+  include a numeric component (`num unit`), in which case the output is of the
+  form `val * num unit`.
 
-* **unit @@ text: double precision**
+* **unit @@ text: double precision** -- scale conversion, value output only
 
-  Same as the `@` operator, but return the value of the resulting unit as
+  Same as the `@` operator, but returns the value of the scaled unit as
   double precision number.
 
 Rounding
@@ -370,6 +374,9 @@ License
 
 Copyright (C) 2016-2018 Christoph Berg
 
+The definitions.units file is
+Copyright (C) 1996-2017 Free Software Foundation, Inc.
+
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the License, or
@@ -379,6 +386,3 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
-The definitions.units file is
-Copyright (C) 1996-2016 Free Software Foundation, Inc.
