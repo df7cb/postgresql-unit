@@ -46,6 +46,7 @@ SELECT '2 m * 3 m'::unit, '2 m / 3 m'::unit, '10 m / 5 m / 2 m'::unit;
 SELECT '2 m^2 + 3 m * 4 m'::unit, '2 m * 3 m / 4 m * 5 m'::unit;
 SELECT '2 m * (1 m + 3 m)'::unit;
 SELECT '- m'::unit, '/ m'::unit;
+SELECT '4+5'::unit, '4-5'::unit, '4(-5)'::unit, '4*5'::unit, '4/5'::unit;
 
 -- problematic cases
 SELECT '1 cd'::unit AS candela; -- candela vs centiday
