@@ -99,9 +99,13 @@ expr:
 	unit_div_internal(&nominator, &$2.unit, &$$.unit);
 	$$.shift = 0.0;
   }
+| '+' expr %prec UMINUS {
+	$$ = $2;
+	$$.shift = 0.0;
+  }
 | '-' expr %prec UMINUS {
 	$$ = $2;
-	$$.unit.value *= -1;
+	$$.unit.value = -$$.unit.value;
 	$$.shift = 0.0;
   }
 ;

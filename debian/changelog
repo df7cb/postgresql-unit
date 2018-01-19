@@ -2,6 +2,7 @@ postgresql-unit (6.0-1) UNRELEASED; urgency=medium
 
   * Add @@ operator: similar to @, but returns the value of the resulting unit
     as double precision number.
+  * Fix parsing of addition/subtraction in unit values.
 
  -- Christoph Berg <myon@debian.org>  Thu, 11 Jan 2018 20:49:44 +0100
 

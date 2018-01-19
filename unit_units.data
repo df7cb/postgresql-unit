@@ -612,7 +612,7 @@ neptuneyear	5200418560.03200054 s	\N	164.79132 julianyear	\N
 plutoyear	7823780704.43999958 s	\N	247.92065 julianyear	\N
 earthflattening	0.00335281969789619303	\N	1|298.25642	\N
 earthradius_equatorial	6378136.49000000022 m	\N	6378136.49 m	\N
-earthradius_polar	-21384.7416595424875 m	\N	(-earthflattening+1) earthradius_equatorial	\N
+earthradius_polar	6356751.74834045768 m	\N	(-earthflattening+1) earthradius_equatorial	\N
 landarea	148847000000000 m^2	\N	148.847e6 km^2	\N
 oceanarea	361254000000000 m^2	\N	361.254e6 km^2	\N
 moonradius	1738000 m	\N	1738 km	\N
@@ -822,9 +822,9 @@ shoeiron	0.000529166666666666717 m	\N	1|48 inch	\N
 shoeounce	0.000396875000000000038 m	\N	1|64 inch	\N
 shoesize_delta	0.00846666666666666748 m	\N	1|3 inch	\N
 shoe_men0	0.209550000000000014 m	\N	8.25 inch	\N
-shoe_women0	0.162983333333333341 m	\N	(7+11|12) inch	\N
-shoe_boys0	0.0698500000000000093 m	\N	(3+11|12) inch	\N
-shoe_girls0	0.0444500000000000034 m	\N	(3+7|12) inch	\N
+shoe_women0	0.201083333333333364 m	\N	(7+11|12) inch	\N
+shoe_boys0	0.0994833333333333403 m	\N	(3+11|12) inch	\N
+shoe_girls0	0.0910166666666666763 m	\N	(3+7|12) inch	\N
 europeshoesize	0.00666666666666666623 m	\N	2|3 cm	\N
 key	1 kg	\N	kg	\N
 lid	0.0283495231250000014 kg	\N	1 oz	\N

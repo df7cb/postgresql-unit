@@ -1033,7 +1033,6 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  RSI                       | 1 s^3*K/kg                          | degC m^2 / W
  THERMAL_INSULANCE         | 1 s^3*K/kg                          | THERMAL_RESISTIVITY LENGTH
  THERMAL_INSULATION        | 1 s^3*K/kg                          | THERMAL_RESISTIVITY LENGTH
- earthradius_polar         | -21.3847416595425 km                | (-earthflattening+1) earthradius_equatorial
  l_P                       | 1.61619881510288e-35 m              | plancklength
  plancklength              | 1.61619881510288e-35 m              | plancktime c
  protonchargeradius        | 875.1 am                            | 0.8751e-15 m
@@ -1251,7 +1250,6 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  RU                        | 44.45 mm                            | U
  U                         | 44.45 mm                            | retmaunit
  retmaunit                 | 44.45 mm                            | 1.75 in
- shoe_girls0               | 44.45 mm                            | (3+7|12) inch
  sizeGring                 | 45 mm                               | 45.00 mm
  sizeHring                 | 46.25 mm                            | 46.25 mm
  sizeIring                 | 47.5 mm                             | 47.50 mm
@@ -1274,19 +1272,20 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  sizeXring                 | 66.25 mm                            | 66.25 mm
  sizeYring                 | 67.5 mm                             | 67.50 mm
  sizeZring                 | 68.75 mm                            | 68.75 mm
- shoe_boys0                | 69.85 mm                            | (3+11|12) inch
  romanpalm                 | 74 mm                               | 1|4 romanfoot
  egyptianpalm              | 74.8574285714286 mm                 | 1|7 egyptianroyalcubit
  irishpalm                 | 76.1998675 mm                       | 3 irishinch
  olympicpalestra           | 77.1525 mm                          | olympicpalm
  olympicpalm               | 77.1525 mm                          | 1|4 olympicfoot
+ shoe_girls0               | 91.0166666666667 mm                 | (3+7|12) inch
  assyrianpalm              | 91.44 mm                            | 1|3 assyrianfoot
+ shoe_boys0                | 99.4833333333333 mm                 | (3+11|12) inch
  hand                      | 101.6 mm                            | 4 inch
  palmwidth                 | 101.6 mm                            | hand
  fingerlength              | 114.3 mm                            | 4.5 in
  kvarter                   | 148.4505 mm                         | 6 verktum
  shaftment                 | 152.4 mm                            | 6 inch
- shoe_women0               | 162.983333333333 mm                 | (7+11|12) inch
+ shoe_women0               | 201.083333333333 mm                 | (7+11|12) inch
  gurleylink                | 201.168 mm                          | 1|50 gurleychain
  link                      | 201.168 mm                          | 1|100 chain
  surveyorslink             | 201.168402336805 mm                 | 1|100 surveyorschain
@@ -1493,6 +1492,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  mercuryradius             | 2.44 Mm                             | 2440 km
  marsradius                | 3.38992 Mm                          | 3389.92 km
  venusradius               | 6.05184 Mm                          | 6051.84 km
+ earthradius_polar         | 6.35675174834046 Mm                 | (-earthflattening+1) earthradius_equatorial
  earthradUSAtm             | 6.356766 Mm                         | 6356766 m
  earthradius               | 6.37101 Mm                          | 6371.01 km
  earthradius_equatorial    | 6.37813649 Mm                       | 6378136.49 m
