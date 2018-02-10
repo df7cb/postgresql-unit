@@ -1,3 +1,5 @@
+GRANT SELECT ON unit_prefixes, unit_units TO PUBLIC;
+
 CREATE FUNCTION unit_at_double(unit, text)
 	RETURNS double precision
 	SET search_path = @extschema@

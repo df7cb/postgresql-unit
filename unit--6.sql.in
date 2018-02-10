@@ -59,6 +59,8 @@ SELECT pg_catalog.pg_extension_config_dump('unit_units', 'WHERE dump');
 
 COPY unit_units (name, unit, shift, definition, dump) FROM '@MODULEDIR@/unit_units.data';
 
+GRANT SELECT ON unit_prefixes, unit_units TO PUBLIC;
+
 -- constructors
 
 CREATE FUNCTION unit(double precision DEFAULT 1.0)
