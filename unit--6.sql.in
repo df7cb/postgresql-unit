@@ -45,8 +45,6 @@ CREATE TABLE unit_prefixes (
 
 SELECT pg_catalog.pg_extension_config_dump('unit_prefixes', 'WHERE dump');
 
-COPY unit_prefixes (prefix, factor, definition, dump) FROM '@MODULEDIR@/unit_prefixes.data';
-
 CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
 	unit unit NOT NULL,
@@ -57,9 +55,32 @@ CREATE TABLE unit_units (
 
 SELECT pg_catalog.pg_extension_config_dump('unit_units', 'WHERE dump');
 
-COPY unit_units (name, unit, shift, definition, dump) FROM '@MODULEDIR@/unit_units.data';
-
 GRANT SELECT ON unit_prefixes, unit_units TO PUBLIC;
+
+CREATE OR REPLACE FUNCTION unit_load()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $$BEGIN
+DELETE FROM unit_prefixes WHERE dump IS NOT TRUE;
+CREATE TEMP TABLE tmp_prefixes (LIKE unit_prefixes) ON COMMIT DROP;
+COPY tmp_prefixes (prefix, factor, definition, dump) FROM '@MODULEDIR@/unit_prefixes.data';
+INSERT INTO unit_prefixes
+	SELECT * FROM tmp_prefixes t WHERE NOT EXISTS
+		(SELECT prefix FROM unit_prefixes u WHERE u.prefix = t.prefix);
+DROP TABLE tmp_prefixes;
+
+DELETE FROM unit_units WHERE dump IS NOT TRUE;
+CREATE TEMP TABLE tmp_units (LIKE unit_units) ON COMMIT DROP;
+COPY unit_units (name, unit, shift, definition, dump) FROM '@MODULEDIR@/unit_units.data';
+INSERT INTO unit_units
+	SELECT * FROM tmp_units t WHERE NOT EXISTS
+		(SELECT name FROM unit_units u WHERE u.name = t.name);
+DROP TABLE tmp_units;
+END;$$;
+
+COMMENT ON FUNCTION unit_load() IS 'Loads/upgrades the unit_units and unit_prefixes contents from the data files on disk';
+
+SELECT unit_load();
 
 -- constructors
 

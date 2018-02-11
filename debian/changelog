@@ -4,6 +4,7 @@ postgresql-unit (6.0-1) UNRELEASED; urgency=medium
     as double precision number.
   * Fix parsing of addition/subtraction in unit values.
   * Grant SELECT on unit prefixes and units table to public.
+  * Add unit_load() function to load/update the data tables.
 
  -- Christoph Berg <myon@debian.org>  Thu, 11 Jan 2018 20:49:44 +0100
 

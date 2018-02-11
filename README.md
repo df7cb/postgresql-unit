@@ -189,8 +189,13 @@ The [definitions.units](definitions.units) file is an interesting read on its
 own due to extensive comments explaining the history and origin of the units
 covered.
 
-User-Defined Units
-------------------
+The `unit_load()` function can be used to reload the `unit_prefixes.data` and
+`unit_units.data` files from disk. Extension upgrades use it to load newly
+added or changed definitions, but it is also user-callable. User-defined
+entries are preserved.
+
+User-Defined Prefixes and Units
+-------------------------------
 
 To create custom prefixes and units, insert new rows into the tables:
 
@@ -276,6 +281,7 @@ function stddev_samp(unit)
 function stddev(unit)
 function sum(unit)
 function unit_is_hashed(cstring)
+function unit_load()
 function unit_reset()
 function value(unit)
 function variance(unit)

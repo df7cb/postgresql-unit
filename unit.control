@@ -1,3 +1,7 @@
 default_version = '6'
-comment = 'unit extension'
+comment = 'SI units extension'
+# the unit_prefixes/unit_units tables can be installed in an arbitrary schema,
+# but can not be relocated later:
 relocatable = false
+# unit_load() is written in plpgsql:
+requires = 'plpgsql'
