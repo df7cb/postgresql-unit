@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016-2017 Christoph Berg
+Copyright (C) 2016-2018 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ static UnitShift *unit_parse_result; /* parsing result gets stored here */
 %token <UnitShift> UNIT_SHIFT
 %token <int> EXPONENT SUPER_SIGN SUPER
 %token ERR
-%type  <UnitShift> input expr
+%type  <UnitShift> input expr simple_expr
 %type  <double> number
 %type  <int> exponent super
 
@@ -52,14 +52,16 @@ input:
 ;
 
 expr:
-  number {
-	$$.unit.value = $1;
-	memset(&$$.unit.units, 0, N_UNITS);
+  simple_expr
+/* accept only simple expressions after unary sign to disambiguate
+ * (-N)N from -(NN): (-273.15)°C is not the same as -(273.15°C) */
+| '+' simple_expr %prec UMINUS {
+	$$ = $2;
 	$$.shift = 0.0;
   }
-| UNIT_SHIFT
-| '(' expr ')' {
+| '-' simple_expr %prec UMINUS {
 	$$ = $2;
+	$$.unit.value = -$$.unit.value;
 	$$.shift = 0.0;
   }
 | expr exponent {
@@ -99,16 +101,19 @@ expr:
 	unit_div_internal(&nominator, &$2.unit, &$$.unit);
 	$$.shift = 0.0;
   }
-| '+' expr %prec UMINUS {
-	$$ = $2;
-	$$.shift = 0.0;
-  }
-| '-' expr %prec UMINUS {
-	$$ = $2;
-	$$.unit.value = -$$.unit.value;
-	$$.shift = 0.0;
-  }
 ;
+
+simple_expr:
+  number {
+	$$.unit.value = $1;
+	memset(&$$.unit.units, 0, N_UNITS);
+	$$.shift = 0.0;
+  }
+| UNIT_SHIFT
+| '(' expr ')' {
+	$$ = $2;
+	$$.shift = 0.0;
+  }
 
 number:
   DOUBLE

@@ -75,6 +75,8 @@ union YYUNITSTYPE
   UnitShift input;
   /* expr  */
   UnitShift expr;
+  /* simple_expr  */
+  UnitShift simple_expr;
   /* DOUBLE  */
   double DOUBLE;
   /* number  */
@@ -89,7 +91,7 @@ union YYUNITSTYPE
   int exponent;
   /* super  */
   int super;
-#line 93 "unitparse.tab.h" /* yacc.c:1909  */
+#line 95 "unitparse.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYUNITSTYPE YYUNITSTYPE;
