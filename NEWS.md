@@ -1,3 +1,11 @@
+6.0: Mar 7, 2018
+----------------
+* Add @@ operator: similar to @, but returns the value of the resulting unit
+  as double precision number.
+* Fix parsing of addition/subtraction in unit values.
+* Grant SELECT on unit prefixes and units table to public.
+* Add unit_load() function to load/update the data tables.
+
 5.0: Jan 10, 2018
 -----------------
 * Add rounding function.
