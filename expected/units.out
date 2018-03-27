@@ -1,3 +1,4 @@
+SET unit.time_output_custom = false;
 SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COLLATE "C";
   prefix  |        factor        | definition 
 ----------+----------------------+------------

@@ -1,3 +1,5 @@
+SET unit.time_output_custom = false;
+
 -- test multiplication
 WITH i(i) AS (VALUES ('-2'::unit), ('-1'), ('0'), ('1'), ('2'))
 SELECT

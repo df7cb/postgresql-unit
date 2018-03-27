@@ -8,7 +8,7 @@ DATA_built = unit--2--3.sql unit--3.sql \
 			 unit--3--4.sql unit--4.sql \
 			 unit--4--5.sql unit--5.sql \
 			 unit--5--6.sql unit--6.sql
-REGRESS = extension tables unit unicode prefix units temperature functions round derived compare aggregate iec custom
+REGRESS = extension tables unit unicode prefix units time temperature functions round derived compare aggregate iec custom
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
 
 # avoid add/mult contraction so '-459.67 °F' is really '0 K'

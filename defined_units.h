@@ -16,6 +16,8 @@ const char *base_units[N_UNITS] = {
 };
 
 const struct derived_unit_t si_derived_units[] = { /* https://en.wikipedia.org/wiki/International_System_of_Units#Derived_units */
+	/* The second is part of this table so we can easily detect its usage for printing it using the hh:mm:ss syntax */
+	{ "s",   {  0,  0,  1,  0,  0,  0,  0,  0,} }, /* second          time                                             s */
 	{ "Hz",  {  0,  0, -1,  0,  0,  0,  0,  0,} }, /* hertz           frequency                                        s^-1 */
 	{ "N",   {  1,  1, -2,  0,  0,  0,  0,  0,} }, /* newton          force, weight                                    kg·m·s^-2 */
 	{ "Pa",  { -1,  1, -2,  0,  0,  0,  0,  0,} }, /* pascal          pressure, stress                         N/m^2   kg·m^-1·s^-2 */

@@ -29,6 +29,13 @@
  * lbs secs
  */
 
+#define DBL_DIG			15
+#define TIME_MINUTE		60
+#define TIME_HOUR		(60 * TIME_MINUTE)
+#define TIME_DAY		(24 * TIME_HOUR)
+#define TIME_YEAR		(365 * TIME_DAY)
+#define TIME_YEAR_NAME	"commonyear"
+
 extern const char *base_units[N_UNITS]; /* names of base units */
 
 struct derived_unit_t {

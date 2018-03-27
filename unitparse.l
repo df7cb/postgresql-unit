@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016-2017 Christoph Berg
+Copyright (C) 2016-2018 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@ ALPHA   [a-zA-Z$%'"_]|{UTF8}
 ALNUM   [a-zA-Z$%'"_0-9]|{UTF8}
 
 DOUBLE_R [0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
+TIME_R   [0-9]+:[0-9]+:[0-9]+(\.[0-9]+)?
 UNIT_R   {ALPHA}{ALNUM}*
 EXP_R    \^[\-+]?[0-9]+
 
@@ -69,6 +70,16 @@ SUPER_9     \xe2\x81\xb9
 
 {DOUBLE_R} {
 	yyunitlval.DOUBLE = atof(yytext);
+	return DOUBLE;
+}
+
+{TIME_R} { /* hh:mm:ss[.sss] */
+	char *colon;
+	yyunitlval.DOUBLE = TIME_HOUR * atoi(yytext); /* hh */
+	colon = strchr(yytext, ':');
+	yyunitlval.DOUBLE += TIME_MINUTE * atoi(colon + 1); /* mm */
+	colon = strchr(colon + 1, ':');
+	yyunitlval.DOUBLE += atof(colon + 1); /* ss[.sss] */
 	return DOUBLE;
 }
 

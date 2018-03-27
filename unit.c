@@ -32,6 +32,7 @@ GNU General Public License for more details.
 /* global variables */
 
 static bool unit_output_superscript;
+static bool unit_time_output_custom;
 static bool unit_byte_output_iec;
 static bool unit_output_base_units;
 
@@ -149,6 +150,19 @@ _PG_init(void)
 			NULL,
 			NULL);
 
+	DefineCustomBoolVariable("unit.time_output_custom",
+			"Output time values in minutes, hours, days, and julianyears",
+			"Set to on to output time unit values greater or equal to 60 s "
+			"using minutes, hours, days, and julianyears instead of seconds "
+			"with SI prefixes",
+			&unit_time_output_custom,
+			true,
+			PGC_USERSET,
+			0, /* no flags */
+			NULL,
+			NULL,
+			NULL);
+
 	DefineCustomBoolVariable("unit.byte_output_iec",
 			"Output byte unit values with binary IEC prefixes",
 			"Set to on to output byte unit values using binary IEC prefixes "
@@ -212,6 +226,52 @@ print_exponent (char **output_p, int e)
 	} else {
 		*output_p += sprintf(*output_p, "^%d", e);
 	}
+}
+
+static void
+print_time_interval (char **output_p, double t)
+{
+	int		 h, m;
+	char	*sign = "+";
+	int		 ndig = DBL_DIG + extra_float_digits; /* TODO: adjust this for min/h/d already printed */
+
+	/* print - */
+	if (t < 0) {
+		*output_p += sprintf(*output_p, "-");
+		t = -t;
+		sign = "-";
+	}
+	/* print years */
+	if (t >= TIME_YEAR) {
+		double years = trunc(t / TIME_YEAR);
+		t = fmod(t, TIME_YEAR);
+		*output_p += sprintf(*output_p, "%g " TIME_YEAR_NAME, years);
+		if (t != 0)
+			*output_p += sprintf(*output_p, " %s ", sign);
+	}
+	if (t == 0)
+		return;
+
+	/* print days */
+	if (t >= TIME_DAY) {
+		int days = trunc(t / TIME_DAY);
+		t = fmod(t, TIME_DAY);
+		*output_p += sprintf(*output_p, "%d d", days);
+		if (t != 0)
+			*output_p += sprintf(*output_p, " %s ", sign);
+	}
+	if (t == 0)
+		return;
+
+	/* print hh:mm:ss.sss */
+	h = trunc(t / TIME_HOUR);
+	t = fmod(t, TIME_HOUR);
+	m = trunc(t / TIME_MINUTE);
+	t = fmod(t, TIME_MINUTE);
+	*output_p += sprintf(*output_p, "%02d:%02d:", h, m);
+	if (t < 10.0) /* zero-pad */
+		*output_p += sprintf(*output_p, "0");
+	*output_p += sprintf(*output_p, "%.*g s", ndig, t);
 }
 
 /* format Unit as string */
@@ -328,6 +388,14 @@ unit_cstring (Unit *unit)
 		char	*prefix = "";
 		double	 factor = 1.0;
 
+		/* case 2a: minute/hour/day output requested, unit is seconds, and
+		 * absolute value is >= 60 seconds. Print as interval and exit */
+		if (unit_time_output_custom && derived_unit &&
+				!strcmp(derived_unit->name, "s") && v_abs >= TIME_MINUTE) {
+			print_time_interval(&output_p, unit->value);
+			return output;
+		}
+
 		if (v_abs >= 1e27) {
 			// do nothing
 		} else if (v_abs >= POWER_24) {
@@ -366,14 +434,14 @@ unit_cstring (Unit *unit)
 			prefix = "y"; factor = 1e24;
 		} /* else do nothing */
 
-		/* case 2a: derived unit, print with SI prefix and exit */
+		/* case 2b: derived unit, print with SI prefix and exit */
 		if (derived_unit) {
 			print_output("%s %s%s", float8out_internal (unit->value * factor),
 					prefix, derived_unit->name);
 			return output;
 		}
 
-		/* case 2b: single unit in numerator (exponent 1), print with SI prefix and continue */
+		/* case 2c: single unit in numerator (exponent 1), print with SI prefix and continue */
 		print_output("%s %s%s", float8out_internal (unit->value * factor),
 				prefix, base_units[u_numerator]);
 		numerator = true;

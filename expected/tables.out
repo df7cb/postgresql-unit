@@ -61,9 +61,9 @@ SELECT * FROM units;
  l   | 0.001 m^3      | f    | f        | f
  t   | 1 Mg           | f    | f        | f
  bar | 100 kPa        | f    | f        | f
- min | 60 s           | f    | f        | f
- h   | 3.6 ks         | f    | f        | f
- d   | 86.4 ks        | f    | f        | f
+ min | 00:01:00 s     | f    | f        | f
+ h   | 01:00:00 s     | f    | f        | f
+ d   | 1 d            | f    | f        | f
  in  | 25.4 mm        | f    | f        | f
  ft  | 304.8 mm       | f    | f        | f
  yd  | 914.4 mm       | f    | f        | f

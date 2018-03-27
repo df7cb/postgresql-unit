@@ -4,7 +4,7 @@ set -eux
 
 export PGDATABASE=postgres
 
-for PGVERSION in ${*:-10 9.6 9.5}; do
+for PGVERSION in ${*:-10 11 9.6 9.5}; do
 	echo
 	echo "### $PGVERSION ###"
 	PG_CONFIG=/usr/lib/postgresql/$PGVERSION/bin/pg_config

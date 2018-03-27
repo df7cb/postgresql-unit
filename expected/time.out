@@ -1,0 +1,200 @@
+SELECT '1.1 s'::unit;
+ unit  
+-------
+ 1.1 s
+(1 row)
+
+SELECT '61.1 s'::unit;
+     unit     
+--------------
+ 00:01:01.1 s
+(1 row)
+
+SELECT '71.1 s'::unit;
+     unit     
+--------------
+ 00:01:11.1 s
+(1 row)
+
+SELECT '601 s'::unit;
+    unit    
+------------
+ 00:10:01 s
+(1 row)
+
+SELECT '3601 s'::unit;
+    unit    
+------------
+ 01:00:01 s
+(1 row)
+
+SELECT '86400 s'::unit;
+ unit 
+------
+ 1 d
+(1 row)
+
+SELECT '-86400 s'::unit;
+ unit 
+------
+ -1 d
+(1 row)
+
+SELECT '86401 s'::unit;
+       unit       
+------------------
+ 1 d + 00:00:01 s
+(1 row)
+
+SELECT '-86401 s'::unit;
+       unit        
+-------------------
+ -1 d - 00:00:01 s
+(1 row)
+
+SELECT '365 d'::unit;
+     unit     
+--------------
+ 1 commonyear
+(1 row)
+
+SELECT '-365 d'::unit;
+     unit      
+---------------
+ -1 commonyear
+(1 row)
+
+SELECT '3650 d'::unit;
+     unit      
+---------------
+ 10 commonyear
+(1 row)
+
+SELECT '3651 d'::unit;
+        unit         
+---------------------
+ 10 commonyear + 1 d
+(1 row)
+
+SELECT '3651.5 d'::unit;
+               unit               
+----------------------------------
+ 10 commonyear + 1 d + 12:00:00 s
+(1 row)
+
+SELECT '00:00:00.1'::unit;
+ unit 
+------
+ 0.1
+(1 row)
+
+SELECT '00:00:01'::unit;
+ unit 
+------
+ 1
+(1 row)
+
+SELECT '00:01:00'::unit;
+ unit 
+------
+ 60
+(1 row)
+
+SELECT '01:00:00'::unit;
+ unit 
+------
+ 3600
+(1 row)
+
+SELECT '0:0:0'::unit;
+ unit 
+------
+ 0
+(1 row)
+
+SELECT '00:00:01 s'::unit;
+ unit 
+------
+ 1 s
+(1 row)
+
+SELECT '00:00:01s'::unit;
+ unit 
+------
+ 1 s
+(1 row)
+
+SELECT '00:00:01 m'::unit;
+ unit 
+------
+ 1 m
+(1 row)
+
+SELECT '00:01:00 s'::unit;
+    unit    
+------------
+ 00:01:00 s
+(1 row)
+
+SELECT '00:01:00.5 s'::unit;
+     unit     
+--------------
+ 00:01:00.5 s
+(1 row)
+
+SELECT '01:00:00 s'::unit;
+    unit    
+------------
+ 01:00:00 s
+(1 row)
+
+SELECT '1 d + 02:03:04.5 s'::unit;
+        unit        
+--------------------
+ 1 d + 02:03:04.5 s
+(1 row)
+
+SELECT name, unit, definition FROM unit_units WHERE name ~ 'year' ORDER BY 2, 1;
+      name       |                       unit                        |      definition       
+-----------------+---------------------------------------------------+-----------------------
+ mercuryyear     | 87 d + 23:15:43.8199199996889 s                   | 0.2408467 julianyear
+ venusyear       | 224 d + 16:49:09.05217599868774 s                 | 0.61519726 julianyear
+ eclipseyear     | 346 d + 14:52:48 s                                | 346.62 days
+ islamicyear     | 354 d                                             | 354 day
+ lunaryear       | 354 d + 08:48:33.5999999977648 s                  | 12 lunarmonth
+ islamicleapyear | 355 d                                             | 355 day
+ calendaryear    | 1 commonyear                                      | 365 day
+ commonyear      | 1 commonyear                                      | 365 day
+ solaryear       | 1 commonyear + 05:48:45.9746784009039 s           | year
+ tropicalyear    | 1 commonyear + 05:48:45.9746784009039 s           | 365.242198781 day
+ year            | 1 commonyear + 05:48:45.9746784009039 s           | tropicalyear
+ gregorianyear   | 1 commonyear + 05:49:12 s                         | 365.2425 day
+ julianyear      | 1 commonyear + 06:00:00 s                         | 365.25 day
+ earthyear       | 1 commonyear + 06:09:09.54002879932523 s          | siderealyear
+ siderealyear    | 1 commonyear + 06:09:09.54002879932523 s          | 365.256360417 day
+ gaussianyear    | 1 commonyear + 06:09:56.0153947472572 s           | (2 pi / gauss_k) days
+ anomalisticyear | 1 commonyear + 06:13:49.4399999976158 s           | 365.2596 days
+ leapyear        | 1 commonyear + 1 d                                | 366 day
+ marsyear        | 1 commonyear + 321 d + 23:30:36.2217600047588 s   | 1.8808476 julianyear
+ jupiteryear     | 11 commonyear + 317 d + 19:40:59.1240000128746 s  | 11.862615 julianyear
+ saturnyear      | 29 commonyear + 170 d + 16:46:02.88479995727539 s | 29.447498 julianyear
+ uranusyear      | 84 commonyear + 27 d + 03:40:19.3295998573303 s   | 84.016846 julianyear
+ neptuneyear     | 164 commonyear + 330 d + 00:42:40.032000541687 s  | 164.79132 julianyear
+ plutoyear       | 248 commonyear + 33 d + 00:25:04.4399995803833 s  | 247.92065 julianyear
+ lightyear       | 9.4607304725808 Pm                                | c julianyear
+(25 rows)
+
+/* custom time format is only used if dimension is time */
+SELECT '1000 s'::unit, '1000 s/m'::unit;
+    unit    |  unit  
+------------+--------
+ 00:16:40 s | 1 ks/m
+(1 row)
+
+SET unit.time_output_custom = false;
+SELECT '1000 s'::unit, '1000 s/m'::unit;
+ unit |  unit  
+------+--------
+ 1 ks | 1 ks/m
+(1 row)
+

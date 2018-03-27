@@ -1,3 +1,5 @@
+SET unit.time_output_custom = false;
+
 SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COLLATE "C";
 
 SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name COLLATE "C";

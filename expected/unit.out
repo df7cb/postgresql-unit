@@ -241,9 +241,9 @@ SELECT '1 yg'::unit AS yoctogram, '1.00001 yg'::unit AS actual_yoctogram; -- "yg
 (1 row)
 
 SELECT '1 min'::unit AS minute; -- minute vs milliinch
- minute 
---------
- 60 s
+   minute   
+------------
+ 00:01:00 s
 (1 row)
 
 SELECT '1 ft'::unit AS foot; -- foot vs femtotonne
@@ -266,9 +266,9 @@ SELECT 'a'::unit AS are;
 (1 row)
 
 SELECT 'da'::unit AS day;
-   day   
----------
- 86.4 ks
+ day 
+-----
+ 1 d
 (1 row)
 
 SELECT 'rad'::unit AS radiation;
@@ -292,14 +292,14 @@ ORDER BY lower(p) COLLATE "C", lower(u) COLLATE "C";
  a | t   | 98.0665 kPa
  c | d   | 1 cd
  c | h   | 20.1168 m
- d | a   | 86.4 ks
+ d | a   | 1 d
  f | t   | 304.8 mm
  G | s   | 100 µT
  h | bar | 1.05457180005237e-34 m^2*kg/s
  h | d   | 0.238480942392 m^3
  k | in  | 600 g
  m | h   | 1 mH
- m | in  | 60 s
+ m | in  | 00:01:00 s
  n | t   | 1 N
  P | a   | 1 Pa
  p | a   | 1 Pa

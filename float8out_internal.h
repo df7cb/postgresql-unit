@@ -1,7 +1,6 @@
 /* minimal version of PG 9.6's float8out_internal function for use in 9.4 and 9.5 */
 
 #define MAXDOUBLEWIDTH	128
-#define DBL_DIG			15
 extern int		extra_float_digits;
 
 static char *
