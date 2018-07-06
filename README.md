@@ -62,6 +62,11 @@ CREATE EXTENSION
 ------------
  9.81 m/s^2
 
+# SELECT '1 kilosecond'::unit AS time;
+    time
+------------
+ 00:16:40 s
+
 # SELECT '2 MB/min'::unit @ 'GB/d' AS traffic;
   traffic
 -----------
@@ -114,6 +119,11 @@ Config
 * `unit.output_superscript`:
   Set to `on` to output unit exponents using Unicode superscripts.
   (Default: off)
+
+* `unit.time_output_custom`:
+  Set to on to output time unit values greater or equal to 60 s using minutes,
+  hours, days, and julianyears instead of seconds with SI prefixes.
+  (Default: on)
 
 Internal Representation
 -----------------------
@@ -238,6 +248,50 @@ Unit values allow a fairly complex expression syntax on input.
 *Note: This covers the unit input parser for expressions like
 `'1|2 m / h'::unit`. PostgreSQL operators on type unit values are a separate
 layer; PostgreSQL's operator precedence applies there.*
+
+Output Syntax
+-------------
+
+Internally, unit values are always stored in base units. On output, values are
+generally formatted as `+-N x*y/z*w` where `+-N` is a floating point number,
+and `x*y/z*w` is a set of base units with exponents. Specific combinations of
+base units are formatted differently (unless `unit.output_base_units` is set):
+
+* Time (seconds) is formatted as `N commonyear + hh:mm:ss.sss s` if the
+  value is at least one minute, and `unit.time_output_custom` is set (the
+  default). Otherwise, time is formatted as by the next rules.
+
+* If the set of base units matches one of the following well-known derived units,
+  output is formatted using SI prefixes and that unit.
+
+  | Unit | Name    | Dimension                             | Units  | Base Units         |
+  | ---- | ------- | ------------------------------------- | ------ | ------------------ |
+  | Hz   | hertz   | frequency                             |        | s^-1               |
+  | N    | newton  | force, weight                         |        | kg·m·s^-2          |
+  | Pa   | pascal  | pressure, stress                      | N/m^2  | kg·m^-1·s^-2       |
+  | J    | joule   | energy, work, heat                    | N·m    | kg·m^2·s^-2        |
+  | W    | watt    | power, radiant flux                   | J/s    | kg·m^2·s^-3        |
+  | C    | coulomb | electric charge                       |        | s·A                |
+  | V    | volt    | voltage                               | W/A    | kg·m^2·s^-3·A^-1   |
+  | F    | farad   | electric capacitance                  | C/V    | kg^-1·m^-2·s^4·A^2 |
+  | Ω    | ohm     | electric resistance, impedance        | V/A    | kg·m^2·s^-3·A^-2   |
+  | S    | siemens | electrical conductance                | A/V    | kg^-1·m^-2·s^3·A^2 |
+  | Wb   | weber   | magnetic flux                         | V·s    | kg·m^2·s^-2·A^-1   |
+  | T    | tesla   | magnetic flux density                 | Wb/m^2 | kg·s^-2·A^-1       |
+  | H    | henry   | inductance                            | Wb/A   | kg·m^2·s^-2·A^-2   |
+  | lx   | lux     | illuminance                           | lm/m^2 | m^-2·cd            |
+  | Gy   | gray    | absorbed dose (of ionizing radiation) | J/kg   | m^2·s^-2           |
+  | kat  | katal   | catalytic activity                    |        | mol·s^-1           |
+
+  *Note:* this does not preserve the input dimension, e.g. `N m` (torque) is
+  converted to `J` (energy).
+
+* If the dimension numerator is exactly a base unit (with exponent 1), output
+  is formatted using SI prefixes and that unit, followed by the denominator
+  units, if any.
+
+  * If that unit is Bytes, and `unit.byte_output_iec` is set, IEC prefixes are
+    used instead.
 
 Shifted Units
 -------------
