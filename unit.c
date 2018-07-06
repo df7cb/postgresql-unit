@@ -228,12 +228,14 @@ print_exponent (char **output_p, int e)
 	}
 }
 
+/* this function is used to format time values of at least one minute */
 static void
 print_time_interval (char **output_p, double t)
 {
 	int		 h, m;
 	char	*sign = "+";
-	int		 ndig = DBL_DIG + extra_float_digits; /* TODO: adjust this for min/h/d already printed */
+	int		 ndig;
+	double	 ulp;
 
 	/* print - */
 	if (t < 0) {
@@ -241,6 +243,9 @@ print_time_interval (char **output_p, double t)
 		t = -t;
 		sign = "-";
 	}
+	ndig = DBL_DIG + extra_float_digits - log2(t / 60.0); /* adjust seconds precision for d/h/min already printed */
+	ulp = t * __DBL_EPSILON__; /* smallest remainder of seconds that should be printed */
+
 	/* print years */
 	if (t >= TIME_YEAR) {
 		double years = trunc(t / TIME_YEAR);
@@ -271,6 +276,8 @@ print_time_interval (char **output_p, double t)
 	*output_p += sprintf(*output_p, "%02d:%02d:", h, m);
 	if (t < 10.0) /* zero-pad */
 		*output_p += sprintf(*output_p, "0");
+	if (t < ulp) /* clamp output smaller than input precision */
+		t = 0;
 	*output_p += sprintf(*output_p, "%.*g s", ndig, t);
 }
 
