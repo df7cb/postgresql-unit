@@ -1,5 +1,5 @@
---- definitions.units	2017-11-28 20:17:13.021934545 +0100
-+++ definitions.units.patched	2017-11-28 20:18:05.570776490 +0100
+--- definitions.units
++++ definitions.units.patched
 @@ -196,7 +196,9 @@
  US$       !      # The US dollar is chosen arbitrarily to be the primitive
                   #   unit of money.
@@ -223,7 +223,7 @@
  gal                     gallon          # the British wine gallon of 1707.
  quart                   1|4 gallon      # See the "winegallon" entry below
  pint                    1|2 quart       # more historical information.
-@@ -2768,7 +2780,7 @@
+@@ -2776,7 +2788,7 @@
  
  number1can              10 usfloz
  number2can              19 usfloz
@@ -232,20 +232,22 @@
  number3can              4 uscups
  number5can              7 uscups
  number10can             105 usfloz
-@@ -3198,9 +3210,9 @@
+@@ -3209,10 +3221,10 @@
  
  btu                     btu_IT       # International Table BTU is the default
  britishthermalunit      btu
 -btu_IT                  cal_IT lb degF / gram K
 -btu_th                  cal_th lb degF / gram K
 -btu_mean                cal_mean lb degF / gram K
+-btu_15                  cal_15 lb degF / gram K
 +btu_IT                  cal_IT lb (degF) / gram K
 +btu_th                  cal_th lb (degF) / gram K
 +btu_mean                cal_mean lb (degF) / gram K
++btu_15                  cal_15 lb (degF) / gram K
+ btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
+                                      #    on the IT calorie
  quad                    quadrillion btu
- 
- ECtherm                 1.05506e8 J    # Exact definition, close to 1e5 btu
-@@ -3325,8 +3337,8 @@
+@@ -3339,8 +3351,8 @@
                                         # of coal used in the 1950's
  barreloil               5.8 Mbtu       # Conventional value for barrel of crude
                                         # oil [E2].  Actual range is 5.6 - 6.3.
@@ -256,7 +258,7 @@
  naturalgas              naturalgas_HHV # includes energy from condensation
                                         # combustion products.  LHV is for Lower
                                         # Heating Value and excludes these.
-@@ -3361,7 +3373,7 @@
+@@ -3375,7 +3387,7 @@
  
  # Celsius heat unit: energy to raise a pound of water 1 degC
  
@@ -265,7 +267,7 @@
  chu                     celsiusheatunit
  
  POWER                   watt
-@@ -3421,13 +3433,13 @@
+@@ -3435,13 +3447,13 @@
  Uvalue                  1/Rvalue
  europeanUvalue          watt / m^2 K
  RSI                     degC m^2 / W
@@ -281,7 +283,7 @@
  
  
  # The bel was defined by engineers of Bell Laboratories to describe the
-@@ -3801,7 +3813,7 @@
+@@ -3815,7 +3827,7 @@
  europeanpoint           didotpoint        # for the point used in Europe
  cicero                  12 didotpoint
  
@@ -290,7 +292,7 @@
  
  # Type sizes
  
-@@ -3858,8 +3870,8 @@
+@@ -3872,8 +3884,8 @@
  
  INFORMATION             bit
  
@@ -301,7 +303,7 @@
  ban                     hartley              #   distributed random variable
                                               #   over 10 symbols.
  dit                     hartley              # from Decimal digIT
-@@ -3874,8 +3886,8 @@
+@@ -3888,8 +3900,8 @@
                                               #   to symbols per second.  Modern
                                               #   modems transmit several bits
                                               #   per symbol.
@@ -312,7 +314,7 @@
                                               #   them do.  But beware: for
                                               #   transmission over modems, a
                                               #   few extra bits are used so
-@@ -4230,7 +4242,7 @@
+@@ -4244,7 +4256,7 @@
  boardfeet               boardfoot
  fbm                     boardfoot    # feet board measure
  stack                   4 yard^3     # British, used for firewood and coal [18]
@@ -321,7 +323,7 @@
                                       #   sometimes called a face cord, but this
                                       #   value is equal to 1|3 cord.  Name
                                       #   comes from an old Norse word for a
-@@ -5310,7 +5322,7 @@
+@@ -5324,7 +5336,7 @@
  
  pa                      Pa
  ev                      eV
@@ -330,7 +332,7 @@
  oe                      Oe
  mh                      mH
  rd                      rod
-@@ -5543,7 +5555,8 @@
+@@ -5557,7 +5569,8 @@
  Mag                     Maz gravity        # force
  Maz                     Volm kg / oldliter # mass based on water
  
@@ -340,7 +342,7 @@
  Gf                      Grafut
  Sf                      Surf
  Vm                      Volm
-@@ -6294,7 +6307,6 @@
+@@ -6308,7 +6321,6 @@
  ton                     uston
  scruple                 apscruple
  fluidounce              usfluidounce
@@ -348,7 +350,7 @@
  bushel                  usbushel
  quarter                 quarterweight
  cup                     uscup
-@@ -6380,7 +6392,7 @@
+@@ -6397,7 +6409,7 @@
  ℈                       scruple
  ℥                       ounce
  ℔                       lb

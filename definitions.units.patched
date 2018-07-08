@@ -2,7 +2,7 @@
 # This file is the units database for use with GNU units, a units conversion
 # program by Adrian Mariano adrianm@gnu.org
 #
-# October 2017 Version 2.19
+# June 2018 Version 2.20
 #
 # Copyright (C) 1996-2002, 2004-2017
 # Free Software Foundation, Inc
@@ -2392,9 +2392,17 @@ split                   200 ml
 jeroboam                2 magnum
 rehoboam                3 magnum
 methuselah              4 magnum
+imperialbottle          4 magnum
 salmanazar              6 magnum
 balthazar               8 magnum
 nebuchadnezzar          10 magnum
+solomon                 12 magnum
+melchior                12 magnum
+sovereign               17.5 magnum
+primat                  18 magnum
+goliath                 18 magnum
+melchizedek             20 magnum
+midas                   20 magnum
 
 # The wine glass doesn't seem to have an official standard, but the same value
 # is suggested by several organization. 
@@ -3199,7 +3207,10 @@ cal_15                  calorie_15
 calorie_fifteen         cal_15
 calorie_20              4.18190 J    # Energy to go from 19.5 to 20.5 degC
 cal_20                  calorie_20
-calorie_twenty          calorie_20  
+calorie_twenty          calorie_20
+calorie_4               4.204 J      # Energy to go from 3.5 to 4.5 degC
+cal_4                   calorie_4
+calorie_four            calorie_4
 cal_mean                4.19002 J    # 1|100 energy to go from 0 to 100 degC
 Calorie                 kilocalorie  # the food Calorie
 thermie              1e6 cal_15      # Heat required to raise the
@@ -3213,10 +3224,13 @@ britishthermalunit      btu
 btu_IT                  cal_IT lb (degF) / gram K
 btu_th                  cal_th lb (degF) / gram K
 btu_mean                cal_mean lb (degF) / gram K
+btu_15                  cal_15 lb (degF) / gram K
+btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
+                                     #    on the IT calorie
 quad                    quadrillion btu
 
-ECtherm                 1.05506e8 J    # Exact definition, close to 1e5 btu
-UStherm                 1.054804e8 J   # Exact definition
+ECtherm                 1e5 btu_ISO    # Exact definition
+UStherm                 1.054804e8 J   # Exact definition, 
 therm                   UStherm
 
 # Water latent heat from [23]
@@ -6369,6 +6383,9 @@ hogshead                brhogshead
 # U+2150-               1|7  For some reason these characters are getting
 # U+2151-               1|9  flagged as invalid UTF8.
 # U+2152-               1|10
+#⅐-               1|7   # fails under MacOS
+#⅑-               1|9   # fails under MacOS
+#⅒-               1|10  # fails under MacOS
 ℯ                       exp(1)      # U+212F, base of natural log
 µ-                      micro       # micro sign U+00B5
 μ-                      micro       # small mu U+03BC
@@ -6410,10 +6427,10 @@ röntgen                 roentgen
 ₩                       southkoreawon
 ₪                       israelnewshekel
 ₤                       lira
-₺                       turkeylira
+# ₺                       turkeylira  # fails under MacOS
 ₨                       rupee           # unofficial legacy rupee sign
-₹                       indiarupee      # official rupee sign
-؋                       afghanafghani
+# ₹                       indiarupee      # official rupee sign # MacOS fail
+#؋                       afghanafghani    # fails under MacOS
 ฿                       thailandbaht
 ₡                       elsalvadorcolon # Also costaricacolon
 ₣                       francefranc
@@ -6424,13 +6441,13 @@ röntgen                 roentgen
 ₮                       mongoliatugrik
 ₯                       greecedrachma
 ₱                       philippinepeso
-₲                       paraguayguarani
-₴                       ukrainehryvnia
-₵                       ghanacedi
-₸                       kazakhstantenge
-₼                       azerbaijanmanat
-₽                       russiaruble
-₾                       georgialari
+# ₲                       paraguayguarani # fails under MacOS
+#₴                       ukrainehryvnia   # fails under MacOS
+#₵                       ghanacedi        # fails under MacOS
+#₸                       kazakhstantenge  # fails under MacOS
+#₼                       azerbaijanmanat # fails under MacOS
+#₽                       russiaruble     # fails under MacOS
+#₾                       georgialari     # fails under MacOS
 ﷼                       iranrial
 ﹩                      $
 ￠                      ¢

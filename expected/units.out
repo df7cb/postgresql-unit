@@ -1942,7 +1942,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  duty                      | 1.3558179483314 J                   | ft lbf
  cal_20                    | 4.1819 J                            | calorie_20
  calorie_20                | 4.1819 J                            | 4.18190 J
- calorie_twenty            | 4.1819 J                            | calorie_20  
+ calorie_twenty            | 4.1819 J                            | calorie_20
  cal                       | 4.184 J                             | calorie
  cal_th                    | 4.184 J                             | calorie_th
  calorie                   | 4.184 J                             | cal_th
@@ -1955,11 +1955,16 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cal_IT                    | 4.1868 J                            | calorie_IT
  calorie_IT                | 4.1868 J                            | 4.1868 J
  cal_mean                  | 4.19002 J                           | 4.19002 J
+ cal_4                     | 4.204 J                             | calorie_4
+ calorie_4                 | 4.204 J                             | 4.204 J
+ calorie_four              | 4.204 J                             | calorie_4
  kpm                       | 9.80665 J                           | kp meter
  btu_th                    | 1.05435026448889 kJ                 | cal_th lb (degF) / gram K
+ btu_15                    | 1.05480385685889 kJ                 | cal_15 lb (degF) / gram K
  britishthermalunit        | 1.05505585262 kJ                    | btu
  btu                       | 1.05505585262 kJ                    | btu_IT
  btu_IT                    | 1.05505585262 kJ                    | cal_IT lb (degF) / gram K
+ btu_ISO                   | 1.05506 kJ                          | 1055.06 J
  btu_mean                  | 1.05586727897078 kJ                 | cal_mean lb (degF) / gram K
  celsiusheatunit           | 1.89783047608 kJ                    | cal lb (degC) / gram K
  chu                       | 1.89783047608 kJ                    | celsiusheatunit
@@ -1972,7 +1977,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  thermie                   | 4.1858 MJ                           | 1e6 cal_15
  UStherm                   | 105.4804 MJ                         | 1.054804e8 J
  therm                     | 105.4804 MJ                         | UStherm
- ECtherm                   | 105.506 MJ                          | 1.05506e8 J
+ ECtherm                   | 105.506 MJ                          | 1e5 btu_ISO
  barreloil                 | 6.119323945196 GJ                   | 5.8 Mbtu
  toncoal                   | 29.3076 GJ                          | 7e9 cal_IT
  davycrocket               | 41.84 GJ                            | 10 ton tnt
@@ -2200,6 +2205,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  beergallon                | 0.00462112794163852 m^3             | 282 UKinch^3
  semodii                   | 0.0046408165248 m^3                 | semodius
  semodius                  | 0.0046408165248 m^3                 | 8 sextarius
+ imperialbottle            | 0.006 m^3                           | 4 magnum
  methuselah                | 0.006 m^3                           | 4 magnum
  irishpeck                 | 0.00713161305035845 m^3             | 2 irishgallon
  hekteos                   | 0.00864 m^3                         | 8 choinix
@@ -2216,6 +2222,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  scotsgallon               | 0.0135558330121188 m^3              | 827.232 UKinch^3
  nebuchadnezzar            | 0.015 m^3                           | 10 magnum
  splitdeal                 | 0.01622319336 m^3                   | 12 ft 11 in 5|8 in
+ melchior                  | 0.018 m^3                           | 12 magnum
+ solomon                   | 0.018 m^3                           | 12 magnum
  to                        | 0.0180390683696469 m^3              | 10 shou
  bucket                    | 0.01818436 m^3                      | 4 brgallon
  pin                       | 0.020457405 m^3                     | 4.5 brgallon
@@ -2223,12 +2231,17 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  molarvolume               | 0.0224139621193082 m^3              | mol R stdtemp / atm
  Vm                        | 0.0258242148458984 m^3              | Volm
  Volm                      | 0.0258242148458984 m^3              | Grafut^3
+ sovereign                 | 0.02625 m^3                         | 17.5 magnum
+ goliath                   | 0.027 m^3                           | 18 magnum
+ primat                    | 0.027 m^3                           | 18 magnum
  amphora                   | 0.0278448991488 m^3                 | 8 congii
  amphorae                  | 0.0278448991488 m^3                 | amphora
  quadrantal                | 0.0278448991488 m^3                 | amphora
  timberfoot                | 0.028316846592 m^3                  | ft^3
  irishbushel               | 0.0285264522014338 m^3              | 4 irishpeck
  ponykeg                   | 0.029336941326 m^3                  | 1|2 beerkeg
+ melchizedek               | 0.03 m^3                            | 20 magnum
+ midas                     | 0.03 m^3                            | 20 magnum
  wholedeal                 | 0.03244638672 m^3                   | 12 ft 11 in 1.25 in
  firkin                    | 0.034068706056 m^3                  | usfirkin
  usfirkin                  | 0.034068706056 m^3                  | 9 usgallon
@@ -2650,7 +2663,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  reyn                      | 6.89475729316836 Mg/m*s             | psi sec
  lorentz                   | 46.6864481456201 s^2*A/m*kg         | bohrmagneton / hplanck c
  THERMAL_RESISTIVITY       | 1 s^3*K/m*kg                        | 1/THERMAL_CONDUCTIVITY
-(2529 rows)
+(2542 rows)
 
 -- units that do not conform to their original definition
 SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation

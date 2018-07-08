@@ -1,3 +1,8 @@
+6.1: Jul 8, 2018
+----------------
+* Format time using commonyears + days + hh:mm:ss.sss s.
+* Import definitions.units from GNU units 2.17 with 13 new units.
+
 6.0: Mar 7, 2018
 ----------------
 * Add @@ operator: similar to @, but returns the value of the resulting unit

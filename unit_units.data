@@ -812,9 +812,17 @@ split	0.000200000000000000037 m^3	\N	200 ml	\N
 jeroboam	0.00300000000000000093 m^3	\N	2 magnum	\N
 rehoboam	0.00450000000000000139 m^3	\N	3 magnum	\N
 methuselah	0.00600000000000000186 m^3	\N	4 magnum	\N
+imperialbottle	0.00600000000000000186 m^3	\N	4 magnum	\N
 salmanazar	0.00900000000000000279 m^3	\N	6 magnum	\N
 balthazar	0.0120000000000000037 m^3	\N	8 magnum	\N
 nebuchadnezzar	0.0150000000000000046 m^3	\N	10 magnum	\N
+solomon	0.0180000000000000056 m^3	\N	12 magnum	\N
+melchior	0.0180000000000000056 m^3	\N	12 magnum	\N
+sovereign	0.0262500000000000094 m^3	\N	17.5 magnum	\N
+primat	0.0270000000000000101 m^3	\N	18 magnum	\N
+goliath	0.0270000000000000101 m^3	\N	18 magnum	\N
+melchizedek	0.0300000000000000093 m^3	\N	20 magnum	\N
+midas	0.0300000000000000093 m^3	\N	20 magnum	\N
 wineglass	0.000150000000000000014 m^3	\N	150 mL	\N
 coffeeratio	54.9999999999999858 kg/m^3	\N	55 g/L	\N
 gpg	0.0171180610452709436 kg/m^3	\N	grains/usgallon	\N
@@ -1061,13 +1069,18 @@ cal_15	4.18580000000000041 m^2*kg/s^2	\N	calorie_15	\N
 calorie_fifteen	4.18580000000000041 m^2*kg/s^2	\N	cal_15	\N
 calorie_20	4.18189999999999973 m^2*kg/s^2	\N	4.18190 J	\N
 cal_20	4.18189999999999973 m^2*kg/s^2	\N	calorie_20	\N
-calorie_twenty	4.18189999999999973 m^2*kg/s^2	\N	calorie_20  	\N
+calorie_twenty	4.18189999999999973 m^2*kg/s^2	\N	calorie_20	\N
+calorie_4	4.20399999999999974 m^2*kg/s^2	\N	4.204 J	\N
+cal_4	4.20399999999999974 m^2*kg/s^2	\N	calorie_4	\N
+calorie_four	4.20399999999999974 m^2*kg/s^2	\N	calorie_4	\N
 cal_mean	4.19001999999999963 m^2*kg/s^2	\N	4.19002 J	\N
 thermie	4185800.00000000047 m^2*kg/s^2	\N	1e6 cal_15	\N
 btu_IT	1055.05585262000022 m^2*kg/s^2	\N	cal_IT lb (degF) / gram K	\N
 btu_th	1054.35026448888902 m^2*kg/s^2	\N	cal_th lb (degF) / gram K	\N
 btu_mean	1055.86727897077799 m^2*kg/s^2	\N	cal_mean lb (degF) / gram K	\N
-ECtherm	105506000 m^2*kg/s^2	\N	1.05506e8 J	\N
+btu_15	1054.80385685888905 m^2*kg/s^2	\N	cal_15 lb (degF) / gram K	\N
+btu_ISO	1055.05999999999995 m^2*kg/s^2	\N	1055.06 J	\N
+ECtherm	105506000 m^2*kg/s^2	\N	1e5 btu_ISO	\N
 UStherm	105480400 m^2*kg/s^2	\N	1.054804e8 J	\N
 therm	105480400 m^2*kg/s^2	\N	UStherm	\N
 water_fusion_heat	333610.879822370247 m^2/s^2	\N	6.01 kJ/mol / (18.015 g/mol)	\N

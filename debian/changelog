@@ -1,3 +1,10 @@
+postgresql-unit (6.1-1) UNRELEASED; urgency=medium
+
+  * Format time using commonyears + days + hh:mm:ss.sss s.
+  * Import definitions.units from GNU units 2.17 with 13 new units.
+
+ -- Christoph Berg <myon@debian.org>  Sun, 08 Jul 2018 21:46:17 +0200
+
 postgresql-unit (6.0-1) unstable; urgency=medium
 
   * Add @@ operator: similar to @, but returns the value of the resulting unit
