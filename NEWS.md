@@ -3,7 +3,6 @@
 * Format time using commonyears + days + hh:mm:ss.sss s.
 * Modify @(unit, text) operator to return text instead of cstring.
 * Import definitions.units from GNU units 2.17 with 13 new units.
-* Bison 3 is now required.
 
 6.0: Mar 7, 2018
 ----------------

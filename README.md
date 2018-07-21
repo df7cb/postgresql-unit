@@ -14,7 +14,8 @@ definitions can be added at run time. The extension comes with over 2500 units
 and over 100 prefixes found in the [definitions.units file](definitions.units)
 in [*GNU Units*](https://www.gnu.org/software/units/) 2.16.
 
-Requires PostgreSQL 9.5 or later (uses *HASH_BLOBS*), flex, and bison 3.
+Requires PostgreSQL 9.5 or later (uses *HASH_BLOBS*), flex, and bison 3 (the
+pre-built grammar files are used if only bison 2 is available).
 
 [![Build Status](https://travis-ci.org/ChristophBerg/postgresql-unit.svg?branch=master)](https://travis-ci.org/ChristophBerg/postgresql-unit)
 
