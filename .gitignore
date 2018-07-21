@@ -5,9 +5,12 @@ results/
 tags
 unit--*.sql
 unit.o
+unitparse.tab.c
+unitparse.tab.h
 unitparse.tab.o
 unitparse.yy.c
 unitparse.yy.o
 unit.so
 unittest
 unittest.o
+*.bc
