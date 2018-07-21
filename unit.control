@@ -1,4 +1,4 @@
-default_version = '6'
+default_version = '7'
 comment = 'SI units extension'
 # the unit_prefixes/unit_units tables can be installed in an arbitrary schema,
 # but can not be relocated later:

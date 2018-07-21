@@ -387,7 +387,7 @@ Details:
 
   Rounds a unit value to the nearest integer (in base units).
 
-* **unit @ text: cstring** -- scale conversion, output with unit
+* **unit @ text: text** -- scale conversion, output with unit
 
   Converts a unit value on the left side to the scale of the unit on the right
   side. The units must have the same dimension. The unit on the right side can
