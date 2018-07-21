@@ -10,6 +10,7 @@ DATA_built = unit--2--3.sql unit--3.sql \
 			 unit--5--6.sql unit--6.sql \
 			 unit--6--7.sql unit--7.sql
 REGRESS = extension tables unit unicode prefix units time temperature functions round derived compare aggregate iec custom
+# Jessie's and trusty's bison (3.0.2) is buggy, ship pregenerated .tab files
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
 
 # avoid add/mult contraction so '-459.67 °F' is really '0 K'
@@ -36,13 +37,8 @@ unitparse.yy.c: unitparse.l
 
 unitparse.yy.o: unit.h defined_units.h unitparse.tab.c # actually unitparse.tab.h
 
-unitparse.tab.c: unitparse.y
-ifneq ($(shell bison --version | grep 'Bison..2'),)
-	echo "### bison 2 detected, using pre-built unitparse.tab.c and .h files ###" # remove this hack once wheezy and precise are gone
-	touch $@
-else
+unitparse.tab.c unitparse.tab.h: unitparse.y
 	bison -d $<
-endif
 
 unitparse.tab.o: unit.h defined_units.h
 
