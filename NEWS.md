@@ -3,6 +3,7 @@
 * Format time using commonyears + days + hh:mm:ss.sss s.
 * Modify @(unit, text) operator to return text instead of cstring.
 * Import definitions.units from GNU units 2.17 with 13 new units.
+* Add π to known units.
 * Remove bison 2 compat mode, but keep pregenerated files for jessie and
   trusty.
 

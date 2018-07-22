@@ -73,7 +73,14 @@
                                    # particularly in France.  It is defined
                                    # to be 0 at the freezing point of water
                                    # and 80 at the boiling point.  Reaumur
-@@ -873,8 +881,10 @@
+@@ -867,14 +875,17 @@
+ # Basic constants
+ 
+ pi                      3.14159265358979323846
++π                       pi
+ c                       2.99792458e8 m/s # speed of light in vacuum (exact)
+ light                   c
+ mu0                     4 pi 1e-7 H/m    # permeability of vacuum (exact)
  epsilon0                1/mu0 c^2        # permittivity of vacuum (exact)
  energy                  c^2              # convert mass to energy
  e                     1.6021766208e-19 C # electron charge
@@ -86,7 +93,7 @@
  spin                    hbar
  G               6.67408e-11 N m^2 / kg^2 # Newtonian gravitational constant
                                           #    This is the NIST 2006 value.
-@@ -984,6 +994,13 @@
+@@ -984,6 +995,13 @@
  H2O50C        0.98807 force gram / cm^3
  H2O100C       0.95838 force gram / cm^3
  
@@ -100,7 +107,7 @@
  # Atomic constants
  
  Rinfinity            10973731.568539 /m  # The wavelengths of a spectral series
-@@ -1050,12 +1067,12 @@
+@@ -1050,12 +1068,12 @@
  # particle wavelengths: the compton wavelength of a particle is
  # defined as h / m c where m is the mass of the particle.
  
@@ -118,7 +125,7 @@
  
  # Magnetic moments
  
-@@ -1089,31 +1106,20 @@
+@@ -1089,31 +1107,20 @@
  inHg                    inch Hg    
  inH2O                   inch water
  mmH2O                   mm water
@@ -153,7 +160,7 @@
  invcm                   cminv               #   spectroscopy.
  wavenumber              cminv
  kcal_mol                kcal_th / mol N_A   # kcal/mol is used as a unit of
-@@ -1170,8 +1176,8 @@
+@@ -1170,8 +1177,8 @@
  
  abampere                10 A            # Current which produces a force of
  abamp                   abampere        #   2 dyne/cm between two infinitely
@@ -164,7 +171,7 @@
  Bi                      biot
  abcoulomb               abamp sec
  abcoul                  abcoulomb
-@@ -1393,8 +1399,8 @@
+@@ -1393,8 +1400,8 @@
  
  # Reflected-light meter calibration constant with ISO 100 speed
  
@@ -175,7 +182,7 @@
  
  # Incident-light meter calibration constant with ISO 100 film
  
-@@ -1448,8 +1454,8 @@
+@@ -1448,8 +1455,8 @@
                                  # ASA PH2.12-1961, and ANSI PH2.7-1986
  #N_apex         0.3162 lx s     # value in ANSI PH2.7-1973
  N_exif          1|3.125 lx s    # value in Exif 2.3 (2010), making Sv(5) = 100
@@ -186,7 +193,7 @@
  C_apex1961      224 lx / lx s   # value in PH2.12-1961 (20.83 for I in 
                                  #   footcandles; flat sensor?)
  C_apex1971      322 lx / lx s   # mean value in PH3.49-1971 (30 +/- 5 for I in
-@@ -1787,6 +1793,16 @@
+@@ -1787,6 +1794,16 @@
  au                     astronomicalunit # ephemeris for the above described
                                          # astronomical unit.  (See the NASA
                                          # site listed above.)
@@ -203,7 +210,7 @@
  solarmass                  1.9891e30 kg
  sunmass                       solarmass
  
-@@ -2124,11 +2140,6 @@
+@@ -2124,11 +2141,6 @@
  int                     3937|1200 ft/m   # Convert US Survey measures to
  int-                    int              #   international measures
  
@@ -215,7 +222,7 @@
  yard                    3 ft
  yd                      yard
  mile                    5280 ft          # The mile was enlarged from 5000 ft
-@@ -2276,6 +2287,7 @@
+@@ -2276,6 +2288,7 @@
  # Liquid measure
  
  usgallon                231 in^3        # US liquid measure is derived from
@@ -223,7 +230,7 @@
  gal                     gallon          # the British wine gallon of 1707.
  quart                   1|4 gallon      # See the "winegallon" entry below
  pint                    1|2 quart       # more historical information.
-@@ -2776,7 +2788,7 @@
+@@ -2776,7 +2789,7 @@
  
  number1can              10 usfloz
  number2can              19 usfloz
@@ -232,7 +239,7 @@
  number3can              4 uscups
  number5can              7 uscups
  number10can             105 usfloz
-@@ -3209,10 +3221,10 @@
+@@ -3209,10 +3222,10 @@
  
  btu                     btu_IT       # International Table BTU is the default
  britishthermalunit      btu
@@ -247,7 +254,7 @@
  btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
                                       #    on the IT calorie
  quad                    quadrillion btu
-@@ -3339,8 +3351,8 @@
+@@ -3339,8 +3352,8 @@
                                         # of coal used in the 1950's
  barreloil               5.8 Mbtu       # Conventional value for barrel of crude
                                         # oil [E2].  Actual range is 5.6 - 6.3.
@@ -258,7 +265,7 @@
  naturalgas              naturalgas_HHV # includes energy from condensation
                                         # combustion products.  LHV is for Lower
                                         # Heating Value and excludes these.
-@@ -3375,7 +3387,7 @@
+@@ -3375,7 +3388,7 @@
  
  # Celsius heat unit: energy to raise a pound of water 1 degC
  
@@ -267,7 +274,7 @@
  chu                     celsiusheatunit
  
  POWER                   watt
-@@ -3435,13 +3447,13 @@
+@@ -3435,13 +3448,13 @@
  Uvalue                  1/Rvalue
  europeanUvalue          watt / m^2 K
  RSI                     degC m^2 / W
@@ -283,7 +290,7 @@
  
  
  # The bel was defined by engineers of Bell Laboratories to describe the
-@@ -3815,7 +3827,7 @@
+@@ -3815,7 +3828,7 @@
  europeanpoint           didotpoint        # for the point used in Europe
  cicero                  12 didotpoint
  
@@ -292,7 +299,7 @@
  
  # Type sizes
  
-@@ -3872,8 +3884,8 @@
+@@ -3872,8 +3885,8 @@
  
  INFORMATION             bit
  
@@ -303,7 +310,7 @@
  ban                     hartley              #   distributed random variable
                                               #   over 10 symbols.
  dit                     hartley              # from Decimal digIT
-@@ -3888,8 +3900,8 @@
+@@ -3888,8 +3901,8 @@
                                               #   to symbols per second.  Modern
                                               #   modems transmit several bits
                                               #   per symbol.
@@ -314,7 +321,7 @@
                                               #   them do.  But beware: for
                                               #   transmission over modems, a
                                               #   few extra bits are used so
-@@ -4244,7 +4256,7 @@
+@@ -4244,7 +4257,7 @@
  boardfeet               boardfoot
  fbm                     boardfoot    # feet board measure
  stack                   4 yard^3     # British, used for firewood and coal [18]
@@ -323,7 +330,7 @@
                                       #   sometimes called a face cord, but this
                                       #   value is equal to 1|3 cord.  Name
                                       #   comes from an old Norse word for a
-@@ -5324,7 +5336,7 @@
+@@ -5324,7 +5337,7 @@
  
  pa                      Pa
  ev                      eV
@@ -332,7 +339,7 @@
  oe                      Oe
  mh                      mH
  rd                      rod
-@@ -5557,7 +5569,8 @@
+@@ -5557,7 +5570,8 @@
  Mag                     Maz gravity        # force
  Maz                     Volm kg / oldliter # mass based on water
  
@@ -342,7 +349,7 @@
  Gf                      Grafut
  Sf                      Surf
  Vm                      Volm
-@@ -6308,7 +6321,6 @@
+@@ -6308,7 +6322,6 @@
  ton                     uston
  scruple                 apscruple
  fluidounce              usfluidounce
@@ -350,7 +357,7 @@
  bushel                  usbushel
  quarter                 quarterweight
  cup                     uscup
-@@ -6397,7 +6409,7 @@
+@@ -6397,7 +6410,7 @@
  ℈                       scruple
  ℥                       ounce
  ℔                       lb

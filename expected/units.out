@@ -237,6 +237,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  three                     | 3                                   | 3
  triple                    | 3                                   | 3
  pi                        | 3.14159265358979                    | 3.14159265358979323846
+ π                         | 3.14159265358979                    | pi
  four                      | 4                                   | 4
  quadruple                 | 4                                   | 4
  helium                    | 4.002602                            | 4.002602
@@ -2663,7 +2664,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  reyn                      | 6.89475729316836 Mg/m*s             | psi sec
  lorentz                   | 46.6864481456201 s^2*A/m*kg         | bohrmagneton / hplanck c
  THERMAL_RESISTIVITY       | 1 s^3*K/m*kg                        | 1/THERMAL_CONDUCTIVITY
-(2542 rows)
+(2543 rows)
 
 -- units that do not conform to their original definition
 SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation
