@@ -16,6 +16,9 @@ GNU General Public License for more details.
 #include "fmgr.h"
 #include "utils/builtins.h" /* cstring_to_text (needed on 9.5) */
 #include "utils/guc.h"
+#if PG_VERSION_NUM >= 120000
+#include "utils/float.h" /* extra_float_digits */
+#endif
 #include "utils/hsearch.h"
 #include <math.h>
 
