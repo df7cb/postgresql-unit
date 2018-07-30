@@ -1023,7 +1023,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  T                         | 1 T                                 | tesla
  tesla                     | 1 T                                 | Wb/m^2
  mechanicalohm             | 1 g/s                               | dyn s / cm
- mobileohm                 | 1000 s/kg                           | cm / dyn s
+ mobileohm                 | 1 ks/kg                             | cm / dyn s
  roentgen                  | 0.000258 s*A/kg                     | 2.58e-4 C / kg
  rontgen                   | 0.000258 s*A/kg                     | roentgen
  röntgen                   | 0.000258 s*A/kg                     | roentgen
@@ -2389,7 +2389,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  amagat                    | 44.6150481863518 mol/m^3            | mol/amagatvolume
  eman                      | 3700 m^-3*s^-1                      | 1e-7 Ci/m^3
  mache                     | 13690 m^-3*s^-1                     | 3.7e-7 Ci/m^3
- gammil                    | 1000 mg/m^3                         | mg/l
+ gammil                    | 1 g/m^3                             | mg/l
  clarkdegree               | 14.2537675233002 g/m^3              | grains/brgallon
  gpg                       | 17.1180610452709 g/m^3              | grains/usgallon
  DENSITY                   | 1 kg/m^3                            | MASS / VOLUME
@@ -2428,7 +2428,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  heavycream                | 980.606658353447 kg/m^3             | 232 g/uscup
  Denz                      | 999.972000783978 kg/m^3             | Maz/Volm
  Dz                        | 999.972000783978 kg/m^3             | Denz
- waterdensity              | 1000 kg/m^3                         | gram / cm^3
+ waterdensity              | 1 Mg/m^3                            | gram / cm^3
  brownsugar_dark           | 1.01019392821756 Mg/m^3             | 239 g/uscup
  milk                      | 1.02287418673075 Mg/m^3             | 242 g/uscup
  sourcream                 | 1.02287418673075 Mg/m^3             | 242 g/uscup
@@ -2567,7 +2567,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  mho                       | 1 S                                 | siemens
  siemens                   | 1 S                                 | A/V
  ℧                         | 1 S                                 | mho
- abmho                     | 1000 MS                             | /abohm
+ abmho                     | 1 GS                                | /abohm
  thermalhenry              | 1 s^4*K^2/m^2*kg                    | J K^2/W^2
  pf                        | 1 pF                                | pF
  ㎊                        | 1 pF                                | pF
