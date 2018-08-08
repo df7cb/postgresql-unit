@@ -21,8 +21,7 @@ PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
 
-PG_VERSION_NUM = $(shell awk '/PG_VERSION_NUM/ { print $$3 }' $(shell $(PG_CONFIG) --includedir-server)/pg_config.h)
-HAS_CROSSTAB = $(shell [ $(PG_VERSION_NUM) -ge 90600 ] && echo yes)
+HAS_CROSSTAB = $(shell [ $(VERSION_NUM) -ge 90600 ] && echo yes)
 ifeq ($(HAS_CROSSTAB),yes)
 REGRESS += crosstab convert
 endif
