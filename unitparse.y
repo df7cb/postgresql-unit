@@ -85,7 +85,8 @@ expr:
   }
 | expr expr %prec '*' {
 	unit_mult_internal(&$1.unit, &$2.unit, &$$.unit);
-	$$.unit.value += $2.shift; /* shift is evaluated exactly here */
+	if ($2.shift != 0.0) /* avoid shift to not destroy -0 */
+		$$.unit.value += $2.shift; /* shift is evaluated exactly here */
 	$$.shift = 0.0;
   }
 | expr '*' expr {

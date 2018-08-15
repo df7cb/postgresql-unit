@@ -482,8 +482,8 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    49,    49,    55,    58,    62,    67,    78,    82,    86,
-      91,    95,    99,   107,   112,   113,   119,   120,   125,   126,
-     127,   131,   132
+      92,    96,   100,   108,   113,   114,   120,   121,   126,   127,
+     128,   132,   133
 };
 #endif
 
@@ -1347,81 +1347,82 @@ yyreduce:
 #line 86 "unitparse.y" /* yacc.c:1646  */
     {
 	unit_mult_internal(&(*(UnitShift*)(&yyvsp[-1])).unit, &(*(UnitShift*)(&yyvsp[0])).unit, &(*(UnitShift*)(&yyval)).unit);
-	(*(UnitShift*)(&yyval)).unit.value += (*(UnitShift*)(&yyvsp[0])).shift; /* shift is evaluated exactly here */
+	if ((*(UnitShift*)(&yyvsp[0])).shift != 0.0) /* avoid shift to not destroy -0 */
+		(*(UnitShift*)(&yyval)).unit.value += (*(UnitShift*)(&yyvsp[0])).shift; /* shift is evaluated exactly here */
 	(*(UnitShift*)(&yyval)).shift = 0.0;
   }
-#line 1354 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1355 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 91 "unitparse.y" /* yacc.c:1646  */
+#line 92 "unitparse.y" /* yacc.c:1646  */
     {
 	unit_mult_internal(&(*(UnitShift*)(&yyvsp[-2])).unit, &(*(UnitShift*)(&yyvsp[0])).unit, &(*(UnitShift*)(&yyval)).unit);
 	(*(UnitShift*)(&yyval)).shift = 0.0;
   }
-#line 1363 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1364 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 95 "unitparse.y" /* yacc.c:1646  */
+#line 96 "unitparse.y" /* yacc.c:1646  */
     {
 	unit_div_internal(&(*(UnitShift*)(&yyvsp[-2])).unit, &(*(UnitShift*)(&yyvsp[0])).unit, &(*(UnitShift*)(&yyval)).unit);
 	(*(UnitShift*)(&yyval)).shift = 0.0;
   }
-#line 1372 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1373 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 99 "unitparse.y" /* yacc.c:1646  */
+#line 100 "unitparse.y" /* yacc.c:1646  */
     {
 	Unit nominator = { 1.0, {0} };
 	unit_div_internal(&nominator, &(*(UnitShift*)(&yyvsp[0])).unit, &(*(UnitShift*)(&yyval)).unit);
 	(*(UnitShift*)(&yyval)).shift = 0.0;
   }
-#line 1382 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1383 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 107 "unitparse.y" /* yacc.c:1646  */
+#line 108 "unitparse.y" /* yacc.c:1646  */
     {
 	(*(UnitShift*)(&yyval)).unit.value = (*(double*)(&yyvsp[0]));
 	memset(&(*(UnitShift*)(&yyval)).unit.units, 0, N_UNITS);
 	(*(UnitShift*)(&yyval)).shift = 0.0;
   }
-#line 1392 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1393 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 113 "unitparse.y" /* yacc.c:1646  */
+#line 114 "unitparse.y" /* yacc.c:1646  */
     {
 	(*(UnitShift*)(&yyval)) = (*(UnitShift*)(&yyvsp[-1]));
 	(*(UnitShift*)(&yyval)).shift = 0.0;
   }
-#line 1401 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1402 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 120 "unitparse.y" /* yacc.c:1646  */
+#line 121 "unitparse.y" /* yacc.c:1646  */
     {
     (*(double*)(&yyval)) = (*(double*)(&yyvsp[-2])) / (*(double*)(&yyvsp[0]));
   }
-#line 1409 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1410 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 126 "unitparse.y" /* yacc.c:1646  */
+#line 127 "unitparse.y" /* yacc.c:1646  */
     { (*(int*)(&yyval)) = (*(int*)(&yyvsp[-1])) * (*(int*)(&yyvsp[0])); }
-#line 1415 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1416 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 132 "unitparse.y" /* yacc.c:1646  */
+#line 133 "unitparse.y" /* yacc.c:1646  */
     { (*(int*)(&yyval)) = 10 * (*(int*)(&yyvsp[-1])) + (*(int*)(&yyvsp[0])); }
-#line 1421 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1422 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1425 "unitparse.tab.c" /* yacc.c:1646  */
+#line 1426 "unitparse.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1649,7 +1650,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 135 "unitparse.y" /* yacc.c:1906  */
+#line 136 "unitparse.y" /* yacc.c:1906  */
 
 
 /* parse a given string and return the result via the second argument */
