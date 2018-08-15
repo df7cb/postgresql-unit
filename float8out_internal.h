@@ -11,6 +11,12 @@ float8out_internal(double num)
 
 	if (isnan(num))
 		return strcpy(ascii, "NaN");
+	if (!isfinite(num)) {
+		if (num > 0)
+			return strcpy(ascii, "Infinity");
+		else
+			return strcpy(ascii, "-Infinity");
+	}
 
 	if (ndig < 1)
 		ndig = 1;

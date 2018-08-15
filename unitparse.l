@@ -18,6 +18,7 @@ GNU General Public License for more details.
 #include <executor/spi.h>
 #include <utils/builtins.h> /* CStringGetTextDatum */
 #include <catalog/pg_type.h> /* TEXTOID */
+#include <math.h> /* INFINITY, NAN */
 
 #define when(x) if (!strcmp(yytext, x))
 %}
@@ -70,6 +71,16 @@ SUPER_9     \xe2\x81\xb9
 
 {DOUBLE_R} {
 	yyunitlval.DOUBLE = atof(yytext);
+	return DOUBLE;
+}
+
+[Ii][Nn][Ff]([Ii][Nn][Ii][Tt][Yy])? {
+	yyunitlval.DOUBLE = INFINITY;
+	return DOUBLE;
+}
+
+[Nn][Aa][Nn] {
+	yyunitlval.DOUBLE = NAN;
 	return DOUBLE;
 }
 

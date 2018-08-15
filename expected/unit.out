@@ -178,6 +178,31 @@ SELECT '1 foobar'::unit AS error;
 ERROR:  unit "foobar" is not known
 LINE 1: SELECT '1 foobar'::unit AS error;
                ^
+-- special values
+SELECT '-0'::unit, -'0'::unit, '-0 m'::unit, -'0 m'::unit;
+ unit | ?column? | unit | ?column? 
+------+----------+------+----------
+ -0   | -0       | -0 m | -0 m
+(1 row)
+
+SELECT 'infinity'::unit, 'Infinity m'::unit, 'inf A'::unit;
+   unit   |    unit    |    unit    
+----------+------------+------------
+ Infinity | Infinity m | Infinity A
+(1 row)
+
+SELECT '-infinity'::unit, '-Infinity m'::unit, 'Inf A'::unit;
+   unit    |    unit     |    unit    
+-----------+-------------+------------
+ -Infinity | -Infinity m | Infinity A
+(1 row)
+
+SELECT 'nan'::unit, 'NaN'::unit;
+ unit | unit 
+------+------
+ NaN  | NaN
+(1 row)
+
 -- test parser arithmetic
 SELECT '1|10'::unit, '1|10 m'::unit;
  unit |  unit  

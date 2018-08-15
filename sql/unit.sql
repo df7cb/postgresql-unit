@@ -39,6 +39,12 @@ SELECT '10 dm^3'::unit, '10l'::unit;
 SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
 SELECT '1 foobar'::unit AS error;
 
+-- special values
+SELECT '-0'::unit, -'0'::unit, '-0 m'::unit, -'0 m'::unit;
+SELECT 'infinity'::unit, 'Infinity m'::unit, 'inf A'::unit;
+SELECT '-infinity'::unit, '-Infinity m'::unit, 'Inf A'::unit;
+SELECT 'nan'::unit, 'NaN'::unit;
+
 -- test parser arithmetic
 SELECT '1|10'::unit, '1|10 m'::unit;
 SELECT '2 m + 3 m - 4 m'::unit, '6 m - 3 m - 2 m'::unit, '6 m - 3 m + 1 m'::unit;
