@@ -12,10 +12,12 @@ used for input and output, and quantities can be converted to arbitrary scale.
 Unit and prefix definitions are retrieved from database tables, and new
 definitions can be added at run time. The extension comes with over 2500 units
 and over 100 prefixes found in the [definitions.units file](definitions.units)
-in [*GNU Units*](https://www.gnu.org/software/units/) 2.16.
+in [*GNU Units*](https://www.gnu.org/software/units/).
 
 Requires PostgreSQL 9.5 or later (uses *HASH_BLOBS*), flex, and bison 3 (the
 pre-built grammar files are used if only bison 2 is available).
+
+[Changelog](NEWS.md)
 
 [![Build Status](https://travis-ci.org/ChristophBerg/postgresql-unit.svg?branch=master)](https://travis-ci.org/ChristophBerg/postgresql-unit)
 
