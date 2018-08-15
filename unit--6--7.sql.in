@@ -1,3 +1,23 @@
+-- add recv/send functions
+
+CREATE FUNCTION unit_recv(internal)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_send(unit)
+	RETURNS bytea
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+UPDATE pg_type SET typreceive = 'unit_recv', typsend = 'unit_send'
+	WHERE typname = 'unit' AND typnamespace = '@extschema@'::regnamespace;
+
+INSERT INTO pg_depend (classid, objid, objsubid, refclassid, refobjid, refobjsubid, deptype)
+	VALUES
+		('pg_type'::regclass, 'unit'::regtype, 0, 'pg_proc'::regclass, 'unit_recv'::regproc, 0, 'n'),
+		('pg_type'::regclass, 'unit'::regtype, 0, 'pg_proc'::regclass, 'unit_send'::regproc, 0, 'n');
+
 -- convert @ from (unit, text)->cstring to (unit, text)->text
 
 DROP OPERATOR @ (unit, text);

@@ -14,6 +14,7 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "libpq/pqformat.h" /* send/recv */
 #include "utils/builtins.h" /* cstring_to_text (needed on 9.5) */
 #include "utils/guc.h"
 #if PG_VERSION_NUM >= 120000
@@ -526,6 +527,33 @@ unit_out(PG_FUNCTION_ARGS)
 {
 	Unit	*unit = (Unit *) PG_GETARG_POINTER(0);
 	PG_RETURN_CSTRING(unit_cstring(unit));
+}
+
+PG_FUNCTION_INFO_V1(unit_recv);
+
+Datum
+unit_recv(PG_FUNCTION_ARGS)
+{
+	StringInfo	 buf = (StringInfo) PG_GETARG_POINTER(0);
+	Unit		*unit = palloc(sizeof(Unit));
+
+	unit->value = pq_getmsgfloat8(buf);
+	memcpy(unit->units, pq_getmsgbytes(buf, N_UNITS), N_UNITS);
+	PG_RETURN_POINTER(unit);
+}
+
+PG_FUNCTION_INFO_V1(unit_send);
+
+Datum
+unit_send(PG_FUNCTION_ARGS)
+{
+	Unit		*unit = (Unit *) PG_GETARG_POINTER(0);
+	StringInfoData buf;
+
+	pq_begintypsend(&buf);
+	pq_sendfloat8(&buf, unit->value);
+	pq_sendbytes(&buf, (const char *)unit->units, N_UNITS);
+	PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
 }
 
 /* constructors */

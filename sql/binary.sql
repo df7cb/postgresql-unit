@@ -1,0 +1,10 @@
+SELECT unit_send('0');
+SELECT unit_send(-'0'::unit);
+SELECT unit_send('1 m'::unit);
+SELECT unit_send('1 kg^-1'::unit);
+SELECT unit_send('1 s'::unit);
+SELECT unit_send('1 A^-1'::unit);
+SELECT unit_send('1 K'::unit);
+SELECT unit_send('1 mol^-1'::unit);
+SELECT unit_send('1 cd'::unit);
+SELECT unit_send('1 B^-1'::unit);

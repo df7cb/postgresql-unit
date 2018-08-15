@@ -6,6 +6,7 @@ postgresql-unit (7.0-1) UNRELEASED; urgency=medium
   * Add π to known units.
   * Remove bison 2 compat mode, but keep pregenerated files for jessie and
     trusty.
+  * Support send/receive via the binary protocol.
 
  -- Christoph Berg <myon@debian.org>  Sun, 08 Jul 2018 21:46:17 +0200
 

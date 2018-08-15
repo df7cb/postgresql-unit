@@ -6,6 +6,7 @@
 * Add π to known units.
 * Remove bison 2 compat mode, but keep pregenerated files for jessie and
   trusty.
+* Support send/receive via the binary protocol.
 
 6.0: Mar 7, 2018
 ----------------

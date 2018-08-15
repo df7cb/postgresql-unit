@@ -27,10 +27,22 @@ CREATE FUNCTION unit_out(unit)
 	AS '$libdir/unit'
 	LANGUAGE C IMMUTABLE STRICT;
 
+CREATE FUNCTION unit_recv(internal)
+	RETURNS unit
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_send(unit)
+	RETURNS bytea
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
 CREATE TYPE unit (
 	internallength = 16,
 	input = unit_in,
 	output = unit_out,
+	receive = unit_recv,
+	send = unit_send,
 	alignment = double
 );
 
