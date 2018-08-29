@@ -28,7 +28,7 @@ SELECT '01:00:00 s'::unit;
 SELECT '1 d + 02:03:04.5 s'::unit;
 SELECT '1.1 d'::unit; -- needs ULP clamping
 
-SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name;
+SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name COLLATE "C";
 
 -- units that differ when pushed through output-input functions
 -- (same test as in units.sql, but with time_output_custom = true)

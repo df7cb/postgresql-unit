@@ -160,7 +160,7 @@ SELECT '1.1 d'::unit; -- needs ULP clamping
  1 d + 02:24:00 s
 (1 row)
 
-SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name;
+SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name COLLATE "C";
        name       |                     unit                      |                  definition                   
 ------------------+-----------------------------------------------+-----------------------------------------------
  plancktime       | 5.39105895420117e-44 s                        | hbar / planckmass c^2
@@ -179,10 +179,10 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  blink            | 864 ms                                        | 1e-5 day
  decimalsecond    | 864 ms                                        | 1|100 decimalminute 
  siderealsecond   | 997.269566435185 ms                           | 1|60 siderealminute
+ TIME             | 1 s                                           | second
  s                | 1 s                                           | s
  sec              | 1 s                                           | s
  second           | 1 s                                           | s
- TIME             | 1 s                                           | second
  timeounce        | 7.5 s                                         | 1|8 timeostent
  siderealminute   | 59.8361739861111 s                            | 1|60 siderealhour
  min              | 00:01:00 s                                    | minute
@@ -208,10 +208,10 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  lune             | 23:37:28.0933333333 s                         | 1|30 lunation
  earthday         | 23:56:04.09054 s                              | siderealday
  siderealday      | 23:56:04.09054 s                              | 86164.09054 s
- ㍲               | 1 d                                           | da
  d                | 1 d                                           | day
  da               | 1 d                                           | day
  day              | 1 d                                           | 24 hr
+ ㍲               | 1 d                                           | da
  marsday          | 1 d + 00:37:22.6632 s                         | 1.02595675 day
  plutoday         | 6 d + 09:16:50.88 s                           | 6.3867 day
  sennight         | 7 d                                           | 7 day
