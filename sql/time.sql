@@ -28,7 +28,7 @@ SELECT '01:00:00 s'::unit;
 SELECT '1 d + 02:03:04.5 s'::unit;
 SELECT '1.1 d'::unit; -- needs ULP clamping
 
-SELECT name, unit, definition FROM unit_units WHERE name ~ 'year' ORDER BY 2, 1;
+SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name;
 
 /* custom time format is only used if dimension is time */
 SELECT '1000 s'::unit, '1000 s/m'::unit;

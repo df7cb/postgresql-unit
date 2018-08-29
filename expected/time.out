@@ -160,35 +160,110 @@ SELECT '1.1 d'::unit; -- needs ULP clamping
  1 d + 02:24:00 s
 (1 row)
 
-SELECT name, unit, definition FROM unit_units WHERE name ~ 'year' ORDER BY 2, 1;
-      name       |                  unit                   |      definition       
------------------+-----------------------------------------+-----------------------
- mercuryyear     | 87 d + 23:15:43.8199 s                  | 0.2408467 julianyear
- venusyear       | 224 d + 16:49:09.05218 s                | 0.61519726 julianyear
- eclipseyear     | 346 d + 14:52:48 s                      | 346.62 days
- islamicyear     | 354 d                                   | 354 day
- lunaryear       | 354 d + 08:48:33.6 s                    | 12 lunarmonth
- islamicleapyear | 355 d                                   | 355 day
- calendaryear    | 1 commonyear                            | 365 day
- commonyear      | 1 commonyear                            | 365 day
- solaryear       | 1 commonyear + 05:48:45.9747 s          | year
- tropicalyear    | 1 commonyear + 05:48:45.9747 s          | 365.242198781 day
- year            | 1 commonyear + 05:48:45.9747 s          | tropicalyear
- gregorianyear   | 1 commonyear + 05:49:12 s               | 365.2425 day
- julianyear      | 1 commonyear + 06:00:00 s               | 365.25 day
- earthyear       | 1 commonyear + 06:09:09.54003 s         | siderealyear
- siderealyear    | 1 commonyear + 06:09:09.54003 s         | 365.256360417 day
- gaussianyear    | 1 commonyear + 06:09:56.0154 s          | (2 pi / gauss_k) days
- anomalisticyear | 1 commonyear + 06:13:49.44 s            | 365.2596 days
- leapyear        | 1 commonyear + 1 d                      | 366 day
- marsyear        | 1 commonyear + 321 d + 23:30:36.2218 s  | 1.8808476 julianyear
- jupiteryear     | 11 commonyear + 317 d + 19:40:59.124 s  | 11.862615 julianyear
- saturnyear      | 29 commonyear + 170 d + 16:46:02.8848 s | 29.447498 julianyear
- uranusyear      | 84 commonyear + 27 d + 03:40:19.3296 s  | 84.016846 julianyear
- neptuneyear     | 164 commonyear + 330 d + 00:42:40.032 s | 164.79132 julianyear
- plutoyear       | 248 commonyear + 33 d + 00:25:04.44 s   | 247.92065 julianyear
- lightyear       | 9.4607304725808 Pm                      | c julianyear
-(25 rows)
+SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name;
+       name       |                       unit                       |                  definition                   
+------------------+--------------------------------------------------+-----------------------------------------------
+ plancktime       | 5.39105895420117e-44 s                           | hbar / planckmass c^2
+ t_P              | 5.39105895420117e-44 s                           | plancktime
+ atomictime       | 24.188843266026 as                               | hbar^3/coulombconst^2 atomicmass e^4
+ svedberg         | 100 fs                                           | 1e-13 s
+ ㎰               | 1 ps                                             | ps
+ ㎱               | 1 ns                                             | ns
+ shake            | 10 ns                                            | 1e-8 sec
+ ㎲               | 1 µs                                             | µs
+ ㎳               | 1 ms                                             | ms
+ jiffies          | 10 ms                                            | jiffy
+ jiffy            | 10 ms                                            | 0.01 sec
+ timeatom         | 159.574468085106 ms                              | 1|47 timeounce
+ Tim              | 173.611111111111 ms                              | 12^-4 hour
+ blink            | 864 ms                                           | 1e-5 day
+ decimalsecond    | 864 ms                                           | 1|100 decimalminute 
+ siderealsecond   | 997.269566435185 ms                              | 1|60 siderealminute
+ s                | 1 s                                              | s
+ sec              | 1 s                                              | s
+ second           | 1 s                                              | s
+ TIME             | 1 s                                              | second
+ timeounce        | 7.5 s                                            | 1|8 timeostent
+ siderealminute   | 59.8361739861111 s                               | 1|60 siderealhour
+ min              | 00:01:00 s                                       | minute
+ minute           | 00:01:00 s                                       | 60 s
+ timeostent       | 00:01:00 s                                       | 1|60 hour
+ beat             | 00:01:26.4 s                                     | decimalminute
+ decimalminute    | 00:01:26.4 s                                     | 1|100 decimalhour   
+ timeminute       | 00:06:00 s                                       | 1|10 hour
+ timepoint        | 00:12:00 s                                       | 1|5 hour
+ ce               | 00:14:24 s                                       | 1e-2 day
+ bell             | 00:30:00 s                                       | 1|8 watch
+ lunour           | 00:59:03.67055556 s                              | 1|24 lune
+ siderealhour     | 00:59:50.1704392 s                               | 1|24 siderealday
+ h                | 01:00:00 s                                       | hour
+ hour             | 01:00:00 s                                       | 60 min
+ hr               | 01:00:00 s                                       | hour
+ decimalhour      | 02:24:00 s                                       | 1|10 day            
+ watch            | 04:00:00 s                                       | 4 hours
+ jupiterday       | 09:55:29.856 s                                   | 0.41354 day
+ saturnday        | 10:30:00 s                                       | 0.4375 day
+ uranusday        | 15:36:00 s                                       | 0.65 day
+ neptuneday       | 18:25:55.2 s                                     | 0.768 day
+ lune             | 23:37:28.09 s                                    | 1|30 lunation
+ earthday         | 23:56:04.091 s                                   | siderealday
+ siderealday      | 23:56:04.091 s                                   | 86164.09054 s
+ ㍲               | 1 d                                              | da
+ d                | 1 d                                              | day
+ da               | 1 d                                              | day
+ day              | 1 d                                              | 24 hr
+ marsday          | 1 d + 00:37:22.66 s                              | 1.02595675 day
+ plutoday         | 6 d + 09:16:5e+01 s                              | 6.3867 day
+ sennight         | 7 d                                              | 7 day
+ week             | 7 d                                              | 7 day
+ wk               | 7 d                                              | week
+ fortnight        | 14 d                                             | 14 day
+ draconicmonth    | 27 d + 05:05:4e+01 s                             | nodicalmonth
+ draconiticmonth  | 27 d + 05:05:4e+01 s                             | nodicalmonth
+ nodicalmonth     | 27 d + 05:05:4e+01 s                             | 27.2122199 day
+ siderealmonth    | 27 d + 07:43:1e+01 s                             | 27.321661 day
+ anomalisticmonth | 27 d + 13:18:3e+01 s                             | 27.55454977 day
+ islamicmonth     | 29 d + 12:00:00 s                                | 1|12 islamicyear
+ lunarmonth       | 29 d + 12:44:03 s                                | 29 days + 12 hours + 44 minutes + 2.8 seconds
+ lunation         | 29 d + 12:44:03 s                                | synodicmonth
+ synodicmonth     | 29 d + 12:44:03 s                                | lunarmonth
+ mo               | 30 d + 10:29:04 s                                | month
+ month            | 30 d + 10:29:04 s                                | 1|12 year
+ mercuryday       | 58 d + 15:30:31.68 s                             | 58.6462 day
+ mercuryyear      | 87 d + 23:15:43.8199 s                           | 0.2408467 julianyear
+ venusyear        | 224 d + 16:49:09.05218 s                         | 0.61519726 julianyear
+ venusday         | 243 d + 00:14:24 s                               | 243.01 day
+ eclipseyear      | 346 d + 14:52:48 s                               | 346.62 days
+ islamicyear      | 354 d                                            | 354 day
+ lunaryear        | 354 d + 08:48:33.6 s                             | 12 lunarmonth
+ islamicleapyear  | 355 d                                            | 355 day
+ calendaryear     | 1 commonyear                                     | 365 day
+ commonyear       | 1 commonyear                                     | 365 day
+ solaryear        | 1 commonyear + 05:48:45.9747 s                   | year
+ tropicalyear     | 1 commonyear + 05:48:45.9747 s                   | 365.242198781 day
+ year             | 1 commonyear + 05:48:45.9747 s                   | tropicalyear
+ yr               | 1 commonyear + 05:48:45.9747 s                   | year
+ gregorianyear    | 1 commonyear + 05:49:12 s                        | 365.2425 day
+ julianyear       | 1 commonyear + 06:00:00 s                        | 365.25 day
+ earthyear        | 1 commonyear + 06:09:09.54003 s                  | siderealyear
+ siderealyear     | 1 commonyear + 06:09:09.54003 s                  | 365.256360417 day
+ gaussianyear     | 1 commonyear + 06:09:56.0154 s                   | (2 pi / gauss_k) days
+ anomalisticyear  | 1 commonyear + 06:13:49.44 s                     | 365.2596 days
+ leapyear         | 1 commonyear + 1 d                               | 366 day
+ marsyear         | 1 commonyear + 321 d + 23:30:36.2218 s           | 1.8808476 julianyear
+ lustrum          | 5 commonyear + 1 d + 05:03:49.8734 s             | 5 years
+ decade           | 10 commonyear + 2 d + 10:07:39.7468 s            | 10 years
+ jupiteryear      | 11 commonyear + 317 d + 19:40:59.124 s           | 11.862615 julianyear
+ saros            | 18 commonyear + 15 d + 07:42:24.4 s              | 223 synodicmonth
+ saturnyear       | 29 commonyear + 170 d + 16:46:02.8848 s          | 29.447498 julianyear
+ uranusyear       | 84 commonyear + 27 d + 03:40:19.3296 s           | 84.016846 julianyear
+ century          | 100 commonyear + 24 d + 05:16:37.4678 s          | 100 years
+ neptuneyear      | 164 commonyear + 330 d + 00:42:40.032 s          | 164.79132 julianyear
+ plutoyear        | 248 commonyear + 33 d + 00:25:04.44 s            | 247.92065 julianyear
+ millennia        | 1000 commonyear + 242 d + 04:46:14.6784 s        | millennium
+ millennium       | 1000 commonyear + 242 d + 04:46:14.6784 s        | 1000 years
+ cron             | 1.00066e+06 commonyear + 203 d + 18:44:38.4023 s | 1e6 years
+(100 rows)
 
 /* custom time format is only used if dimension is time */
 SELECT '1000 s'::unit, '1000 s/m'::unit;
