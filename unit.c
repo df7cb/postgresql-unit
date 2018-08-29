@@ -410,6 +410,7 @@ unit_cstring (Unit *unit)
 		double	 v_abs = fabs(unit->value);
 		char	*prefix = "";
 		double	 factor = 1.0;
+		char	*unit_name = derived_unit ? derived_unit->name : (char *)base_units[u_numerator];
 
 		/* case 2a: minute/hour/day output requested, unit is seconds, and
 		 * absolute value is >= 60 seconds. Print as interval and exit */
@@ -433,6 +434,8 @@ unit_cstring (Unit *unit)
 			prefix = "T"; factor = 1e-12;
 		} else if (v_abs >= POWER_9) {
 			prefix = "G"; factor = 1e-9;
+			if (!strcmp(unit_name, "s"))
+				unit_name = "sec"; /* avoid Gs because it's gauss, not time */
 		} else if (v_abs >= POWER_6) {
 			prefix = "M"; factor = 1e-6;
 		} else if (v_abs >= POWER_3) {
@@ -457,16 +460,15 @@ unit_cstring (Unit *unit)
 			prefix = "y"; factor = 1e24;
 		} /* else do nothing */
 
-		/* case 2b: derived unit, print with SI prefix and exit */
-		if (derived_unit) {
-			print_output("%s %s%s", float8out_internal (unit->value * factor),
-					prefix, derived_unit->name);
-			return output;
-		}
-
-		/* case 2c: single unit in numerator (exponent 1), print with SI prefix and continue */
+		/* print with SI prefix */
 		print_output("%s %s%s", float8out_internal (unit->value * factor),
-				prefix, base_units[u_numerator]);
+				prefix, unit_name);
+
+		/* case 2b: derived unit: stop here */
+		if (derived_unit)
+			return output;
+
+		/* case 2c: single unit in numerator (exponent 1): continue */
 		numerator = true;
 
 	/* case 3: zero or more than one unit in numerator */

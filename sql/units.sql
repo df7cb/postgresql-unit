@@ -8,6 +8,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
 SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation
   FROM unit_units WHERE unit <> definition::unit;
 
+-- units that differ when pushed through output-input functions
+SELECT name, unit, unit::text::unit, definition FROM unit_units WHERE unit::text::unit::text <> unit::text;
+
 -- prefix-unit combinations that are ambiguous
 /*
 CREATE OR REPLACE FUNCTION valid_unit(u text)

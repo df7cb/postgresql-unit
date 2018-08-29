@@ -675,12 +675,12 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  jupiteryear               | 374.355659124 Ms                    | 11.862615 julianyear
  saros                     | 568.9717444 Ms                      | 223 synodicmonth
  saturnyear                | 929.2923628848 Ms                   | 29.447498 julianyear
- uranusyear                | 2.6513700193296 Gs                  | 84.016846 julianyear
- century                   | 3.15569259746784 Gs                 | 100 years
- neptuneyear               | 5.200418560032 Gs                   | 164.79132 julianyear
- plutoyear                 | 7.82378070444 Gs                    | 247.92065 julianyear
- millennia                 | 31.5569259746784 Gs                 | millennium
- millennium                | 31.5569259746784 Gs                 | 1000 years
+ uranusyear                | 2.6513700193296 Gsec                | 84.016846 julianyear
+ century                   | 3.15569259746784 Gsec               | 100 years
+ neptuneyear               | 5.200418560032 Gsec                 | 164.79132 julianyear
+ plutoyear                 | 7.82378070444 Gsec                  | 247.92065 julianyear
+ millennia                 | 31.5569259746784 Gsec               | millennium
+ millennium                | 31.5569259746784 Gsec               | 1000 years
  cron                      | 31.5569259746784 Ts                 | 1e6 years
  LUMINOUS_ENERGY           | 1 s*cd                              | talbot
  lumberg                   | 1 s*cd                              | talbot
@@ -2671,6 +2671,12 @@ SELECT name, unit, definition, definition::unit AS parsed_definition, unit / def
   FROM unit_units WHERE unit <> definition::unit;
  name | unit | definition | parsed_definition | deviation 
 ------+------+------------+-------------------+-----------
+(0 rows)
+
+-- units that differ when pushed through output-input functions
+SELECT name, unit, unit::text::unit, definition FROM unit_units WHERE unit::text::unit::text <> unit::text;
+ name | unit | unit | definition 
+------+------+------+------------
 (0 rows)
 
 -- prefix-unit combinations that are ambiguous

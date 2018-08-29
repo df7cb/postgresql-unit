@@ -30,7 +30,14 @@ SELECT '1.1 d'::unit; -- needs ULP clamping
 
 SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORDER BY unit, name;
 
+-- units that differ when pushed through output-input functions
+-- (same test as in units.sql, but with time_output_custom = true)
+SELECT name, unit, unit::text::unit, definition FROM unit_units WHERE unit::text::unit::text <> unit::text;
+
 /* custom time format is only used if dimension is time */
 SELECT '1000 s'::unit, '1000 s/m'::unit;
 SET unit.time_output_custom = false;
 SELECT '1000 s'::unit, '1000 s/m'::unit;
+
+-- test if 'Gs' is avoided on output
+SELECT '1 Gsec'::unit, '1 Gsec/m'::unit;

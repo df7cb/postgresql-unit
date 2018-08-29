@@ -265,6 +265,13 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  cron             | 1.00066e+06 commonyear + 203 d + 18:44:38.4 s | 1e6 years
 (100 rows)
 
+-- units that differ when pushed through output-input functions
+-- (same test as in units.sql, but with time_output_custom = true)
+SELECT name, unit, unit::text::unit, definition FROM unit_units WHERE unit::text::unit::text <> unit::text;
+ name | unit | unit | definition 
+------+------+------+------------
+(0 rows)
+
 /* custom time format is only used if dimension is time */
 SELECT '1000 s'::unit, '1000 s/m'::unit;
     unit    |  unit  
@@ -277,5 +284,12 @@ SELECT '1000 s'::unit, '1000 s/m'::unit;
  unit |  unit  
 ------+--------
  1 ks | 1 ks/m
+(1 row)
+
+-- test if 'Gs' is avoided on output
+SELECT '1 Gsec'::unit, '1 Gsec/m'::unit;
+  unit  |   unit   
+--------+----------
+ 1 Gsec | 1 Gsec/m
 (1 row)
 
