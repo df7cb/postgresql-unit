@@ -239,7 +239,6 @@ print_time_interval (char **output_p, double t)
 	int		 h, m;
 	char	*sign = "+";
 	int		 ndig;
-	double	 ulp;
 
 	/* print - */
 	if (t < 0) {
@@ -247,8 +246,8 @@ print_time_interval (char **output_p, double t)
 		t = -t;
 		sign = "-";
 	}
-	ndig = DBL_DIG + extra_float_digits - log2(t / 60.0); /* adjust seconds precision for d/h/min already printed */
-	ulp = t * __DBL_EPSILON__; /* smallest remainder of seconds that should be printed */
+
+	ndig = DBL_DIG + extra_float_digits - log10(t); /* adjust seconds precision for d/h/min already printed */
 
 	/* print years */
 	if (t >= TIME_YEAR) {
@@ -272,17 +271,30 @@ print_time_interval (char **output_p, double t)
 	if (t == 0)
 		return;
 
-	/* print hh:mm:ss.sss */
+	/* print hh:mm: */
 	h = trunc(t / TIME_HOUR);
 	t = fmod(t, TIME_HOUR);
 	m = trunc(t / TIME_MINUTE);
 	t = fmod(t, TIME_MINUTE);
 	*output_p += sprintf(*output_p, "%02d:%02d:", h, m);
+
+	/* print ss.sss */
 	if (t < 10.0) /* zero-pad */
 		*output_p += sprintf(*output_p, "0");
-	if (t < ulp) /* clamp output smaller than input precision */
-		t = 0;
-	*output_p += sprintf(*output_p, "%.*g s", ndig, t);
+	if (ndig < 0)
+		ndig = 0;
+	*output_p += sprintf(*output_p, "%.*f", ndig, t);
+	if (ndig > 0) {
+		/* strip trailing zeros from %f format */
+		while (*(*output_p - 1) == '0') {
+			--*output_p;
+		}
+		if (*(*output_p - 1) == '.') {
+			--*output_p;
+		}
+		**output_p = '\0';
+	}
+	*output_p += sprintf(*output_p, " s");
 }
 
 /* format Unit as string */
