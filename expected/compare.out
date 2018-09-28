@@ -183,3 +183,52 @@ EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = '300' * kilogram();
    Index Cond: (u = '300 kg'::unit)
 (2 rows)
 
+-- test strict operators
+SELECT '1 m'::unit << '1 m'::unit;
+ ?column? 
+----------
+ f
+(1 row)
+
+SELECT '1 m'::unit << '1 A'::unit;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"
+SELECT '1 m'::unit <<= '1 m'::unit;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '1 m'::unit <<= '1 A'::unit;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"
+SELECT '1 m'::unit == '1 m'::unit;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '1 m'::unit == '1 A'::unit;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"
+SELECT '1 m'::unit <<>> '1 m'::unit;
+ ?column? 
+----------
+ f
+(1 row)
+
+SELECT '1 m'::unit <<>> '1 A'::unit;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"
+SELECT '1 m'::unit >>= '1 m'::unit;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '1 m'::unit >>= '1 A'::unit;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"
+SELECT '1 m'::unit >> '1 m'::unit;
+ ?column? 
+----------
+ f
+(1 row)
+
+SELECT '1 m'::unit >> '1 A'::unit;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"

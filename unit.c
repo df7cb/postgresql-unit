@@ -1140,6 +1140,96 @@ unit_cmp(PG_FUNCTION_ARGS)
 	PG_RETURN_INT32(unit_cmp_internal(a, b));
 }
 
+/* strict comparisons (error out when dimensions do not match) */
+
+static int
+unit_strict_cmp_internal(Unit *a, Unit *b)
+{
+	test_same_dimension("strict comparison", a, b);
+	if (a->value < b->value)
+		return -1;
+	if (a->value > b->value)
+		return 1;
+	return memcmp(a->units, b->units, N_UNITS);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_lt);
+
+Datum
+unit_strict_lt(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_BOOL(unit_strict_cmp_internal(a, b) < 0);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_le);
+
+Datum
+unit_strict_le(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_BOOL(unit_strict_cmp_internal(a, b) <= 0);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_eq);
+
+Datum
+unit_strict_eq(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_BOOL(unit_strict_cmp_internal(a, b) == 0);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_ne);
+
+Datum
+unit_strict_ne(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_BOOL(unit_strict_cmp_internal(a, b) != 0);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_ge);
+
+Datum
+unit_strict_ge(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_BOOL(unit_strict_cmp_internal(a, b) >= 0);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_gt);
+
+Datum
+unit_strict_gt(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_BOOL(unit_strict_cmp_internal(a, b) > 0);
+}
+
+PG_FUNCTION_INFO_V1(unit_strict_cmp);
+
+Datum
+unit_strict_cmp(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+
+	PG_RETURN_INT32(unit_strict_cmp_internal(a, b));
+}
+
 PG_FUNCTION_INFO_V1(unit_least);
 
 Datum

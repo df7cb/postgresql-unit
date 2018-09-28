@@ -9,6 +9,8 @@ postgresql-unit (7.0-1) UNRELEASED; urgency=medium
     trusty.
   * Support send/receive via the binary protocol.
   * Support Infinity and NaN.
+  * Add strict comparison operators that error out when dimensions of
+    arguments do not match: << <<= == <<>> >>= >>.
 
  -- Christoph Berg <myon@debian.org>  Sun, 08 Jul 2018 21:46:17 +0200
 

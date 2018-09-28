@@ -37,3 +37,17 @@ SELECT * FROM u WHERE u = meter(400);
 SELECT * FROM u WHERE u = '300' * kilogram();
 EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = meter(400);
 EXPLAIN (COSTS OFF) SELECT * FROM u WHERE u = '300' * kilogram();
+
+-- test strict operators
+SELECT '1 m'::unit << '1 m'::unit;
+SELECT '1 m'::unit << '1 A'::unit;
+SELECT '1 m'::unit <<= '1 m'::unit;
+SELECT '1 m'::unit <<= '1 A'::unit;
+SELECT '1 m'::unit == '1 m'::unit;
+SELECT '1 m'::unit == '1 A'::unit;
+SELECT '1 m'::unit <<>> '1 m'::unit;
+SELECT '1 m'::unit <<>> '1 A'::unit;
+SELECT '1 m'::unit >>= '1 m'::unit;
+SELECT '1 m'::unit >>= '1 A'::unit;
+SELECT '1 m'::unit >> '1 m'::unit;
+SELECT '1 m'::unit >> '1 A'::unit;

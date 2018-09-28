@@ -9,6 +9,8 @@
   trusty.
 * Support send/receive via the binary protocol.
 * Support Infinity and NaN.
+* Add strict comparison operators that error out when dimensions of arguments
+  do not match: << <<= == <<>> >>= >>.
 
 6.0: Mar 7, 2018
 ----------------
