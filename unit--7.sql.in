@@ -576,6 +576,21 @@ CREATE OPERATOR CLASS unit_strict_ops
 		OPERATOR 5 >> ,
 		FUNCTION 1 unit_strict_cmp(unit, unit);
 
+-- range type
+
+CREATE FUNCTION unit_diff(unit, unit)
+	RETURNS float8
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+COMMENT ON FUNCTION unit_diff IS 'returns difference of two units as float8 for use in the unitrange type';
+
+CREATE TYPE unitrange AS RANGE (
+	SUBTYPE = unit,
+	SUBTYPE_OPCLASS = unit_strict_ops,
+	SUBTYPE_DIFF = unit_diff
+);
+
 -- aggregates
 
 CREATE AGGREGATE sum(unit)

@@ -232,3 +232,28 @@ SELECT '1 m'::unit >> '1 m'::unit;
 
 SELECT '1 m'::unit >> '1 A'::unit;
 ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "1 A"
+-- test range type
+SELECT 'empty'::unitrange;
+ unitrange 
+-----------
+ empty
+(1 row)
+
+SELECT '(1 m, 2 m)'::unitrange;
+   unitrange   
+---------------
+ ("1 m","2 m")
+(1 row)
+
+SELECT '(1 m, 2 A)'::unitrange;
+ERROR:  dimension mismatch in "strict comparison" operation: "1 m", "2 A"
+LINE 1: SELECT '(1 m, 2 A)'::unitrange;
+               ^
+SELECT unit_diff('1 A', '2 A');
+ unit_diff 
+-----------
+        -1
+(1 row)
+
+SELECT unit_diff('1 A', '2 K');
+ERROR:  dimension mismatch in "-" operation: "1 A", "2 K"

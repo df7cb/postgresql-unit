@@ -51,3 +51,10 @@ SELECT '1 m'::unit >>= '1 m'::unit;
 SELECT '1 m'::unit >>= '1 A'::unit;
 SELECT '1 m'::unit >> '1 m'::unit;
 SELECT '1 m'::unit >> '1 A'::unit;
+
+-- test range type
+SELECT 'empty'::unitrange;
+SELECT '(1 m, 2 m)'::unitrange;
+SELECT '(1 m, 2 A)'::unitrange;
+SELECT unit_diff('1 A', '2 A');
+SELECT unit_diff('1 A', '2 K');

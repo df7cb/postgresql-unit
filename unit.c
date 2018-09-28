@@ -728,6 +728,19 @@ unit_round(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+PG_FUNCTION_INFO_V1(unit_diff);
+
+Datum
+unit_diff(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*b = (Unit *) PG_GETARG_POINTER(1);
+	Unit	 result;
+
+	unit_sub_internal(a, b, &result);
+	PG_RETURN_FLOAT8(result.value);
+}
+
 /* operators */
 
 PG_FUNCTION_INFO_V1(unit_add);
