@@ -102,7 +102,7 @@ CREATE FUNCTION unit_diff(unit, unit)
 	AS '$libdir/unit'
 	LANGUAGE C IMMUTABLE STRICT;
 
-COMMENT ON FUNCTION unit_diff IS 'returns difference of two units as float8 for use in the unitrange type';
+COMMENT ON FUNCTION unit_diff(unit, unit) IS 'returns difference of two units as float8 for use in the unitrange type';
 
 CREATE TYPE unitrange AS RANGE (
 	SUBTYPE = unit,
