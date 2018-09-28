@@ -1,5 +1,5 @@
-7.0: Jul ?, 2018
-----------------
+7.0: Sep 28, 2018
+-----------------
 * Format time using commonyears + days + hh:mm:ss.sss s.
 * Avoid using Gs for Gigaseconds, that's actually gauss.
 * Modify @(unit, text) operator to return text instead of cstring.
