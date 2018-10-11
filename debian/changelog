@@ -1,3 +1,10 @@
+postgresql-unit (7.0-2) unstable; urgency=medium
+
+  * Upload for PostgreSQL 11.
+  * Use source format 3.0 again.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 11 Oct 2018 22:58:03 +0200
+
 postgresql-unit (7.0-1) unstable; urgency=medium
 
   * Format time using commonyears + days + hh:mm:ss.sss s.
