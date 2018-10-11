@@ -41,6 +41,8 @@ Features
 * IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
 * other prefixes imported from GNU Units
 * operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@, @@**)
+* aggregate functions
+* range type
 
 Examples
 --------
@@ -89,6 +91,11 @@ CREATE EXTENSION
  walk_500_miles
 ----------------
  804.672 km
+
+# SELECT unitrange('earthradius_polar', 'earthradius_equatorial') AS earthradius;
+               earthradius
+-----------------------------------------
+ ["6.35675174834046 Mm","6.37813649 Mm")
 ```
 
 Installation
@@ -390,6 +397,7 @@ The `unit` extension provides the following objects:
  function unit_cmp(unit,unit)
  function unit_dbl_div(unit,double precision)
  function unit_dbl_mul(unit,double precision)
+ function unit_diff(unit,unit)
  function unit_div(unit,unit)
  function unit(double precision)
  function unit_eq(unit,unit)
@@ -407,11 +415,20 @@ The `unit` extension provides the following objects:
  function unit_ne(unit,unit)
  function unit_out(unit)
  function unit_pow(unit,integer)
+ function unitrange(unit,unit)
+ function unitrange(unit,unit,text)
  function unit_recv(internal)
  function unit_reset()
  function unit_send(unit)
  function unit_stddev_pop(unit_accum_t)
  function unit_stddev_samp(unit_accum_t)
+ function unit_strict_cmp(unit,unit)
+ function unit_strict_eq(unit,unit)
+ function unit_strict_ge(unit,unit)
+ function unit_strict_gt(unit,unit)
+ function unit_strict_le(unit,unit)
+ function unit_strict_lt(unit,unit)
+ function unit_strict_ne(unit,unit)
  function unit_sub(unit,unit)
  function unit_var_pop(unit_accum_t)
  function unit_var_samp(unit_accum_t)
@@ -423,9 +440,11 @@ The `unit` extension provides the following objects:
  function watt(double precision)
  function weber(double precision)
  operator class unit_ops for access method btree
+ operator class unit_strict_ops for access method btree
  operator /(double precision,unit)
  operator *(double precision,unit)
  operator family unit_ops for access method btree
+ operator family unit_strict_ops for access method btree
  operator ||/(NONE,unit)
  operator |/(NONE,unit)
  operator -(NONE,unit)
@@ -434,11 +453,17 @@ The `unit` extension provides the following objects:
  operator ^(unit,integer)
  operator @(unit,text)
  operator @@(unit,text)
+ operator <<=(unit,unit)
+ operator <<>>(unit,unit)
+ operator <<(unit,unit)
  operator <=(unit,unit)
  operator <>(unit,unit)
  operator <(unit,unit)
+ operator ==(unit,unit)
  operator =(unit,unit)
  operator >=(unit,unit)
+ operator >>=(unit,unit)
+ operator >>(unit,unit)
  operator >(unit,unit)
  operator -(unit,unit)
  operator /(unit,unit)
@@ -448,7 +473,8 @@ The `unit` extension provides the following objects:
  table unit_units
  type unit
  type unit_accum_t
-(117 rows)
+ type unitrange
+(136 rows)
 
 ```
 
