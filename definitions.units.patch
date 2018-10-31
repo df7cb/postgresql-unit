@@ -1,8 +1,8 @@
 --- definitions.units
 +++ definitions.units.patched
-@@ -196,7 +196,9 @@
- US$       !      # The US dollar is chosen arbitrarily to be the primitive
-                  #   unit of money.
+@@ -204,7 +204,9 @@
+ # A primitive non-SI unit
+ #
  
 -bit       !      # Basic unit of information (entropy).  The entropy in bits
 +B         !
@@ -11,7 +11,7 @@
                   #   of a random variable over a finite alphabet is defined
                   #   to be the sum of -p(i)*log2(p(i)) over the alphabet where
                   #   p(i) is the probability that the random variable takes
-@@ -246,12 +248,16 @@
+@@ -259,12 +261,16 @@
  tebi-                   2^40     # Electrotechnical Commission aproved these
  pebi-                   2^50     # binary prefixes for use in 1998.  If you
  exbi-                   2^60     # want to refer to "megabytes" using the
@@ -28,7 +28,7 @@
  
  Y-                      yotta
  Z-                      zetta
-@@ -267,6 +273,7 @@
+@@ -280,6 +286,7 @@
  c-                      centi
  m-                      milli
  u-                      micro   # it should be a mu but u is easy to type
@@ -36,7 +36,7 @@
  n-                      nano
  p-                      pico
  f-                      femto
-@@ -623,6 +630,7 @@
+@@ -654,6 +661,7 @@
  minute                  60 s
  min                     minute
  hour                    60 min
@@ -44,7 +44,7 @@
  hr                      hour
  day                     24 hr
  d                       day
-@@ -682,7 +690,7 @@
+@@ -713,7 +721,7 @@
  pointangle              1|32 circle  # Used for reporting compass readings
  centrad                 0.01 radian  # Used for angular deviation of light
                                       # through a prism.
@@ -53,7 +53,7 @@
  seclongitude            circle (seconds/day) # Astronomers measure longitude
                                       # (which they call right ascension) in
                                       # time units by dividing the equator into
-@@ -788,8 +796,8 @@
+@@ -819,8 +827,8 @@
  tempF(x) units=[1;K] domain=[-459.67,) range=[0,) \
                  (x+(-32)) degF + stdtemp ; (tempF+(-stdtemp))/degF + 32
  tempfahrenheit() tempF
@@ -64,7 +64,7 @@
  
  
  degreesrankine          degF              # The Rankine scale has the
-@@ -801,7 +809,7 @@
+@@ -832,7 +840,7 @@
  
  tempreaumur(x)    units=[1;K] domain=[-218.52,) range=[0,) \
                    x degreaumur+stdtemp ; (tempreaumur+(-stdtemp))/degreaumur
@@ -73,7 +73,7 @@
                                    # particularly in France.  It is defined
                                    # to be 0 at the freezing point of water
                                    # and 80 at the boiling point.  Reaumur
-@@ -867,14 +875,17 @@
+@@ -898,14 +906,17 @@
  # Basic constants
  
  pi                      3.14159265358979323846
@@ -93,7 +93,7 @@
  spin                    hbar
  G               6.67408e-11 N m^2 / kg^2 # Newtonian gravitational constant
                                           #    This is the NIST 2006 value.
-@@ -984,6 +995,13 @@
+@@ -1015,6 +1026,13 @@
  H2O50C        0.98807 force gram / cm^3
  H2O100C       0.95838 force gram / cm^3
  
@@ -107,7 +107,7 @@
  # Atomic constants
  
  Rinfinity            10973731.568539 /m  # The wavelengths of a spectral series
-@@ -1050,12 +1068,12 @@
+@@ -1081,12 +1099,12 @@
  # particle wavelengths: the compton wavelength of a particle is
  # defined as h / m c where m is the mass of the particle.
  
@@ -125,7 +125,7 @@
  
  # Magnetic moments
  
-@@ -1089,31 +1107,20 @@
+@@ -1120,31 +1138,20 @@
  inHg                    inch Hg    
  inH2O                   inch water
  mmH2O                   mm water
@@ -160,18 +160,16 @@
  invcm                   cminv               #   spectroscopy.
  wavenumber              cminv
  kcal_mol                kcal_th / mol N_A   # kcal/mol is used as a unit of
-@@ -1170,8 +1177,8 @@
+@@ -1359,7 +1366,7 @@
  
  abampere                10 A            # Current which produces a force of
  abamp                   abampere        #   2 dyne/cm between two infinitely
 -aA                      abampere        #   long wires that are 1 cm apart
--biot                    aA              # alternative name for abamp
-+abA                     abampere        #   long wires that are 1 cm apart
-+biot                    abA             # alternative name for abamp
++#aA                     abampere        #   long wires that are 1 cm apart
+ abA                     abampere
+ biot                    abampere
  Bi                      biot
- abcoulomb               abamp sec
- abcoul                  abcoulomb
-@@ -1393,8 +1400,8 @@
+@@ -1604,8 +1611,8 @@
  
  # Reflected-light meter calibration constant with ISO 100 speed
  
@@ -182,7 +180,7 @@
  
  # Incident-light meter calibration constant with ISO 100 film
  
-@@ -1448,8 +1455,8 @@
+@@ -1659,8 +1666,8 @@
                                  # ASA PH2.12-1961, and ANSI PH2.7-1986
  #N_apex         0.3162 lx s     # value in ANSI PH2.7-1973
  N_exif          1|3.125 lx s    # value in Exif 2.3 (2010), making Sv(5) = 100
@@ -193,7 +191,7 @@
  C_apex1961      224 lx / lx s   # value in PH2.12-1961 (20.83 for I in 
                                  #   footcandles; flat sensor?)
  C_apex1971      322 lx / lx s   # mean value in PH3.49-1971 (30 +/- 5 for I in
-@@ -1787,6 +1794,16 @@
+@@ -1998,6 +2005,16 @@
  au                     astronomicalunit # ephemeris for the above described
                                          # astronomical unit.  (See the NASA
                                          # site listed above.)
@@ -210,7 +208,7 @@
  solarmass                  1.9891e30 kg
  sunmass                       solarmass
  
-@@ -2124,11 +2141,6 @@
+@@ -2335,11 +2352,6 @@
  int                     3937|1200 ft/m   # Convert US Survey measures to
  int-                    int              #   international measures
  
@@ -222,7 +220,7 @@
  yard                    3 ft
  yd                      yard
  mile                    5280 ft          # The mile was enlarged from 5000 ft
-@@ -2276,6 +2288,7 @@
+@@ -2487,6 +2499,7 @@
  # Liquid measure
  
  usgallon                231 in^3        # US liquid measure is derived from
@@ -230,7 +228,7 @@
  gal                     gallon          # the British wine gallon of 1707.
  quart                   1|4 gallon      # See the "winegallon" entry below
  pint                    1|2 quart       # more historical information.
-@@ -2776,7 +2789,7 @@
+@@ -2987,7 +3000,7 @@
  
  number1can              10 usfloz
  number2can              19 usfloz
@@ -239,7 +237,7 @@
  number3can              4 uscups
  number5can              7 uscups
  number10can             105 usfloz
-@@ -3209,10 +3222,10 @@
+@@ -3420,10 +3433,10 @@
  
  btu                     btu_IT       # International Table BTU is the default
  britishthermalunit      btu
@@ -254,7 +252,7 @@
  btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
                                       #    on the IT calorie
  quad                    quadrillion btu
-@@ -3339,8 +3352,8 @@
+@@ -3550,8 +3563,8 @@
                                         # of coal used in the 1950's
  barreloil               5.8 Mbtu       # Conventional value for barrel of crude
                                         # oil [E2].  Actual range is 5.6 - 6.3.
@@ -265,7 +263,7 @@
  naturalgas              naturalgas_HHV # includes energy from condensation
                                         # combustion products.  LHV is for Lower
                                         # Heating Value and excludes these.
-@@ -3375,7 +3388,7 @@
+@@ -3586,7 +3599,7 @@
  
  # Celsius heat unit: energy to raise a pound of water 1 degC
  
@@ -274,7 +272,7 @@
  chu                     celsiusheatunit
  
  POWER                   watt
-@@ -3435,13 +3448,13 @@
+@@ -3646,13 +3659,13 @@
  Uvalue                  1/Rvalue
  europeanUvalue          watt / m^2 K
  RSI                     degC m^2 / W
@@ -290,7 +288,7 @@
  
  
  # The bel was defined by engineers of Bell Laboratories to describe the
-@@ -3815,7 +3828,7 @@
+@@ -4026,7 +4039,7 @@
  europeanpoint           didotpoint        # for the point used in Europe
  cicero                  12 didotpoint
  
@@ -299,7 +297,7 @@
  
  # Type sizes
  
-@@ -3872,8 +3885,8 @@
+@@ -4083,8 +4096,8 @@
  
  INFORMATION             bit
  
@@ -310,7 +308,7 @@
  ban                     hartley              #   distributed random variable
                                               #   over 10 symbols.
  dit                     hartley              # from Decimal digIT
-@@ -3888,8 +3901,8 @@
+@@ -4099,8 +4112,8 @@
                                               #   to symbols per second.  Modern
                                               #   modems transmit several bits
                                               #   per symbol.
@@ -321,7 +319,7 @@
                                               #   them do.  But beware: for
                                               #   transmission over modems, a
                                               #   few extra bits are used so
-@@ -4244,7 +4257,7 @@
+@@ -4456,7 +4469,7 @@
  boardfeet               boardfoot
  fbm                     boardfoot    # feet board measure
  stack                   4 yard^3     # British, used for firewood and coal [18]
@@ -330,7 +328,7 @@
                                       #   sometimes called a face cord, but this
                                       #   value is equal to 1|3 cord.  Name
                                       #   comes from an old Norse word for a
-@@ -5324,7 +5337,7 @@
+@@ -5536,7 +5549,7 @@
  
  pa                      Pa
  ev                      eV
@@ -339,7 +337,7 @@
  oe                      Oe
  mh                      mH
  rd                      rod
-@@ -5557,7 +5570,8 @@
+@@ -5769,7 +5782,8 @@
  Mag                     Maz gravity        # force
  Maz                     Volm kg / oldliter # mass based on water
  
@@ -349,7 +347,7 @@
  Gf                      Grafut
  Sf                      Surf
  Vm                      Volm
-@@ -6308,7 +6322,6 @@
+@@ -6520,7 +6534,6 @@
  ton                     uston
  scruple                 apscruple
  fluidounce              usfluidounce
@@ -357,7 +355,7 @@
  bushel                  usbushel
  quarter                 quarterweight
  cup                     uscup
-@@ -6397,7 +6410,7 @@
+@@ -6609,7 +6622,7 @@
  ℈                       scruple
  ℥                       ounce
  ℔                       lb

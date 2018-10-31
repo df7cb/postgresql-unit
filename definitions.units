@@ -2,9 +2,9 @@
 # This file is the units database for use with GNU units, a units conversion
 # program by Adrian Mariano adrianm@gnu.org
 #
-# June 2018 Version 2.20
+# October 2018 Version 2.44
 #
-# Copyright (C) 1996-2002, 2004-2017
+# Copyright (C) 1996-2002, 2004-2018
 # Free Software Foundation, Inc
 #
 # This program is free software; you can redistribute it and/or modify
@@ -76,9 +76,6 @@
 # If your country's local units are missing and you are willing to supply
 # them, please send me a list.
 #
-# I added shoe size information but I'm not convinced that it's correct.
-# If you know anything about shoe sizes please contact me.
-#
 ###########################################################################
 
 ###########################################################################
@@ -124,6 +121,20 @@
 !endlocale
 
 !set UNITS_ENGLISH US   # Default setting for English units
+
+!set UNITS_SYSTEM default   # Set a default value
+
+!varnot UNITS_SYSTEM si emu esu gaussian gauss default
+!message Unknown unit system given with -u or UNITS_SYSTEM environment variable
+!message Valid systems: si, emu, esu, gauss[ian]
+!message Using SI
+!prompt (SI)
+!endvar
+
+!var UNITS_SYSTEM si
+!message SI units selected
+!prompt (SI)
+!endvar
 
 ###########################################################################
 #                                                                         #
@@ -190,17 +201,19 @@ steradian sr               #   of the sphere equal to that of a square with
                            #   sphere
 
 #
-# Some primitive non-SI units
+# A primitive non-SI unit
 #
-
-US$       !      # The US dollar is chosen arbitrarily to be the primitive
-                 #   unit of money.
 
 bit       !      # Basic unit of information (entropy).  The entropy in bits
                  #   of a random variable over a finite alphabet is defined
                  #   to be the sum of -p(i)*log2(p(i)) over the alphabet where
                  #   p(i) is the probability that the random variable takes
                  #   on the value i.
+
+#
+# Currency: the primitive unit of currency is defined in currency.units. 
+# It is usually the US$ or the euro, but it is user selectable.  
+#
 
 ###########################################################################
 #                                                                         #
@@ -476,7 +489,7 @@ farad                   C/V          # capacitance
 F                       farad
 weber                   V s          # magnetic flux
 Wb                      weber
-henry                   Wb/A         # inductance
+henry                   V s / A      # inductance
 H                       henry
 tesla                   Wb/m^2       # magnetic flux density
 T                       tesla
@@ -493,7 +506,6 @@ LENGTH                  meter
 AREA                    LENGTH^2
 VOLUME                  LENGTH^3
 MASS                    kilogram
-CURRENT                 ampere
 AMOUNT                  mole
 ANGLE                   radian
 SOLID_ANGLE             steradian
@@ -501,11 +513,6 @@ MONEY                   US$
 FORCE                   newton
 PRESSURE                FORCE / AREA
 STRESS                  FORCE / AREA
-CHARGE                  coulomb
-CAPACITANCE             farad
-RESISTANCE              ohm
-CONDUCTANCE             siemens
-INDUCTANCE              henry
 FREQUENCY               hertz
 VELOCITY                LENGTH / TIME
 ACCELERATION            VELOCITY / TIME
@@ -513,7 +520,31 @@ DENSITY                 MASS / VOLUME
 LINEAR_DENSITY          MASS / LENGTH
 VISCOSITY               FORCE TIME / AREA
 KINEMATIC_VISCOSITY     VISCOSITY / DENSITY
-
+CURRENT                 ampere
+CHARGE                  coulomb
+CAPACITANCE             farad
+RESISTANCE              ohm
+CONDUCTANCE             siemens
+INDUCTANCE              henry
+E_FIELD                 ELECTRIC_POTENTIAL / LENGTH
+B_FIELD                 tesla
+# The D and H fields are related to the E and B fields by factors of epsilon
+# and mu respectively, so their units can be found by multiplying/dividing by
+# the epsilon0 and mu0, but then it is necessary to remove the constant factors
+# to get the correct scaling.  Defining the units this way allows conversion to
+# CGS units to work correctly.
+D_FIELD                 E_FIELD epsilon0 (c/(m/s))^2 4 pi 1e-7 
+H_FIELD                 B_FIELD / mu0 * 4 pi 1e-7		
+ELECTRIC_DIPOLE_MOMENT  C m
+MAGNETIC_DIPOLE_MOMENT  J / T
+POLARIZATION            ELECTRIC_DIPOLE_MOMENT / VOLUME
+MAGNETIZATION           MAGNETIC_DIPOLE_MOMENT / VOLUME
+ELECTRIC_POTENTIAL      volt
+VOLTAGE                 ELECTRIC_POTENTIAL
+E_FLUX                  E_FIELD AREA	
+D_FLUX                  D_FIELD AREA
+B_FLUX                  B_FIELD AREA	
+H_FLUX                  H_FIELD AREA
 
 #
 # units derived easily from SI units
@@ -1020,7 +1051,7 @@ l_P                     plancklength
 
 # Particle radius
 
-electronradius    (1/4 pi epsilon0) e^2 / electronmass c^2   # Classical
+electronradius    coulombconst e^2 / electronmass c^2   # Classical
 deuteronchargeradius    2.1413e-15 m
 protonchargeradius      0.8751e-15 m
 
@@ -1148,13 +1179,11 @@ pond                    gram force
 glug                gram force s^2 / cm # Mass which is accelerated at
                                         #   1 cm/s^2 by 1 gram force
 darcy           centipoise cm^2 / s atm # Measures permeability to fluid flow.
-
                                         #   One darcy is the permeability of a
                                         #   medium that allows a flow of cc/s
                                         #   of a liquid of centipoise viscosity
                                         #   under a pressure gradient of
                                         #   atm/cm.  Named for H. Darcy.
-
 mobileohm               cm / dyn s      # mobile ohm, measure of mechanical
                                         #   mobility
 mechanicalohm           dyn s / cm      # mechanical resistance
@@ -1165,61 +1194,243 @@ ray                     acousticalohm
 rayl                    dyn s / cm^3    # Specific acoustical resistance
 eotvos                  1e-9 Gal/cm     # Change in gravitational acceleration
                                         #   over horizontal distance
+#
+# Electromagnetic CGS Units
+# 
+# For measuring electromagnetic quantities in SI, we introduce the new base
+# dimension of current, define the ampere to measure current, and derive the
+# other electromagnetic units from the ampere.  With the CGS units one approach
+# is to use the basic equations of electromagnetism to define units that
+# eliminate constants from those equations.  Coulombs law has the form
+#
+#          F = k_C q1 q2 / r^2
+#
+# where k_C is the coulomb constant equal to 1|4 pi epsilon0 in SI units.
+# Ampere's force law takes the form
+#
+#          dF/dl = 2 k_A I1 I2 / r
+#
+# where k_A is the ampere constant.  In the CGS system we force either k_C or
+# k_A to 1 which then defines either a unit for charge or a unit for current.
+# The other unit then becomes a derived unit.  When k_C is 1 the ESU system
+# results.  When k_A is 1 the EMU system results.  Note that these parameters
+# are not independent of each other: Maxwell's equations indicate that
+#         
+#           k_C / k_A = c^2
+#
+# where c is the speed of light. 
+#
+# One more choice is needed to define a complete system.  Using Coulomb's law
+# we define the electric field as the force per unit charge
+#
+#           E = k_C 1 / r^2.
+#
+# But what about the magnetic field?  It is derived from Ampere's law but we
+# have the option of adding a proportionality constant, k_B, that may have
+# dimensions:
+#
+#           B = 2 k_A k_B I / r
+#
+# We can choose k_B = 1, which is done in the SI, ESU and EMU systems.  But if
+# instead we give k_B units of length/time then the magnetic field has
+# the same units as the electric field.  This choice leads to the Gaussian
+# system.
+#
+# The relations above are used to determine the dimensions, but the units are
+# derived from the base units of CGS, not directly from those formulas.  We
+# will use the notation [unit] to refer to the dimension of the unit in
+# brackets.  This same process gives rise to the SI units such as the tesla, 
+# which is defined by
+#
+#          B = 2              
+#
+# References:
+#
+# Classical Electrodynamics by John David Jackson, 3rd edition. 
+# Cardarelli, Francois. 1999.  Scientific Unit Conversion. 2nd ed.  Trans.
+#     M.J.  Shields.  London: Springer-Verlag. ISBN 1-85233-043-0
+#
+#
+# All of these systems result in electromagnetic units that involve the square
+# roots of the centimeter and gram.  This requires a change in the primitive
+# units.
+# 
 
-# Electromagnetic units derived from the abampere
+!var UNITS_SYSTEM esu emu gaussian gauss
+sqrt_cm                 ! 
+sqrt_centimeter         sqrt_cm
++m                      100 sqrt_cm^2
+sqrt_g                  !
+sqrt_gram               sqrt_g
++kg                     kilo sqrt_g^2
+!endvar
+
+# Electrostatic CGS (ESU)
+#
+# This system uses the statcoulomb as the fundamental unit of charge, with
+# derived units that parallel the conventional terminology but use the stat-
+# prefix.  The statcoulomb is designed by setting k_C=1, which means
+#
+#                      dyne = statcoulomb^2 / cm^2. 
+#
+# The statcoulomb is also called the franklin or esu.
+#
+# The ESU system was specified by a committee report in 1873 and rarely used.
+
+statcoulomb             10 coulomb cm / s c   # Charge such that two charges 
+esu                     statcoulomb           # of 1 statC separated by 1 cm
+statcoul                statcoulomb           # exert a force of 1 dyne
+statC                   statcoulomb
+stC                     statcoulomb
+franklin                statcoulomb
+Fr                      franklin
+
+!var UNITS_SYSTEM esu
+!message CGS-ESU units selected
+!prompt (ESU)
++statcoulomb            sqrt(dyne) cm
++A                      0.1 statamp c/(cm/s)
++mu0                    1/c^2
++coulombconst           1
+!endvar
+
+statampere              statcoulomb / s
+statamp                 statampere
+statA                   statampere
+stA                     statampere
+statvolt                dyne cm / statamp sec
+statV                   statvolt
+stV                     statvolt
+statfarad               statamp sec / statvolt
+statF                   statfarad
+stF                     statfarad
+cmcapacitance           statfarad
+stathenry               statvolt sec / statamp
+statH                   stathenry
+stH                     stathenry
+statohm                 statvolt / statamp
+stohm                   statohm
+statmho                 /statohm
+stmho                   statmho
+statweber               statvolt sec
+statWb                  statweber
+stWb                    statweber
+stattesla               statWb/cm^2   # Defined by analogy with SI; rarely
+statT                   stattesla     #   if ever used
+stT                     stattesla
+debye                   1e-10 statC angstrom # unit of electrical dipole moment
+helmholtz               debye/angstrom^2     # Dipole moment per area
+jar                     1000 statfarad       # approx capacitance of Leyden jar
+
+# Electromagnetic CGS (EMU)
+#
+# The abampere is the fundamental unit of this system, with the derived units
+# using the ab- prefix.  The dimensions of the abampere are defined by assuming
+# that k_A=1, which 
+#
+#            [dyne / cm]  = [2 abampere^2 / cm]
+#
+# where the brackets indicate taking the dimension of the unit in base units
+# and discarding any constant factors.  This results in the definition from
+# base CGS units of:
+#
+#            abampere = sqrt(dyne). 
+#
+# The abampere is also called the biot.  The magnetic field unit (the gauss)
+# follows from the assumption that k_B=1, which means
+#
+#            B = 2 I / r,
+#
+# and hence the dimensions of the gauss are given by
+#
+#            [gauss] = [2 abampere / cm]
+#
+# or rewriting in terms of the base units
+#
+#            gauss = abampere / cm.
+#
+# The definition given below is different because it is in a form that
+# gives a valid reduction for SI and ESU and still gives the correct 
+# result in EMU.  (It can be derived from Faraday's law.)  
+#
+# The EMU system was developed by Gauss and Weber and formalized as a system in
+# a committee report by the British Association for the Advancement of Science
+# in 1873.  
 
 abampere                10 A            # Current which produces a force of
 abamp                   abampere        #   2 dyne/cm between two infinitely
 aA                      abampere        #   long wires that are 1 cm apart
-biot                    aA              # alternative name for abamp
+abA                     abampere
+biot                    abampere
 Bi                      biot
+
+!var UNITS_SYSTEM emu
+!message CGS-EMU units selected
+!prompt (EMU)
++abampere               sqrt(dyne)
++A                      0.1 abamp
++mu0                    1
++coulombconst           c^2
+!endvar
+
 abcoulomb               abamp sec
 abcoul                  abcoulomb
+abC                     abcoulomb
 abfarad                 abampere sec / abvolt
+abF                     abfarad
 abhenry                 abvolt sec / abamp
+abH                     abhenry
 abvolt                  dyne cm  / abamp sec
+abV                     abvolt
 abohm                   abvolt / abamp
 abmho                   /abohm
-gauss                   abvolt sec / cm^2
-Gs                      gauss
-maxwell                 abvolt sec      # Also called the "line"
+gauss                   abvolt sec / cm^2 # The magnetic field 2 cm from a wire
+Gs                      gauss             # carrying a current of 1 abampere
+maxwell                 gauss cm^2        # Also called the "line"
 Mx                      maxwell
-oersted                 gauss / mu0
-Oe                      oersted
+oersted                 gauss / mu0   # From the relation H = B / mu
+Oe                      oersted      
 gilbert                 gauss cm / mu0
 Gb                      gilbert
 Gi                      gilbert
-unitpole                4 pi maxwell
+unitpole                4 pi maxwell	# unit magnetic pole
 emu                     erg/gauss  # "electro-magnetic unit", a measure of
                                    # magnetic moment, often used as emu/cm^3
                                    # to specify magnetic moment density.
 
-# Gaussian system: electromagnetic units derived from statampere.
+# Electromagnetic CGS (Gaussian)
 #
-# Note that the Gaussian units are often used in such a way that Coulomb's law
-# has the form F= q1 * q2 / r^2.  The constant 1|4*pi*epsilon0 is incorporated
-# into the units.  From this, we can get the relation force=charge^2/dist^2.
-# This means that the simplification esu^2 = dyne cm^2 can be used to simplify
-# units in the Gaussian system, with the curious result that capacitance can be
-# measured in cm, resistance in sec/cm, and inductance in sec^2/cm.  These
-# units are given the names statfarad, statohm and stathenry below.
+# The Gaussian system uses the statcoulomb and statamp from the ESU system
+# derived by setting k_C=1, but it defines the magnetic field unit differently
+# by taking k_B=c instead of k_B=1.  As noted above, k_C and k_A are not
+# independent.  With k_C=1 we must have k_A=c^-2.  This results in the magnetic
+# field unit, the gauss, having dimensions give by:
+#
+#         [gauss] = [2 (c^-2) c statamp / cm] = [statamp / c cm]
+#
+# We then define the gauss using base CGS units to obtain
+#
+#         gauss = statamp / ((cm/s) cm) = statcoulomb / cm^2.
+#
+# Note that this definition happens to give the same result as the definition
+# for the EMU system, so the definitions of the gauss are consistent.
+#
+# This definition gives the same dimensions for the E and B fields and was also
+# known as the "symmetric system".  This system was proposed by Hertz in 1888.
 
-statampere              10 A cm / s c
-statamp                 statampere
-statvolt                dyne cm / statamp sec
-statcoulomb             statamp s
-esu                     statcoulomb
-statcoul                statcoulomb
-statfarad               statamp sec / statvolt
-cmcapacitance           statfarad
-stathenry               statvolt sec / statamp
-statohm                 statvolt / statamp
-statmho                 /statohm
-statmaxwell             statvolt sec
-franklin                statcoulomb
-debye                   1e-18 statcoul cm # unit of electrical dipole moment
-helmholtz               debye/angstrom^2  # Dipole moment per area
-jar                     1000 statfarad    # approx capacitance of Leyden jar
+!var UNITS_SYSTEM gaussian gauss
+!message CGS-Gaussian units selected
+!prompt (Gaussian)
++statcoulomb            sqrt(dyne) cm
++A                      0.1 statamp c/(cm/s)
++mu0                    1
++epsilon0               1
++coulombconst           1                  # The gauss is the B field produced
++gauss                  statcoulomb / cm^2 # 1 cm from a wire carrying a current
++weber                  1e8 maxwell        # of 0.5*(c/(cm/s)) stA = 1.5e10 stA
++bohrmagneton           e hbar / 2 electronmass c
++nuclearmagneton        e hbar / 2 protonmass c
+!endvar
 
 #
 # Some historical electromagnetic units
@@ -4115,13 +4326,14 @@ megalerg                megaerg    # 'L' added to make it pronounceable [18].
 # generally given in US$.
 #
 
+unitedstatesdollar      US$
 usdollar                US$
 $                       dollar
 mark                    germanymark
-bolivar                 venezuelabolivar
-venezuelanbolivarfuerte venezuelabolivar
-bolivarfuerte           bolivar        # The currency was revalued by
-oldbolivar              1|1000 bolivar # a factor of 1000.
+#bolivar                 venezuelabolivar       # Not all databases are 
+#venezuelabolivarfuerte  1e-5 bolivar           #    supplying these
+#bolivarfuerte           1e-5 bolivar           # The currency was revalued 
+#oldbolivar              1|1000 bolivarfuerte   # twice
 peseta                  spainpeseta
 rand                    southafricarand
 escudo                  portugalescudo
@@ -4146,7 +4358,7 @@ yuan                    chinayuan
 icelandkróna            icelandkrona
 polandzłoty             polandzloty
 tongapa’anga            tongapa'anga
-venezuelabolívar        venezuelabolivar
+#venezuelabolívar        venezuelabolivar
 vietnamđồng             vietnamdong
 mongoliatögrög          mongoliatugrik
 sãotomé&príncipedobra   saotome&principedobra

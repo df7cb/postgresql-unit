@@ -29,9 +29,11 @@ while (<F>) {
 	$skip_british = 0 if /^!endvar/;
 	next if ($skip_british);
 
-	s/\s*#.*//;
+	s/#.*//;
+	s/\s+$//;
 	next if /^\s*$/; # skip emtpy lines
 	next if /^!/; # skip pragmas
+	next if /^\+/; # skip units from non-SI systems
 	next if /^[0-9]/; # skip over table contents
 	next if /^ /; # skip over table contents/continued lines
 	unless (/^(\S+)\s+(.*)/) {

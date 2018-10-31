@@ -164,7 +164,7 @@ farad	1 s^4*A^2/m^2*kg	\N	C/V	\N
 F	1 s^4*A^2/m^2*kg	\N	farad	\N
 weber	1 m^2*kg/s^2*A	\N	V s	\N
 Wb	1 m^2*kg/s^2*A	\N	weber	\N
-henry	1 m^2*kg/s^2*A^2	\N	Wb/A	\N
+henry	1 m^2*kg/s^2*A^2	\N	V s / A	\N
 H	1 m^2*kg/s^2*A^2	\N	henry	\N
 tesla	1 kg/s^2*A	\N	Wb/m^2	\N
 T	1 kg/s^2*A	\N	tesla	\N
@@ -174,21 +174,29 @@ LENGTH	1 m	\N	meter	\N
 AREA	1 m^2	\N	LENGTH^2	\N
 VOLUME	1 m^3	\N	LENGTH^3	\N
 MASS	1 kg	\N	kilogram	\N
-CURRENT	1 A	\N	ampere	\N
 AMOUNT	1 mol	\N	mole	\N
 ANGLE	1	\N	radian	\N
 SOLID_ANGLE	1	\N	steradian	\N
 FORCE	1 m*kg/s^2	\N	newton	\N
 PRESSURE	1 kg/m*s^2	\N	FORCE / AREA	\N
 STRESS	1 kg/m*s^2	\N	FORCE / AREA	\N
+FREQUENCY	1 s^-1	\N	hertz	\N
+DENSITY	1 kg/m^3	\N	MASS / VOLUME	\N
+LINEAR_DENSITY	1 kg/m	\N	MASS / LENGTH	\N
+CURRENT	1 A	\N	ampere	\N
 CHARGE	1 s*A	\N	coulomb	\N
 CAPACITANCE	1 s^4*A^2/m^2*kg	\N	farad	\N
 RESISTANCE	1 m^2*kg/s^3*A^2	\N	ohm	\N
 CONDUCTANCE	1 s^3*A^2/m^2*kg	\N	siemens	\N
 INDUCTANCE	1 m^2*kg/s^2*A^2	\N	henry	\N
-FREQUENCY	1 s^-1	\N	hertz	\N
-DENSITY	1 kg/m^3	\N	MASS / VOLUME	\N
-LINEAR_DENSITY	1 kg/m	\N	MASS / LENGTH	\N
+B_FIELD	1 kg/s^2*A	\N	tesla	\N
+ELECTRIC_DIPOLE_MOMENT	1 m*s*A	\N	C m	\N
+MAGNETIC_DIPOLE_MOMENT	1 m^2*A	\N	J / T	\N
+POLARIZATION	1 s*A/m^2	\N	ELECTRIC_DIPOLE_MOMENT / VOLUME	\N
+MAGNETIZATION	1 A/m	\N	MAGNETIC_DIPOLE_MOMENT / VOLUME	\N
+ELECTRIC_POTENTIAL	1 m^2*kg/s^3*A	\N	volt	\N
+VOLTAGE	1 m^2*kg/s^3*A	\N	ELECTRIC_POTENTIAL	\N
+B_FLUX	1 m^2*kg/s^2*A	\N	B_FIELD AREA	\N
 gram	0.00100000000000000002 kg	\N	millikg	\N
 gm	0.00100000000000000002 kg	\N	gram	\N
 g	0.00100000000000000002 kg	\N	gram	\N
@@ -262,9 +270,9 @@ blink	0.864000000000000101 s	\N	1e-5 day	\N
 ce	864 s	\N	1e-2 day	\N
 watch	14400 s	\N	4 hours	\N
 bell	1800 s	\N	1|8 watch	\N
-decimalhour	8640 s	\N	1|10 day            	\N
-decimalminute	86.4000000000000057 s	\N	1|100 decimalhour   	\N
-decimalsecond	0.864000000000000101 s	\N	1|100 decimalminute 	\N
+decimalhour	8640 s	\N	1|10 day	\N
+decimalminute	86.4000000000000057 s	\N	1|100 decimalhour	\N
+decimalsecond	0.864000000000000101 s	\N	1|100 decimalminute	\N
 beat	86.4000000000000057 s	\N	decimalminute	\N
 pulsatance	1 s^-1	\N	radian / sec	\N
 centrad	0.0100000000000000002	\N	0.01 radian	\N
@@ -418,7 +426,7 @@ hyl	9.80664999999999942 kg	\N	kgf s^2 / m	\N
 mmHg	133.32238741499998 kg/m*s^2	\N	mm Hg	\N
 torr	133.32236842105263 kg/m*s^2	\N	atm / 760	\N
 tor	1 kg/m*s^2	\N	Pa	\N
-inHg	3386.3886403409997 kg/m*s^2	\N	inch Hg    	\N
+inHg	3386.3886403409997 kg/m*s^2	\N	inch Hg	\N
 inH2O	249.08890999999997 kg/m*s^2	\N	inch water	\N
 mmH2O	9.80664999999999765 kg/m*s^2	\N	mm water	\N
 lightsecond	299792458 m	\N	c s	\N
@@ -456,19 +464,55 @@ acousticalohm	99999.9999999999854 kg/m^4*s	\N	dyn s / cm^5	\N
 ray	99999.9999999999854 kg/m^4*s	\N	acousticalohm	\N
 rayl	10 kg/m^2*s	\N	dyn s / cm^3	\N
 eotvos	1.00000000000000006e-09 s^-2	\N	1e-9 Gal/cm	\N
+statcoulomb	3.33564095198152074e-10 s*A	\N	10 coulomb cm / s c	\N
+esu	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
+statcoul	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
+statC	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
+stC	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
+franklin	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
+Fr	3.33564095198152074e-10 s*A	\N	franklin	\N
+statampere	3.33564095198152074e-10 A	\N	statcoulomb / s	\N
+statamp	3.33564095198152074e-10 A	\N	statampere	\N
+statA	3.33564095198152074e-10 A	\N	statampere	\N
+stA	3.33564095198152074e-10 A	\N	statampere	\N
+statvolt	299.792458000000011 m^2*kg/s^3*A	\N	dyne cm / statamp sec	\N
+statV	299.792458000000011 m^2*kg/s^3*A	\N	statvolt	\N
+stV	299.792458000000011 m^2*kg/s^3*A	\N	statvolt	\N
+statfarad	1.11265005605361846e-12 s^4*A^2/m^2*kg	\N	statamp sec / statvolt	\N
+statF	1.11265005605361846e-12 s^4*A^2/m^2*kg	\N	statfarad	\N
+stF	1.11265005605361846e-12 s^4*A^2/m^2*kg	\N	statfarad	\N
+cmcapacitance	1.11265005605361846e-12 s^4*A^2/m^2*kg	\N	statfarad	\N
+stathenry	898755178736.817627 m^2*kg/s^2*A^2	\N	statvolt sec / statamp	\N
+statH	898755178736.817627 m^2*kg/s^2*A^2	\N	stathenry	\N
+stH	898755178736.817627 m^2*kg/s^2*A^2	\N	stathenry	\N
+statohm	898755178736.817627 m^2*kg/s^3*A^2	\N	statvolt / statamp	\N
+stohm	898755178736.817627 m^2*kg/s^3*A^2	\N	statohm	\N
+statmho	1.11265005605361846e-12 s^3*A^2/m^2*kg	\N	/statohm	\N
+stmho	1.11265005605361846e-12 s^3*A^2/m^2*kg	\N	statmho	\N
+statweber	299.792458000000011 m^2*kg/s^2*A	\N	statvolt sec	\N
+statWb	299.792458000000011 m^2*kg/s^2*A	\N	statweber	\N
+stWb	299.792458000000011 m^2*kg/s^2*A	\N	statweber	\N
+stattesla	2997924.58000000007 kg/s^2*A	\N	statWb/cm^2	\N
+statT	2997924.58000000007 kg/s^2*A	\N	stattesla	\N
+stT	2997924.58000000007 kg/s^2*A	\N	stattesla	\N
+debye	3.33564095198152075e-30 m*s*A	\N	1e-10 statC angstrom	\N
+helmholtz	3.33564095198152022e-10 s*A/m	\N	debye/angstrom^2	\N
+jar	1.11265005605361843e-09 s^4*A^2/m^2*kg	\N	1000 statfarad	\N
 abampere	10 A	\N	10 A	\N
 abamp	10 A	\N	abampere	\N
 abA	10 A	\N	abampere	\N
-biot	10 A	\N	abA	\N
+biot	10 A	\N	abampere	\N
 Bi	10 A	\N	biot	\N
 abcoulomb	10 s*A	\N	abamp sec	\N
 abcoul	10 s*A	\N	abcoulomb	\N
+abC	10 s*A	\N	abcoulomb	\N
 abvolt	1.00000000000000002e-08 m^2*kg/s^3*A	\N	dyne cm  / abamp sec	\N
+abV	1.00000000000000002e-08 m^2*kg/s^3*A	\N	abvolt	\N
 abohm	1.00000000000000006e-09 m^2*kg/s^3*A^2	\N	abvolt / abamp	\N
 abmho	999999999.999999881 s^3*A^2/m^2*kg	\N	/abohm	\N
 gauss	9.99999999999999912e-05 kg/s^2*A	\N	abvolt sec / cm^2	\N
 Gs	9.99999999999999912e-05 kg/s^2*A	\N	gauss	\N
-maxwell	1.00000000000000002e-08 m^2*kg/s^2*A	\N	abvolt sec	\N
+maxwell	1.00000000000000002e-08 m^2*kg/s^2*A	\N	gauss cm^2	\N
 Mx	1.00000000000000002e-08 m^2*kg/s^2*A	\N	maxwell	\N
 oersted	79.5774715459476596 A/m	\N	gauss / mu0	\N
 Oe	79.5774715459476596 A/m	\N	oersted	\N
@@ -477,22 +521,6 @@ Gb	0.795774715459476645 A	\N	gilbert	\N
 Gi	0.795774715459476645 A	\N	gilbert	\N
 unitpole	1.25663706143591724e-07 m^2*kg/s^2*A	\N	4 pi maxwell	\N
 emu	0.00100000000000000024 m^2*A	\N	erg/gauss	\N
-statampere	3.33564095198152074e-10 A	\N	10 A cm / s c	\N
-statamp	3.33564095198152074e-10 A	\N	statampere	\N
-statvolt	299.792458000000011 m^2*kg/s^3*A	\N	dyne cm / statamp sec	\N
-statcoulomb	3.33564095198152074e-10 s*A	\N	statamp s	\N
-esu	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
-statcoul	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
-statfarad	1.11265005605361846e-12 s^4*A^2/m^2*kg	\N	statamp sec / statvolt	\N
-cmcapacitance	1.11265005605361846e-12 s^4*A^2/m^2*kg	\N	statfarad	\N
-stathenry	898755178736.817627 m^2*kg/s^2*A^2	\N	statvolt sec / statamp	\N
-statohm	898755178736.817627 m^2*kg/s^3*A^2	\N	statvolt / statamp	\N
-statmho	1.11265005605361846e-12 s^3*A^2/m^2*kg	\N	/statohm	\N
-statmaxwell	299.792458000000011 m^2*kg/s^2*A	\N	statvolt sec	\N
-franklin	3.33564095198152074e-10 s*A	\N	statcoulomb	\N
-debye	3.33564095198152075e-30 m*s*A	\N	1e-18 statcoul cm	\N
-helmholtz	3.33564095198152022e-10 s*A/m	\N	debye/angstrom^2	\N
-jar	1.11265005605361843e-09 s^4*A^2/m^2*kg	\N	1000 statfarad	\N
 intampere	0.999835000000000029 A	\N	0.999835 A	\N
 intamp	0.999835000000000029 A	\N	intampere	\N
 intfarad	0.999504999999999977 s^4*A^2/m^2*kg	\N	0.999505 F	\N
@@ -1260,7 +1288,7 @@ envelopeA1size	0.0119858631250000028 m^2	\N	3.625 inch 5.125 inch	\N
 envelopeA2size	0.0162298062500000027 m^2	\N	4.375 inch 5.75 inch	\N
 envelopeA6size	0.0199193150000000034 m^2	\N	4.75 inch 6.5 inch	\N
 envelopeA7size	0.0245564025000000047 m^2	\N	5.25 inch 7.25 inch	\N
-envelopeA8size	0.0288305875000000079 m^2	\N	5.5 inch 8.125 inch   	\N
+envelopeA8size	0.0288305875000000079 m^2	\N	5.5 inch 8.125 inch	\N
 envelopeA9size	0.0324596125000000124 m^2	\N	5.75 inch 8.75 inch	\N
 envelopeA10size	0.0367741200000000074 m^2	\N	6 inch 9.5 inch	\N
 envelope4bar	0.0119858631250000028 m^2	\N	3.625 inch 5.125 inch	\N
@@ -2243,6 +2271,12 @@ VELOCITY	1 m/s	\N	LENGTH / TIME	\N
 ACCELERATION	1 m/s^2	\N	VELOCITY / TIME	\N
 VISCOSITY	1 kg/m*s	\N	FORCE TIME / AREA	\N
 KINEMATIC_VISCOSITY	1 m^2/s	\N	VISCOSITY / DENSITY	\N
+E_FIELD	1 m*kg/s^3*A	\N	ELECTRIC_POTENTIAL / LENGTH	\N
+D_FIELD	0.999999999999999889 s*A/m^2	\N	E_FIELD epsilon0 (c/(m/s))^2 4 pi 1e-7	\N
+H_FIELD	633257397764.611084 A/m	\N	B_FIELD / mu0 * 4 pi 1e-7	\N
+E_FLUX	1 m^3*kg/s^3*A	\N	E_FIELD AREA	\N
+D_FLUX	0.999999999999999889 s*A	\N	D_FIELD AREA	\N
+H_FLUX	633257397764.611084 m*A	\N	H_FIELD AREA	\N
 xunit	1.00207697000000001e-13 m	\N	xunit_cu	\N
 siegbahn	1.00207697000000001e-13 m	\N	xunit	\N
 shake	1.00000000000000002e-08 s	\N	1e-8 sec	\N
@@ -2292,14 +2326,16 @@ gasconstant	8.3144598635874285 m^2*kg/s^2*K*mol	\N	k N_A	\N
 R	8.3144598635874285 m^2*kg/s^2*K*mol	\N	gasconstant	\N
 molarvolume	0.0224139621193082256 m^3	\N	mol R stdtemp / atm	\N
 loschmidt	2.68678104589168735e+25 m^-3	\N	avogadro mol / molarvolume	\N
-electronradius	2.81794032333921876e-15 m	\N	(1/4 pi epsilon0) e^2 / electronmass c^2	\N
+electronradius	2.81794032333921876e-15 m	\N	coulombconst e^2 / electronmass c^2	\N
 lightyear	9460730472580800 m	\N	c julianyear	\N
 ly	9460730472580800 m	\N	lightyear	\N
 amagatvolume	0.0224139621193082256 m^3	\N	molarvolume	\N
 amagat	44.6150481863517854 mol/m^3	\N	mol/amagatvolume	\N
 kcal_mol	6.94769534335999871e-21 m^2*kg/s^2	\N	kcal_th / mol N_A	\N
 abfarad	1000000000 s^4*A^2/m^2*kg	\N	abampere sec / abvolt	\N
+abF	1000000000 s^4*A^2/m^2*kg	\N	abfarad	\N
 abhenry	1.00000000000000006e-09 m^2*kg/s^2*A^2	\N	abvolt sec / abamp	\N
+abH	1.00000000000000006e-09 m^2*kg/s^2*A^2	\N	abhenry	\N
 ouncecopper	3.43252786584860234e-05 m	\N	oz / ft^2 copperdensity	\N
 ozcu	3.43252786584860234e-05 m	\N	ouncecopper	\N
 LUMINOUS_FLUX	1 cd	\N	lumen	\N
