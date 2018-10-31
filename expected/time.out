@@ -177,7 +177,7 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  timeatom         | 159.574468085106 ms                           | 1|47 timeounce
  Tim              | 173.611111111111 ms                           | 12^-4 hour
  blink            | 864 ms                                        | 1e-5 day
- decimalsecond    | 864 ms                                        | 1|100 decimalminute 
+ decimalsecond    | 864 ms                                        | 1|100 decimalminute
  siderealsecond   | 997.269566435185 ms                           | 1|60 siderealminute
  TIME             | 1 s                                           | second
  s                | 1 s                                           | s
@@ -189,7 +189,7 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  minute           | 00:01:00 s                                    | 60 s
  timeostent       | 00:01:00 s                                    | 1|60 hour
  beat             | 00:01:26.4 s                                  | decimalminute
- decimalminute    | 00:01:26.4 s                                  | 1|100 decimalhour   
+ decimalminute    | 00:01:26.4 s                                  | 1|100 decimalhour
  timeminute       | 00:06:00 s                                    | 1|10 hour
  timepoint        | 00:12:00 s                                    | 1|5 hour
  ce               | 00:14:24 s                                    | 1e-2 day
@@ -199,7 +199,7 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  h                | 01:00:00 s                                    | hour
  hour             | 01:00:00 s                                    | 60 min
  hr               | 01:00:00 s                                    | hour
- decimalhour      | 02:24:00 s                                    | 1|10 day            
+ decimalhour      | 02:24:00 s                                    | 1|10 day
  watch            | 04:00:00 s                                    | 4 hours
  jupiterday       | 09:55:29.856 s                                | 0.41354 day
  saturnday        | 10:30:00 s                                    | 0.4375 day

@@ -561,8 +561,10 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  stdatmT0                  | 288.15 K                            | 288.15 K
  mired                     | 1000000 K^-1                        | / microK
  ㎀                        | 1 pA                                | pA
+ stA                       | 333.564095198152 pA                 | statampere
+ statA                     | 333.564095198152 pA                 | statampere
  statamp                   | 333.564095198152 pA                 | statampere
- statampere                | 333.564095198152 pA                 | 10 A cm / s c
+ statampere                | 333.564095198152 pA                 | statcoulomb / s
  ㎁                        | 1 nA                                | nA
  ㎂                        | 1 µA                                | µA
  ㎃                        | 1 mA                                | mA
@@ -580,7 +582,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  abA                       | 10 A                                | abampere
  abamp                     | 10 A                                | abampere
  abampere                  | 10 A                                | 10 A
- biot                      | 10 A                                | abA
+ biot                      | 10 A                                | abampere
  ㎄                        | 1 kA                                | kA
  plancktime                | 5.39105895420117e-44 s              | hbar / planckmass c^2
  t_P                       | 5.39105895420117e-44 s              | plancktime
@@ -596,7 +598,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  timeatom                  | 159.574468085106 ms                 | 1|47 timeounce
  Tim                       | 173.611111111111 ms                 | 12^-4 hour
  blink                     | 864 ms                              | 1e-5 day
- decimalsecond             | 864 ms                              | 1|100 decimalminute 
+ decimalsecond             | 864 ms                              | 1|100 decimalminute
  siderealsecond            | 997.269566435185 ms                 | 1|60 siderealminute
  TIME                      | 1 s                                 | second
  s                         | 1 s                                 | s
@@ -608,7 +610,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  minute                    | 60 s                                | 60 s
  timeostent                | 60 s                                | 1|60 hour
  beat                      | 86.4 s                              | decimalminute
- decimalminute             | 86.4 s                              | 1|100 decimalhour   
+ decimalminute             | 86.4 s                              | 1|100 decimalhour
  timeminute                | 360 s                               | 1|10 hour
  timepoint                 | 720 s                               | 1|5 hour
  ce                        | 864 s                               | 1e-2 day
@@ -618,7 +620,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  h                         | 3.6 ks                              | hour
  hour                      | 3.6 ks                              | 60 min
  hr                        | 3.6 ks                              | hour
- decimalhour               | 8.64 ks                             | 1|10 day            
+ decimalhour               | 8.64 ks                             | 1|10 day
  watch                     | 14.4 ks                             | 4 hours
  jupiterday                | 35.729856 ks                        | 0.41354 day
  saturnday                 | 37.8 ks                             | 0.4375 day
@@ -688,14 +690,19 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  talbot                    | 1 s*cd                              | lumen s
  atomiccharge              | 160.21766208 zC                     | e
  e                         | 160.21766208 zC                     | 1.6021766208e-19 C
+ Fr                        | 333.564095198152 pC                 | franklin
  esu                       | 333.564095198152 pC                 | statcoulomb
  franklin                  | 333.564095198152 pC                 | statcoulomb
+ stC                       | 333.564095198152 pC                 | statcoulomb
+ statC                     | 333.564095198152 pC                 | statcoulomb
  statcoul                  | 333.564095198152 pC                 | statcoulomb
- statcoulomb               | 333.564095198152 pC                 | statamp s
+ statcoulomb               | 333.564095198152 pC                 | 10 coulomb cm / s c
+ D_FLUX                    | 1 C                                 | D_FIELD AREA
  C                         | 1 C                                 | coulomb
  CHARGE                    | 1 C                                 | coulomb
  coul                      | 1 C                                 | C
  coulomb                   | 1 C                                 | A s
+ abC                       | 10 C                                | abcoulomb
  abcoul                    | 10 C                                | abcoulomb
  abcoulomb                 | 10 C                                | abamp sec
  faraday                   | 96.4853329073191 kC                 | N_A e mol
@@ -1020,8 +1027,12 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  langley                   | 41.84 Mg/s^2                        | thermcalorie/cm^2
  Gs                        | 100 µT                              | gauss
  gauss                     | 100 µT                              | abvolt sec / cm^2
+ B_FIELD                   | 1 T                                 | tesla
  T                         | 1 T                                 | tesla
  tesla                     | 1 T                                 | Wb/m^2
+ stT                       | 2.99792458 MT                       | stattesla
+ statT                     | 2.99792458 MT                       | stattesla
+ stattesla                 | 2.99792458 MT                       | statWb/cm^2
  mechanicalohm             | 1 g/s                               | dyn s / cm
  mobileohm                 | 1 ks/kg                             | cm / dyn s
  roentgen                  | 0.000258 s*A/kg                     | 2.58e-4 C / kg
@@ -1045,7 +1056,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  lambda_Cp                 | 1.32140985417209 fm                 | protonwavelength
  protonwavelength          | 1.32140985417209 fm                 | hplanck / m_p c
  deuteronchargeradius      | 2.1413 fm                           | 2.1413e-15 m
- electronradius            | 2.81794032333922 fm                 | (1/4 pi epsilon0) e^2 / electronmass c^2
+ electronradius            | 2.81794032333922 fm                 | coulombconst e^2 / electronmass c^2
  siegbahn                  | 100.207697 fm                       | xunit
  xunit                     | 100.207697 fm                       | xunit_cu
  xunit_cu                  | 100.207697 fm                       | 1.00207697e-13 m
@@ -1521,7 +1532,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  pc                        | 30.8567758146719 Pm                 | parsec
  ㍶                        | 30.8567758146719 Pm                 | pc
  wiendisplacement          | 0.0028977729 m*K                    | 2.8977729e-3 m K
- debye                     | 3.33564095198152e-30 m*s*A          | 1e-18 statcoul cm
+ H_FLUX                    | 633257397764.611 m*A                | H_FIELD AREA
+ debye                     | 3.33564095198152e-30 m*s*A          | 1e-10 statC angstrom
+ ELECTRIC_DIPOLE_MOMENT    | 1 m*s*A                             | C m
  jerk                      | 304.8 mm/s^3                        | ft / s^3
  Gal                       | 10 mm/s^2                           | cm / s^2
  galileo                   | 10 mm/s^2                           | Gal
@@ -1551,6 +1564,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  c                         | 299.792458 Mm/s                     | 2.99792458e8 m/s
  light                     | 299.792458 Mm/s                     | c
  THERMAL_CONDUCTIVITY      | 1 m*kg/s^3*K                        | POWER / AREA (TEMPERATURE_DIFFERENCE/LENGTH)
+ E_FIELD                   | 1 m*kg/s^3*A                        | ELECTRIC_POTENTIAL / LENGTH
  dyn                       | 10 µN                               | dyne
  dyne                      | 10 µN                               | cm gram / s^2
  ouncedal                  | 8.6409346485 mN                     | oz ft / s^2
@@ -1633,7 +1647,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  envelope9size             | 0.022187455625 m^2                  | 3.875 inch 8.875 inch
  envelopeA7size            | 0.0245564025 m^2                    | 5.25 inch 7.25 inch
  envelope10size            | 0.0252822075 m^2                    | 4.125 inch 9.5 inch
- envelopeA8size            | 0.0288305875 m^2                    | 5.5 inch 8.125 inch   
+ envelopeA8size            | 0.0288305875 m^2                    | 5.5 inch 8.125 inch
  envelope11size            | 0.0301209075 m^2                    | 4.5 inch 10.375 inch
  A5paper                   | 0.03108 m^2                         | 148 mm  210 mm
  envelopeA9size            | 0.0324596125 m^2                    | 5.75 inch 8.75 inch
@@ -1741,6 +1755,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  bohrmagneton              | 9.27400999566503e-24 m^2*A          | e hbar / 2 electronmass
  mu_B                      | 9.27400999566503e-24 m^2*A          | bohrmagneton
  emu                       | 0.001 m^2*A                         | erg/gauss
+ MAGNETIC_DIPOLE_MOMENT    | 1 m^2*A                             | J / T
  ㎯                        | 0.01 m^2/s^4                        | rad/s^2
  ㎮                        | 0.01 m^2/s^3                        | rad/s
  refrigeration             | 3.87666666666667 m^2/s^3            | tonref / ton
@@ -1908,15 +1923,21 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  megohm                    | 1 MΩ                                | megaohm
  ㏁                        | 1 MΩ                                | MΩ
  statohm                   | 898.755178736818 GΩ                 | statvolt / statamp
+ stohm                     | 898.755178736818 GΩ                 | statohm
  ㎴                        | 1 pV                                | pV
  ㎵                        | 1 nV                                | nV
+ abV                       | 10 nV                               | abvolt
  abvolt                    | 10 nV                               | dyne cm  / abamp sec
  ㎶                        | 1 µV                                | µV
  ㎷                        | 1 mV                                | mV
+ ELECTRIC_POTENTIAL        | 1 V                                 | volt
  V                         | 1 V                                 | volt
+ VOLTAGE                   | 1 V                                 | ELECTRIC_POTENTIAL
  volt                      | 1 V                                 | W/A
  intvolt                   | 1.00033 V                           | 1.00033 V
  daniell                   | 1.042 V                             | 1.042 V
+ stV                       | 299.792458 V                        | statvolt
+ statV                     | 299.792458 V                        | statvolt
  statvolt                  | 299.792458 V                        | dyne cm / statamp sec
  ㎸                        | 1 kV                                | kV
  crocodile                 | 1 MV                                | megavolt
@@ -2004,20 +2025,26 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  R_1976                    | 8.31432 m^2*kg/s^2*K*mol            | 8.31432e3 N m/(kmol K)
  R                         | 8.31445986358743 m^2*kg/s^2*K*mol   | gasconstant
  gasconstant               | 8.31445986358743 m^2*kg/s^2*K*mol   | k N_A
+ abH                       | 1 nH                                | abhenry
  abhenry                   | 1 nH                                | abvolt sec / abamp
  mh                        | 1 mH                                | mH
  H                         | 1 H                                 | henry
  INDUCTANCE                | 1 H                                 | henry
- henry                     | 1 H                                 | Wb/A
+ henry                     | 1 H                                 | V s / A
+ stH                       | 898.755178736818 GH                 | stathenry
+ statH                     | 898.755178736818 GH                 | stathenry
  stathenry                 | 898.755178736818 GH                 | statvolt sec / statamp
  Mx                        | 10 nWb                              | maxwell
- maxwell                   | 10 nWb                              | abvolt sec
+ maxwell                   | 10 nWb                              | gauss cm^2
  unitpole                  | 125.663706143592 nWb                | 4 pi maxwell
  kappline                  | 60 µWb                              | 6000 maxwell
+ B_FLUX                    | 1 Wb                                | B_FIELD AREA
  Wb                        | 1 Wb                                | weber
  weber                     | 1 Wb                                | V s
  ㏝                        | 1 Wb                                | Wb
- statmaxwell               | 299.792458 Wb                       | statvolt sec
+ stWb                      | 299.792458 Wb                       | statweber
+ statWb                    | 299.792458 Wb                       | statweber
+ statweber                 | 299.792458 Wb                       | statvolt sec
  atomicaction              | 1.05457180005237e-34 m^2*kg/s       | hbar
  hbar                      | 1.05457180005237e-34 m^2*kg/s       | hplanck / 2 pi
  spin                      | 1.05457180005237e-34 m^2*kg/s       | hbar
@@ -2380,6 +2407,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  sverdrup                  | 1000000 m^3/s                       | 1e6 m^3 / sec
  coulombconst              | 8987551787.36818 m^3*kg/s^4*A^2     | 1/4 pi epsilon0
  preece                    | 10000000000000 m^3*kg/s^3*A^2       | 1e13 ohm m
+ E_FLUX                    | 1 m^3*kg/s^3*A                      | E_FIELD AREA
  fillpower                 | 0.000578036672001339 m^3/kg         | in^3 / ounce
  G                         | 6.67408e-11 m^3/kg*s^2              | 6.67408e-11 N m^2 / kg^2
  acousticalohm             | 100 Mg/m^4*s                        | dyn s / cm^5
@@ -2475,6 +2503,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  N_exif                    | 0.32 s*cd/m^2                       | 1|3.125 lx s
  N_speed                   | 0.32 s*cd/m^2                       | N_exif
  mcs                       | 1 s*cd/m^2                          | metercandle s
+ D_FIELD                   | 1 s*A/m^2                           | E_FIELD epsilon0 (c/(m/s))^2 4 pi 1e-7
+ POLARIZATION              | 1 s*A/m^2                           | ELECTRIC_DIPOLE_MOMENT / VOLUME
  pfu                       | 10000 m^-2*s^-1                     | / cm^2 sr s
  gsm                       | 1 g/m^2                             | grams / meter^2
  lbbible                   | 1.48014648345086 g/m^2              | poundbiblepaper
@@ -2562,6 +2592,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  fourier                   | 1 s^3*K^2/m^2*kg                    | thermalohm
  thermalohm                | 1 s^3*K^2/m^2*kg                    | K^2/W
  statmho                   | 1.11265005605362 pS                 | /statohm
+ stmho                     | 1.11265005605362 pS                 | statmho
  CONDUCTANCE               | 1 S                                 | siemens
  S                         | 1 S                                 | siemens
  mho                       | 1 S                                 | siemens
@@ -2572,6 +2603,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  pf                        | 1 pF                                | pF
  ㎊                        | 1 pF                                | pF
  cmcapacitance             | 1.11265005605362 pF                 | statfarad
+ stF                       | 1.11265005605362 pF                 | statfarad
+ statF                     | 1.11265005605362 pF                 | statfarad
  statfarad                 | 1.11265005605362 pF                 | statamp sec / statvolt
  ㎋                        | 1 nF                                | nF
  jar                       | 1.11265005605362 nF                 | 1000 statfarad
@@ -2580,6 +2613,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  CAPACITANCE               | 1 F                                 | farad
  F                         | 1 F                                 | farad
  farad                     | 1 F                                 | C/V
+ abF                       | 1 GF                                | abfarad
  abfarad                   | 1 GF                                | abampere sec / abvolt
  diopter                   | 1 m^-1                              | /m
  dioptre                   | 1 m^-1                              | diopter
@@ -2588,9 +2622,11 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  R_H                       | 10967760 m^-1                       | 10967760 /m
  Rinfinity                 | 10973731.568539 m^-1                | 10973731.568539 /m
  lapserate                 | 6.5 mK/m                            | 6.5 K/km
+ MAGNETIZATION             | 1 A/m                               | MAGNETIC_DIPOLE_MOMENT / VOLUME
  Oe                        | 79.5774715459477 A/m                | oersted
  oe                        | 79.5774715459477 A/m                | Oe
  oersted                   | 79.5774715459477 A/m                | gauss / mu0
+ H_FIELD                   | 633.257397764611 GA/m               | B_FIELD / mu0 * 4 pi 1e-7
  perm                      | 57.2134946709451 ps/m               | perm_0C
  perm_0                    | 57.2134946709451 ps/m               | perm_0C
  perm_0C                   | 57.2134946709451 ps/m               | grain / hr ft^2 inHg
@@ -2627,7 +2663,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  pieze                     | 1 kPa                               | sthene / m^2
  ㎪                        | 1 kPa                               | kPa
  fsw                       | 3.048 kPa                           | foot seawater
- inHg                      | 3.386388640341 kPa                  | inch Hg    
+ inHg                      | 3.386388640341 kPa                  | inch Hg
  psi                       | 6.89475729316836 kPa                | pound force / inch^2
  psia                      | 6.89475729316836 kPa                | psi
  msw                       | 10 kPa                              | meter seawater
@@ -2664,7 +2700,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  reyn                      | 6.89475729316836 Mg/m*s             | psi sec
  lorentz                   | 46.6864481456201 s^2*A/m*kg         | bohrmagneton / hplanck c
  THERMAL_RESISTIVITY       | 1 s^3*K/m*kg                        | 1/THERMAL_CONDUCTIVITY
-(2543 rows)
+(2579 rows)
 
 -- units that do not conform to their original definition
 SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation
