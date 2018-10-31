@@ -1,6 +1,7 @@
 postgresql-unit (7.0-3) UNRELEASED; urgency=medium
 
   * Import definitions.unit 2.44 from units 2.18 with 36 new units.
+  * Adjust powers.h to round "1" down by one ULP.
 
  -- Christoph Berg <myon@debian.org>  Wed, 31 Oct 2018 22:43:09 +0100
 

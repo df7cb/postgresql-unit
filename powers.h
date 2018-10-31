@@ -10,7 +10,7 @@
 #define POWER_9   0x1.dcd64ffffffffp+29  /* G 0x1.dcd65p+29          */
 #define POWER_6   0x1.e847fffffffffp+19  /* M 0x1.e848p+19           */
 #define POWER_3   0x1.f3fffffffffffp+9   /* k 0x1.f4p+9              */
-#define POWER_0   1                      /*   0x1p+0                 */
+#define POWER_0   0x1.fffffffffffffp-1   /*   0x1p+0                 */
 #define POWER__3  0x1.0624dd2f1a9fbp-10  /* m 0x1.0624dd2f1a9fcp-10  */
 #define POWER__6  0x1.0c6f7a0b5ed8cp-20  /* µ 0x1.0c6f7a0b5ed8dp-20  */
 #define POWER__9  1e-09                  /* n 0x1.12e0be826d695p-30  */
