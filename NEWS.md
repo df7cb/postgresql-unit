@@ -1,3 +1,9 @@
+7.1: Dec 3, 2018
+----------------
+* Import definitions.unit 2.44 from units 2.18 with 36 new units.
+  When upgrading from a previous install, use `SELECT unit_load();` to import.
+* Adjust powers.h to round "1" down by one ULP.
+
 7.0: Sep 28, 2018
 -----------------
 * Format time using commonyears + days + hh:mm:ss.sss s.

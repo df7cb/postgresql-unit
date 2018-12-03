@@ -10,7 +10,7 @@ for PGVERSION in ${*:-10 11 12 9.6 9.5}; do
 	PG_CONFIG=/usr/lib/postgresql/$PGVERSION/bin/pg_config
 	export PGCLUSTER="$PGVERSION/main"
 	export PGPORT="54${PGVERSION/./}"
-	[ "$PGVERSION" = "10" ] && unset PGPORT # default version
+	[ "$PGVERSION" = "11" ] && unset PGPORT # default version
 
 	make clean
 	make PG_CONFIG=$PG_CONFIG PROFILE="-Werror"
