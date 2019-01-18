@@ -8,8 +8,9 @@ DATA_built = unit--2--3.sql unit--3.sql \
 			 unit--3--4.sql unit--4.sql \
 			 unit--4--5.sql unit--5.sql \
 			 unit--5--6.sql unit--6.sql \
-			 unit--6--7.sql unit--7.sql
-REGRESS = extension tables unit binary unicode prefix units time temperature functions round derived compare aggregate iec custom
+			 unit--6--7.sql unit--7.sql \
+			 unit--7--8.sql unit--8.sql
+REGRESS = extension tables unit typmod binary unicode prefix units time temperature functions round derived compare aggregate iec custom
 # Jessie's and trusty's bison (3.0.2) is buggy, ship pregenerated .tab files
 EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
 

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016-2018 Christoph Berg
+Copyright (C) 2016-2019 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,6 +14,8 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "catalog/pg_type.h" /* for CSTRINGOID */
+#include "executor/spi.h"
 #include "libpq/pqformat.h" /* send/recv */
 #include "utils/builtins.h" /* cstring_to_text (needed on 9.5) */
 #include "utils/guc.h"
@@ -45,6 +47,7 @@ static HTAB *unit_dimensions;
 
 /* unit definitions */
 
+/* create hash tables and populate them with base data */
 void unit_get_definitions(void);
 
 void
@@ -501,6 +504,141 @@ unit_cstring (Unit *unit)
 
 	/* done */
 	return output;
+}
+
+/* type mod */
+
+static int
+unit_get_typmod(char *typmodstr)
+{
+	unit_names_t	*name;
+	int			ret;
+	Oid			argtypes[1];
+	Datum		values[1];
+	Unit	   *unitp;
+
+	/* Check if it's a predefined or previously seen unit */
+	name = hash_search(unit_names, typmodstr, HASH_FIND, NULL);
+	if (name)
+	{
+		elog(DEBUG1, "unit %s found in unit_names hash table", name->name);
+		if (name->unit_shift.unit.value != 1.0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					 errmsg("unit \"%s\" cannot be used as type modifier", typmodstr),
+					 errdetail("unit value is not one in base units")));
+		if (name->unit_shift.shift != 0.0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					 errmsg("unit \"%s\" cannot be used as type modifier", typmodstr),
+					 errdetail("unit is a shifted unit")));
+		unitp = &name->unit_shift.unit;
+		goto found;
+	}
+
+	SPI_connect();
+
+	argtypes[0] = TEXTOID;
+	values[0] = CStringGetTextDatum(typmodstr);
+
+	/* look up unit definition without prefix */
+	ret = SPI_execute_with_args("SELECT unit, shift "
+								"FROM unit_units WHERE "
+								"name = $1",
+								1, /* nargs */
+								argtypes,
+								values,
+								NULL, /* nulls */
+								true, /* read only */
+								0); /* limit */
+	if (ret != SPI_OK_SELECT)
+		elog(ERROR, "internal error determining definition of unit \"%s\"", typmodstr);
+
+	if (SPI_processed != 1)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("unit \"%s\" is not known", typmodstr)));
+
+	{
+		bool		is_null;
+
+		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
+		if (is_null)
+			elog(ERROR, "unit \"%s\" definition is NULL", typmodstr);
+		if (unitp->value != 1.0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					 errmsg("unit \"%s\" cannot be used as type modifier", typmodstr),
+					 errdetail("unit value is not one in base units")));
+
+		/* result unused */ SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null);
+		if (!is_null)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					 errmsg("unit \"%s\" cannot be used as type modifier", typmodstr),
+					 errdetail("unit is a shifted unit")));
+	}
+
+	SPI_finish();
+
+found:
+	return unitp->units[UNIT_m]; /* TODO */
+}
+
+PG_FUNCTION_INFO_V1 (unit_typmod_in);
+
+Datum
+unit_typmod_in (PG_FUNCTION_ARGS)
+{
+	ArrayType *arr = (ArrayType *) DatumGetPointer(PG_GETARG_DATUM(0));
+	int32 typmod = 0;
+	Datum *elem_values;
+	int n = 0;
+	int i = 0;
+
+	if (ARR_ELEMTYPE(arr) != CSTRINGOID)
+		ereport(ERROR,
+				(errcode(ERRCODE_ARRAY_ELEMENT_ERROR),
+				 errmsg("typmod array must be type cstring[]")));
+
+	if (ARR_NDIM(arr) != 1)
+		ereport(ERROR,
+				(errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+				 errmsg("typmod array must be one-dimensional")));
+
+	if (ARR_HASNULL(arr))
+		ereport(ERROR,
+				(errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+				 errmsg("typmod array must not contain nulls")));
+
+	deconstruct_array(arr,
+			CSTRINGOID, -2, false, 'c', /* hardwire cstring representation details */
+			&elem_values, NULL, &n);
+
+	if (n > 1)
+		ereport(ERROR,
+				(errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+				 errmsg("typmod array must exactly one element")));
+
+	typmod = unit_get_typmod(DatumGetCString(elem_values[i]));
+
+	pfree(elem_values);
+
+	return typmod;
+}
+
+PG_FUNCTION_INFO_V1 (unit_typmod_out);
+
+Datum
+unit_typmod_out (PG_FUNCTION_ARGS)
+{
+	int typmod = PG_GETARG_INT32(0);
+	switch (typmod) {
+		case 0: PG_RETURN_CSTRING("(1)"); break;
+		case 1: PG_RETURN_CSTRING("(LENGTH)"); break;
+		case 2: PG_RETURN_CSTRING("(AREA)"); break;
+	}
+	PG_RETURN_CSTRING(psprintf("(%d)", typmod));
 }
 
 /* input and output */

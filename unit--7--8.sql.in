@@ -1,0 +1,24 @@
+-- add typmod functions
+
+CREATE FUNCTION unit_typmod_in(cstring[])
+	RETURNS integer
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_typmod_out(integer)
+	RETURNS cstring
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
+UPDATE pg_type SET typmodin = 'unit_typmod_in', typmodout = 'unit_typmod_out'
+	WHERE typname = 'unit' AND typnamespace = '@extschema@'::regnamespace;
+
+INSERT INTO pg_depend (classid, objid, objsubid, refclassid, refobjid, refobjsubid, deptype)
+	VALUES
+		('pg_type'::regclass, 'unit'::regtype,   0, 'pg_proc'::regclass, 'unit_typmod_in'::regproc, 0, 'n'),
+		('pg_type'::regclass, 'unit[]'::regtype, 0, 'pg_proc'::regclass, 'unit_typmod_in'::regproc, 0, 'n'),
+		('pg_type'::regclass, 'unit'::regtype,   0, 'pg_proc'::regclass, 'unit_typmod_out'::regproc, 0, 'n'),
+		('pg_type'::regclass, 'unit[]'::regtype, 0, 'pg_proc'::regclass, 'unit_typmod_out'::regproc, 0, 'n');
+
+-- load prefixes and units tables
+--SELECT unit_load();
