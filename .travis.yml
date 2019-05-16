@@ -40,7 +40,7 @@ install:
 
 script:
   - pg_buildext updatecontrol
-  - dpkg-buildpackage -us -uc -rfakeroot
+  - dpkg-buildpackage -us -uc -rfakeroot -b
   - for deb in ../*.deb; do echo "$deb:"; dpkg-deb --info $deb; dpkg-deb --contents $deb; done
   - sudo dpkg -i ../*.deb
   - pg_buildext -i '--locale=C.UTF-8' installcheck
