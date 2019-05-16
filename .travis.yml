@@ -9,19 +9,18 @@ env:
   - PG_SUPPORTED_VERSIONS=12
 
 language: C
-dist: trusty
+dist: xenial
 sudo: required
 
 before_install:
   # apt.postgresql.org is already configured, we just need to add devel
   - |
-    DIST=trusty-pgdg
     case $PG_SUPPORTED_VERSIONS in
-      1*)
+      12)
       # update pgdg-source.list
       sudo sed -i -e "s/pgdg.*/pgdg-testing main $PG_SUPPORTED_VERSIONS/" /etc/apt/sources.list.d/pgdg*.list
-      DIST=trusty-pgdg-testing
-      ;;
+      DIST=xenial-pgdg-testing ;;
+      *) DIST=xenial-pgdg ;;
     esac
   - sudo apt-get -qq update
 
