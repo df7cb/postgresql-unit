@@ -1,0 +1,53 @@
+SELECT round(ampere(1.5));
+ round 
+-------
+ 2 A
+(1 row)
+
+SELECT round(candela(-0.5));
+ round 
+-------
+ -1 cd
+(1 row)
+
+SELECT round(meter(1500.5));
+  round   
+----------
+ 1.501 km
+(1 row)
+
+SET extra_float_digits = 0;
+SELECT '1|3m'::unit, '25m'::unit @ 'ft', '25m'::unit @@ 'ft';
+        unit         |      ?column?       |     ?column?     
+---------------------+---------------------+------------------
+ 333.333333333333 mm | 82.0209973753281 ft | 82.0209973753281
+(1 row)
+
+SET extra_float_digits = 3;
+SELECT '1|3m'::unit, '25m'::unit @ 'ft', '25m'::unit @@ 'ft';
+          unit          |        ?column?        |     ?column?      
+------------------------+------------------------+-------------------
+ 333.333333333333314 mm | 82.0209973753280792 ft | 82.02099737532808
+(1 row)
+
+SET extra_float_digits = -3;
+SELECT '1|3m'::unit, '25m'::unit @ 'ft', '25m'::unit @@ 'ft';
+       unit       |     ?column?     |   ?column?    
+------------------+------------------+---------------
+ 333.333333333 mm | 82.0209973753 ft | 82.0209973753
+(1 row)
+
+SET extra_float_digits = -12;
+SELECT '1|3m'::unit, '25m'::unit @ 'ft', '25m'::unit @@ 'ft';
+  unit  | ?column? | ?column? 
+--------+----------+----------
+ 333 mm | 82 ft    |       82
+(1 row)
+
+SET extra_float_digits = -15;
+SELECT '1|3m'::unit, '25m'::unit @ 'ft', '25m'::unit @@ 'ft';
+   unit   | ?column? | ?column? 
+----------+----------+----------
+ 3e+02 mm | 8e+01 ft |    8e+01
+(1 row)
+

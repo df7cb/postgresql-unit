@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016-2018 Christoph Berg
+Copyright (C) 2016-2019 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,12 +26,7 @@ GNU General Public License for more details.
 #include "unit.h"
 #include "defined_units.h"
 #include "powers.h"
-
-#if PG_VERSION_NUM >= 90600
-#include "utils/builtins.h" /* float8out_internal */
-#else
-#include "float8out_internal.h"
-#endif
+#include "float8out_unit.h"
 
 /* global variables */
 
@@ -247,7 +242,13 @@ print_time_interval (char **output_p, double t)
 		sign = "-";
 	}
 
-	ndig = DBL_DIG + extra_float_digits - log10(t); /* adjust seconds precision for d/h/min already printed */
+	ndig = DBL_DIG
+#if PG_VERSION_NUM >= 120000
+		+ (extra_float_digits == 1 ? 0 : extra_float_digits) /* revert to pre-12 default */
+#else
+		+ extra_float_digits
+#endif
+		- log10(t); /* adjust seconds precision for d/h/min already printed */
 
 	/* print years */
 	if (t >= TIME_YEAR) {
@@ -370,7 +371,7 @@ unit_cstring (Unit *unit)
 			prefix = "y"; factor = 1e27;
 		} /* else: smaller value or 0 (or -0), print using kg */
 
-		print_output("%s %sg", float8out_internal (unit->value * factor),
+		print_output("%s %sg", float8out_unit (unit->value * factor),
 				prefix); /* gram with SI prefix */
 		numerator = true;
 
@@ -400,7 +401,7 @@ unit_cstring (Unit *unit)
 			prefix = "Ki"; factor = 0x1p-10;
 		} /* else do nothing */
 
-		print_output("%s %sB", float8out_internal (unit->value * factor),
+		print_output("%s %sB", float8out_unit (unit->value * factor),
 				prefix); /* byte with binary prefix */
 		numerator = true;
 
@@ -461,7 +462,7 @@ unit_cstring (Unit *unit)
 		} /* else do nothing */
 
 		/* print with SI prefix */
-		print_output("%s %s%s", float8out_internal (unit->value * factor),
+		print_output("%s %s%s", float8out_unit (unit->value * factor),
 				prefix, unit_name);
 
 		/* case 2b: derived unit: stop here */
@@ -474,7 +475,7 @@ unit_cstring (Unit *unit)
 	/* case 3: zero or more than one unit in numerator */
 	} else {
 		/* always use scientific notation here */
-		print_output("%s", float8out_internal (unit->value));
+		print_output("%s", float8out_unit (unit->value));
 
 		for (i = 0; i < N_UNITS; i++) /* format units in numerator */
 			if (unit->units[i] > 0) {
@@ -983,7 +984,7 @@ unit_at(PG_FUNCTION_ARGS)
 				(errcode(ERRCODE_DIVISION_BY_ZERO),
 				 errmsg("division by zero-valued unit: \"%s\"", b)));
 	PG_RETURN_CSTRING(psprintf("%s %s%s",
-				float8out_internal ((a->value - bu.shift) / bu.unit.value),
+				float8out_unit ((a->value - bu.shift) / bu.unit.value),
 				(atof(b) > 0 ? "* " : ""),
 				b));
 }
@@ -1010,7 +1011,7 @@ unit_at_text(PG_FUNCTION_ARGS)
 				(errcode(ERRCODE_DIVISION_BY_ZERO),
 				 errmsg("division by zero-valued unit: \"%s\"", b)));
 	PG_RETURN_CSTRING(psprintf("%s %s%s",
-				float8out_internal ((a->value - bu.shift) / bu.unit.value),
+				float8out_unit ((a->value - bu.shift) / bu.unit.value),
 				(atof(b) > 0 ? "* " : ""),
 				b));
 }
@@ -1036,7 +1037,7 @@ unit_at_text2(PG_FUNCTION_ARGS)
 				(errcode(ERRCODE_DIVISION_BY_ZERO),
 				 errmsg("division by zero-valued unit: \"%s\"", b)));
 	PG_RETURN_TEXT_P(cstring_to_text(psprintf("%s %s%s",
-				float8out_internal ((a->value - bu.shift) / bu.unit.value),
+				float8out_unit ((a->value - bu.shift) / bu.unit.value),
 				(atof(b) > 0 ? "* " : ""),
 				b)));
 }

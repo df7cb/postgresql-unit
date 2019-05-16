@@ -24,6 +24,8 @@ FROM
  mi | 1609344 mm | 1609.344 m | 1.609344 km  | 63360 in              | 5280 ft                | 1760 yd                | 1 mi
 (7 rows)
 
+/* revert to pre-12 default */
+SET extra_float_digits = 0;
 WITH
   l(u) AS (VALUES
 	('mm'),
@@ -49,6 +51,7 @@ FROM
  mi | 1609344 | 1609.344 |  1.609344 |              63360 |                5280 |                1760 |                    1
 (7 rows)
 
+RESET extra_float_digits;
 -- area
 WITH
   l(u) AS (VALUES

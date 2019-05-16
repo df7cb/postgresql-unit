@@ -1,3 +1,8 @@
+7.2: unreleased
+----------------
+* Rewire PostgreSQL 12's new extra_float_digits=1 default internally to 0 to
+  keep nice, short decimal representations.
+
 7.1: Dec 3, 2018
 ----------------
 * Import definitions.unit 2.44 from units 2.18 with 36 new units.

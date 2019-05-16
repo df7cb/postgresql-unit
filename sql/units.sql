@@ -1,6 +1,9 @@
 SET unit.time_output_custom = false;
 
+/* revert to pre-12 default */
+SET extra_float_digits = 0;
 SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COLLATE "C";
+RESET extra_float_digits;
 
 SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name COLLATE "C";
 

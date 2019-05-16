@@ -525,6 +525,15 @@ SET
  82 ft
 ```
 
+*Note*: Starting with PostgreSQL 12, the default value for `extra_float_digits`
+is 1, so all printed float values are exact. This makes many converted units
+(like inch to meters) have a lengthy decimal representation ending in ...0001
+or ...9997. In order to restore the "nice" display behavior, e_f_t=1 is
+internally converted to e_f_t=0 in these PostgreSQL versions. Values returned
+as floats (like from the `value()` function and the `@@` operator) will still
+have the "new" representation; set e_f_t=0 to disable. Set e_f_t to 2 or 3 to
+force the new, exact representation.
+
 References
 ----------
 
@@ -538,10 +547,10 @@ References
 License
 -------
 
-Copyright (C) 2016-2018 Christoph Berg
+Copyright (C) 2016-2019 Christoph Berg
 
 The definitions.units file is
-Copyright (C) 1996-2017 Free Software Foundation, Inc.
+Copyright (C) 1996-2018 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

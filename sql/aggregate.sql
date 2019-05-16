@@ -1,5 +1,8 @@
 -- test aggregates
 
+/* revert to pre-12 default for stddev(value()) tests */
+SET extra_float_digits = 0;
+
 CREATE TEMP TABLE u (
 	u unit
 );

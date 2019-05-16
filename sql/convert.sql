@@ -14,6 +14,8 @@ FROM
   l l1 CROSS JOIN l l2
 \crosstabview
 
+/* revert to pre-12 default */
+SET extra_float_digits = 0;
 WITH
   l(u) AS (VALUES
 	('mm'),
@@ -28,6 +30,7 @@ SELECT
 FROM
   l l1 CROSS JOIN l l2
 \crosstabview
+RESET extra_float_digits;
 
 -- area
 WITH

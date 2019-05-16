@@ -45,6 +45,9 @@ SELECT gray(2);
 SELECT sievert(2);
 SELECT katal(2);
 
+/* revert to pre-12 default for decibel() tests */
+SET extra_float_digits = 0;
+
 -- Non-SI units accepted for use with the SI
 SELECT minute();
 SELECT hour();

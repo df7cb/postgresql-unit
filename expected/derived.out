@@ -263,6 +263,8 @@ SELECT katal(2);
  2 kat
 (1 row)
 
+/* revert to pre-12 default for decibel() tests */
+SET extra_float_digits = 0;
 -- Non-SI units accepted for use with the SI
 SELECT minute();
    minute   

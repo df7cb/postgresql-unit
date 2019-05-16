@@ -1,4 +1,6 @@
 SET unit.time_output_custom = false;
+/* revert to pre-12 default */
+SET extra_float_digits = 0;
 SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COLLATE "C";
   prefix  |        factor        | definition 
 ----------+----------------------+------------
@@ -118,6 +120,7 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COL
  yobi     | 1.20892581961463e+24 | 2^80
 (114 rows)
 
+RESET extra_float_digits;
 SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name COLLATE "C";
            name            |                unit                 |                  definition                   
 ---------------------------+-------------------------------------+-----------------------------------------------

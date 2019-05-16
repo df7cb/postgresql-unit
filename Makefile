@@ -29,7 +29,7 @@ endif
 # upgrade testing, not enabled by default (needs extension actually installed)
 #REGRESS += upgrade
 
-unit.o: unit.c unit.h defined_units.h float8out_internal.h
+unit.o: unit.c unit.h defined_units.h float8out_unit.h
 
 unitparse.yy.c: unitparse.l
 	flex -o $@ $<

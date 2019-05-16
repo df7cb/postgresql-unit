@@ -1,13 +1,20 @@
 /* minimal version of PG 9.6's float8out_internal function for use in 9.4 and 9.5 */
+/* With the adaption of ryn in PG 12, it is now used for all versions */
 
 #define MAXDOUBLEWIDTH	128
 extern int		extra_float_digits;
 
 static char *
-float8out_internal(double num)
+float8out_unit(double num)
 {
 	char	   *ascii = (char *) palloc(MAXDOUBLEWIDTH + 1);
-	int			ndig = DBL_DIG + extra_float_digits;
+	int			extradigits =
+#if PG_VERSION_NUM >= 120000
+					extra_float_digits == 1 ? 0 : extra_float_digits;
+#else
+					extra_float_digits;
+#endif
+	int			ndig = DBL_DIG + extradigits;
 
 	if (isnan(num))
 		return strcpy(ascii, "NaN");

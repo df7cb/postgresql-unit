@@ -1,3 +1,5 @@
+/* revert to pre-12 default */
+SET extra_float_digits = 0;
 SELECT * FROM unit_units WHERE name IN (
 	'K', 'kelvin',
 	'℃', '°C', 'degC', 'degcelsius',
@@ -5,6 +7,7 @@ SELECT * FROM unit_units WHERE name IN (
 	'°R', 'degR', 'degrankine', 'degreerankine', 'degreesrankine', 'tempR', 'temprankine',
 	'degreaumur')
 ORDER BY name COLLATE "C";
+RESET extra_float_digits;
 
 -- Kelvin
 SELECT '0 K'::unit, 'K'::unit, '1 K'::unit, '273.15 K'::unit;
