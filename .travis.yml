@@ -6,7 +6,7 @@ env:
   - PG_SUPPORTED_VERSIONS=9.6
   - PG_SUPPORTED_VERSIONS=10
   - PG_SUPPORTED_VERSIONS=11
-  - PG_SUPPORTED_VERSIONS=12
+  - PG_SUPPORTED_VERSIONS=12 DIST=xenial-pgdg-testing
 
 language: C
 dist: xenial
@@ -14,19 +14,12 @@ sudo: required
 
 before_install:
   # apt.postgresql.org is already configured, we just need to add devel
-  - |
-    case $PG_SUPPORTED_VERSIONS in
-      12)
-      # update pgdg-source.list
-      sudo sed -i -e "s/pgdg.*/pgdg-testing main $PG_SUPPORTED_VERSIONS/" /etc/apt/sources.list.d/pgdg*.list
-      DIST=xenial-pgdg-testing ;;
-      *) DIST=xenial-pgdg ;;
-    esac
+  - [ "$DIST" ] && sudo sed -i -e "s/pgdg.*/pgdg-testing main $PG_SUPPORTED_VERSIONS/" /etc/apt/sources.list.d/pgdg*.list
   - sudo apt-get -qq update
 
 install:
   - export DEBIAN_FRONTEND=noninteractive # suppress warnings about deprecated PostgreSQL versions
-  - sudo apt-get install bison debhelper fakeroot flex postgresql-server-dev-$PG_SUPPORTED_VERSIONS postgresql-server-dev-all/$DIST
+  - sudo apt-get install bison debhelper fakeroot flex postgresql-server-dev-$PG_SUPPORTED_VERSIONS postgresql-server-dev-all/${DIST:=xenial-pgdg}
   # install PostgreSQL $PG_SUPPORTED_VERSIONS if not there yet
   - |
     if [ ! -x /usr/lib/postgresql/$PG_SUPPORTED_VERSIONS/bin/postgres ]; then
