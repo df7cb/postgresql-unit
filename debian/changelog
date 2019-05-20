@@ -1,9 +1,9 @@
-postgresql-unit (7.2-1) UNRELEASED; urgency=medium
+postgresql-unit (7.2-1) unstable; urgency=medium
 
   * Rewire PostgreSQL 12's new extra_float_digits=1 default internally to 0 to
     keep nice, short decimal representations.
 
- -- Christoph Berg <myon@debian.org>  Thu, 16 May 2019 13:34:30 +0200
+ -- Christoph Berg <myon@debian.org>  Mon, 20 May 2019 13:38:02 +0200
 
 postgresql-unit (7.1-1) unstable; urgency=medium
 

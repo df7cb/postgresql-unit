@@ -1,5 +1,5 @@
-7.2: unreleased
-----------------
+7.2: May 20, 2019 - World Metrology Day
+---------------------------------------
 * Rewire PostgreSQL 12's new extra_float_digits=1 default internally to 0 to
   keep nice, short decimal representations.
 
