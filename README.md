@@ -19,7 +19,7 @@ pre-built grammar files are used if only bison 2 is available).
 
 [Changelog](NEWS.md)
 
-[![Build Status](https://travis-ci.org/ChristophBerg/postgresql-unit.svg?branch=master)](https://travis-ci.org/ChristophBerg/postgresql-unit)
+[![Build Status](https://travis-ci.org/df7cb/postgresql-unit.svg?branch=master)](https://travis-ci.org/df7cb/postgresql-unit)
 
 Features
 --------
@@ -101,7 +101,7 @@ CREATE EXTENSION
 Installation
 ------------
 
-* Homepage: https://github.com/ChristophBerg/postgresql-unit
+* Homepage: https://github.com/df7cb/postgresql-unit
 * Debian package: https://tracker.debian.org/pkg/postgresql-unit
 * Arch package: https://aur.archlinux.org/packages/postgresql-unit/
 

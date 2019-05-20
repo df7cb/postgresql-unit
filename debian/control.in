@@ -8,9 +8,9 @@ Build-Depends:
  flex,
  postgresql-server-dev-all (>= 153~),
 Standards-Version: 4.2.0
-Vcs-Git: https://github.com/ChristophBerg/postgresql-unit.git
-Vcs-Browser: https://github.com/ChristophBerg/postgresql-unit
-Homepage: https://github.com/ChristophBerg/postgresql-unit
+Vcs-Git: https://github.com/df7cb/postgresql-unit.git
+Vcs-Browser: https://github.com/df7cb/postgresql-unit
+Homepage: https://github.com/df7cb/postgresql-unit
 
 Package: postgresql-PGVERSION-unit
 Architecture: any

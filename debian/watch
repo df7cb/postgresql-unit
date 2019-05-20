@@ -1,2 +1,2 @@
 version=4
-https://github.com/ChristophBerg/postgresql-unit/releases .*/([0-9.]*).tar.gz
+https://github.com/df7cb/postgresql-unit/releases .*/([0-9.]*).tar.gz
