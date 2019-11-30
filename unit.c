@@ -1079,6 +1079,24 @@ unit_at_double(PG_FUNCTION_ARGS)
 	PG_RETURN_FLOAT8((a->value - bu.shift) / bu.unit.value);
 }
 
+
+PG_FUNCTION_INFO_V1(unit_compatable);
+Datum
+unit_compatable(PG_FUNCTION_ARGS)
+{
+	Unit		*a = (Unit *) PG_GETARG_POINTER(0);
+	char		*b = text_to_cstring(PG_GETARG_TEXT_PP(1));
+	UnitShift	 bu;
+	if (unit_parse(b, &bu) > 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("invalid input syntax for unit: \"%s\", %s",
+					 b, yyerrstr)));
+	PG_RETURN_BOOL(memcmp(a->units, bu.unit.units, N_UNITS)==0);
+}
+
+
+
 /* comparisons */
 
 static int
