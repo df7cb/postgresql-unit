@@ -210,12 +210,12 @@ static void
 print_exponent (char **output_p, int e)
 {
     /* Rational Exponent. Two least significant bits represent 1/2 and 1/4 .*/
-    if (abs(e)%4) 
+	if (abs(e)%4) 
 	{
-        /* /2 or /4 */
-        *output_p += sprintf(*output_p,"^%.2f",e/4.0);
-        return;
-    }
+		/* /2 or /4 */
+		*output_p += sprintf(*output_p,"^%.2f",e/4.0);
+		return;
+	}
 
 	/* Integer Exponent */
 	e /= 4;
