@@ -312,13 +312,14 @@ found:
 
 {EXP_R} {
 	yyunitlval.EXPONENT = atof(yytext+1);
-    /* check if fractional portion of exponent is .0 .25 .5 .75 */
-    if (fmod(4.0*fabs(yyunitlval.EXPONENT),1.0) > 1e-12) {
+	/* check if fractional portion of exponent is .0 .25 .5 .75 */
+	if (fmod(4.0*fabs(yyunitlval.EXPONENT),1.0) > 1e-12) 
+	{
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
-				 errmsg("unit exponent is not allowed \"%s\". Fractional part must be be one of: .0, .25, .5, .75. ", yytext)));
-        return ERR;
-    }
+					errmsg("unit exponent is not allowed \"%s\". Fractional part must be be one of: .0, .25, .5, .75. ", yytext)));
+		return ERR;
+	}
 	return EXPONENT;
 }
 
