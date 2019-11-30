@@ -1080,9 +1080,9 @@ unit_at_double(PG_FUNCTION_ARGS)
 }
 
 
-PG_FUNCTION_INFO_V1(unit_compatable);
+PG_FUNCTION_INFO_V1(unit_compatible);
 Datum
-unit_compatable(PG_FUNCTION_ARGS)
+unit_compatible(PG_FUNCTION_ARGS)
 {
 	Unit		*a = (Unit *) PG_GETARG_POINTER(0);
 	char		*b = text_to_cstring(PG_GETARG_TEXT_PP(1));

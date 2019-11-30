@@ -311,10 +311,10 @@ CREATE FUNCTION unit_at_double(unit, text)
 	AS '$libdir/unit', 'unit_at_double'
 	LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION unit_compatable(unit, text)
+CREATE FUNCTION unit_compatible(unit, text)
 	RETURNS boolean
 	SET search_path = @extschema@
-	AS '$libdir/unit', 'unit_compatable'
+	AS '$libdir/unit', 'unit_compatible'
 	LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR @@ (
