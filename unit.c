@@ -75,7 +75,7 @@ unit_get_definitions(void)
 			strlcpy(unit_name->name, base_units[i], UNIT_NAME_LENGTH);
 			unit_name->unit_shift.unit.value = 1.0;
 			memset(unit_name->unit_shift.unit.units, 0, N_UNITS);
-			unit_name->unit_shift.unit.units[i] = 1;
+			unit_name->unit_shift.unit.units[i] = 4;
 			unit_name->unit_shift.shift = 0.0;
 		}
 	}
@@ -209,6 +209,18 @@ static char *superscripts[] = {
 static void
 print_exponent (char **output_p, int e)
 {
+    /* Rational Exponent. Two least significant bits represent 1/2 and 1/4 .*/
+    if (abs(e)%4) {
+        /* /2 or /4 */
+        *output_p += sprintf(*output_p,"^%.2f",e/4.0);
+        return;
+    }
+
+    /* Integer Exponent */
+    e /= 4;
+    if(e == 1) {
+        return;
+    }
 	if (unit_output_superscript) {
 		char  ascii_exp[5];
 		int   i = 0;
@@ -594,7 +606,7 @@ unit_meter (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_m] = 1;
+	result->units[UNIT_m] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -607,7 +619,7 @@ unit_kilogram (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_kg] = 1;
+	result->units[UNIT_kg] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -620,7 +632,7 @@ unit_second (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_s] = 1;
+	result->units[UNIT_s] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -633,7 +645,7 @@ unit_ampere (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_A] = 1;
+	result->units[UNIT_A] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -646,7 +658,7 @@ unit_kelvin (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_K] = 1;
+	result->units[UNIT_K] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -659,7 +671,7 @@ unit_mole (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_mol] = 1;
+	result->units[UNIT_mol] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -672,7 +684,7 @@ unit_candela (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_cd] = 1;
+	result->units[UNIT_cd] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -685,7 +697,7 @@ unit_byte (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_B] = 1;
+	result->units[UNIT_B] = 4;
 	PG_RETURN_POINTER(result);
 }
 
@@ -893,7 +905,7 @@ Datum
 unit_pow(PG_FUNCTION_ARGS)
 {
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
-	int		 b = PG_GETARG_INT32(1);
+    int              b = PG_GETARG_INT32(1);
 	Unit	*result;
 	int		 i;
 

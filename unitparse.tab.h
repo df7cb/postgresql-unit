@@ -79,18 +79,18 @@ union YYUNITSTYPE
   UnitShift simple_expr;
   /* DOUBLE  */
   double DOUBLE;
+  /* EXPONENT  */
+  double EXPONENT;
+  /* SUPER_SIGN  */
+  double SUPER_SIGN;
+  /* SUPER  */
+  double SUPER;
   /* number  */
   double number;
-  /* EXPONENT  */
-  int EXPONENT;
-  /* SUPER_SIGN  */
-  int SUPER_SIGN;
-  /* SUPER  */
-  int SUPER;
   /* exponent  */
-  int exponent;
+  double exponent;
   /* super  */
-  int super;
+  double super;
 #line 95 "unitparse.tab.h" /* yacc.c:1909  */
 };
 

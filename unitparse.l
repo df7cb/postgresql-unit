@@ -52,7 +52,7 @@ ALNUM   [a-zA-Z$%'"_0-9]|{UTF8}
 DOUBLE_R [0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 TIME_R   [0-9]+:[0-9]+:[0-9]+(\.[0-9]+)?
 UNIT_R   {ALPHA}{ALNUM}*
-EXP_R    \^[\-+]?[0-9]+
+EXP_R    \^[\-+]?[0-9]*\.?[0-9]+
 
 SUPER_PLUS  \xe2\x81\xba
 SUPER_MINUS \xe2\x81\xbb
@@ -311,7 +311,14 @@ found:
 }
 
 {EXP_R} {
-	yyunitlval.EXPONENT = atoi(yytext+1);
+	yyunitlval.EXPONENT = atof(yytext+1);
+    /* check if fractional portion of exponent is .0 .25 .5 .75 */
+    if (fmod(4.0*fabs(yyunitlval.EXPONENT),1.0) > 1e-12) {
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+				 errmsg("unit exponent is not allowed \"%s\". Fractional part must be be one of: .0, .25, .5, .75. ", yytext)));
+        return ERR;
+    }
 	return EXPONENT;
 }
 
