@@ -328,6 +328,12 @@ CREATE FUNCTION unit_smallest_pow()
 	AS '$libdir/unit', 'unit_smallest_pow'
 	LANGUAGE C IMMUTABLE STRICT;
 
+CREATE FUNCTION unit_valid(text)
+	RETURNS boolean 
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_valid'
+	LANGUAGE C IMMUTABLE STRICT;
+
 CREATE OPERATOR @@ (
 	leftarg = unit,
 	rightarg = text,

@@ -16,7 +16,7 @@
 
 #define N_UNITS		8
 
-#define ONES_DIGIT	(1<<2)
+#define ONES_DIGIT		(1<<2)
 
 /* defined units */
 

@@ -1128,6 +1128,30 @@ unit_smallest_pow(PG_FUNCTION_ARGS)
 }
 
 
+PG_FUNCTION_INFO_V1 (unit_valid);
+
+Datum
+unit_valid (PG_FUNCTION_ARGS)
+{
+	char		*str = text_to_cstring(PG_GETARG_TEXT_PP(0));
+	UnitShift	result;
+	bool		parse_error_p;
+
+	PG_TRY();
+	{
+		parse_error_p = unit_parse(str, &result) <= 0;
+	}
+	PG_CATCH();
+	{
+		parse_error_p = false;
+		FlushErrorState();
+	}
+	PG_END_TRY();
+
+	PG_RETURN_BOOL(parse_error_p);
+}
+
+
 /* comparisons */
 
 static int

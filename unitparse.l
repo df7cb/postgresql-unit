@@ -294,12 +294,11 @@ SUPER_9     \xe2\x81\xb9
 	}
 
 	/* nothing found, error out */
+	SPI_finish();
 	ereport(ERROR,
 			(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
 			 errmsg("unit \"%s\" is not known", yytext)));
-
 found:
-
 	SPI_finish();
 
 	/* store computed unit in hash table */
