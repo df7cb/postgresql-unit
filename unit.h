@@ -16,6 +16,8 @@
 
 #define N_UNITS		8
 
+#define ONES_DIGIT	(1<<2)
+
 /* defined units */
 
 #define UNIT_NAME_LENGTH 32

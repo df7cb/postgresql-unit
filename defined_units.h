@@ -3,7 +3,6 @@
 
 #include <stdio.h> /* NULL */
 #include "unit.h"
-#define ONES_DIGIT (1<<2)
 
 const char *base_units[N_UNITS] = {
 	"m",
