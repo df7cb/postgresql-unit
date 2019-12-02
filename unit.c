@@ -14,6 +14,7 @@ GNU General Public License for more details.
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "catalog/pg_type.h"
 #include "libpq/pqformat.h" /* send/recv */
 #include "utils/builtins.h" /* cstring_to_text (needed on 9.5) */
 #include "utils/guc.h"
@@ -75,7 +76,7 @@ unit_get_definitions(void)
 			strlcpy(unit_name->name, base_units[i], UNIT_NAME_LENGTH);
 			unit_name->unit_shift.unit.value = 1.0;
 			memset(unit_name->unit_shift.unit.units, 0, N_UNITS);
-			unit_name->unit_shift.unit.units[i] = 4;
+			unit_name->unit_shift.unit.units[i] = ONES_DIGIT;
 			unit_name->unit_shift.shift = 0.0;
 		}
 	}
@@ -210,15 +211,15 @@ static void
 print_exponent (char **output_p, int e)
 {
 	/* Rational Exponent. Two least significant bits represent 1/2 and 1/4 .*/
-	if (abs(e)%4) 
+	if (abs(e)%ONES_DIGIT) 
 	{
 		/* /2 or /4 */
-		*output_p += sprintf(*output_p,"^%.2f",e/4.0);
+		*output_p += sprintf(*output_p,"^%.2f",e/((double)ONES_DIGIT));
 		return;
 	}
 
 	/* Integer Exponent */
-	e /= 4;
+	e /= ONES_DIGIT;
 	if(e == 1) 
 	{
 		return;
@@ -585,6 +586,30 @@ unit_send(PG_FUNCTION_ARGS)
 	PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
 }
 
+PG_FUNCTION_INFO_V1(unit_send_array);
+
+Datum
+unit_send_array(PG_FUNCTION_ARGS)
+{
+	int			i;
+	Unit		*unit = (Unit *) PG_GETARG_POINTER(0);
+	Datum		values[1 + N_UNITS];
+	ArrayType	*result;
+
+
+	/* 0 element is the value */ 
+	values[0] = Float8GetDatum(unit->value);
+
+	/* Rest are double values the represent the power */
+	for(i = 1; i < N_UNITS + 1; ++i)
+	{
+		values[i] = Float8GetDatum((double)unit->units[i-1]/ONES_DIGIT);
+	}
+
+	result = construct_array(values, 1 + N_UNITS, FLOAT8OID, 8, true, 'd');
+	PG_RETURN_POINTER(result);
+}
+
 /* constructors */
 
 PG_FUNCTION_INFO_V1 (dbl2unit);
@@ -608,7 +633,7 @@ unit_meter (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_m] = 4;
+	result->units[UNIT_m] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -621,7 +646,7 @@ unit_kilogram (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_kg] = 4;
+	result->units[UNIT_kg] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -634,7 +659,7 @@ unit_second (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_s] = 4;
+	result->units[UNIT_s] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -647,7 +672,7 @@ unit_ampere (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_A] = 4;
+	result->units[UNIT_A] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -660,7 +685,7 @@ unit_kelvin (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_K] = 4;
+	result->units[UNIT_K] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -673,7 +698,7 @@ unit_mole (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_mol] = 4;
+	result->units[UNIT_mol] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -686,7 +711,7 @@ unit_candela (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_cd] = 4;
+	result->units[UNIT_cd] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -699,7 +724,7 @@ unit_byte (PG_FUNCTION_ARGS)
 
 	result = (Unit *) palloc0(sizeof(Unit));
 	result->value = PG_GETARG_FLOAT8(0);
-	result->units[UNIT_B] = 4;
+	result->units[UNIT_B] = ONES_DIGIT;
 	PG_RETURN_POINTER(result);
 }
 
@@ -907,7 +932,7 @@ Datum
 unit_pow(PG_FUNCTION_ARGS)
 {
 	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
-    int              b = PG_GETARG_INT32(1);
+	int		 b = PG_GETARG_INT32(1);
 	Unit	*result;
 	int		 i;
 
@@ -1095,6 +1120,12 @@ unit_compatible(PG_FUNCTION_ARGS)
 	PG_RETURN_BOOL(memcmp(a->units, bu.unit.units, N_UNITS)==0);
 }
 
+PG_FUNCTION_INFO_V1(unit_smallest_pow);
+Datum
+unit_smallest_pow(PG_FUNCTION_ARGS)
+{
+	PG_RETURN_FLOAT8(1.0/ONES_DIGIT);
+}
 
 
 /* comparisons */

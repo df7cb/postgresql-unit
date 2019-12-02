@@ -37,6 +37,11 @@ CREATE FUNCTION unit_send(unit)
 	AS '$libdir/unit'
 	LANGUAGE C IMMUTABLE STRICT;
 
+CREATE FUNCTION unit_send_array(unit)
+	RETURNS double precision[]
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
 CREATE TYPE unit (
 	internallength = 16,
 	input = unit_in,
@@ -315,6 +320,12 @@ CREATE FUNCTION unit_compatible(unit, text)
 	RETURNS boolean
 	SET search_path = @extschema@
 	AS '$libdir/unit', 'unit_compatible'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_smallest_pow()
+	RETURNS double precision
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_smallest_pow'
 	LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR @@ (
