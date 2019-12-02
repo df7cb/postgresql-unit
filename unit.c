@@ -211,7 +211,7 @@ static void
 print_exponent (char **output_p, int e)
 {
 	/* Rational Exponent. Two least significant bits represent 1/2 and 1/4 .*/
-	if (abs(e)%ONES_DIGIT) 
+	if (ONES_DIGIT > 1 && abs(e)%ONES_DIGIT) 
 	{
 		/* /2 or /4 */
 		*output_p += sprintf(*output_p,"^%.2f",e/((double)ONES_DIGIT));
