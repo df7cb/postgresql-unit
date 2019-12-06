@@ -13,9 +13,9 @@ mol	1 mol	\N	mol	\N
 mole	1 mol	\N	mol	\N
 K	1 K	\N	K	\N
 kelvin	1 K	\N	K	\N
-radian	1	\N	1	\N
-sr	1	\N	1	\N
-steradian	1	\N	sr	\N
+radian	0.15915494309189535 cycle	\N	1	\N
+sr	0.025330295910584444 cycle^2	\N	1	\N
+steradian	0.025330295910584444 cycle^2	\N	sr	\N
 B	1 B	\N	B	\N
 byte	1 B	\N	B	\N
 bit	0.125 B	\N	1|8 B	\N
@@ -168,19 +168,19 @@ henry	1 m^2*kg/s^2*A^2	\N	V s / A	\N
 H	1 m^2*kg/s^2*A^2	\N	henry	\N
 tesla	1 kg/s^2*A	\N	Wb/m^2	\N
 T	1 kg/s^2*A	\N	tesla	\N
-hertz	1 s^-1	\N	/s	\N
-Hz	1 s^-1	\N	hertz	\N
+hertz	1 cycle*s^-1	\N	/s	\N
+Hz	1 cycle*s^-1	\N	hertz	\N
 LENGTH	1 m	\N	meter	\N
 AREA	1 m^2	\N	LENGTH^2	\N
 VOLUME	1 m^3	\N	LENGTH^3	\N
 MASS	1 kg	\N	kilogram	\N
 AMOUNT	1 mol	\N	mole	\N
-ANGLE	1	\N	radian	\N
-SOLID_ANGLE	1	\N	steradian	\N
+ANGLE	0.15915494309189535 cycle	\N	radian	\N
+SOLID_ANGLE	0.025330295910584444 cycle^2	\N	steradian	\N
 FORCE	1 m*kg/s^2	\N	newton	\N
 PRESSURE	1 kg/m*s^2	\N	FORCE / AREA	\N
 STRESS	1 kg/m*s^2	\N	FORCE / AREA	\N
-FREQUENCY	1 s^-1	\N	hertz	\N
+FREQUENCY	1 cycle*s^-1	\N	hertz	\N
 DENSITY	1 kg/m^3	\N	MASS / VOLUME	\N
 LINEAR_DENSITY	1 kg/m	\N	MASS / LENGTH	\N
 CURRENT	1 A	\N	ampere	\N
@@ -274,7 +274,7 @@ decimalhour	8640 s	\N	1|10 day	\N
 decimalminute	86.4000000000000057 s	\N	1|100 decimalhour	\N
 decimalsecond	0.864000000000000101 s	\N	1|100 decimalminute	\N
 beat	86.4000000000000057 s	\N	decimalminute	\N
-pulsatance	1 s^-1	\N	radian / sec	\N
+pulsatance	 0.15915494309189535 cycle*s^-1	\N	radian / sec	\N
 centrad	0.0100000000000000002	\N	0.01 radian	\N
 percent	0.0100000000000000002	\N	0.01	\N
 %	0.0100000000000000002	\N	percent	\N
@@ -2287,41 +2287,41 @@ solarirradiance	1361.16369462234866 kg/s^3	\N	solarluminosity / (4 pi sundist^2)
 solarconstant	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
 TSI	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
 cron	31556925974678.4023 s	\N	1e6 years	\N
-circle	6.28318530717958623	\N	2 pi radian	\N
-degree	0.0174532925199432955	\N	1|360 circle	\N
-deg	0.0174532925199432955	\N	degree	\N
-arcdeg	0.0174532925199432955	\N	degree	\N
-arcmin	0.00029088820866572158	\N	1|60 degree	\N
-arcminute	0.00029088820866572158	\N	arcmin	\N
-'	0.00029088820866572158	\N	arcmin	\N
-arcsec	4.84813681109535984e-06	\N	1|60 arcmin	\N
-arcsecond	4.84813681109535984e-06	\N	arcsec	\N
-"	4.84813681109535984e-06	\N	arcsec	\N
-''	4.84813681109535984e-06	\N	"	\N
-rightangle	1.57079632679489656	\N	90 degrees	\N
-quadrant	1.57079632679489656	\N	1|4 circle	\N
-quintant	1.25663706143591725	\N	1|5 circle	\N
-sextant	1.04719755119659763	\N	1|6 circle	\N
-sign	0.523598775598298816	\N	1|12 circle	\N
-turn	6.28318530717958623	\N	circle	\N
-revolution	6.28318530717958623	\N	turn	\N
-rev	6.28318530717958623	\N	turn	\N
-gon	0.015707963267948967	\N	1|100 rightangle	\N
-grade	0.015707963267948967	\N	gon	\N
-centesimalminute	0.000157079632679489682	\N	1|100 grade	\N
-centesimalsecond	1.57079632679489688e-06	\N	1|100 centesimalminute	\N
-milangle	0.000981747704246810435	\N	1|6400 circle	\N
-pointangle	0.19634954084936207	\N	1|32 circle	\N
-mas	4.84813681109536025e-09	\N	milliarcsec	\N
-seclongitude	7.27220521664303951e-05	\N	circle (seconds/day)	\N
-sphere	12.5663706143591725	\N	4 pi sr	\N
-squaredegree	0.000304617419786708569	\N	1|180^2 pi^2 sr	\N
-squareminute	8.46159499407523867e-08	\N	1|60^2 squaredegree	\N
-squaresecond	2.35044305390978853e-11	\N	1|60^2 squareminute	\N
-squarearcmin	8.46159499407523867e-08	\N	squareminute	\N
-squarearcsec	2.35044305390978853e-11	\N	squaresecond	\N
-sphericalrightangle	1.57079632679489656	\N	0.5 pi sr	\N
-octant	1.57079632679489656	\N	0.5 pi sr	\N
+circle	1 cycle	\N	2 pi radian	\N
+degree	0.002777777777777778 cycle	\N	1|360 circle	\N
+deg	0.002777777777777778 cycle	\N	degree	\N
+arcdeg	0.002777777777777778 cycle	\N	degree	\N
+arcmin	4.62962962962963e-05 cycle	\N	1|60 degree	\N
+arcminute	4.62962962962963e-05 cycle	\N	arcmin	\N
+'	4.62962962962963e-05 cycle	\N	arcmin	\N
+arcsec	7.71604938271605e-07 cycle	\N	1|60 arcmin	\N
+arcsecond	7.71604938271605e-07 cycle	\N	arcsec	\N
+"	7.71604938271605e-07 cycle	\N	arcsec	\N
+''	7.71604938271605e-07 cycle	\N	"	\N
+rightangle	0.25 cycle	\N	90 degrees	\N
+quadrant	0.25 cycle	\N	1|4 circle	\N
+quintant	0.25 cycle	\N	1|5 circle	\N
+sextant	0.16666666666666666 cycle	\N	1|6 circle	\N
+sign	0.08333333333333333 cycle	\N	1|12 circle	\N
+turn	1 cycle	\N	circle	\N
+revolution	1 cycle	\N	turn	\N
+rev	1 cycle	\N	turn	\N
+gon	0.0025 cycle	\N	1|100 rightangle	\N
+grade	0.0025 cycle	\N	gon	\N
+centesimalminute	2.5e-5 cycle	\N	1|100 grade	\N
+centesimalsecond	2.5e-7 cycle	\N	1|100 centesimalminute	\N
+milangle	0.00015625 cycle	\N	1|6400 circle	\N
+pointangle	0.03125 cycle	\N	1|32 circle	\N
+mas	7.71604938271605e-10 cycle	\N	milliarcsec	\N
+seclongitude	1.1574074074074072e-05 cycle	\N	circle (seconds/day)	\N
+sphere	0.3183098861837907 cycle^2	\N	4 pi sr	\N
+squaredegree	7.71604938271605e-06 cycle^2	\N	1|180^2 pi^2 sr	\N
+squareminute	2.143347050754458e-09 cycle^2	\N	1|60^2 squaredegree	\N
+squaresecond	5.953741807651273e-13 cycle^2	\N	1|60^2 squareminute	\N
+squarearcmin	2.143347050754458e-09 cycle^2	\N	squareminute	\N
+squarearcsec	5.953741807651273e-13 cycle^2	\N	squaresecond	\N
+sphericalrightangle	0.039788735772973836 cycle^2	\N	0.5 pi sr	\N
+octant	0.039788735772973836 cycle^2	\N	0.5 pi sr	\N
 gasconstant	8.3144598635874285 m^2*kg/s^2*K*mol	\N	k N_A	\N
 R	8.3144598635874285 m^2*kg/s^2*K*mol	\N	gasconstant	\N
 molarvolume	0.0224139621193082256 m^3	\N	mol R stdtemp / atm	\N
@@ -2431,8 +2431,8 @@ majorsecond	1.125	\N	musicalfifth^2 / octave	\N
 pythagoreanthird	1.265625	\N	majorsecond musicalfifth^2 / octave	\N
 syntoniccomma	1.01249999999999996	\N	pythagoreanthird / majorthird	\N
 denier	1.11111111111111096e-07 kg/m	\N	1|9 tex	\N
-rpm	0.104719755119659766 s^-1	\N	rev/min	\N
-rps	6.28318530717958623 s^-1	\N	rev/sec	\N
+rpm	0.104719755119659766 cycle*s^-1	\N	rev/min	\N
+rps	1 cycle*s^-1	\N	rev/sec	\N
 mbh	293.071070172222278 m^2*kg/s^3	\N	1e3 btu/hour	\N
 hd	0.2384809423920001 m^3	\N	hogshead	\N
 RADIATION_DOSE	1 m^2/s^2	\N	gray	\N

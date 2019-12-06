@@ -43,7 +43,7 @@ CREATE FUNCTION unit_send_array(unit)
 	LANGUAGE C IMMUTABLE STRICT;
 
 CREATE TYPE unit (
-	internallength = 16,
+	internallength = 18,
 	input = unit_in,
 	output = unit_out,
 	receive = unit_recv,
@@ -144,6 +144,16 @@ CREATE FUNCTION candela(double precision DEFAULT 1.0)
 CREATE FUNCTION byte(double precision DEFAULT 1.0)
 	RETURNS unit
 	AS '$libdir/unit', 'unit_byte'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION cycle(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_cycle'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION pixel(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_pixel'
 	LANGUAGE C IMMUTABLE STRICT;
 
 -- functions without operators

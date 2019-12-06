@@ -728,6 +728,32 @@ unit_byte (PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
+PG_FUNCTION_INFO_V1 (unit_cycle);
+
+Datum
+unit_cycle (PG_FUNCTION_ARGS)
+{
+	Unit	*result;
+
+	result = (Unit *) palloc0(sizeof(Unit));
+	result->value = PG_GETARG_FLOAT8(0);
+	result->units[UNIT_cycle] = ONES_DIGIT;
+	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1 (unit_pixel);
+
+Datum
+unit_pixel (PG_FUNCTION_ARGS)
+{
+	Unit	*result;
+
+	result = (Unit *) palloc0(sizeof(Unit));
+	result->value = PG_GETARG_FLOAT8(0);
+	result->units[UNIT_pixel] = ONES_DIGIT;
+	PG_RETURN_POINTER(result);
+}
+
 /* functions without operators */
 
 PG_FUNCTION_INFO_V1(unit_value);
