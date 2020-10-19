@@ -4,10 +4,11 @@ Priority: optional
 Maintainer: Christoph Berg <myon@debian.org>
 Build-Depends:
  bison (>> 2:3),
- debhelper (>> 9),
+ debhelper-compat (= 13),
  flex,
- postgresql-server-dev-all (>= 153~),
-Standards-Version: 4.2.0
+ postgresql-all (>= 217~),
+Standards-Version: 4.5.0
+Rules-Requires-Root: no
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit
 Homepage: https://github.com/df7cb/postgresql-unit
