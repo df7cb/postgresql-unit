@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 
-export LANG=C.UTF-8
-
 override_dh_installdocs:
 	dh_installdocs --all README.*
+
+override_dh_pgxs_test:
+	# defer testing to autopkgtest, the data tables are not in /usr/share/postgresql yet
 
 %:
 	dh $@ --with pgxs
