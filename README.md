@@ -19,8 +19,6 @@ pre-built grammar files are used if only bison 2 is available).
 
 [Changelog](NEWS.md)
 
-[![Build Status](https://travis-ci.org/df7cb/postgresql-unit.svg?branch=master)](https://travis-ci.org/df7cb/postgresql-unit)
-
 Features
 --------
 
