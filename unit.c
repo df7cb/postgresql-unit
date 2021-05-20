@@ -62,6 +62,9 @@ unit_get_definitions(void)
 	tmp_unit_names = hash_create("unit_names",
 			20,
 			&hinfo,
+#if PG_VERSION_NUM >= 140000
+			HASH_STRINGS |
+#endif
 			HASH_ELEM); /* Set keysize and entrysize */
 
 	PG_TRY();

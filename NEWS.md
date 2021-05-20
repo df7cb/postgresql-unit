@@ -1,3 +1,11 @@
+7.4: May 20, 2021 - World Metrology Day
+---------------------------------------
+* Fix hash table creation on PostgreSQL 14.
+
+7.3: Oct 19, 2020
+-----------------
+* Packaging updates.
+
 7.2: May 20, 2019 - World Metrology Day
 ---------------------------------------
 * Rewire PostgreSQL 12's new extra_float_digits=1 default internally to 0 to

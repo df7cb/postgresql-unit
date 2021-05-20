@@ -1,3 +1,9 @@
+postgresql-unit (7.4-1) experimental; urgency=medium
+
+  * Fix hash table creation on PostgreSQL 14.
+
+ -- Christoph Berg <myon@debian.org>  Thu, 20 May 2021 17:27:35 +0200
+
 postgresql-unit (7.3-1) unstable; urgency=medium
 
   * Upload for PostgreSQL 13.
