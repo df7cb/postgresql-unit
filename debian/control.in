@@ -6,7 +6,7 @@ Build-Depends:
  bison (>> 2:3),
  debhelper-compat (= 13),
  flex,
- postgresql-all (>= 217~),
+ postgresql-server-dev-all (>= 217~),
 Standards-Version: 4.5.0
 Rules-Requires-Root: no
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
