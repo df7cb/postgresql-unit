@@ -13,9 +13,9 @@ Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit
 Homepage: https://github.com/df7cb/postgresql-unit
 
-Package: postgresql-13-unit
+Package: postgresql-14-unit
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-13
+Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-14
 Description: SI Units for PostgreSQL
  postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
  base units can be combined to named and unnamed derived units using operators
