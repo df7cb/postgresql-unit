@@ -32,11 +32,11 @@ static UnitShift *unit_parse_result; /* parsing result gets stored here */
 %define api.value.type union
 %token <double> DOUBLE
 %token <UnitShift> UNIT_SHIFT
-%token <int> EXPONENT SUPER_SIGN SUPER
+%token <double> EXPONENT SUPER_SIGN SUPER
 %token ERR
 %type  <UnitShift> input expr simple_expr
 %type  <double> number
-%type  <int> exponent super
+%type  <double> exponent super
 
 %left '+' '-'
 %left '/'

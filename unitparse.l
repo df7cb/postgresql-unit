@@ -52,7 +52,7 @@ ALNUM   [a-zA-Z$%'"_0-9]|{UTF8}
 DOUBLE_R [0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
 TIME_R   [0-9]+:[0-9]+:[0-9]+(\.[0-9]+)?
 UNIT_R   {ALPHA}{ALNUM}*
-EXP_R    \^[\-+]?[0-9]+
+EXP_R    \^[\-+]?[0-9]*\.?[0-9]+
 
 SUPER_PLUS  \xe2\x81\xba
 SUPER_MINUS \xe2\x81\xbb
@@ -294,12 +294,11 @@ SUPER_9     \xe2\x81\xb9
 	}
 
 	/* nothing found, error out */
+	SPI_finish();
 	ereport(ERROR,
 			(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
 			 errmsg("unit \"%s\" is not known", yytext)));
-
 found:
-
 	SPI_finish();
 
 	/* store computed unit in hash table */
@@ -311,7 +310,15 @@ found:
 }
 
 {EXP_R} {
-	yyunitlval.EXPONENT = atoi(yytext+1);
+	yyunitlval.EXPONENT = atof(yytext+1);
+	/* check if fractional portion of exponent is .0 .25 .5 .75 */
+	if (fmod(ONES_DIGIT*fabs(yyunitlval.EXPONENT),1.0) > 1e-12) 
+	{
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+					errmsg("unit exponent is not allowed \"%s\". Fractional part must be a power of 2 and at least %f. ", yytext, 1.0/ONES_DIGIT)));
+		return ERR;
+	}
 	return EXPONENT;
 }
 

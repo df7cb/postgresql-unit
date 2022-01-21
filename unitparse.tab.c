@@ -154,18 +154,18 @@ union YYUNITSTYPE
   UnitShift simple_expr;
   /* DOUBLE  */
   double DOUBLE;
+  /* EXPONENT  */
+  double EXPONENT;
+  /* SUPER_SIGN  */
+  double SUPER_SIGN;
+  /* SUPER  */
+  double SUPER;
   /* number  */
   double number;
-  /* EXPONENT  */
-  int EXPONENT;
-  /* SUPER_SIGN  */
-  int SUPER_SIGN;
-  /* SUPER  */
-  int SUPER;
   /* exponent  */
-  int exponent;
+  double exponent;
   /* super  */
-  int super;
+  double super;
 #line 170 "unitparse.tab.c" /* yacc.c:355  */
 };
 
@@ -1313,10 +1313,10 @@ yyreduce:
 #line 67 "unitparse.y" /* yacc.c:1646  */
     {
 	int i;
-	if ((*(int*)(&yyvsp[0])) != 1) {
-		(*(UnitShift*)(&yyval)).unit.value = pow((*(UnitShift*)(&yyvsp[-1])).unit.value, (*(int*)(&yyvsp[0])));
+	if ((*(double*)(&yyvsp[0])) != 1) {
+		(*(UnitShift*)(&yyval)).unit.value = pow((*(UnitShift*)(&yyvsp[-1])).unit.value, (*(double*)(&yyvsp[0])));
 		for (i = 0; i < N_UNITS; i++)
-			(*(UnitShift*)(&yyval)).unit.units[i] = (*(UnitShift*)(&yyvsp[-1])).unit.units[i] * (*(int*)(&yyvsp[0]));
+			(*(UnitShift*)(&yyval)).unit.units[i] = (*(UnitShift*)(&yyvsp[-1])).unit.units[i] * (*(double*)(&yyvsp[0]));
 	} else {
 		(*(UnitShift*)(&yyval)) = (*(UnitShift*)(&yyvsp[-1]));
 	}
@@ -1411,13 +1411,13 @@ yyreduce:
 
   case 19:
 #line 127 "unitparse.y" /* yacc.c:1646  */
-    { (*(int*)(&yyval)) = (*(int*)(&yyvsp[-1])) * (*(int*)(&yyvsp[0])); }
+    { (*(double*)(&yyval)) = (*(double*)(&yyvsp[-1])) * (*(double*)(&yyvsp[0])); }
 #line 1416 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 133 "unitparse.y" /* yacc.c:1646  */
-    { (*(int*)(&yyval)) = 10 * (*(int*)(&yyvsp[-1])) + (*(int*)(&yyvsp[0])); }
+    { (*(double*)(&yyval)) = 10 * (*(double*)(&yyvsp[-1])) + (*(double*)(&yyvsp[0])); }
 #line 1422 "unitparse.tab.c" /* yacc.c:1646  */
     break;
 

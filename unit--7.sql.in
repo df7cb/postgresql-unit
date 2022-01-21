@@ -37,8 +37,13 @@ CREATE FUNCTION unit_send(unit)
 	AS '$libdir/unit'
 	LANGUAGE C IMMUTABLE STRICT;
 
+CREATE FUNCTION unit_send_array(unit)
+	RETURNS double precision[]
+	AS '$libdir/unit'
+	LANGUAGE C IMMUTABLE STRICT;
+
 CREATE TYPE unit (
-	internallength = 16,
+	internallength = 18,
 	input = unit_in,
 	output = unit_out,
 	receive = unit_recv,
@@ -139,6 +144,16 @@ CREATE FUNCTION candela(double precision DEFAULT 1.0)
 CREATE FUNCTION byte(double precision DEFAULT 1.0)
 	RETURNS unit
 	AS '$libdir/unit', 'unit_byte'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION cycle(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_cycle'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION pixel(double precision DEFAULT 1.0)
+	RETURNS unit
+	AS '$libdir/unit', 'unit_pixel'
 	LANGUAGE C IMMUTABLE STRICT;
 
 -- functions without operators
@@ -309,6 +324,24 @@ CREATE FUNCTION unit_at_double(unit, text)
 	RETURNS double precision
 	SET search_path = @extschema@
 	AS '$libdir/unit', 'unit_at_double'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_compatible(unit, text)
+	RETURNS boolean
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_compatible'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_smallest_pow()
+	RETURNS double precision
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_smallest_pow'
+	LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION unit_valid(text)
+	RETURNS boolean 
+	SET search_path = @extschema@
+	AS '$libdir/unit', 'unit_valid'
 	LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR @@ (
