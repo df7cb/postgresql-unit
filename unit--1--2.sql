@@ -1,7 +1,7 @@
 ALTER TYPE unit_accum_t
 	ADD ATTRIBUTE squares double precision;
 
-CREATE OR REPLACE FUNCTION unit_accum(a unit_accum_t, u unit)
+CREATE FUNCTION unit_accum(a unit_accum_t, u unit)
 	RETURNS unit_accum_t
 	AS $$SELECT (CASE WHEN a.s = '0'::unit THEN u ELSE a.s + u END, a.squares + value(u)^2, a.n + 1)::unit_accum_t$$
 	LANGUAGE SQL IMMUTABLE STRICT;

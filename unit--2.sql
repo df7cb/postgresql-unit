@@ -16,12 +16,12 @@ GNU General Public License for more details.
 
 CREATE TYPE unit;
 
-CREATE OR REPLACE FUNCTION unit_in(cstring)
+CREATE FUNCTION unit_in(cstring)
   RETURNS unit
   AS '$libdir/unit'
   LANGUAGE C IMMUTABLE STRICT;
 
-CREATE OR REPLACE FUNCTION unit_out(unit)
+CREATE FUNCTION unit_out(unit)
   RETURNS cstring
   AS '$libdir/unit'
   LANGUAGE C IMMUTABLE STRICT;

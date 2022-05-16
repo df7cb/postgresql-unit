@@ -2720,7 +2720,7 @@ SELECT name, unit, unit::text::unit, definition FROM unit_units WHERE unit::text
 
 -- prefix-unit combinations that are ambiguous
 /*
-CREATE OR REPLACE FUNCTION valid_unit(u text)
+CREATE FUNCTION valid_unit(u text)
 RETURNS boolean LANGUAGE plpgsql
 AS $$
 BEGIN

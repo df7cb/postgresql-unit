@@ -57,7 +57,7 @@ SELECT pg_catalog.pg_extension_config_dump('unit_units', 'WHERE dump');
 
 GRANT SELECT ON unit_prefixes, unit_units TO PUBLIC;
 
-CREATE OR REPLACE FUNCTION unit_load()
+CREATE FUNCTION unit_load()
 	RETURNS VOID
 	LANGUAGE plpgsql
 	AS $$BEGIN
