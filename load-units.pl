@@ -35,9 +35,9 @@ while (<F>) {
 	next if /^!/; # skip pragmas
 	next if /^\+/; # skip units from non-SI systems
 	next if /^[0-9]/; # skip over table contents
-	next if /^ /; # skip over table contents/continued lines
+	next if /^\s/; # skip over table contents/continued lines
 	unless (/^(\S+)\s+(.*)/) {
-		print "skipping $_";
+		print "skipping $_\n";
 		next;
 	}
 
@@ -92,6 +92,7 @@ do {
 				# something went wrong. It indicates that the new unit could
 				# also be parsed as prefix-otherknownunit, e.g. "ft" vs "f-t"
 				print "Unit $unit has already been used before being defined. Bad.\n";
+				exit 1;
 			}
 			my $ret = $dbh->do("INSERT INTO unit_units (name, unit, shift, definition, dump) VALUES (?, ?, ?, ?, NULL)",
 				undef,

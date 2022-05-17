@@ -2,9 +2,9 @@
 # This file is the units database for use with GNU units, a units conversion
 # program by Adrian Mariano adrianm@gnu.org
 #
-# October 2018 Version 2.44
+# September 2020 Version 3.09
 #
-# Copyright (C) 1996-2002, 2004-2018
+# Copyright (C) 1996-2002, 2004-2020
 # Free Software Foundation, Inc
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,15 +26,16 @@
 #
 # Improvements and corrections are welcome.
 #
-# Fundamental constants in this file are the 2014 CODATA recommended values.
+# Fundamental constants in this file are the 2018 CODATA recommended values.
 #
 # Most units data was drawn from
 #            1. NIST Special Publication 811, Guide for the
 #                 Use of the International System of Units (SI).
-#                 Barry N. Taylor. 1995
+#                 Barry N. Taylor. 2008
+#                 https://www.nist.gov/pml/special-publication-811
 #            2. CRC Handbook of Chemistry and Physics 70th edition
 #            3. Oxford English Dictionary
-#            4. Websters New Universal Unabridged Dictionary
+#            4. Webster's New Universal Unabridged Dictionary
 #            5. Units of Measure by Stephen Dresner
 #            6. A Dictionary of English Weights and Measures by Ronald Zupko
 #            7. British Weights and Measures by Ronald Zupko
@@ -54,7 +55,7 @@
 #           17. CODATA Recommended Values of Physical Constants available at
 #                   http://physics.nist.gov/cuu/Constants/index.html
 #           18. How Many?  A Dictionary of Units of Measurement.  Available at
-#                   http://www.unc.edu/~rowlett/units/index.html
+#                   http://www.ibiblio.org/units/
 #           19. Numericana.  http://www.numericana.com
 #           20. UK history of measurement
 #                   http://www.ukmetrication.com/history.htm
@@ -67,8 +68,12 @@
 #           23. CRC Handbook of Chemistry and Physics, 96th edition
 #           24. Dictionary of Scientific Units, 6th ed.  H.G.  Jerrard and D.B.
 #                 McNeill. 1992
-#
-# Thanks to Jeff Conrad for assistance in ferreting out unit definitions.
+#           25. NIST Special Publication 330, The International System of
+#                 Units (SI). ed. Barry N. Taylor and Ambler Thompson. 2008
+#                 https://www.nist.gov/pml/special-publication-330
+#           26. BIPM Brochure, The International System of Units (SI).
+#                 9th ed., 2019
+#                 https://www.bipm.org/en/publications/si-brochure/
 #
 ###########################################################################
 #
@@ -124,9 +129,10 @@
 
 !set UNITS_SYSTEM default   # Set a default value
 
-!varnot UNITS_SYSTEM si emu esu gaussian gauss default
+!varnot UNITS_SYSTEM si emu esu gaussian gauss hlu natural natural-gauss hartree planck planck-red default 
 !message Unknown unit system given with -u or UNITS_SYSTEM environment variable
-!message Valid systems: si, emu, esu, gauss[ian]
+!message Valid systems: si, emu, esu, gauss[ian], hlu, natural, natural-gauss
+!message                planck, planck-red, hartree
 !message Using SI
 !prompt (SI)
 !endvar
@@ -147,42 +153,254 @@
 #
 # SI units
 #
+# On 20 May 2019, the SI was revised to define the units by fixing the
+# values of physical constants that depend on those units.
+#
+# https://www.nist.gov/si-redefinition/
+#
+# The BIPM--the International Bureau of Weights and Measures--provides a
+# succinct description of the new SI in its Concise Summary:
+#
+# https://www.bipm.org/utils/common/pdf/si-brochure/SI-Brochure-9-concise-EN.pdf
+#
+#     The SI is the system of units in which:
+#
+#       *  the unperturbed ground state hyperfine transition frequency of the
+#          caesium 133 atom is delta nu_Cs = 9 192 631 770 Hz,
+#       *  the speed of light in vacuum, c, is 299 792 458 m/s,
+#       *  the Planck constant, h, is 6.626 070 15 * 10^-34 J s,
+#       *  the elementary charge, e, is 1.602 176 634 * 10^-19 C,
+#       *  the Boltzmann constant, k, is 1.380 649 * 10^-23 J/K,
+#       *  the Avogadro constant, N_A, is 6.022 140 76 * 10^23 mol^-1,
+#       *  the luminous efficacy of monochromatic radiation of frequency
+#          540 * 10^12 Hz, K_cd, is 683 lm/W,
+#
+#     where the hertz, joule, coulomb, lumen, and watt, with unit symbols Hz,
+#     J, C, lm, and W, respectively, are related to the units second, metre,
+#     kilogram, ampere, kelvin, mole, and candela, with unit symbols s, m, kg,
+#     A, K, mol, and cd, respectively, according to Hz = s^–1, J = kg m^2 s^–2,
+#     C = A s, lm = cd m^2 m^–2 = cd sr, and W = kg m^2 s^–3.
+# 
+#     These definitions specify the exact numerical value of each constant when
+#     its value is expressed in the corresponding SI unit.  By fixing the exact
+#     numerical value the unit becomes defined, since the product of the
+#     numerical value and the unit has to equal the value of the constant,
+#     which is invariant.
+# 
+#     The defining constants have been chosen such that, when taken together,
+#     their units cover all of the units of the SI.  In general, there is no
+#     one-to-one correspondence between the defining constants and the SI base
+#     units.  Any SI unit is a product of powers of these seven constants and a
+#     dimensionless factor.
+# 
+# Until 2018, the SI was defined in terms of base units and derived units.
+# These categories are no longer essential in the SI, but they are maintained
+# in view of their convenience and widespread use.  They are arguably more
+# intuitive than the new definitions.  (They are also essential to the
+# operation of GNU units.)  The definitions of the base units, which follow
+# from the definition of the SI in terms of the seven defining constants, are
+# given below.
+#
 
-kg        !      # Mass of the international prototype
-kilogram  kg
+s         !      # The second, symbol s, is the SI unit of time.  It is defined
+second    s      # by taking the fixed numerical value of the unperturbed
+                 # ground-state hyperfine transition frequency of the
+                 # cesium-133 atom to be 9 192 1631 770 when expressed in the
+                 # unit Hz, which is equal to 1/s.  
+                 #
+                 # This definition is a restatement of the previous one, the
+                 # duration of 9192631770 periods of the radiation corresponding
+                 # to the cesium-133 transition. 
 
-s         !      # Duration of 9192631770 periods of the radiation
-second    s      #   corresponding to the transition between the two hyperfine
-                 #   levels of the ground state of the cesium-133 atom
+c_SI      299792458
+c         299792458 m/s   # speed of light in vacuum (exact)
 
-m         !      # Length of the path traveled by light in a vacuum
-meter     m      #   during 1|299792458 seconds.  Originally meant to be
-                 #   1e-7 of the length along a meridian from the equator
-                 #   to a pole.
+m         !      # The metre, symbol m, is the SI unit of length.  It is
+meter     m      # defined by taking the fixed numerical value of the speed
+metre     m      # of light in vacuum, c, to be 299 792 458 when expressed in
+                 # units of m/s.
+                 #
+                 # This definition is a rewording of the previous one and is
+                 # equivalent to defining the meter as the distance light
+                 # travels in 1|299792458 seconds.  The meter was originally
+                 # intended to be 1e-7 of the length along a meridian from the
+                 # equator to a pole.
 
-A         !      # The current which produces a force of 2e-7 N/m between two
-ampere    A      #   infinitely long wires that are 1 meter apart
-amp       ampere
+h_SI      6.62607015e-34
+h         6.62607015e-34 J s # Planck constant (exact)
 
-cd        !      # Luminous intensity in a given direction of a source which
-candela   cd     #   emits monochromatic radiation at 540e12 Hz with radiant
-                 #   intensity 1|683 W/steradian.  (This differs from radiant
-                 #   intensity (W/sr) in that it is adjusted for human
-                 #   perceptual dependence on wavelength.  The frequency of
-                 #   540e12 Hz (yellow) is where human perception is most
-                 #   efficient.)
+kg        !      # The kilogram, symbol kg, is the SI unit of mass.  It is
+kilogram  kg     # defined by taking the fixed numerical value of the Planck
+                 # constant, h, to be 6.626 070 15 * 10^-34 when expressed in
+                 # the unit J s which is equal to kg m^2 / s.
+                 # 
+                 # One advantage of fixing h to define the kilogram is that this
+                 # affects constants used to define the ampere.  If the kg were
+                 # defined by directly fixing the mass of something, then h
+                 # would be subject to error.
+                 #
+                 # The previous definition of the kilogram was the mass of the
+                 # international prototype kilogram.  The kilogram was the last
+                 # unit whose definition relied on reference to an artifact.
+                 #
+                 # It is not obvious what this new definition means, or
+                 # intuitively how fixing Planck's constant defines the
+                 # kilogram.  To define the kilogram we need to give the mass
+                 # of some reference in kilograms.  Previously the prototype in
+                 # France served as this reference, and it weighed exactly 1
+                 # kg.  But the reference can have any weight as long as you
+                 # know the weight of the reference.  The new definition uses
+                 # the "mass" of a photon, or more accurately, the mass
+                 # equivalent of the energy of a photon.  The energy of a
+                 # photon depends on its frequency.  If you pick a frequency,
+                 # f, then the energy of the photon is hf, and hence the mass
+                 # equivalent is hf/c^2.  If we reduce this expression using
+                 # the constant defined values for h and c the result is a
+                 # value in kilograms for the mass-equivalent of a photon of
+                 # frequency f, which can therefore define the size of the
+                 # kilogram.
+                 #
+                 # For more on the relationship between mass an Planck's
+                 # constant:
+                 #
+                 # https://www.nist.gov/si-redefinition/kilogram-mass-and-plancks-constant
+                 # This definition may still seem rather abstract: you can't
+                 # place a "kilogram of radiation" on one side of a balance.
+                 # Metrologists realize the kilogram using a Kibble Balance, a
+                 # device which relates mechanical energy to electrical energy
+                 # and can measure mass with extreme accuracy if h is known.
+                 #
+                 # For more on the Kibble Balance see
+                 #
+                 # https://www.nist.gov/si-redefinition/kilogram-kibble-balance
+                 # https://en.wikipedia.org/wiki/Kibble_balance
 
-mol       !      # The amount of substance of a system which contains as many
-mole      mol    #   elementary entities as there are atoms in 0.012 kg of
-                 #   carbon 12.  The elementary entities must be specified and
-                 #   may be atoms, molecules, ions, electrons, or other
-                 #   particles or groups of particles.  It is understood that
-                 #   unbound atoms of carbon 12, at rest and in the ground
-                 #   state, are referred to.
+k_SI      1.380649e-23
+boltzmann 1.380649e-23 J/K   # Boltzmann constant (exact)
+k         boltzmann
 
-K         !      # 1|273.16 of the thermodynamic temperature of the triple
-kelvin    K      #   point of water
+K         !      # The kelvin, symbol K, is the SI unit of thermodynamic
+kelvin    K      # temperature.  It is defined by taking the fixed numerical
+                 # value of the Boltzmann constant, k, to be 1.380 649 * 10^-23
+                 # when expressed in the unit J/K, which is equal to 
+                 # kg m^2/s^2 K.
+                 #
+                 # The boltzmann constant establishes the relationship between
+                 # energy and temperature.  The average thermal energy carried
+                 # by each degree of freedom is kT/2.  A monatomic ideal gas
+                 # has three degrees of freedom corresponding to the three
+                 # spatial directions, which means its thermal energy is
+                 # (3/2) k T.
+                 #
+                 # The previous definition of the kelvin was based on the
+                 # triple point of water.  The change in the definition of the
+                 # kelvin will not have much effect on measurement practice.
+                 # Practical temperature calibration makes use of two scales,
+                 # the International Temperature Scale of 1990 (ITS-90), which
+                 # covers the range of 0.65 K to 1357.77K and the Provisional
+                 # Low Temperature Scale of 2000 (PLTS-2000), which covers the
+                 # range of 0.9 mK to 1 K.
+                 # https://www.bipm.org/en/committees/cc/cct/publications-cc.html
+                 #
+                 # The ITS-90 contains 17 reference points including things
+                 # like the triple point of hydrogen (13.8033 K) or the
+                 # freezing point of gold (1337.33 K), and of course the triple
+                 # point of water.  The PLTS-2000 specifies four reference
+                 # points, all based on properties of helium-3.
+                 #
+                 # The redefinition of the kelvin will not affect the values of
+                 # these reference points, which have been determined by
+                 # primary thermometry, using thermometers that rely only on
+                 # relationships that allow temperature to be calculated
+                 # directly without using any unknown quantities. Examples
+                 # include acoustic thermometers, which measure the speed of
+                 # sound in a gas, or electronic thermometers, which measure
+                 # tiny voltage fluctuations in resistors. Both variables
+                 # depend directly on temperature.
 
+e_SI      1.602176634e-19
+e         1.602176634e-19 C  # electron charge (exact)
+
+A         !      # The ampere, symbol A, is the SI unit of electric current.
+ampere    A      # It is defined by taking the fixed numerical value of the
+amp       ampere # elementary charge, e, to be 1.602 176 634 * 10^-19 when
+                 # expressed in the unit C, which is equal to A*s.
+                 #
+                 # The previous definition was the current which produces a
+                 # force of 2e-7 N/m between two infinitely long wires a meter
+                 # apart.  This definition was difficult to realize accurately.
+                 #
+                 # The ampere is actually realized by establishing the volt and
+                 # the ohm, since A = V / ohm.  These measurements can be done
+                 # using the Josephson effect and the quantum Hall effect,
+                 # which accurately measure voltage and resistance, respectively,
+                 # with reference to two fixed constants, the Josephson
+                 # constant, K_J=2e/h and the von Klitzing constant, R_K=h/e^2.
+                 # Under the previous SI system, these constants had official
+                 # fixed values, defined in 1990.  This created a situation
+                 # where the standard values for the volt and ohm were in some
+                 # sense outside of SI because they depended primarily on
+                 # constants different from the ones used to define SI. After
+                 # the revision, since e and h have exact definitions, the
+                 # Josephson and von Klitzing constants will also have exact
+                 # definitions that derive from SI instead of the conventional
+                 # 1990 values.
+                 #
+                 # In fact we know that there is a small offset between the
+                 # conventional values of the electrical units based on the
+                 # conventional 1990 values and the SI values.  The new
+                 # definition, which brings the practical electrical units back
+                 # into SI, will lead to a one time change of +0.1ppm for
+                 # voltage values and +0.02ppm for resistance values.
+                 #
+                 # The previous definition resulted in fixed exact values for
+                 # the vacuum permeability (mu0), the impedance of free space
+                 # (Z0), the vacuum permittivity (epsilon0), and the Coulomb
+                 # constant. With the new definition, these four values are
+                 # subject to experimental error.
+
+avogadro  6.02214076e23 / mol # Size of a mole (exact)
+N_A       avogadro
+
+mol       !      # The mole, symbol mol, is the SI unit of amount of
+mole      mol    # substance.  One mole contains exactly 6.022 140 76 * 10^23
+                 # elementary entities.  This number is the fixed numerical
+                 # value of the Avogadro constant, N_A, when expressed in the
+                 # unit 1/mol and is called the Avogadro number.  The amount of
+                 # substance, symbol n, of a system is a measure of the number
+                 # of specified elementary entities.  An elementary entity may
+                 # be an atom, a molecule, an ion, an electron, any other
+                 # particle or specified group of particles.
+                 #
+                 # The atomic mass unit (u) is defined as 1/12 the mass of
+                 # carbon-12.  Previously the mole was defined so that a mole
+                 # of carbon-12 weighed exactly 12g, or N_A u = 1 g/mol
+                 # exactly. This relationship is now an experimental, 
+                 # approximate relationship.
+                 #
+                 # To determine the size of the mole, researchers used spheres
+                 # of very pure silicon-28 that weighed a kilogram.  They
+                 # measured the molar mass of Si-28 using mass spectrometry and
+                 # used X-ray diffraction interferometry to determine the
+                 # spacing of the silicon atoms in the sphere.  Using the
+                 # sphere's volume it was then possible to determine the number
+                 # of silicon atoms in the sphere, and hence determine the
+                 # Avogadro constant.  The results of this experiment were used to 
+                 # define N_A, which is henceforth a fixed, unchanging quantity.  
+                 
+cd        !      # The candela, symbol cd, is the SI unit of luminous intensity
+candela   cd     # in a given direction.  It is defined by taking the fixed
+                 # numerical value of the luminous efficacy of monochromatic
+                 # radiation of the frequency 540e12 Hz to be 683 when
+                 # expressed in the unit lumen/watt, which is equal to
+                 # cd sr/W, or cd sr s^3/kg m^2
+                 #
+                 # This definition is a rewording of the previous definition.
+                 # Luminous intensity differs from radiant intensity (W/sr) in
+                 # that it is adjusted for human perceptual dependence on
+		 # wavelength.  The frequency of 540e12 Hz (yellow;
+		 # wavelength approximately 555 nm in vacuum) is where human
+		 # perception is most efficient.
 #
 # The radian and steradian are defined as dimensionless primitive units.
 # The radian is equal to m/m and the steradian to m^2/m^2 so these units are
@@ -525,21 +743,26 @@ CHARGE                  coulomb
 CAPACITANCE             farad
 RESISTANCE              ohm
 CONDUCTANCE             siemens
+# It may be easier to understand the relationship by considering
+# an object with specified dimensions and resistivity, whose
+# resistance is given by the resistivity * length / area. 
+RESISTIVITY             RESISTANCE AREA / LENGTH
+CONDUCTIVITY            CONDUCTANCE LENGTH / AREA
 INDUCTANCE              henry
 E_FIELD                 ELECTRIC_POTENTIAL / LENGTH
 B_FIELD                 tesla
-# The D and H fields are related to the E and B fields by factors of epsilon
-# and mu respectively, so their units can be found by multiplying/dividing by
-# the epsilon0 and mu0, but then it is necessary to remove the constant factors
-# to get the correct scaling.  Defining the units this way allows conversion to
-# CGS units to work correctly.
-D_FIELD                 E_FIELD epsilon0 (c/(m/s))^2 4 pi 1e-7 
-H_FIELD                 B_FIELD / mu0 * 4 pi 1e-7		
+# The D and H fields are related to the E and B fields by factors of
+# epsilon and mu respectively, so their units can be found by
+# multiplying/dividing by the epsilon0 and mu0.  The more complex
+# definitions below make it possible to use D_FIELD and E_FIELD to
+# convert between SI and CGS units for these dimensions.
+D_FIELD                 E_FIELD epsilon0 / epsilon0_SI  #   mu0_SI c^2 F / m
+H_FIELD                 B_FIELD / (mu0/mu0_SI)
 ELECTRIC_DIPOLE_MOMENT  C m
 MAGNETIC_DIPOLE_MOMENT  J / T
 POLARIZATION            ELECTRIC_DIPOLE_MOMENT / VOLUME
 MAGNETIZATION           MAGNETIC_DIPOLE_MOMENT / VOLUME
-ELECTRIC_POTENTIAL      volt
+ELECTRIC_POTENTIAL      ENERGY / CHARGE #volt
 VOLTAGE                 ELECTRIC_POTENTIAL
 E_FLUX                  E_FIELD AREA	
 D_FLUX                  D_FIELD AREA
@@ -589,7 +812,16 @@ xunit_mo             1.00209952e-13 m # degC.  It was intended to be exactly
                                       # reference to common x-ray lines, either
                                       # the K-alpha 1 line of copper or the
                                       # same line of molybdenum.
-angstromstar            1.00001495 angstrom # Defined by JA Bearden in 1965
+angstromstar   1.00001495 angstrom # Defined by JA Bearden in 1965 to replace 
+                                   #   the X unit.  The wavelength of the
+                                   #   tungsten K alpha1 line was defined as
+                                   #   exactly 0.20901 angstrom star, with the
+                                   #   valule chosen to try to make the new
+                                   #   unit close to the angstrom.  
+silicon_d220     1.920155716e-10 m # Silicon lattice spacing
+siliconlattice sqrt(8) silicon_d220# Silicon lattice parameter, (a), the side
+                                   #   length of the unit cell for the diamond
+                                   #   centered cubic structure of silicon.
 fermi                   1e-15 m    # Convenient for describing nuclear sizes
                                    #   Nuclear radius is from 1 to 10 fermis
 barn                    1e-28 m^2  # Used to measure cross section for
@@ -784,6 +1016,21 @@ pH(x) units=[1;mol/liter] range=(0,) 10^(-x) mol/liter ; (-log(pH liters/mol))
 # differences start with "deg" and conversions for absolute temperature start
 # with "temp".
 #
+# If the temperature inside is 72 degrees Fahrenheit and you want to
+# convert this to degrees Celsius then you need absolute temperature:
+#
+# You have: tempF(72)
+# You want: tempC
+#         22.222222
+#
+# If the temperature rose 72 degrees Fahrenheit during the chemical reaction
+# then this is a temperature difference:
+#
+# You have: 72 degF
+# You want: degC
+#        * 40
+#        / 0.025
+#
 
 TEMPERATURE             kelvin
 TEMPERATURE_DIFFERENCE  kelvin
@@ -869,7 +1116,30 @@ gasmark[degR] \
   9        934.67 \
   10       959.67
 
-# Units cannot handle wind chill or heat index because they are two variable
+
+# The Beaufort wind force scale was developed from 1805-1807 by Sir Francis
+# Beaufort to categorize wind conditions at sea. It is normally defined from
+# Beaufort 0, also called "Force 0," through Beaufort 12. Beaufort numbers
+# 13-17 were later defined for tropical cyclones but are rarely used. The
+# original Beaufort scale was qualitative and did not relate directly to wind
+# speed. In 1906, George Simpson of the British Met Office fit wind-speed
+# measurements to visual Beaufort estimates made from five coastal and inland
+# stations in Britain. Simpson's formula was adopted by the World Meterological
+# Organization in 1946 to produce a table, known as WMO Code 1100, giving mean
+# (and min/max) wind speed equivalents at a height of 10 meters for each
+# Beaufort number. This is the "operational" Beaufort scale that mariners
+# use. Meterological and climatic researchers typically use a "scientific"
+# Beaufort scale based on more recent and comprehensive fits. See Wallbrink and
+# Cook, Historical Wind Speed Equivalents Of The Beaufort Scale, 1850-1950, at
+# https://icoads.noaa.gov/reclaim/pdf/Hisklim13.pdf
+#
+beaufort_WMO1100(B) units=[1;m/s] domain=[0,17] range=[0,) \
+                    0.836 B^3|2 m/s; (beaufort_WMO1100 s / 0.836 m)^2|3
+
+beaufort(B) units=[1;m/s] domain=[0,17] range=[0,) \
+            beaufort_WMO1100(B); ~beaufort_WMO1100(beaufort)
+
+# Units cannot handle wind chill or heat index because they are two-variable
 # functions, but they are included here for your edification.  Clearly these
 # equations are the result of a model fitting operation.
 #
@@ -898,58 +1168,67 @@ gasmark[degR] \
 # Basic constants
 
 pi                      3.14159265358979323846
-c                       2.99792458e8 m/s # speed of light in vacuum (exact)
 light                   c
-mu0                     4 pi 1e-7 H/m    # permeability of vacuum (exact)
-epsilon0                1/mu0 c^2        # permittivity of vacuum (exact)
-energy                  c^2              # convert mass to energy
-e                     1.6021766208e-19 C # electron charge
-h                   4.135667662e-15 eV s # Planck constant
+mu0_SI        2 alpha h_SI / e_SI^2 c_SI # Vacuum magnetic permeability
+mu0                    2 alpha h / e^2 c #   Gets overridden in CGS modes
+epsilon0_SI             1/mu0_SI c_SI^2  # Vacuum electric permittivity
+epsilon0                1/mu0 c^2        #   Also overridden in CGS modes
+Z0                      mu0 c            # Free space impedance
+energy                  c^2              # Convert mass to energy
 hbar                    h / 2 pi
+hbar_SI                 h_SI / 2 pi
 spin                    hbar
-G               6.67408e-11 N m^2 / kg^2 # Newtonian gravitational constant
-                                         #    This is the NIST 2006 value.
-                                         #    The relative uncertainty on this
-                                         #    is 1e-4.
-coulombconst            1/4 pi epsilon0  # listed as "k" sometimes
+G_SI            6.67430e-11
+G               6.67430e-11 N m^2 / kg^2 # Newtonian gravitational constant
+coulombconst            1/4 pi epsilon0  # Listed as k or k_C sometimes
+k_C                     coulombconst
 
 # Physico-chemical constants
 
-atomicmassunit        1.660539040e-27 kg # atomic mass unit (defined to be
-u                       atomicmassunit   #   1|12 of the mass of carbon 12)
-amu                     atomicmassunit
+atomicmassunit_SI   1.66053906660e-27    # Unified atomic mass unit, defined as
+atomicmassunit      1.66053906660e-27 kg # Unified atomic mass unit, defined as
+u                       atomicmassunit   #   1|12 of the mass of carbon 12.
+amu                     atomicmassunit   #   The relationship N_A u = 1 g/mol
+dalton                  u                #   is approximately, but not exactly 
+Da                      dalton           #   true (with the 2019 SI).
+                                         #   Previously the mole was defined to
+                                         #   make this relationship exact.
 amu_chem                1.66026e-27 kg   # 1|16 of the weighted average mass of
                                          #   the 3 naturally occuring neutral
                                          #   isotopes of oxygen
 amu_phys                1.65981e-27 kg   # 1|16 of the mass of a neutral
                                          #   oxygen 16 atom
-dalton                  u                # Maybe this should be amu_chem?
-avogadro                grams/amu mol    # size of a mole
-N_A                     avogadro
-gasconstant             k N_A            # molar gas constant
+gasconstant             k N_A            # Molar gas constant (exact)
 R                       gasconstant
-boltzmann             1.38064852e-23 J/K # Boltzmann constant
-k                       boltzmann
 kboltzmann              boltzmann
 molarvolume         mol R stdtemp / atm  # Volume occupied by one mole of an
                                          #   ideal gas at STP.
 loschmidt     avogadro mol / molarvolume # Molecules per cubic meter of an
                                          #   ideal gas at STP.  Loschmidt did
                                          #   work similar to Avogadro.
+molarvolume_si  N_A siliconlattice^3 / 8 # Volume of a mole of crystalline
+                                         #   silicon. The unit cell contains 8
+                                         #   silicon atoms and has a side
+                                         #   length of siliconlattice.
 stefanboltzmann pi^2 k^4 / 60 hbar^3 c^2 # The power per area radiated by a
 sigma                   stefanboltzmann  #   blackbody at temperature T is
-                                         #   given by sigma T^4.
-wiendisplacement        2.8977729e-3 m K # Wien's Displacement Law gives the
-                                         #   frequency at which the the Planck
-                                         #   spectrum has maximum intensity.
-                                         #   The relation is lambda T = b where
-                                         #   lambda is wavelength, T is
-                                         #   temperature and b is the Wien
+                                         #   given by sigma T^4. (exact)
+wiendisplacement     (h c/k)/4.9651142317442763  # Wien's Displacement Law gives
+                                         #   the frequency at which the the
+                                         #   Planck spectrum has maximum
+                                         #   intensity.  The relation is lambda
+                                         #   T = b where lambda is wavelength,
+                                         #   T is temperature and b is the Wien
                                          #   displacement.  This relation is
                                          #   used to determine the temperature
-                                         #   of stars.
+                                         #   of stars.  The constant is the
+                                         #   solution to x=5(1-exp(-x)).
+                                         #   This expression has no experimental
+                                         #   error, and x is defined exactly
+                                         #   by the equation above, so it is
+                                         #   an exact definition.  
 K_J90 483597.9 GHz/V    # Direct measurement of the volt is difficult.  Until
-K_J   483597.8525 GHz/V #   recently, laboratories kept Weston cadmium cells as
+K_J   2e/h              #   recently, laboratories kept Weston cadmium cells as
                         #   a reference, but they could drift.  In 1987 the
                         #   CGPM officially recommended the use of the
                         #   Josephson effect as a laboratory representation of
@@ -959,12 +1238,12 @@ K_J   483597.8525 GHz/V #   recently, laboratories kept Weston cadmium cells as
                         #   with a frequency that depends on the potential
                         #   applied across the superconductors.  This frequency
                         #   can be very accurately measured.  The Josephson
-                        #   constant K_J, which is equal to 2e/h, relates the
-                        #   measured frequency to the potential.  Two values
-                        #   given, the conventional (exact) value from 1990 and
-                        #   the current CODATA measured value.  
+                        #   constant K_J relates the measured frequency to the
+                        #   potential.  Two values given, the conventional
+                        #   (exact) value from 1990, which was used until the
+                        #   2019 SI revision, and the current exact value.
 R_K90 25812.807 ohm     # Measurement of the ohm also presents difficulties.
-R_K   25812.8074555 ohm #   The old approach involved maintaining resistances
+R_K   h/e^2             #   The old approach involved maintaining resistances
                         #   that were subject to drift.  The new standard is
                         #   based on the Hall effect.  When a current carrying
                         #   ribbon is placed in a magnetic field, a potential
@@ -975,9 +1254,25 @@ R_K   25812.8074555 ohm #   The old approach involved maintaining resistances
                         #   in discrete jumps when the magnetic field is very
                         #   large and the temperature very low.  This enables
                         #   accurate realization of the resistance h/e^2 in the
-                        #   lab.  Two values given, the conventional (exact)
-                        #   value from 1990 and the current CODATA measured
-                        #   value.
+                        #   lab.  The 1990 value was an exact conventional 
+                        #   value used until the SI revision in 2019. This value
+                        #   did not agree with measurements.  The new value
+                        #   is exact.
+
+# The 2019 update to SI gives exact definitions for R_K and K_J.  Previously
+# the electromagnetic units were realized using the 1990 conventional values
+# for these constants, and as a result, the standard definitions were in some
+# sense outside of SI.  The revision corrects this problem.  The definitions
+# below give the 1990 conventional values for the electromagnetic units in
+# terms of 2019 SI.  
+
+ampere90 (K_J90 R_K90 / K_J R_K) A
+coulomb90 (K_J90 R_K90 / K_J R_K) C
+farad90 (R_K90/R_K) F
+henry90 (R_K/R_K90) H
+ohm90 (R_K/R_K90) ohm
+volt90 (K_J90/K_J) V
+watt90 (K_J90^2 R_K90 / K_J^2 R_K) W
 
 # Various conventional values
 
@@ -1017,66 +1312,54 @@ H2O100C       0.95838 force gram / cm^3
 
 # Atomic constants
 
-Rinfinity            10973731.568539 /m  # The wavelengths of a spectral series
+
+
+Rinfinity            m_e c alpha^2 / 2 h # The wavelengths of a spectral series
 R_H                     10967760 /m      #   can be expressed as
                                          #     1/lambda = R (1/m^2 - 1/n^2).
                                          #   where R is a number that various
                                          #   slightly from element to element.
                                          #   For hydrogen, R_H is the value,
                                          #   and for heavy elements, the value
-                                         #   approaches Rinfinity, which can be
-                                         #   computed from
-                                         #        m_e c alpha^2 / 2 h
-                                         #   with a loss of 4 digits
-                                         #   of precision.
-alpha                   7.2973525664e-3  # The fine structure constant was
+                                         #   approaches Rinfinity. 
+alpha                    7.2973525693e-3 # The fine structure constant was
                                          #   introduced to explain fine
                                          #   structure visible in spectral
-                                         #   lines.  It can be computed from
-                                         #         mu0 c e^2 / 2 h
-                                         #   with a loss of 3 digits precision
-                                         #   and loss of precision in derived
-                                         #   values which use alpha.
+                                         #   lines.  
 bohrradius              alpha / 4 pi Rinfinity
 prout                   185.5 keV        # nuclear binding energy equal to 1|12
                                          #   binding energy of the deuteron
-# Planck constants
+conductancequantum      2 e^2 / h
 
-planckmass              2.17651e-8 kg     # sqrt(hbar c / G)
-m_P                     planckmass
-plancktime              hbar / planckmass c^2
-t_P                     plancktime
-plancklength            plancktime c
-l_P                     plancklength
 
 # Particle radius
 
 electronradius    coulombconst e^2 / electronmass c^2   # Classical
-deuteronchargeradius    2.1413e-15 m
+deuteronchargeradius    2.12799e-15 m
 protonchargeradius      0.8751e-15 m
 
 # Masses of elementary particles
 
-electronmass            5.48579909070e-4 u
+electronmass_SI         electronmass_u atomicmassunit_SI
+electronmass_u          5.48579909065e-4
+electronmass            5.48579909065e-4 u
 m_e                     electronmass
-protonmass              1.007276466879 u
-m_p                     protonmass
-neutronmass             1.00866491588 u
-m_n                     neutronmass
-muonmass                0.1134289257 u
+muonmass                0.1134289259 u
 m_mu                    muonmass
-deuteronmass            2.013553212745 u
-m_d                     deuteronmass
-alphaparticlemass       4.001506179127 u
-m_alpha                 alphaparticlemass
-taumass                 1.90749 u
+taumass                 1.90754 u
 m_tau                   taumass
-tritonmass              3.01550071632 u
-m_t                     tritonmass
-helionmass              3.01493224673 u
-m_h                     helionmass
-
-
+protonmass              1.007276466621 u
+m_p                     protonmass
+neutronmass             1.00866491595 u
+m_n                     neutronmass
+deuteronmass            2.013553212745 u    # Nucleus of deuterium, one
+m_d                     deuteronmass        #   proton and one neutron
+alphaparticlemass       4.001506179127 u    # Nucleus of He, two protons
+m_alpha                 alphaparticlemass   #   and two neutrons
+tritonmass              3.01550071621 u     # Nucleius of H3, one proton
+m_t                     tritonmass          #   and two neutrons
+helionmass              3.014932247175 u    # Nucleus of He3, two protons
+m_h                     helionmass          #   and one neutron
 
 # particle wavelengths: the compton wavelength of a particle is
 # defined as h / m c where m is the mass of the particle.
@@ -1087,21 +1370,41 @@ protonwavelength        h / m_p c
 lambda_C,p              protonwavelength
 neutronwavelength       h / m_n c
 lambda_C,n              neutronwavelength
+muonwavelength          h / m_mu c
+lambda_C,mu             muonwavelength
 
-# Magnetic moments
+# The g-factor or dimensionless magnetic moment is a quantity that
+# characterizes the magnetic moment of a particle.  The electron g-factor is
+# one of the most precisely measured values in physics, with a relative
+# uncertainty of 1.7e-13.  
 
-bohrmagneton            e hbar / 2 electronmass
-mu_B                    bohrmagneton
-nuclearmagneton         e hbar /  2 protonmass
-mu_N                    nuclearmagneton
-mu_mu                  -4.49044826e-26 J/T   # Muon magnetic moment
-mu_p                    1.4106067873e-26 J/T # Proton magnetic moment
-mu_e                   -928.4764620e-26 J/T  # Electron magnetic moment
-mu_n                   -0.96623650e-26 J/T   # Neutron magnetic moment
-mu_d                    0.4330735040e-26 J/T # Deuteron magnetic moment
-mu_t                    1.504609503e-26 J/T  # Triton magnetic moment
-mu_h                   -1.074617522e-26 J/T  # Helion magnetic moment
+g_d                     0.8574382338       # Deuteron g-factor
+g_e                    -2.00231930436256   # Electron g-factor
+g_h                    -4.255250615        # Helion g-factor
+g_mu                   -2.0023318418       # Muon g-factor
+g_n                    -3.82608545         # Neutron g-factor
+g_p                     5.5856946893       # Proton g-factor
+g_t                     5.957924931        # Triton g-factor
 
+fermicoupling           1.1663787e-5 / GeV^2
+
+# Magnetic moments (derived from the more accurate g-factors)
+#
+# The magnetic moment is g * mu_ref * spin where in most cases
+# the reference is the nuclear magneton, and all of the particles
+# except the deuteron have spin 1/2.  
+
+bohrmagneton            e hbar / 2 electronmass  # Reference magnetic moment for
+mu_B                    bohrmagneton             #   the electron
+nuclearmagneton         e hbar /  2 protonmass   # Convenient reference magnetic
+mu_N                    nuclearmagneton          #   moment for heavy particles
+mu_e                    g_e mu_B / 2             # Electron spin magnet moment
+mu_mu                   g_mu e hbar / 4 muonmass # Muon spin magnetic moment
+mu_p                    g_p mu_N / 2             # Proton magnetic moment
+mu_n                    g_n mu_N / 2             # Neutron magnetic moment
+mu_t                    g_t mu_N / 2             # Triton magnetic moment
+mu_d                    g_d mu_N            # Deuteron magnetic moment, spin 1
+mu_h                    g_h mu_N / 2             # Helion magnetic moment
 
 #
 # Units derived from physical constants
@@ -1131,7 +1434,7 @@ pc                      parsec              #   from the sun to a point having
                                             #   heliocentric parallax of 1
                                             #   arcsec (derived from parallax
                                             #   second).  A distant object with
-                                            #   paralax theta will be about
+                                            #   parallax theta will be about
                                             #   (arcsec/theta) parsecs from the
                                             #   sun (using the approximation
                                             #   that tan(theta) = theta).
@@ -1201,11 +1504,11 @@ eotvos                  1e-9 Gal/cm     # Change in gravitational acceleration
 # dimension of current, define the ampere to measure current, and derive the
 # other electromagnetic units from the ampere.  With the CGS units one approach
 # is to use the basic equations of electromagnetism to define units that
-# eliminate constants from those equations.  Coulombs law has the form
+# eliminate constants from those equations.  Coulomb's law has the form
 #
 #          F = k_C q1 q2 / r^2
 #
-# where k_C is the coulomb constant equal to 1|4 pi epsilon0 in SI units.
+# where k_C is the Coulomb constant equal to 1|4 pi epsilon0 in SI units.
 # Ampere's force law takes the form
 #
 #          dF/dl = 2 k_A I1 I2 / r
@@ -1234,7 +1537,7 @@ eotvos                  1e-9 Gal/cm     # Change in gravitational acceleration
 # We can choose k_B = 1, which is done in the SI, ESU and EMU systems.  But if
 # instead we give k_B units of length/time then the magnetic field has
 # the same units as the electric field.  This choice leads to the Gaussian
-# system.
+# and Heaviside-Lorentz systems.
 #
 # The relations above are used to determine the dimensions, but the units are
 # derived from the base units of CGS, not directly from those formulas.  We
@@ -1242,7 +1545,9 @@ eotvos                  1e-9 Gal/cm     # Change in gravitational acceleration
 # brackets.  This same process gives rise to the SI units such as the tesla, 
 # which is defined by
 #
-#          B = 2              
+#         [tesla] = [2 (1/4 pi c^2 epsilon0) amp / m] = [(mu0 / 2) amp / m]
+#
+# which gives kg / A s^2 as expected.  
 #
 # References:
 #
@@ -1251,12 +1556,12 @@ eotvos                  1e-9 Gal/cm     # Change in gravitational acceleration
 #     M.J.  Shields.  London: Springer-Verlag. ISBN 1-85233-043-0
 #
 #
-# All of these systems result in electromagnetic units that involve the square
+# All of the CGS systems result in electromagnetic units that involve the square
 # roots of the centimeter and gram.  This requires a change in the primitive
 # units.
 # 
 
-!var UNITS_SYSTEM esu emu gaussian gauss
+!var UNITS_SYSTEM esu emu gaussian gauss hlu
 sqrt_cm                 ! 
 sqrt_centimeter         sqrt_cm
 +m                      100 sqrt_cm^2
@@ -1289,7 +1594,7 @@ Fr                      franklin
 !message CGS-ESU units selected
 !prompt (ESU)
 +statcoulomb            sqrt(dyne) cm
-+A                      0.1 statamp c/(cm/s)
++A                      10 c_SI statamp
 +mu0                    1/c^2
 +coulombconst           1
 !endvar
@@ -1421,8 +1726,10 @@ emu                     erg/gauss  # "electro-magnetic unit", a measure of
 !var UNITS_SYSTEM gaussian gauss
 !message CGS-Gaussian units selected
 !prompt (Gaussian)
+!endvar
+!var UNITS_SYSTEM gaussian gauss natural-gauss 
 +statcoulomb            sqrt(dyne) cm
-+A                      0.1 statamp c/(cm/s)
++A                      10 c_SI statamp
 +mu0                    1
 +epsilon0               1
 +coulombconst           1                  # The gauss is the B field produced
@@ -1430,6 +1737,187 @@ emu                     erg/gauss  # "electro-magnetic unit", a measure of
 +weber                  1e8 maxwell        # of 0.5*(c/(cm/s)) stA = 1.5e10 stA
 +bohrmagneton           e hbar / 2 electronmass c
 +nuclearmagneton        e hbar / 2 protonmass c
+!endvar
+
+# Electromagnetic CGS (Heaviside-Lorentz)
+
+# The Heaviside-Lorentz system is similar to the Gaussian system, but it is
+# "rationalized" so that factors of 4 pi do not appear in Maxwell's equations.
+# The SI system is similarly rationalized, but the other CGS systems are not.
+#
+# The factor of 4 pi appears instead in Coulomb's law, so in this system
+# k_C = 1 / 4 pi, which means the charge unit is defined by
+#
+#                      dyne = (1 / 4 pi) hlu_charge^2 / cm^2.
+# 
+# Since we have the leading constant of (1 / 4pi) the numerical value of the
+# charge number is larger by sqrt(4pi), which in turns means that the HLU
+# charge unit is smaller by this multiple.  But note that the dimensions of the
+# charge unit are the same as the Gaussian system, so both systems measure
+# charge with cm^(3/2) g^(1/2) / s, but the amount of charge for this dimension
+# differs by a factor of sqrt(4pi) between the two systems.
+#
+# Ampere's law for the Heaviside-Lorentz system has the form
+#
+#                B = 1/(2 pi c) * I/r
+
+# The Heaviside-Lorentz system does not appear to have any named units, so we
+# use "hlu" for "Heaviside-Lorentz unit" so we can define values for the basic
+# units in this system.
+
+hlu_charge    statcoulomb / sqrt(4 pi) 
+hlu_current   hlu_charge / sec
+hlu_volt      erg / hlu_charge
+hlu_efield    hlu_volt / cm
+hlu_bfield    sqrt(4 pi) gauss
+
+!var UNITS_SYSTEM hlu
+!message CGS-Heaviside-Lorentz Units selected
+!prompt (HLU)
+!endvar
+!var UNITS_SYSTEM hlu natural planck planck-red
++statcoulomb            sqrt(dyne) cm sqrt(4 pi)
++A                      10 c_SI statamp 
++mu0                    1
++epsilon0               1
+                   # The gauss is the B field produced 1 cm from a wire carrying
+                   # a current of 0.5*(c/(cm/s)) stA, derived from Ampere's law
++gauss                  (1/2 pi c) (0.5 c/(cm/s)) statamp / cm
++weber                  1e8 maxwell
++bohrmagneton           e hbar / 2 electronmass c
++nuclearmagneton        e hbar / 2 protonmass c
+!endvar
+
+# "Natural units" (high energy physics and cosmology)
+#
+# In particle physics "natural units" (which don't seem to have a more specific
+# name) are defined by setting hbar = c = boltzmann = 1.  In this system the
+# electron volt is the only base unit.  The electromagnetic units can be 
+# derived from the rationalized Heaviside-Lorentz units or from Gaussian units.
+# The default form is the rationalized HLU derived version.  
+
+# These are the Heaviside-Lorentz natural units
+
+natural_length          hbar c / eV
+natural_mass            eV / c^2
+natural_time            hbar / eV
+natural_temp            eV / boltzmann
+natural_charge          e / sqrt(4 pi alpha)
+natural_current         natural_charge / natural_time
+natural_force           natural_mass natural_length / natural_time^2
+natural_energy          natural_force natural_length
+natural_power           natural_energy / natural_time
+natural_volt            natural_energy / natural_charge
+natural_Efield          natural_volt / natural_length
+natural_Bfield          natural_volt natural_time / natural_length^2
+
+!var UNITS_SYSTEM natural
+!message Natural units selected (Heaviside-Lorentz based)
+!prompt (natural)
++eV                     !
++h                      2 pi
++c                      1
++boltzmann              1
++m                      e_SI / hbar_SI c_SI eV
++kg                     (c_SI^2 / e_SI) eV
++s                      e_SI / hbar_SI eV
++K                      (k_SI / e_SI) eV
+!endvar
+
+!var UNITS_SYSTEM natural-gauss
+!message Natural units selected (Gaussian based)
+!prompt (natgauss)
++eV                     !
++h                      2 pi
++c                      1
++boltzmann              1
++m                      e_SI / (h_SI / 2 pi) c_SI eV
++kg                     (c_SI^2 / e_SI) eV
++s                      e_SI / (h_SI / 2 pi) eV
++K                      (k_SI / e_SI) eV
+!endvar
+
+#
+# Planck units
+#
+# Planck units are a set of "natural" units based on physical constants c, G,
+# hbar, boltzmann's constant, and epsilon0, often used when working with
+# gravitational theory.  In planck units, all quantities are dimensionless.
+# Some variations are possible for exactly how the units are defined.  We
+# provide two variations, the rationalized planck units and the
+# rationalized-reduced planck units.
+#
+# In both forms the units are defined by c = hbar = boltzmann = 1. 
+# But the choice of rationalized and reduced affects how epsilon0 and G
+# are treated.  
+#
+# In the "rationalized" units, factors of 4 pi do not appear in Maxwell's 
+# equation, and Coulomb's law bears a factor of 1/4 pi.  See the section on
+# the Heaviside-Lorentz units for more about this.  The choice of rationalized 
+# units means that epsilon0 = 1.  (In the unrationalized case, which is not
+# supported, 1/(4 pi epsilon0) = 1.)  
+#
+# The "reduced" units similarly are defined to eliminate factors of 8 pi
+# from the Einstein field equations for gravitation.  With reduced units
+# we set 8 pi G = 1 and with the unreduced units, simply G = 1.
+
+# Rationalized, unreduced planck units
+
+planckmass              sqrt(hbar c / G)
+m_P                     planckmass
+plancktime              hbar / planckmass c^2
+t_P                     plancktime
+plancklength            plancktime c
+l_P                     plancklength
+plancktemperature       hbar / k plancktime
+T_P                     plancktemperature
+planckenergy            planckmass plancklength^2 / plancktime^2
+E_P                     planckenergy
+planckcharge            sqrt(epsilon0 hbar c)
+planckcurrent           planckcharge / plancktime
+planckvolt              planckenergy / planckcharge
+planckEfield            planckvolt / plancklength
+planckBfield            planckvolt plancktime / plancklength^2
+
+# Rationalized, reduced planck units
+
+planckmass_red          sqrt(hbar c / 8 pi G)
+plancktime_red          hbar / planckmass_red c^2
+plancklength_red        plancktime_red c
+plancktemperature_red   hbar / k plancktime_red
+planckenergy_red        planckmass_red plancklength_red^2 / plancktime_red^2
+planckcharge_red        sqrt(epsilon0 hbar c)
+planckcurrent_red       planckcharge_red / plancktime_red
+planckvolt_red          planckenergy_red / planckcharge_red
+planckEfield_red        planckvolt_red / plancklength_red
+planckBfield_red        planckvolt_red plancktime_red / plancklength_red^2
+
+
+!var UNITS_SYSTEM planck
+!message Planck units selected
+!prompt (planck)
++c 1
++h 2 pi
++G 1
++boltzmann 1
++kg sqrt(G_SI / hbar_SI c_SI)
++s  c_SI^2 / hbar_SI kg 
++m  s / c_SI            
++K  k_SI / hbar_SI s    
+!endvar
+
+
+!var UNITS_SYSTEM planck-red
+!message Reduced planck units selected
+!prompt (planck reduced)
++c 1
++h 2 pi
++G 1/8 pi
++boltzmann 1
++kg sqrt(8 pi G_SI / hbar_SI c_SI)
++s  c_SI^2 / hbar_SI kg
++m  s / c_SI           
++K  k_SI / hbar_SI s   
 !endvar
 
 #
@@ -1468,7 +1956,7 @@ siemensunit             0.9534 ohm    # Resistance of a meter long column of
 #
 # Conductivity is often expressed as a percentage of IACS.  A copper wire a
 # meter long with a 1 mm^2 cross section has a resistance of 1|58 ohm at 
-# 20 deg C.  Copper density is also standarized at that temperature. 
+# 20 deg C.  Copper density also has a standard IACS value at that temperature.
 #
 
 copperconductivity      58 siemens m / mm^2     # A wire a meter long with
@@ -1842,7 +2330,7 @@ saros                   223 synodicmonth    # The earth, moon and sun appear in
                                             #   is close to 19 eclipse years.)
                                             #   The eclipse will occur about
                                             #   120 degrees west of the
-                                            #   preceeding one because the
+                                            #   preceding one because the
                                             #   saros is not an even number of
                                             #   days.  After 3 saros, an
                                             #   eclipse will occur at
@@ -1912,7 +2400,7 @@ islamicleapyear         355 day          # began counting on July 16, AD 622
                                          # 32.5 years.
 islamicmonth            1|12 islamicyear # They have 29 day and 30 day months.
 
-# The Hewbrew year is also based on lunar months, but synchronized to the solar
+# The Hebrew year is also based on lunar months, but synchronized to the solar
 # calendar.  The months vary irregularly between 29 and 30 days in length, and
 # the years likewise vary.  The regular year is 353, 354, or 355 days long.  To
 # keep up with the solar calendar, a leap month of 30 days is inserted every
@@ -1998,8 +2486,9 @@ astronomicalunit         149597870700 m # IAU definition from 2012, exact
 au                     astronomicalunit # ephemeris for the above described
                                         # astronomical unit.  (See the NASA
                                         # site listed above.)
-solarmass                  1.9891e30 kg
-sunmass                       solarmass
+GMsun        1.32712440018e20 m^3 / s^2 # heliocentric gravitational constant
+solarmass                       GMsun/G # with uncertainty 8e9 is known more
+sunmass                       solarmass # accurately than G. 
 
 
 sundist                 1.0000010178 au # mean earth-sun distance
@@ -2265,26 +2754,53 @@ S10	SB_degree(10)
 # 	    13.553962
 
 
-
-#
 # The Hartree system of atomic units, derived from fundamental units
-# of mass (of electron), action (planck's constant), charge, and
-# the coulomb constant.
+# of mass (of electron), action (Planck's constant), charge, and
+# the Coulomb constant.  This system is used in the fields of physical
+# chemistry and condensed matter physics.  
+#
+# The Hartree energy can be derived from m_e, e, hbar, and coulombconst by
+#    hartree = coulombconst^2 m_e e^4 / hbar^2
+# but due to correlations between the measurements for m_e and coulombconst
+# this results in a significant loss of precision.  So we use an alternate 
+# equivalent definition for the hartree and use energy instead of the
+# Coulomb constant to derive the other units.  This method retains the
+# precision.  
 
+hartree                 2 rydberg  # Approximate electric potential energy of 
+                                   # the hydrogen atom in its ground state, 
+                                   # and approximately twice its ionization 
+                                   # energy.  
 # Fundamental units
 
 atomicmass              electronmass
 atomiccharge            e
 atomicaction            hbar
+atomicenergy            hartree
 
-# derived units (Warning: accuracy is lost from deriving them this way)
+# Derived units
 
-atomiclength            bohrradius
-atomictime              hbar^3/coulombconst^2 atomicmass e^4 # Period of first
-                                                             # bohr orbit
-atomicvelocity          atomiclength / atomictime
-atomicenergy            hbar / atomictime
-hartree                 atomicenergy
+atomicvelocity          sqrt(atomicenergy / atomicmass)
+atomictime              atomicaction / atomicenergy
+atomiclength            atomicvelocity atomictime
+atomicforce             atomicenergy / atomiclength
+atomicmomentum          atomicenergy / atomicvelocity
+atomiccurrent           atomiccharge / atomictime
+atomicpotential         atomicenergy / atomiccharge   # electrical potential
+atomicvolt              atomicpotential
+atomicEfield            atomicpotential / atomiclength
+atomicBfield            atomicvolt atomictime / atomiclength^2
+atomictemperature       atomicenergy / boltzmann
+
+!var UNITS_SYSTEM hartree
+!message Hartree units selected
+!prompt (hartree)
++kg           1/electronmass_SI
++K            k_SI / hbar_SI s 
++m            alpha c_SI electronmass_SI / hbar_SI
++s            alpha c_SI m
++A            1 / s e_SI
+!endvar
 
 #
 # These thermal units treat entropy as charge, from [5]
@@ -2904,7 +3420,6 @@ basebox                 31360 in^2      # Used in metal plating
 
 # alternate spellings
 
-metre                   meter
 gramme                  gram
 litre                   liter
 dioptre                 diopter
@@ -2941,6 +3456,8 @@ smoot              5 ft + 7 in # Created as part of an MIT fraternity prank.
                                #   bridge renovation the new sidewalk was
                                #   scored every Smoot rather than at the
                                #   customary 6 ft spacing.
+tomcruise       5 ft + 7.75 in # Height of Tom Cruise
+
 #
 # Cooking measures
 #
@@ -2977,7 +3494,7 @@ legaltablespoon         1|16 legalcup
 legaltbsp               legaltablespoon
 
 # Scoop size.  Ice cream scoops in the US are marked with numbers
-# indicating the number of scoops requird to fill a US quart.
+# indicating the number of scoops required to fill a US quart.
 
 scoop(n)  units=[1;cup] domain=[4,100] range=[0.04,1] \
            32 usfloz / n ; 32 usfloz / scoop
@@ -3133,7 +3650,7 @@ alcoholdensity          ethanoldensity
 #
 # But I'm using equation (3) which is credited to Starzak and Peacock,
 # "Water activity coefficient in aqueous solutions of sucrose--A comprehensive
-# data analyzis.  Zuckerindustrie, 122, 380-387.  (I couldn't find this
+# data analysis.  Zuckerindustrie, 122, 380-387.  (I couldn't find this
 # document.)
 #
 # Note that the range of validity is uncertain, but answers are in agreement
@@ -3158,8 +3675,8 @@ alcoholdensity          ethanoldensity
 # sc(x)  (x / 342.3) / (( x/342.3) + (100-x)/18.02); \
 #        100 sc 342.3|18.02 / (sc (342.3|18.02-1)+1)
 #
-# Here is a simplfied version of this equation where the temperature of boiling
-# water has been fixed at 100 degrees Celcius and the argument is now the
+# Here is a simplified version of this equation where the temperature of boiling
+# water has been fixed at 100 degrees Celsius and the argument is now the
 # concentration (brix).
 #
 # sugar_bpe(x) ((1+ 0.48851085 * sc(x)^2 (1+ -1.0038 sc(x) + -0.24653 sc(x)^2)) \
@@ -3211,7 +3728,7 @@ sugar_bp(T) units=[K;g/cm^3] domain=[373.15,412.3136] \
 # not possible to convert to a nested function, so you're stuck retyping the
 # absolute temperature in Kelvins to convert to celsius or Fahrenheit.  To
 # prevent this we supply definitions that build in the temperature conversion
-# and produce results in the Fahrenheit and Celcius scales.  So using these
+# and produce results in the Fahrenheit and Celsius scales.  So using these
 # measures, to convert 46 degrees Baume to a Fahrenheit boiling point:
 #
 #      You have: baume(45)
@@ -3284,6 +3801,524 @@ brix[0.99717g/cm^3]\
 apidegree(x) units=[1;g/cm^3] domain=[-131.5,) range=[0,) \
                               141.5 g/cm^3 / (x+131.5) ; \
                               141.5 (g/cm^3) / apidegree + (-131.5)
+#
+# Average densities of various woods (dried)
+# Data from The Wood Database https://www.wood-database.com
+#
+
+# North American Hardwoods
+
+wood_cherry             35 lb/ft^3
+wood_redoak             44 lb/ft^3
+wood_whiteoak           47 lb/ft^3
+wood_blackwalnut        38 lb/ft^3
+wood_walnut             wood_blackwalnut
+wood_birch              43 lb/ft^3
+wood_hardmaple          44 lb/ft^3
+
+wood_bigleafmaple       34 lb/ft^3
+wood_boxeldermaple      30 lb/ft^3
+wood_redmaple           38 lb/ft^3
+wood_silvermaple        33 lb/ft^3
+wood_stripedmaple       32 lb/ft^3
+wood_softmaple         (wood_bigleafmaple \
+                      + wood_boxeldermaple \
+                      + wood_redmaple \
+                      + wood_silvermaple \
+                      + wood_stripedmaple) / 5
+wood_poplar             29 lb/ft^3
+wood_beech              45 lb/ft^3
+
+# North American Softwoods
+
+wood_jeffreypine        28 lb/ft^3
+wood_ocotepine	        44 lb/ft^3
+wood_ponderosapine      28 lb/ft^3
+
+wood_loblollypine       35 lb/ft^3
+wood_longleafpine       41 lb/ft^3
+wood_shortleafpine      35 lb/ft^3
+wood_slashpine    	41 lb/ft^3
+wood_yellowpine        (wood_loblollypine \
+                      + wood_longleafpine \
+                      + wood_shortleafpine \
+                      + wood_slashpine) / 4
+wood_redpine            34 lb/ft^3
+
+wood_easternwhitepine   25 lb/ft^3
+wood_westernwhitepine   27 lb/ft^3
+wood_whitepine         (wood_easternwhitepine + wood_westernwhitepine) / 2
+
+wood_douglasfir         32 lb/ft^3
+
+wood_blackspruce        28 lb/ft^3
+wood_engelmannspruce    24 lb/ft^3
+wood_redspruce          27 lb/ft^3
+wood_sitkaspruce        27 lb/ft^3
+wood_whitespruce        27 lb/ft^3
+wood_spruce            (wood_blackspruce \
+                      + wood_engelmannspruce \
+                      + wood_redspruce \
+                      + wood_sitkaspruce \
+                      + wood_whitespruce) / 5
+
+# Other woods 
+
+wood_basswood           26 lb/ft^3
+wood_balsa               9 lb/ft^3
+wood_ebony_gaboon       60 lb/ft^3
+wood_ebony_macassar     70 lb/ft^3
+wood_mahogany           37 lb/ft^3   # True (Honduran) mahogany,
+                                     # Swietenia macrophylla
+wood_teak               41 lb/ft^3   
+wood_rosewood_brazilian 52 lb/ft^3
+wood_rosewood_honduran  64 lb/ft^3
+wood_rosewood_indian    52 lb/ft^3
+wood_cocobolo           69 lb/ft^3          
+wood_bubinga            56 lb/ft^3
+wood_zebrawood          50 lb/ft^3
+wood_koa                38 lb/ft^3
+wood_snakewood          75.7 lb/ft^3
+wood_lignumvitae        78.5 lb/ft^3
+wood_blackwood          79.3 lb/ft^3
+wood_blackironwood      84.5 lb/ft^3 # Krugiodendron ferreum, listed
+                                     #   in database as the heaviest wood
+
+#
+# Modulus of elasticity of selected woods.
+# Data from The Wood Database https://www.wood-database.com
+#
+
+# North American Hardwoods
+
+wood_mod_beech              1.720e6 lbf/in^2
+wood_mod_birchyellow        2.010e6 lbf/in^2
+wood_mod_birch              wood_mod_birchyellow
+wood_mod_cherry             1.490e6 lbf/in^2
+wood_mod_hardmaple          1.830e6 lbf/in^2
+
+wood_mod_bigleafmaple       1.450e6 lbf/in^2
+wood_mod_boxeldermaple      1.050e6 lbf/in^2
+wood_mod_redmaple           1.640e6 lbf/in^2
+wood_mod_silvermaple        1.140e6 lbf/in^2
+wood_mod_softmaple         (wood_mod_bigleafmaple \
+                          + wood_mod_boxeldermaple \
+			  + wood_mod_redmaple \
+                          + wood_mod_silvermaple) / 4
+
+wood_mod_redoak             1.761e6 lbf/in^2
+wood_mod_whiteoak           1.762e6 lbf/in^2
+wood_mod_poplar             1.580e6 lbf/in^2
+wood_mod_blackwalnut        1.680e6 lbf/in^2
+wood_mod_walnut             wood_mod_blackwalnut
+
+# North American Softwoods
+
+wood_mod_jeffreypine        1.240e6 lbf/in^2
+wood_mod_ocotepine          2.209e6 lbf/in^2
+wood_mod_ponderosapine      1.290e6 lbf/in^2
+
+wood_mod_loblollypine	    1.790e6 lbf/in^2
+wood_mod_longleafpine       1.980e6 lbf/in^2
+wood_mod_shortleafpine      1.750e6 lbf/in^2
+wood_mod_slashpine	    1.980e6 lbf/in^2
+wood_mod_yellowpine        (wood_mod_loblollypine \
+                          + wood_mod_longleafpine \
+                          + wood_mod_shortleafpine \
+                          + wood_mod_slashpine) / 4
+
+wood_mod_redpine            1.630e6 lbf/in^2
+
+wood_mod_easternwhitepine   1.240e6 lbf/in^2
+wood_mod_westernwhitepine   1.460e6 lbf/in^2
+wood_mod_whitepine         (wood_mod_easternwhitepine + \
+                            wood_mod_westernwhitepine) / 2
+
+wood_mod_douglasfir         1.765e6  lbf/in^2
+
+wood_mod_blackspruce        1.523e6 lbf/in^2
+wood_mod_englemannspruce    1.369e6 lbf/in^2
+wood_mod_redspruce          1.560e6 lbf/in^2
+wood_mod_sitkaspruce        1.600e6 lbf/in^2
+wood_mod_whitespruce        1.315e6 lbf/in^2
+wood_mod_spruce            (wood_mod_blackspruce \
+                          + wood_mod_englemannspruce \
+                          + wood_mod_redspruce + wood_mod_sitkaspruce \
+		          + wood_mod_whitespruce) / 5
+
+# Other woods 
+
+wood_mod_balsa              0.538e6 lbf/in^2
+wood_mod_basswood           1.460e6 lbf/in^2
+wood_mod_blackwood          2.603e6 lbf/in^2  # African, Dalbergia melanoxylon
+wood_mod_bubinga            2.670e6 lbf/in^2
+wood_mod_cocobolo           2.712e6 lbf/in^2
+wood_mod_ebony_gaboon       2.449e6 lbf/in^2
+wood_mod_ebony_macassar     2.515e6 lbf/in^2
+wood_mod_blackironwood      2.966e6 lbf/in^2  # Krugiodendron ferreum
+wood_mod_koa                1.503e6 lbf/in^2
+wood_mod_lignumvitae        2.043e6 lbf/in^2
+wood_mod_mahogany           1.458e6 lbf/in^2  # True (Honduran) mahogany,
+                                              # Swietenia macrophylla
+wood_mod_rosewood_brazilian 2.020e6 lbf/in^2
+wood_mod_rosewood_honduran  3.190e6 lbf/in^2
+wood_mod_rosewood_indian    1.668e6 lbf/in^2
+wood_mod_snakewood          3.364e6 lbf/in^2
+wood_mod_teak               1.781e6 lbf/in^2
+wood_mod_zebrawood          2.374e6 lbf/in^2
+
+#
+# Area of countries and other regions.  This is the "total area" which
+# includes land and water areas within international boundaries and
+# coastlines.  Data from January, 2019.  
+#
+# except as noted, sources are
+# https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area
+# https://www.cia.gov/library/publications/the-world-factbook)
+
+area_russia              17098246 km^2
+area_antarctica          14000000 km^2
+# area_canada is covered below as sum of province and territory areas
+area_china                9596961 km^2
+# area_unitedstates is covered below as sum of state areas
+# includes only the 50 states and District of Columbia
+area_us                   area_unitedstates
+area_brazil               8515767 km^2
+area_australia            7692024 km^2
+# area_europeanunion is covered below as sum of member areas
+area_india                3287263 km^2
+area_argentina            2780400 km^2
+area_kazakhstan           2724900 km^2
+area_algeria              2381741 km^2
+area_drcongo              2344858 km^2
+area_greenland            2166086 km^2
+area_saudiarabia          2149690 km^2
+area_mexico               1964375 km^2
+area_indonesia            1910931 km^2
+area_sudan                1861484 km^2
+area_libya                1759540 km^2
+area_iran                 1648195 km^2
+area_mongolia             1564110 km^2
+area_peru                 1285216 km^2
+area_chad                 1284000 km^2
+area_niger                1267000 km^2
+area_angola               1246700 km^2
+area_mali                 1240192 km^2
+area_southafrica          1221037 km^2
+area_colombia             1141748 km^2
+area_ethiopia             1104300 km^2
+area_bolivia              1098581 km^2
+area_mauritania           1030700 km^2
+area_egypt                1002450 km^2
+area_tanzania              945087 km^2
+area_nigeria               923768 km^2
+area_venezuela             916445 km^2
+area_pakistan              881912 km^2
+area_namibia               825615 km^2
+area_mozambique            801590 km^2
+area_turkey                783562 km^2
+area_chile                 756102 km^2
+area_zambia                752612 km^2
+area_myanmar               676578 km^2
+area_burma                area_myanmar
+area_afghanistan           652230 km^2
+area_southsudan            644329 km^2
+area_france                640679 km^2
+area_somalia               637657 km^2
+area_centralafrica         622984 km^2
+area_ukraine               603500 km^2
+area_crimea		    27000 km^2	# occupied by Russia; included in
+                                        # (Encyclopedia Britannica)
+area_madagascar            587041 km^2
+area_botswana              581730 km^2
+area_kenya                 580367 km^2
+area_yemen                 527968 km^2
+area_thailand              513120 km^2
+area_spain                 505992 km^2
+area_turkmenistan          488100 km^2
+area_cameroon              475422 km^2
+area_papuanewguinea        462840 km^2
+area_sweden                450295 km^2
+area_uzbekistan            447400 km^2
+area_morocco               446550 km^2
+area_iraq                  438317 km^2
+area_paraguay              406752 km^2
+area_zimbabwe              390757 km^2
+area_japan                 377973 km^2
+area_germany               357114 km^2
+area_congorepublic         342000 km^2
+area_finland               338424 km^2
+area_vietnam               331212 km^2
+area_malaysia              330803 km^2
+area_norway                323802 km^2
+area_ivorycoast            322463 km^2
+area_poland                312696 km^2
+area_oman                  309500 km^2
+area_italy                 301339 km^2
+area_philippines           300000 km^2
+area_ecuador               276841 km^2
+area_burkinafaso           274222 km^2
+area_newzealand            270467 km^2
+area_gabon                 267668 km^2
+area_westernsahara         266000 km^2
+area_guinea                245857 km^2
+# area_unitedkingdom is covered below
+area_uganda                241550 km^2
+area_ghana                 238533 km^2
+area_romania               238397 km^2
+area_laos                  236800 km^2
+area_guyana                214969 km^2
+area_belarus               207600 km^2
+area_kyrgyzstan            199951 km^2
+area_senegal               196722 km^2
+area_syria                 185180 km^2
+area_golanheights	     1150 km^2	# occupied by Israel; included in 
+                                        # Syria (Encyclopedia Britannica)
+area_cambodia              181035 km^2
+area_uruguay               176215 km^2
+area_somaliland            176120 km^2
+area_suriname              163820 km^2
+area_tunisia               163610 km^2
+area_bangladesh            147570 km^2
+area_nepal                 147181 km^2
+area_tajikistan            143100 km^2
+area_greece                131990 km^2
+area_nicaragua             130373 km^2
+area_northkorea            120540 km^2
+area_malawi                118484 km^2
+area_eritrea               117600 km^2
+area_benin                 114763 km^2
+area_honduras              112492 km^2
+area_liberia               111369 km^2
+area_bulgaria              110879 km^2
+area_cuba                  109884 km^2
+area_guatemala             108889 km^2
+area_iceland               103000 km^2
+area_southkorea            100210 km^2
+area_hungary                93028 km^2
+area_portugal               92090 km^2
+area_jordan                 89342 km^2
+area_serbia                 88361 km^2
+area_azerbaijan             86600 km^2
+area_austria                83871 km^2
+area_uae                    83600 km^2
+area_czechia                78865 km^2
+area_czechrepublic         area_czechia
+area_panama                 75417 km^2
+area_sierraleone            71740 km^2
+area_ireland                70273 km^2
+area_georgia                69700 km^2
+area_srilanka               65610 km^2
+area_lithuania              65300 km^2
+area_latvia                 64559 km^2
+area_togo                   56785 km^2
+area_croatia                56594 km^2
+area_bosnia                 51209 km^2
+area_costarica              51100 km^2
+area_slovakia               49037 km^2
+area_dominicanrepublic      48671 km^2
+area_estonia                45227 km^2
+area_denmark                43094 km^2
+area_netherlands            41850 km^2
+area_switzerland            41284 km^2
+area_bhutan                 38394 km^2
+area_taiwan                 36193 km^2
+area_guineabissau           36125 km^2
+area_moldova                33846 km^2
+area_belgium                30528 km^2
+area_lesotho                30355 km^2
+area_armenia                29743 km^2
+area_solomonislands         28896 km^2
+area_albania                28748 km^2
+area_equitorialguinea       28051 km^2
+area_burundi                27834 km^2
+area_haiti                  27750 km^2
+area_rwanda                 26338 km^2
+area_northmacedonia         25713 km^2
+area_djibouti               23200 km^2
+area_belize                 22966 km^2
+area_elsalvador             21041 km^2
+area_israel                 20770 km^2
+area_slovenia               20273 km^2
+area_fiji                   18272 km^2
+area_kuwait                 17818 km^2
+area_eswatini               17364 km^2
+area_easttimor              14919 km^2
+area_bahamas                13943 km^2
+area_montenegro             13812 km^2
+area_vanatu                 12189 km^2
+area_qatar                  11586 km^2
+area_gambia                 11295 km^2
+area_jamaica                10991 km^2
+area_kosovo                 10887 km^2
+area_lebanon                10452 km^2
+area_cyprus                  9251 km^2
+area_puertorico              9104 km^2	# United States territory; not included
+                                        #   in United States area
+area_westbank                5860 km^2	# (CIA World Factbook)
+area_hongkong                2755 km^2
+area_luxembourg              2586 km^2
+area_singapore                716 km^2
+area_gazastrip                360 km^2	# (CIA World Factbook)
+area_malta                    316 km^2  # smallest EU country
+area_liechtenstein            160 km^2
+area_monaco                     2.02 km^2
+area_vaticancity                0.44 km^2
+
+# Members as of 1 Feb 2020
+area_europeanunion        area_austria + area_belgium + area_bulgaria \
+			+ area_croatia + area_cyprus + area_czechia + area_denmark \
+                        + area_estonia + area_finland + area_france + area_germany \
+                        + area_greece + area_hungary + area_ireland + area_italy \
+                        + area_latvia + area_lithuania + area_luxembourg \
+                        + area_malta + area_netherlands + area_poland \
+                        + area_portugal + area_romania + area_slovakia \
+                        + area_slovenia + area_spain + area_sweden
+area_eu                   area_europeanunion
+
+#
+# Areas of the individual US states
+#
+# https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_area
+#
+# United States Summary: 2010, Population and Housing Unit Counts, Table 18, p. 41
+# Issued September 2012
+
+area_alaska               1723336.8 km^2
+area_texas                 695661.6 km^2
+area_california            423967.4 km^2
+area_montana               380831.1 km^2
+area_newmexico             314917.4 km^2
+area_arizona               295233.5 km^2
+area_nevada                286379.7 km^2
+area_colorado              269601.4 km^2
+area_oregon                254799.2 km^2
+area_wyoming               253334.5 km^2
+area_michigan              250486.8 km^2
+area_minnesota             225162.8 km^2
+area_utah                  219881.9 km^2
+area_idaho                 216442.6 km^2
+area_kansas                213100.0 km^2
+area_nebraska              200329.9 km^2
+area_southdakota           199728.7 km^2
+area_washington            184660.8 km^2
+area_northdakota           183107.8 km^2
+area_oklahoma              181037.2 km^2
+area_missouri              180540.3 km^2
+area_florida               170311.7 km^2
+area_wisconsin             169634.8 km^2
+area_georgia_us            153910.4 km^2
+area_illinois              149995.4 km^2
+area_iowa                  145745.9 km^2
+area_newyork               141296.7 km^2
+area_northcarolina         139391.0 km^2
+area_arkansas              137731.8 km^2
+area_alabama               135767.4 km^2
+area_louisiana             135658.7 km^2
+area_mississippi           125437.7 km^2
+area_pennsylvania          119280.2 km^2
+area_ohio                  116097.7 km^2
+area_virginia              110786.6 km^2
+area_tennessee             109153.1 km^2
+area_kentucky              104655.7 km^2
+area_indiana                94326.2 km^2
+area_maine                  91633.1 km^2
+area_southcarolina          82932.7 km^2
+area_westvirginia           62755.5 km^2
+area_maryland               32131.2 km^2
+area_hawaii                 28313.0 km^2
+area_massachusetts          27335.7 km^2
+area_vermont                24906.3 km^2
+area_newhampshire           24214.2 km^2
+area_newjersey              22591.4 km^2
+area_connecticut            14357.4 km^2
+area_delaware                6445.8 km^2
+area_rhodeisland             4001.2 km^2
+area_districtofcolumbia       177.0 km^2
+
+area_unitedstates          area_alabama + area_alaska + area_arizona \
+                         + area_arkansas + area_california + area_colorado \
+                         + area_connecticut + area_delaware \
+                         + area_districtofcolumbia + area_florida \
+                         + area_georgia_us + area_hawaii + area_idaho \
+                         + area_illinois + area_indiana + area_iowa \
+                         + area_kansas + area_kentucky + area_louisiana \
+                         + area_maine + area_maryland + area_massachusetts \
+                         + area_michigan + area_minnesota + area_mississippi \
+                         + area_missouri + area_montana + area_nebraska \
+                         + area_nevada + area_newhampshire + area_newjersey \
+                         + area_newmexico + area_newyork + area_northcarolina \
+                         + area_northdakota + area_ohio + area_oklahoma \
+                         + area_oregon + area_pennsylvania + area_rhodeisland \
+                         + area_southcarolina + area_southdakota \
+                         + area_tennessee + area_texas + area_utah \
+                         + area_vermont + area_virginia + area_washington \
+                         + area_westvirginia + area_wisconsin + area_wyoming
+
+# Total area of Canadian province and territories
+#
+# Statistics Canada, "Land and freshwater area, by province and territory",
+# 2016-10-07:
+#
+# https://www150.statcan.gc.ca/n1/pub/11-402-x/2012000/chap/geo/tbl/tbl06-eng.htm
+
+area_ontario                    1076395 km^2    # confederated 1867-Jul-01
+area_quebec                     1542056 km^2    # confederated 1867-Jul-01
+area_novascotia                 55284 km^2      # confederated 1867-Jul-01
+area_newbrunswick               72908 km^2      # confederated 1867-Jul-01
+area_canada_original            area_ontario + area_quebec + area_novascotia \
+                                             + area_newbrunswick
+area_manitoba                   647797 km^2     # confederated 1870-Jul-15
+area_britishcolumbia            944735 km^2     # confederated 1871-Jul-20
+area_princeedwardisland         5660 km^2       # confederated 1873-Jul-01
+area_canada_additional          area_manitoba + area_britishcolumbia \
+                                              + area_princeedwardisland
+area_alberta                    661848 km^2     # confederated 1905-Sep-01
+area_saskatchewan               651036 km^2     # confederated 1905-Sep-01
+area_newfoundlandandlabrador    405212 km^2     # confederated 1949-Mar-31
+area_canada_recent              area_alberta + area_saskatchewan \
+                                             + area_newfoundlandandlabrador
+area_canada_provinces           area_canada_original + area_canada_additional \
+                                                     + area_canada_recent
+area_northwestterritories       1346106 km^2    # NT confederated 1870-Jul-15
+area_yukon                      482443 km^2     # YT confederated 1898-Jun-13
+area_nunavut                    2093190 km^2    # NU confederated 1999-Apr-01
+area_canada_territories         area_northwestterritories + area_yukon \
+                                              + area_nunavut
+area_canada                     area_canada_provinces + area_canada_territories
+
+# area-uk-countries.units - UK country (/province) total areas
+# https://en.wikipedia.org/wiki/Countries_of_the_United_Kingdom#Statistics
+# GB is official UK country code for some purposes but internally is a Kingdom
+#
+# areas from A Beginners Guide to UK Geography 2019 v1.0, Office for National Statistics
+# England: country; 0927-Jul-12 united; 1603-Mar-24 union of crowns
+area_england            132947.76 km^2
+#
+# Wales: 1282 conquered; 1535 union; principality until 2011
+area_wales              21224.48 km^2
+#
+# England and Wales: nation; 1535 union
+area_englandwales       area_england + area_wales
+#
+# Scotland: country; ~900 united; 1603-Mar-24 union of crowns
+area_scotland           80226.36 km^2
+#
+# Great Britain: kingdom; excludes NI;
+# 1707 Treaty and Acts of Union: union of parliaments
+area_greatbritain       area_england + area_wales + area_scotland
+area_gb                 area_greatbritain
+#
+# Northern Ireland: province; Ireland: 1177 Henry II lordship;
+# 1542 Henry VIII kingdom; 1652 Cromwell commonwealth;
+# 1691 William III kingdom; 1800 Acts of Union: UK of GB & Ireland;
+# 1921 Irish Free State independent of UK
+area_northernireland    14133.38 km^2
+#
+# United Kingdom of GB & NI: 1800 Acts of Union: UK of GB & Ireland;
+# 1921 Irish Free State independent of UK
+area_unitedkingdom      area_greatbritain + area_northernireland
+area_uk                 area_unitedkingdom
 
 #
 # Units derived from imperial system
@@ -3370,6 +4405,20 @@ RU                     U             #   than its U measurement indicates to
                                      #   Alliance (EIA) and the rack standard
                                      #   is specified in EIA RS-310-D.
 count                  per pound     # For measuring the size of shrimp
+flightlevel            100 ft        # Flight levels are used to ensure safe
+FL                     flightlevel   #   vertical separation between aircraft
+                                     #   despite variations in local air
+                                     #   pressure.  Flight levels define
+                                     #   altitudes based on a standard air
+                                     #   pressure so that altimeter calibration
+                                     #   is not needed.  This means that
+                                     #   aircraft at separated flight levels
+                                     #   are guaranteed to be separated.
+                                     #   Hence the definition of 100 feet is
+                                     #   a nominal, not true, measure.
+                                     #   Customarily written with no space in
+                                     #   the form FL290, which will not work in
+                                     #   units.  But note "FL 290" will work.  
 
 #
 # Other units of work, energy, power, etc
@@ -3609,7 +4658,7 @@ metrichorsepower        75 kilogram force meter / sec # PS=Pferdestaerke in
 electrichorsepower      746 W                         # Germany
 boilerhorsepower        9809.50 W
 waterhorsepower         746.043 W
-brhorsepower            745.70 W
+brhorsepower            horsepower   # Value corrected Dec, 2019.  Was 745.7 W.
 donkeypower             250 W
 chevalvapeur            metrichorsepower
 
@@ -3655,6 +4704,17 @@ clo                     0.155 degC m^2 / W # Supposed to be the insulance
 tog                     0.1 degC m^2 / W   # Also used for clothing.
 
 
+# Thermal Conductivity of a few materials
+
+diamond_natural_thermal_conductivity    2200 W / m K
+diamond_synthetic_thermal_conductivity  3320 W / m K  # 99% pure C12
+silver_thermal_conductivity             406 W / m K
+aluminum_thermal_conductivity           205 W / m K
+copper_thermal_conductivity             385 W / m K
+gold_thermal_conductivity               314 W / m K
+iron_thermal_conductivity               79.5 W / m K
+stainless_304_thermal_conductivity      15.5 W / m K  # average value
+
 # The bel was defined by engineers of Bell Laboratories to describe the
 # reduction in audio level over a length of one mile. It was originally
 # called the transmission unit (TU) but was renamed around 1923 to honor
@@ -3684,13 +4744,19 @@ dBmV(x) units=[1;V] range=(0,) dB(0.5 x) mV;~dB(dBmV^2/mV^2)# Reference = 1 mV
 dBuV(x) units=[1;V] range=(0,) dB(0.5 x) microV ; ~dB(dBuV^2 / microV^2)
                                    # Reference = 1 microvolt
 
+# Here are dB measurements for current.  Be aware that dbA is also 
+# a unit for frequency weighted sound pressure.  
+dBA(x)  units=[1;A] range=(0,) dB(0.5 x) A;~dB(dBA^2 / A^2) # Reference = 1 A
+dBmA(x) units=[1;A] range=(0,) dB(0.5 x) mA;~dB(dBmA^2/mA^2)# Reference = 1 mA
+dBuA(x) units=[1;A] range=(0,) dB(0.5 x) microA ; ~dB(dBuA^2 / microA^2)
+                                                    # Reference = 1 microamp
+
 # Referenced to the voltage that causes 1 mW dissipation in a 600 ohm load.
 # Originally defined as dBv but changed to prevent confusion with dBV.
 # The "u" is for unloaded.
 dBu(x) units=[1;V] range=(0,) dB(0.5 x) sqrt(mW 600 ohm) ; \
                               ~dB(dBu^2 / mW 600 ohm)
 dBv(x) units=[1;V] range=(0,) dBu(x) ; ~dBu(dBv)  # Synonym for dBu
-
 
 # Measurements for sound in air, referenced to the threshold of human hearing
 # Note that sound in other media typically uses 1 micropascal as a reference
@@ -3732,6 +4798,8 @@ fatman                  nagasaki
 littleboy               hiroshima
 ivyking                 500 kiloton tnt    # most powerful fission bomb
 castlebravo             15 megaton tnt     # most powerful US test
+tsarbomba		50 megaton tnt     # most powerful test ever: USSR,
+                                           # 30 October 1961
 b53bomb                 9 megaton tnt
                  # http://rarehistoricalphotos.com/gadget-first-atomic-bomb/
 trinity                 18 kiloton tnt     # July 16, 1945
@@ -4160,6 +5228,9 @@ dvdspeed                 1385 kB/s   # This is the "1x" speed of a DVD using
                                      # as they go from the inside to the
                                      # outside of the disc.
                        # See http://www.osta.org/technology/dvdqa/dvdqa4.htm
+
+FIT         / 1e9 hour # Failures In Time, number of failures per billion hours
+
 #
 # The IP address space is divided into subnets.  The number of hosts
 # in a subnet depends on the length of the subnet prefix.  This is
@@ -5531,7 +6602,7 @@ hph                     hp hour
 plf                     lb / foot    # pounds per linear foot
 
 #
-# Compatibility units with unix version
+# Compatibility units with Unix version
 #
 
 pa                      Pa
@@ -5746,6 +6817,155 @@ air            78.08% nitrogen 2 \
               +    1.7  ppm (carbon + 4 hydrogen) \
               +    1.14 ppm krypton \
               +    0.55 ppm hydrogen 2
+
+
+# Density of the elements
+#
+# Note some elements occur in multiple forms (allotropes) with different
+# densities, and they are accordingly listed multiple times.  
+
+# Density of gas phase elements at STP
+
+hydrogendensity            0.08988 g/l    
+heliumdensity              0.1786 g/l     
+neondensity                0.9002 g/l     
+nitrogendensity            1.2506 g/l     
+oxygendensity              1.429 g/l      
+fluorinedensity            1.696 g/l      
+argondensity               1.784 g/l      
+chlorinedensity            3.2 g/l        
+kryptondensity             3.749 g/l      
+xenondensity               5.894 g/l      
+radondensity               9.73 g/l       
+
+# Density of liquid phase elements near room temperature
+
+brominedensity             3.1028 g/cm^3  
+mercurydensity            13.534 g/cm^3  
+
+# Density of solid elements near room temperature
+
+lithiumdensity             0.534 g/cm^3  
+potassiumdensity           0.862 g/cm^3  
+sodiumdensity              0.968 g/cm^3  
+rubidiumdensity            1.532 g/cm^3  
+calciumdensity             1.55 g/cm^3   
+magnesiumdensity           1.738 g/cm^3  
+phosphorus_white_density   1.823 g/cm^3  
+berylliumdensity           1.85 g/cm^3   
+sulfur_gamma_density       1.92 g/cm^3   
+cesiumdensity              1.93 g/cm^3
+carbon_amorphous_density   1.95 g/cm^3   # average value
+sulfur_betadensity         1.96 g/cm^3   
+sulfur_alpha_density       2.07 g/cm^3   
+carbon_graphite_density    2.267 g/cm^3  
+phosphorus_red_density     2.27 g/cm^3   # average value
+silicondensity             2.3290 g/cm^3 
+phosphorus_violet_density  2.36 g/cm^3   
+borondensity               2.37 g/cm^3   
+strontiumdensity           2.64 g/cm^3   
+phosphorus_black_density   2.69 g/cm^3   
+aluminumdensity            2.7 g/cm^3    
+bariumdensity              3.51 g/cm^3   
+carbon_diamond_density     3.515 g/cm^3  
+scandiumdensity            3.985 g/cm^3  
+selenium_vitreous_density  4.28 g/cm^3   
+selenium_alpha_density     4.39 g/cm^3   
+titaniumdensity            4.406 g/cm^3  
+yttriumdensity             4.472 g/cm^3  
+selenium_gray_density      4.81 g/cm^3   
+iodinedensity              4.933 g/cm^3  
+europiumdensity            5.264 g/cm^3  
+germaniumdensity           5.323 g/cm^3  
+radiumdensity              5.5 g/cm^3    
+arsenicdensity             5.727 g/cm^3  
+tin_alpha_density          5.769 g/cm^3  
+galliumdensity             5.91 g/cm^3   
+vanadiumdensity            6.11 g/cm^3   
+lanthanumdensity           6.162 g/cm^3  
+telluriumdensity           6.24 g/cm^3   
+zirconiumdensity           6.52 g/cm^3   
+antimonydensity            6.697 g/cm^3  
+ceriumdensity              6.77 g/cm^3   
+praseodymiumdensity        6.77 g/cm^3   
+ytterbiumdensity           6.9 g/cm^3    
+neodymiumdensity           7.01 g/cm^3   
+zincdensity                7.14 g/cm^3   
+chromiumdensity            7.19 g/cm^3   
+manganesedensity           7.21 g/cm^3   
+promethiumdensity          7.26 g/cm^3   
+tin_beta_density           7.265 g/cm^3  
+indiumdensity              7.31 g/cm^3   
+samariumdensity            7.52 g/cm^3   
+irondensity                7.874 g/cm^3  
+gadoliniumdensity          7.9 g/cm^3    
+terbiumdensity             8.23 g/cm^3   
+dysprosiumdensity          8.54 g/cm^3   
+niobiumdensity             8.57 g/cm^3   
+cadmiumdensity             8.65 g/cm^3   
+holmiumdensity             8.79 g/cm^3   
+cobaltdensity              8.9 g/cm^3    
+nickeldensity              8.908 g/cm^3  
+erbiumdensity              9.066 g/cm^3  
+polonium_alpha_density     9.196 g/cm^3  
+thuliumdensity             9.32 g/cm^3   
+polonium_beta_density      9.398 g/cm^3  
+bismuthdensity             9.78 g/cm^3   
+lutetiumdensity            9.841 g/cm^3  
+actiniumdensity           10 g/cm^3      
+molybdenumdensity         10.28 g/cm^3   
+silverdensity             10.49 g/cm^3   
+technetiumdensity         11 g/cm^3      
+leaddensity               11.34 g/cm^3   
+thoriumdensity            11.7 g/cm^3    
+thalliumdensity           11.85 g/cm^3   
+americiumdensity          12 g/cm^3      
+palladiumdensity          12.023 g/cm^3  
+rhodiumdensity            12.41 g/cm^3   
+rutheniumdensity          12.45 g/cm^3   
+berkelium_beta_density    13.25 g/cm^3   
+hafniumdensity            13.31 g/cm^3   
+curiumdensity             13.51 g/cm^3   
+berkelium_alphadensity    14.78 g/cm^3   
+californiumdensity        15.1 g/cm^3    
+protactiniumdensity       15.37 g/cm^3   
+tantalumdensity           16.69 g/cm^3   
+uraniumdensity            19.1 g/cm^3    
+tungstendensity           19.3 g/cm^3    
+golddensity               19.30 g/cm^3   
+plutoniumdensity          19.816 g/cm^3  
+neptuniumdensity          20.45 g/cm^3 # alpha form, only one at room temp
+rheniumdensity            21.02 g/cm^3   
+platinumdensity           21.45 g/cm^3   
+iridiumdensity            22.56 g/cm^3   
+osmiumdensity             22.59 g/cm^3
+
+# A few alternate names
+
+tin_gray tin_alpha_density
+tin_white tin_beta_density
+graphitedensity carbon_graphite_density
+diamonddensity carbon_diamond_density
+
+# Predicted density of elements that have not been made in sufficient
+# quantities for measurement.  
+
+franciumdensity            2.48 g/cm^3 # liquid, predicted melting point 8 degC
+astatinedensity            6.35 g/cm^3    
+einsteiniumdensity         8.84 g/cm^3    
+fermiumdensity             9.7 g/cm^3     
+nobeliumdensity            9.9 g/cm^3     
+mendeleviumdensity        10.3 g/cm^3    
+lawrenciumdensity         16 g/cm^3      
+rutherfordiumdensity      23.2 g/cm^3
+roentgeniumdensity        28.7 g/cm^3    
+dubniumdensity            29.3 g/cm^3    
+darmstadtiumdensity       34.8 g/cm^3    
+seaborgiumdensity         35 g/cm^3      
+bohriumdensity            37.1 g/cm^3    
+meitneriumdensity         37.4 g/cm^3    
+hassiumdensity            41 g/cm^3      
+
 #
 # population units
 #
@@ -5980,6 +7200,45 @@ australiasquare         (10 ft)^2   # Used for house area
 zentner                 50 kg
 doppelzentner           2 zentner
 pfund                   500 g
+
+# The klafter, which was used in central Europe, was derived from the span of
+# outstretched arms.
+#
+# https://en.wikipedia.org/wiki/Obsolete_Austrian_units_of_measurement
+# https://www.llv.li/files/abi/klafter-m2-en.pdf
+
+austriaklafter          1.89648384 m    # Exact definition, 23 July 1871 
+austriafoot             1|6 austriaklafter
+prussiaklafter          1.88 m
+prussiafoot             1|6 prussiaklafter
+bavariaklafter          1.751155 m
+bavariafoot             1|6 bavariaklafter
+hesseklafter            2.5 m
+hessefoot               1|6 hesseklafter
+switzerlandklafter      metricklafter
+switzerlandfoot         1|6 switzerlandklafter
+swissklafter            switzerlandklafter
+swissfoot               1|6 swissklafter
+metricklafter           1.8 m
+
+austriayoke             8 austriaklafter * 200 austriaklafter
+
+liechtensteinsquareklafter 3.596652 m^2 # Used until 2017 to measure land area 
+liechtensteinklafter  sqrt(liechtensteinsquareklafter)
+
+# The klafter was also used to measure volume of wood, generally being a stack
+# of wood one klafter wide, one klafter long, with logs 3 feet (half a klafter)
+# in length
+
+prussiawoodklafter      0.5 prussiaklafter^3
+austriawoodklafter      0.5 austriaklafter^3
+festmeter               m^3             # modern measure of wood, solid cube
+raummeter               0.7 festmeter   # Air space between the logs, stacked
+schuettraummeter        0.65 raummeter  # A cubic meter volume of split and cut
+schüttraummeter         schuettraummeter#   firewood in a loose, unordered
+                                        #   pile, not stacked.  This is called
+                                        #   "tipped".
+
 
 #
 # Swedish (Sweden) pre-metric units of 1739.
@@ -6298,7 +7557,7 @@ sextarii        sextarius      # there is uncertainty.  Six large Roman
                                # liters, but then says the amphora is a
                                # cubic Roman foot.  This gives a value for the
                                # sextarius of 0.540 liters.  And the
-                               # encyclopedia Brittanica lists 0.53 liters for
+                               # encyclopedia Britannica lists 0.53 liters for
                                # this unit.  Both [7] and [11], which were
                                # written by scholars of weights and measures,
                                # give the value of 35.4 cubic inches.
@@ -6656,7 +7915,7 @@ röntgen                 roentgen
 ￦                      ₩
 
 #
-# Square unicode symbols starting at U+3371
+# Square Unicode symbols starting at U+3371
 #
 
 ㍱                      hPa
@@ -6783,7 +8042,7 @@ röntgen                 roentgen
 
 ############################################################################
 #
-# The following units were in the unix units database but do not appear in
+# The following units were in the Unix units database but do not appear in
 # this file:
 #
 #      wey        used for cheese, salt and other goods.  Measured mass or

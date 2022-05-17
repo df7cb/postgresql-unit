@@ -1,6 +1,33 @@
---- definitions.units
-+++ definitions.units.patched
-@@ -204,7 +204,9 @@
+--- definitions.units	2022-05-17 15:32:26.767162879 +0200
++++ definitions.units.patched	2022-05-17 17:01:46.803764124 +0200
+@@ -227,7 +227,7 @@
+                  # equator to a pole.
+ 
+ h_SI      6.62607015e-34
+-h         6.62607015e-34 J s # Planck constant (exact)
++h         6.62607015e-34 (m^2*kg/s^2) s # Planck constant (exact)
+ 
+ kg        !      # The kilogram, symbol kg, is the SI unit of mass.  It is
+ kilogram  kg     # defined by taking the fixed numerical value of the Planck
+@@ -276,7 +276,7 @@
+                  # https://en.wikipedia.org/wiki/Kibble_balance
+ 
+ k_SI      1.380649e-23
+-boltzmann 1.380649e-23 J/K   # Boltzmann constant (exact)
++boltzmann 1.380649e-23 (m^2*kg/s^2)/K   # Boltzmann constant (exact)
+ k         boltzmann
+ 
+ K         !      # The kelvin, symbol K, is the SI unit of thermodynamic
+@@ -319,7 +319,7 @@
+                  # depend directly on temperature.
+ 
+ e_SI      1.602176634e-19
+-e         1.602176634e-19 C  # electron charge (exact)
++e         1.602176634e-19 A s  # electron charge (exact)
+ 
+ A         !      # The ampere, symbol A, is the SI unit of electric current.
+ ampere    A      # It is defined by taking the fixed numerical value of the
+@@ -422,7 +422,9 @@
  # A primitive non-SI unit
  #
  
@@ -11,7 +38,7 @@
                   #   of a random variable over a finite alphabet is defined
                   #   to be the sum of -p(i)*log2(p(i)) over the alphabet where
                   #   p(i) is the probability that the random variable takes
-@@ -259,12 +261,16 @@
+@@ -477,12 +479,16 @@
  tebi-                   2^40     # Electrotechnical Commission aproved these
  pebi-                   2^50     # binary prefixes for use in 1998.  If you
  exbi-                   2^60     # want to refer to "megabytes" using the
@@ -28,7 +55,7 @@
  
  Y-                      yotta
  Z-                      zetta
-@@ -280,6 +286,7 @@
+@@ -498,6 +504,7 @@
  c-                      centi
  m-                      milli
  u-                      micro   # it should be a mu but u is easy to type
@@ -36,15 +63,21 @@
  n-                      nano
  p-                      pico
  f-                      femto
-@@ -654,6 +661,7 @@
- minute                  60 s
- min                     minute
- hour                    60 min
-+h                       hour
- hr                      hour
- day                     24 hr
- d                       day
-@@ -713,7 +721,7 @@
+@@ -676,6 +683,13 @@
+ padm                    1e15
+ shankh                  1e17
+ 
++# postgresql-unit: Define some units before they are used elsewhere before their original definition
++pi                      3.14159265358979323846
++π                       pi
++astronomicalunit        149597870700 m # IAU definition from 2012, exact
++au                      astronomicalunit # ephemeris for the above described
++
++
+ #############################################################################
+ #                                                                           #
+ # Derived units which can be reduced to the primitive units                 #
+@@ -945,7 +959,7 @@
  pointangle              1|32 circle  # Used for reporting compass readings
  centrad                 0.01 radian  # Used for angular deviation of light
                                       # through a prism.
@@ -53,7 +86,7 @@
  seclongitude            circle (seconds/day) # Astronomers measure longitude
                                       # (which they call right ascension) in
                                       # time units by dividing the equator into
-@@ -819,8 +827,8 @@
+@@ -1066,8 +1080,8 @@
  tempF(x) units=[1;K] domain=[-459.67,) range=[0,) \
                  (x+(-32)) degF + stdtemp ; (tempF+(-stdtemp))/degF + 32
  tempfahrenheit() tempF
@@ -64,7 +97,7 @@
  
  
  degreesrankine          degF              # The Rankine scale has the
-@@ -832,7 +840,7 @@
+@@ -1079,7 +1093,7 @@
  
  tempreaumur(x)    units=[1;K] domain=[-218.52,) range=[0,) \
                    x degreaumur+stdtemp ; (tempreaumur+(-stdtemp))/degreaumur
@@ -73,27 +106,16 @@
                                    # particularly in France.  It is defined
                                    # to be 0 at the freezing point of water
                                    # and 80 at the boiling point.  Reaumur
-@@ -898,14 +906,17 @@
+@@ -1167,7 +1181,7 @@
+ 
  # Basic constants
  
- pi                      3.14159265358979323846
-+π                       pi
- c                       2.99792458e8 m/s # speed of light in vacuum (exact)
+-pi                      3.14159265358979323846
++#pi                      3.14159265358979323846
  light                   c
- mu0                     4 pi 1e-7 H/m    # permeability of vacuum (exact)
- epsilon0                1/mu0 c^2        # permittivity of vacuum (exact)
- energy                  c^2              # convert mass to energy
- e                     1.6021766208e-19 C # electron charge
--h                   4.135667662e-15 eV s # Planck constant
--hbar                    h / 2 pi
-+eV                      e V      # Energy acquired by a particle with charge e
-+electronvolt            eV       #   when it is accelerated through 1 V
-+hplanck             4.135667662e-15 eV s # Planck constant
-+hbar                    hplanck / 2 pi
- spin                    hbar
- G               6.67408e-11 N m^2 / kg^2 # Newtonian gravitational constant
-                                          #    This is the NIST 2006 value.
-@@ -1015,6 +1026,13 @@
+ mu0_SI        2 alpha h_SI / e_SI^2 c_SI # Vacuum magnetic permeability
+ mu0                    2 alpha h / e^2 c #   Gets overridden in CGS modes
+@@ -1310,6 +1324,13 @@
  H2O50C        0.98807 force gram / cm^3
  H2O100C       0.95838 force gram / cm^3
  
@@ -106,61 +128,8 @@
 +
  # Atomic constants
  
- Rinfinity            10973731.568539 /m  # The wavelengths of a spectral series
-@@ -1081,12 +1099,12 @@
- # particle wavelengths: the compton wavelength of a particle is
- # defined as h / m c where m is the mass of the particle.
  
--electronwavelength      h / m_e c
-+electronwavelength      hplanck / m_e c
- lambda_C                electronwavelength
--protonwavelength        h / m_p c
--lambda_C,p              protonwavelength
--neutronwavelength       h / m_n c
--lambda_C,n              neutronwavelength
-+protonwavelength        hplanck / m_p c
-+lambda_Cp               protonwavelength
-+neutronwavelength       hplanck / m_n c
-+lambda_Cn               neutronwavelength
- 
- # Magnetic moments
- 
-@@ -1120,31 +1138,20 @@
- inHg                    inch Hg    
- inH2O                   inch water
- mmH2O                   mm water
--eV                      e V      # Energy acquired by a particle with charge e
--electronvolt            eV       #   when it is accelerated through 1 V
- lightyear               c julianyear # The 365.25 day year is specified in
- ly                      lightyear    # NIST publication 811
- lightsecond             c s
- lightminute             c min
--parsec                  au / tan(arcsec)    # Unit of length equal to distance
--pc                      parsec              #   from the sun to a point having
--                                            #   heliocentric parallax of 1
--                                            #   arcsec (derived from parallax
--                                            #   second).  A distant object with
--                                            #   paralax theta will be about
--                                            #   (arcsec/theta) parsecs from the
--                                            #   sun (using the approximation
--                                            #   that tan(theta) = theta).
--rydberg                 h c Rinfinity       # Rydberg energy
-+rydberg                 hplanck c Rinfinity       # Rydberg energy
- crith                   0.089885 gram       # The crith is the mass of one
-                                             #   liter of hydrogen at standard
-                                             #   temperature and pressure.
- amagatvolume            molarvolume
- amagat                  mol/amagatvolume    # Used to measure gas densities
--lorentz                 bohrmagneton / h c  # Used to measure the extent
-+lorentz                 bohrmagneton / hplanck c  # Used to measure the extent
-                                             #   that the frequency of light
-                                             #   is shifted by a magnetic field.
--cminv                   h c / cm            # Unit of energy used in infrared
-+cminv                   hplanck c / cm            # Unit of energy used in infrared
- invcm                   cminv               #   spectroscopy.
- wavenumber              cminv
- kcal_mol                kcal_th / mol N_A   # kcal/mol is used as a unit of
-@@ -1359,7 +1366,7 @@
+@@ -1664,7 +1685,7 @@
  
  abampere                10 A            # Current which produces a force of
  abamp                   abampere        #   2 dyne/cm between two infinitely
@@ -169,7 +138,7 @@
  abA                     abampere
  biot                    abampere
  Bi                      biot
-@@ -1604,8 +1611,8 @@
+@@ -2092,8 +2113,8 @@
  
  # Reflected-light meter calibration constant with ISO 100 speed
  
@@ -180,7 +149,7 @@
  
  # Incident-light meter calibration constant with ISO 100 film
  
-@@ -1659,8 +1666,8 @@
+@@ -2147,8 +2168,8 @@
                                  # ASA PH2.12-1961, and ANSI PH2.7-1986
  #N_apex         0.3162 lx s     # value in ANSI PH2.7-1973
  N_exif          1|3.125 lx s    # value in Exif 2.3 (2010), making Sv(5) = 100
@@ -191,24 +160,18 @@
  C_apex1961      224 lx / lx s   # value in PH2.12-1961 (20.83 for I in 
                                  #   footcandles; flat sensor?)
  C_apex1971      322 lx / lx s   # mean value in PH3.49-1971 (30 +/- 5 for I in
-@@ -1998,6 +2005,16 @@
- au                     astronomicalunit # ephemeris for the above described
+@@ -2482,8 +2503,8 @@
+                                         # gravitational constant. This is a
+                                         # fictional year, and doesn't
+                                         # correspond to any celestial event.
+-astronomicalunit         149597870700 m # IAU definition from 2012, exact
+-au                     astronomicalunit # ephemeris for the above described
++#astronomicalunit         149597870700 m # IAU definition from 2012, exact
++#au                     astronomicalunit # ephemeris for the above described
                                          # astronomical unit.  (See the NASA
                                          # site listed above.)
-+parsec                  au / 4.84813681113334e-06
-+#parsec                 au / tan(arcsec)    # Unit of length equal to distance
-+pc                      parsec              #   from the sun to a point having
-+                                            #   heliocentric parallax of 1
-+                                            #   arcsec (derived from parallax
-+                                            #   second).  A distant object with
-+                                            #   paralax theta will be about
-+                                            #   (arcsec/theta) parsecs from the
-+                                            #   sun (using the approximation
-+                                            #   that tan(theta) = theta).
- solarmass                  1.9891e30 kg
- sunmass                       solarmass
- 
-@@ -2335,11 +2352,6 @@
+ GMsun        1.32712440018e20 m^3 / s^2 # heliocentric gravitational constant
+@@ -2851,11 +2872,6 @@
  int                     3937|1200 ft/m   # Convert US Survey measures to
  int-                    int              #   international measures
  
@@ -220,7 +183,7 @@
  yard                    3 ft
  yd                      yard
  mile                    5280 ft          # The mile was enlarged from 5000 ft
-@@ -2487,6 +2499,7 @@
+@@ -3003,6 +3019,7 @@
  # Liquid measure
  
  usgallon                231 in^3        # US liquid measure is derived from
@@ -228,7 +191,7 @@
  gal                     gallon          # the British wine gallon of 1707.
  quart                   1|4 gallon      # See the "winegallon" entry below
  pint                    1|2 quart       # more historical information.
-@@ -2987,7 +3000,7 @@
+@@ -3504,7 +3521,7 @@
  
  number1can              10 usfloz
  number2can              19 usfloz
@@ -237,7 +200,7 @@
  number3can              4 uscups
  number5can              7 uscups
  number10can             105 usfloz
-@@ -3420,10 +3433,10 @@
+@@ -4469,10 +4486,10 @@
  
  btu                     btu_IT       # International Table BTU is the default
  britishthermalunit      btu
@@ -252,7 +215,7 @@
  btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
                                       #    on the IT calorie
  quad                    quadrillion btu
-@@ -3550,8 +3563,8 @@
+@@ -4599,8 +4616,8 @@
                                         # of coal used in the 1950's
  barreloil               5.8 Mbtu       # Conventional value for barrel of crude
                                         # oil [E2].  Actual range is 5.6 - 6.3.
@@ -263,7 +226,7 @@
  naturalgas              naturalgas_HHV # includes energy from condensation
                                         # combustion products.  LHV is for Lower
                                         # Heating Value and excludes these.
-@@ -3586,7 +3599,7 @@
+@@ -4635,7 +4652,7 @@
  
  # Celsius heat unit: energy to raise a pound of water 1 degC
  
@@ -272,7 +235,7 @@
  chu                     celsiusheatunit
  
  POWER                   watt
-@@ -3646,13 +3659,13 @@
+@@ -4695,13 +4712,13 @@
  Uvalue                  1/Rvalue
  europeanUvalue          watt / m^2 K
  RSI                     degC m^2 / W
@@ -287,8 +250,8 @@
 +tog                     0.1 * degC m^2 / W   # Also used for clothing.
  
  
- # The bel was defined by engineers of Bell Laboratories to describe the
-@@ -4026,7 +4039,7 @@
+ # Thermal Conductivity of a few materials
+@@ -5094,7 +5111,7 @@
  europeanpoint           didotpoint        # for the point used in Europe
  cicero                  12 didotpoint
  
@@ -297,18 +260,7 @@
  
  # Type sizes
  
-@@ -4083,8 +4096,8 @@
- 
- INFORMATION             bit
- 
--nat                     (1/ln(2)) bits       # Entropy measured base e
--hartley                 log2(10) bits        # Entropy of a uniformly
-+nat                     (1/0.693147180559945) bits       # Entropy measured base e
-+hartley                 3.321928094887363 bits        # Entropy of a uniformly
- ban                     hartley              #   distributed random variable
-                                              #   over 10 symbols.
- dit                     hartley              # from Decimal digIT
-@@ -4099,8 +4112,8 @@
+@@ -5167,8 +5184,8 @@
                                               #   to symbols per second.  Modern
                                               #   modems transmit several bits
                                               #   per symbol.
@@ -319,7 +271,7 @@
                                               #   them do.  But beware: for
                                               #   transmission over modems, a
                                               #   few extra bits are used so
-@@ -4456,7 +4469,7 @@
+@@ -5527,7 +5544,7 @@
  boardfeet               boardfoot
  fbm                     boardfoot    # feet board measure
  stack                   4 yard^3     # British, used for firewood and coal [18]
@@ -328,7 +280,7 @@
                                       #   sometimes called a face cord, but this
                                       #   value is equal to 1|3 cord.  Name
                                       #   comes from an old Norse word for a
-@@ -5536,7 +5549,7 @@
+@@ -6607,7 +6624,7 @@
  
  pa                      Pa
  ev                      eV
@@ -337,7 +289,7 @@
  oe                      Oe
  mh                      mH
  rd                      rod
-@@ -5769,7 +5782,8 @@
+@@ -6989,7 +7006,8 @@
  Mag                     Maz gravity        # force
  Maz                     Volm kg / oldliter # mass based on water
  
@@ -347,7 +299,7 @@
  Gf                      Grafut
  Sf                      Surf
  Vm                      Volm
-@@ -6520,7 +6534,6 @@
+@@ -7779,7 +7797,6 @@
  ton                     uston
  scruple                 apscruple
  fluidounce              usfluidounce
@@ -355,12 +307,3 @@
  bushel                  usbushel
  quarter                 quarterweight
  cup                     uscup
-@@ -6609,7 +6622,7 @@
- ℈                       scruple
- ℥                       ounce
- ℔                       lb
--ℎ                       h
-+ℎ                       hplanck
- ℏ                       hbar
- ‰                       1|1000
- ‱                       1|10000
