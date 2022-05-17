@@ -60,7 +60,7 @@ l	f	f	f
 t	f	f	f
 bar	f	f	f
 min	f	f	f
-h	f	f	f
+hr	f	f	f
 d	f	f	f
 in	f	f	f
 ft	f	f	f

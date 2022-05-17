@@ -82,7 +82,7 @@ WITH
   l(u) AS (VALUES
 	('s'),
 	('min'),
-	('h'),
+	('hr'),
 	('d'),
 	('julianyear'))
 SELECT
