@@ -62,7 +62,7 @@ SELECT * FROM units;
  t   | 1 Mg           | f    | f        | f
  bar | 100 kPa        | f    | f        | f
  min | 00:01:00 s     | f    | f        | f
- h   | 01:00:00 s     | f    | f        | f
+ hr  | 01:00:00 s     | f    | f        | f
  d   | 1 d            | f    | f        | f
  in  | 25.4 mm        | f    | f        | f
  ft  | 304.8 mm       | f    | f        | f

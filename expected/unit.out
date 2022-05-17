@@ -316,21 +316,18 @@ ORDER BY lower(p) COLLATE "C", lower(u) COLLATE "C";
 ---+-----+-------------------------------
  a | t   | 98.0665 kPa
  c | d   | 1 cd
- c | h   | 20.1168 m
  d | a   | 1 d
  f | t   | 304.8 mm
  G | s   | 100 µT
- h | bar | 1.05457180005237e-34 m^2*kg/s
+ h | bar | 1.05457181764616e-34 m^2*kg/s
  h | d   | 0.238480942392 m^3
  k | in  | 600 g
- m | h   | 1 mH
  m | in  | 00:01:00 s
  n | t   | 1 N
  P | a   | 1 Pa
  p | a   | 1 Pa
- p | h   | 10 klx
  p | in  | 0.020457405 m^3
  p | t   | 0.000473176473 m^3
  y | d   | 914.4 mm
-(18 rows)
+(15 rows)
 
