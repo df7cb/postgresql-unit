@@ -122,11 +122,14 @@ do {
 } while ($n_todo != $new_n_todo);
 
 print "$new_n_todo units not inserted:\n";
+open my $unres, '>', "definitions.unresolved";
 foreach my $u (@todo) {
 	if ($u->{is_prefix}) {
 		print "Prefix $u->{unit}: $u->{def}\n";
 	} else {
+		print $unres "$u->{unit}\t$u->{def}\n";
 		next if ($u->{error} =~ /dollar|euro|pence|quid|shilling/); # skip currencies so we can see the rest better
 		print "$u->{unit}: $u->{def} ($u->{error})\n";
 	}
 }
+close $unres;
