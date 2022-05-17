@@ -4,6 +4,7 @@
 # existing data is wiped!
 
 use utf8;
+use open ":std", ":encoding(UTF-8)";
 use strict;
 use warnings;
 use DBD::Pg;
@@ -17,8 +18,10 @@ my $dbh = DBI->connect("dbi:Pg:", '', '',
 ) || die "PG connection failed";
 $dbh->do("SET synchronous_commit = off");
 $dbh->do("TRUNCATE unit_prefixes, unit_units");
+$dbh->do("SET client_min_messages = 'error'");
 $dbh->do("ALTER TABLE unit_prefixes ADD COLUMN IF NOT EXISTS ordering serial"); # add temp column to preserve load ordering for dumping
 $dbh->do("ALTER TABLE unit_units ADD COLUMN IF NOT EXISTS ordering serial");
+$dbh->do("RESET client_min_messages");
 
 my $skip_british = 0;
 my @todo;
