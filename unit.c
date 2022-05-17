@@ -907,13 +907,9 @@ unit_pow(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(result);
 }
 
-PG_FUNCTION_INFO_V1(unit_sqrt);
-
-Datum
-unit_sqrt(PG_FUNCTION_ARGS)
+void
+unit_sqrt_internal(Unit *a, Unit *result)
 {
-	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
-	Unit	*result;
 	int		 i;
 
 	/* compute root of value */
@@ -921,7 +917,6 @@ unit_sqrt(PG_FUNCTION_ARGS)
 		ereport(ERROR,
 				(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
 				 errmsg("cannot take square root of a negative-valued unit")));
-	result = (Unit *) palloc(sizeof(Unit));
 	result->value = sqrt(a->value);
 
 	/* compute root of base units */
@@ -934,7 +929,17 @@ unit_sqrt(PG_FUNCTION_ARGS)
 						 base_units[i])));
 		result->units[i] = a->units[i] >> 1;
 	}
+}
 
+PG_FUNCTION_INFO_V1(unit_sqrt);
+
+Datum
+unit_sqrt(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	Unit	*result = (Unit *) palloc(sizeof(Unit));
+
+	unit_sqrt_internal(a, result);
 	PG_RETURN_POINTER(result);
 }
 
@@ -963,6 +968,105 @@ unit_cbrt(PG_FUNCTION_ARGS)
 	}
 
 	PG_RETURN_POINTER(result);
+}
+
+void
+unit_exp_internal(Unit *a, Unit *result)
+{
+	int		 i;
+
+	/* compute exp of value */
+	result->value = exp(a->value);
+
+	/* check dimension */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take base-e exponent of value that is not dimension-less")));
+		result->units[i] = 0;
+	}
+}
+
+void
+unit_ln_internal(Unit *a, Unit *result)
+{
+	int		 i;
+
+	/* compute ln of value */
+	result->value = log(a->value);
+
+	/* check dimension */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take ln of value that is not dimension-less")));
+		result->units[i] = 0;
+	}
+}
+
+void
+unit_log2_internal(Unit *a, Unit *result)
+{
+	int		 i;
+
+	/* compute log2 of value */
+	result->value = log2(a->value);
+
+	/* check dimension */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take log2 of value that is not dimension-less")));
+		result->units[i] = 0;
+	}
+}
+
+void
+unit_asin_internal(Unit *a, Unit *result)
+{
+	int		 i;
+
+	/* compute asin of value */
+	if (a->value < -1 || a->value > 1)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+				 errmsg("cannot asin of values outside the range -1 to 1")));
+	result->value = asin(a->value);
+
+	/* check dimension */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take asin of value that is not dimension-less")));
+		result->units[i] = 0;
+	}
+}
+
+void
+unit_tan_internal(Unit *a, Unit *result)
+{
+	int		 i;
+
+	/* compute tan of value */
+	result->value = tan(a->value);
+
+	/* check dimension */
+	for (i = 0; i < N_UNITS; i++)
+	{
+		if (a->units[i] != 0)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+					 errmsg("cannot take tan of value that is not dimension-less")));
+		result->units[i] = 0;
+	}
 }
 
 /* obsolete version of unit_at_text used in v1..3 */

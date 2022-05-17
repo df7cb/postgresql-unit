@@ -84,6 +84,36 @@ SUPER_9     \xe2\x81\xb9
 	return DOUBLE;
 }
 
+sqrt {
+	yyunitlval.FUNCTION = FUNCTION_SQRT;
+	return FUNCTION;
+}
+
+exp {
+	yyunitlval.FUNCTION = FUNCTION_EXP;
+	return FUNCTION;
+}
+
+ln {
+	yyunitlval.FUNCTION = FUNCTION_LN;
+	return FUNCTION;
+}
+
+log2 {
+	yyunitlval.FUNCTION = FUNCTION_LOG2;
+	return FUNCTION;
+}
+
+asin {
+	yyunitlval.FUNCTION = FUNCTION_ASIN;
+	return FUNCTION;
+}
+
+tan {
+	yyunitlval.FUNCTION = FUNCTION_TAN;
+	return FUNCTION;
+}
+
 {TIME_R} { /* hh:mm:ss[.sss] */
 	char *colon;
 	yyunitlval.DOUBLE = TIME_HOUR * atoi(yytext); /* hh */

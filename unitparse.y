@@ -33,6 +33,7 @@ static UnitShift *unit_parse_result; /* parsing result gets stored here */
 %token <double> DOUBLE
 %token <UnitShift> UNIT_SHIFT
 %token <int> EXPONENT SUPER_SIGN SUPER
+%token <enum parser_function> FUNCTION
 %token ERR
 %type  <UnitShift> input expr simple_expr
 %type  <double> number
@@ -111,6 +112,28 @@ simple_expr:
 	$$.shift = 0.0;
   }
 | UNIT_SHIFT
+| FUNCTION '(' expr ')' {
+	switch ($1) {
+		case FUNCTION_SQRT:
+			unit_sqrt_internal(&$3.unit, &$$.unit);
+			break;
+		case FUNCTION_EXP:
+			unit_exp_internal(&$3.unit, &$$.unit);
+			break;
+		case FUNCTION_LN:
+			unit_ln_internal(&$3.unit, &$$.unit);
+			break;
+		case FUNCTION_LOG2:
+			unit_log2_internal(&$3.unit, &$$.unit);
+			break;
+		case FUNCTION_ASIN:
+			unit_asin_internal(&$3.unit, &$$.unit);
+			break;
+		case FUNCTION_TAN:
+			unit_tan_internal(&$3.unit, &$$.unit);
+			break;
+	}
+  }
 | '(' expr ')' {
 	$$ = $2;
 	$$.shift = 0.0;

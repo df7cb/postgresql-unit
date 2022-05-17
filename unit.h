@@ -16,6 +16,16 @@
 
 #define N_UNITS		8
 
+/* functions recognized in parser */
+enum parser_function {
+	FUNCTION_SQRT,
+	FUNCTION_EXP,
+	FUNCTION_LN,
+	FUNCTION_LOG2,
+	FUNCTION_ASIN,
+	FUNCTION_TAN,
+};
+
 /* defined units */
 
 #define UNIT_NAME_LENGTH 32
@@ -131,5 +141,23 @@ unit_div_internal (Unit *a, Unit *b, Unit *result)
 	for (i = 0; i < N_UNITS; i++)
 		result->units[i] = a->units[i] - b->units[i];
 }
+
+void
+unit_sqrt_internal(Unit *a, Unit *result);
+
+void
+unit_exp_internal(Unit *a, Unit *result);
+
+void
+unit_ln_internal(Unit *a, Unit *result);
+
+void
+unit_log2_internal(Unit *a, Unit *result);
+
+void
+unit_asin_internal(Unit *a, Unit *result);
+
+void
+unit_tan_internal(Unit *a, Unit *result);
 
 #endif /* _UNIT_H */
