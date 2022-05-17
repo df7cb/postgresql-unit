@@ -22,6 +22,7 @@ $dbh->do("ALTER TABLE unit_units ADD COLUMN IF NOT EXISTS ordering serial");
 
 my $skip_british = 0;
 my @todo;
+my $continued = '';
 
 while (<F>) {
 	# skip over locale specific parts
@@ -29,16 +30,25 @@ while (<F>) {
 	$skip_british = 0 if /^!endvar/;
 	next if ($skip_british);
 
+	if (/\s*(.*)\\$/) {
+		$continued .= $1;
+		next;
+	} elsif ($continued) {
+		s/^\s*//;
+		$_ = "$continued$_";
+		$continued = '';
+	}
+
 	s/#.*//;
 	s/\s+$//;
 	next if /^\s*$/; # skip emtpy lines
 	next if /^!/; # skip pragmas
 	next if /^\+/; # skip units from non-SI systems
-	next if /^[0-9]/; # skip over table contents
-	next if /^\s/; # skip over table contents/continued lines
+	#next if /^[0-9]/; # skip over table contents
+	#next if /^\s/; # skip over table contents/continued lines
 	unless (/^(\S+)\s+(.*)/) {
-		print "skipping $_\n";
-		next;
+		print "unknown line $_\n";
+		exit 1;
 	}
 
 	my ($unit, $def) = ($1, $2);
