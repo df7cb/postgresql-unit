@@ -1,18 +1,30 @@
-kg	1 kg	\N	kg	\N
-kilogram	1 kg	\N	kg	\N
 s	1 s	\N	s	\N
 second	1 s	\N	s	\N
+c_SI	299792458	\N	299792458	\N
+c	299792458 m/s	\N	299792458 m/s	\N
 m	1 m	\N	m	\N
 meter	1 m	\N	m	\N
+metre	1 m	\N	m	\N
+h_SI	6.62607014999999983e-34	\N	6.62607015e-34	\N
+h	6.62607014999999983e-34 m^2*kg/s	\N	6.62607015e-34 (m^2*kg/s^2) s	\N
+kg	1 kg	\N	kg	\N
+kilogram	1 kg	\N	kg	\N
+k_SI	1.38064900000000009e-23	\N	1.380649e-23	\N
+boltzmann	1.38064900000000009e-23 m^2*kg/s^2*K	\N	1.380649e-23 (m^2*kg/s^2)/K	\N
+k	1.38064900000000009e-23 m^2*kg/s^2*K	\N	boltzmann	\N
+K	1 K	\N	K	\N
+kelvin	1 K	\N	K	\N
+e_SI	1.60217663399999989e-19	\N	1.602176634e-19	\N
+e	1.60217663399999989e-19 s*A	\N	1.602176634e-19 A s	\N
 A	1 A	\N	A	\N
 ampere	1 A	\N	A	\N
 amp	1 A	\N	ampere	\N
-cd	1 cd	\N	cd	\N
-candela	1 cd	\N	cd	\N
+avogadro	6.02214075999999987e+23 mol^-1	\N	6.02214076e23 / mol	\N
+N_A	6.02214075999999987e+23 mol^-1	\N	avogadro	\N
 mol	1 mol	\N	mol	\N
 mole	1 mol	\N	mol	\N
-K	1 K	\N	K	\N
-kelvin	1 K	\N	K	\N
+cd	1 cd	\N	cd	\N
+candela	1 cd	\N	cd	\N
 radian	1	\N	1	\N
 sr	1	\N	1	\N
 steradian	1	\N	sr	\N
@@ -145,6 +157,10 @@ kharab	100000000000	\N	1e11	\N
 neel	10000000000000	\N	1e13	\N
 padm	1000000000000000	\N	1e15	\N
 shankh	100000000000000000	\N	1e17	\N
+pi	3.14159265358979312	\N	3.14159265358979323846	\N
+π	3.14159265358979312	\N	pi	\N
+astronomicalunit	149597870700 m	\N	149597870700 m	\N
+au	149597870700 m	\N	astronomicalunit	\N
 newton	1 m*kg/s^2	\N	kg m / s^2	\N
 N	1 m*kg/s^2	\N	newton	\N
 pascal	1 kg/m*s^2	\N	N/m^2	\N
@@ -188,14 +204,14 @@ CHARGE	1 s*A	\N	coulomb	\N
 CAPACITANCE	1 s^4*A^2/m^2*kg	\N	farad	\N
 RESISTANCE	1 m^2*kg/s^3*A^2	\N	ohm	\N
 CONDUCTANCE	1 s^3*A^2/m^2*kg	\N	siemens	\N
+RESISTIVITY	1 m^3*kg/s^3*A^2	\N	RESISTANCE AREA / LENGTH	\N
+CONDUCTIVITY	1 s^3*A^2/m^3*kg	\N	CONDUCTANCE LENGTH / AREA	\N
 INDUCTANCE	1 m^2*kg/s^2*A^2	\N	henry	\N
 B_FIELD	1 kg/s^2*A	\N	tesla	\N
 ELECTRIC_DIPOLE_MOMENT	1 m*s*A	\N	C m	\N
 MAGNETIC_DIPOLE_MOMENT	1 m^2*A	\N	J / T	\N
 POLARIZATION	1 s*A/m^2	\N	ELECTRIC_DIPOLE_MOMENT / VOLUME	\N
 MAGNETIZATION	1 A/m	\N	MAGNETIC_DIPOLE_MOMENT / VOLUME	\N
-ELECTRIC_POTENTIAL	1 m^2*kg/s^3*A	\N	volt	\N
-VOLTAGE	1 m^2*kg/s^3*A	\N	ELECTRIC_POTENTIAL	\N
 B_FLUX	1 m^2*kg/s^2*A	\N	B_FIELD AREA	\N
 gram	0.00100000000000000002 kg	\N	millikg	\N
 gm	0.00100000000000000002 kg	\N	gram	\N
@@ -225,6 +241,8 @@ angstrom	1.00000000000000004e-10 m	\N	1e-10 m	\N
 xunit_cu	1.00207697000000001e-13 m	\N	1.00207697e-13 m	\N
 xunit_mo	1.00209952000000005e-13 m	\N	1.00209952e-13 m	\N
 angstromstar	1.00001494999999994e-10 m	\N	1.00001495 angstrom	\N
+silicon_d220	1.92015571599999989e-10 m	\N	1.920155716e-10 m	\N
+siliconlattice	5.43102051087084223e-10 m	\N	sqrt(8) silicon_d220	\N
 fermi	1.00000000000000008e-15 m	\N	1e-15 m	\N
 barn	9.99999999999999971e-29 m^2	\N	1e-28 m^2	\N
 shed	9.99999999999999822e-53 m^2	\N	1e-24 barn	\N
@@ -257,7 +275,6 @@ sec	1 s	\N	s	\N
 minute	60 s	\N	60 s	\N
 min	60 s	\N	minute	\N
 hour	3600 s	\N	60 min	\N
-h	3600 s	\N	hour	\N
 hr	3600 s	\N	hour	\N
 day	86400 s	\N	24 hr	\N
 d	86400 s	\N	day	\N
@@ -274,8 +291,43 @@ decimalhour	8640 s	\N	1|10 day	\N
 decimalminute	86.4000000000000057 s	\N	1|100 decimalhour	\N
 decimalsecond	0.864000000000000101 s	\N	1|100 decimalminute	\N
 beat	86.4000000000000057 s	\N	decimalminute	\N
+circle	6.28318530717958623	\N	2 pi radian	\N
+degree	0.0174532925199432955	\N	1|360 circle	\N
+deg	0.0174532925199432955	\N	degree	\N
+arcdeg	0.0174532925199432955	\N	degree	\N
+arcmin	0.00029088820866572158	\N	1|60 degree	\N
+arcminute	0.00029088820866572158	\N	arcmin	\N
+'	0.00029088820866572158	\N	arcmin	\N
+arcsec	4.84813681109535984e-06	\N	1|60 arcmin	\N
+arcsecond	4.84813681109535984e-06	\N	arcsec	\N
+"	4.84813681109535984e-06	\N	arcsec	\N
+''	4.84813681109535984e-06	\N	"	\N
+rightangle	1.57079632679489656	\N	90 degrees	\N
+quadrant	1.57079632679489656	\N	1|4 circle	\N
+quintant	1.25663706143591725	\N	1|5 circle	\N
+sextant	1.04719755119659763	\N	1|6 circle	\N
+sign	0.523598775598298816	\N	1|12 circle	\N
+turn	6.28318530717958623	\N	circle	\N
+revolution	6.28318530717958623	\N	turn	\N
+rev	6.28318530717958623	\N	turn	\N
 pulsatance	1 s^-1	\N	radian / sec	\N
+gon	0.015707963267948967	\N	1|100 rightangle	\N
+grade	0.015707963267948967	\N	gon	\N
+centesimalminute	0.000157079632679489682	\N	1|100 grade	\N
+centesimalsecond	1.57079632679489688e-06	\N	1|100 centesimalminute	\N
+milangle	0.000981747704246810435	\N	1|6400 circle	\N
+pointangle	0.19634954084936207	\N	1|32 circle	\N
 centrad	0.0100000000000000002	\N	0.01 radian	\N
+mas	4.84813681109536025e-09	\N	milliarcsec	\N
+seclongitude	7.27220521664303951e-05	\N	circle (seconds/day)	\N
+sphere	12.5663706143591725	\N	4 pi sr	\N
+squaredegree	0.000304617419786708569	\N	1|180^2 pi^2 sr	\N
+squareminute	8.46159499407523867e-08	\N	1|60^2 squaredegree	\N
+squaresecond	2.35044305390978853e-11	\N	1|60^2 squareminute	\N
+squarearcmin	8.46159499407523867e-08	\N	squareminute	\N
+squarearcsec	2.35044305390978853e-11	\N	squaresecond	\N
+sphericalrightangle	1.57079632679489656	\N	0.5 pi sr	\N
+octant	1.57079632679489656	\N	0.5 pi sr	\N
 percent	0.0100000000000000002	\N	0.01	\N
 %	0.0100000000000000002	\N	percent	\N
 mill	0.00100000000000000002	\N	0.001	\N
@@ -293,52 +345,52 @@ basispoint	0.000100000000000000005	\N	0.01 %	\N
 fine	0.00100000000000000002	\N	1|1000	\N
 TEMPERATURE	1 K	\N	kelvin	\N
 TEMPERATURE_DIFFERENCE	1 K	\N	kelvin	\N
-degcelsius	1 K	273.149999999999977	K	\N
-degC	1 K	273.149999999999977	K	\N
-degfahrenheit	0.55555555555555558 K	255.372222222222234	5|9 * degC	\N
-degF	0.55555555555555558 K	255.372222222222234	5|9 * degC	\N
+degcelsius	1 K	273.15	K	\N
+degC	1 K	273.15	K	\N
+degfahrenheit	0.55555555555555558 K	255.37222222222223	5|9 * degC	\N
+degF	0.55555555555555558 K	255.37222222222223	5|9 * degC	\N
 degreesrankine	0.55555555555555558 K	\N	degF	\N
 degrankine	0.55555555555555558 K	\N	degreesrankine	\N
 degreerankine	0.55555555555555558 K	\N	degF	\N
 degR	0.55555555555555558 K	\N	degrankine	\N
 tempR	0.55555555555555558 K	\N	degrankine	\N
 temprankine	0.55555555555555558 K	\N	degrankine	\N
-degreaumur	1.25 K	273.149999999999977	10|8 * degC	\N
+degreaumur	1.25 K	273.15	10|8 * degC	\N
 degK	1 K	\N	K	\N
 tempK	1 K	\N	K	\N
-pi	3.14159265358979312	\N	3.14159265358979323846	\N
-π	3.14159265358979312	\N	pi	\N
-c	299792458 m/s	\N	2.99792458e8 m/s	\N
 light	299792458 m/s	\N	c	\N
-mu0	1.25663706143591729e-06 m*kg/s^2*A^2	\N	4 pi 1e-7 H/m	\N
-epsilon0	8.85418781762038916e-12 s^4*A^2/m^3*kg	\N	1/mu0 c^2	\N
 energy	89875517873681760 m^2/s^2	\N	c^2	\N
-e	1.60217662080000009e-19 s*A	\N	1.6021766208e-19 C	\N
-eV	1.60217662080000009e-19 m^2*kg/s^2	\N	e V	\N
-electronvolt	1.60217662080000009e-19 m^2*kg/s^2	\N	eV	\N
-hplanck	6.62607003945499709e-34 m^2*kg/s	\N	4.135667662e-15 eV s	\N
-hbar	1.05457180005237273e-34 m^2*kg/s	\N	hplanck / 2 pi	\N
-spin	1.05457180005237273e-34 m^2*kg/s	\N	hbar	\N
-G	6.67408000000000034e-11 m^3/kg*s^2	\N	6.67408e-11 N m^2 / kg^2	\N
-coulombconst	8987551787.36817741 m^3*kg/s^4*A^2	\N	1/4 pi epsilon0	\N
-atomicmassunit	1.66053903999999989e-27 kg	\N	1.660539040e-27 kg	\N
-u	1.66053903999999989e-27 kg	\N	atomicmassunit	\N
-amu	1.66053903999999989e-27 kg	\N	atomicmassunit	\N
+hbar	1.05457181764615647e-34 m^2*kg/s	\N	h / 2 pi	\N
+hbar_SI	1.05457181764615647e-34	\N	h_SI / 2 pi	\N
+spin	1.05457181764615647e-34 m^2*kg/s	\N	hbar	\N
+G_SI	6.67429999999999938e-11	\N	6.67430e-11	\N
+G	6.67429999999999938e-11 m^3/kg*s^2	\N	6.67430e-11 N m^2 / kg^2	\N
+atomicmassunit_SI	1.66053906659999997e-27	\N	1.66053906660e-27	\N
+atomicmassunit	1.66053906659999997e-27 kg	\N	1.66053906660e-27 kg	\N
+u	1.66053906659999997e-27 kg	\N	atomicmassunit	\N
+amu	1.66053906659999997e-27 kg	\N	atomicmassunit	\N
+dalton	1.66053906659999997e-27 kg	\N	u	\N
+Da	1.66053906659999997e-27 kg	\N	dalton	\N
 amu_chem	1.66026000000000016e-27 kg	\N	1.66026e-27 kg	\N
 amu_phys	1.65980999999999993e-27 kg	\N	1.65981e-27 kg	\N
-dalton	1.66053903999999989e-27 kg	\N	u	\N
-avogadro	6.02214085854916197e+23 mol^-1	\N	grams/amu mol	\N
-N_A	6.02214085854916197e+23 mol^-1	\N	avogadro	\N
-boltzmann	1.38064851999999986e-23 m^2*kg/s^2*K	\N	1.38064852e-23 J/K	\N
-k	1.38064851999999986e-23 m^2*kg/s^2*K	\N	boltzmann	\N
-kboltzmann	1.38064851999999986e-23 m^2*kg/s^2*K	\N	boltzmann	\N
-stefanboltzmann	5.67036681748245458e-08 kg/s^3*K^4	\N	pi^2 k^4 / 60 hbar^3 c^2	\N
-sigma	5.67036681748245458e-08 kg/s^3*K^4	\N	stefanboltzmann	\N
-wiendisplacement	0.00289777290000000015 m*K	\N	2.8977729e-3 m K	\N
+gasconstant	8.3144626181532395 m^2*kg/s^2*K*mol	\N	k N_A	\N
+R	8.3144626181532395 m^2*kg/s^2*K*mol	\N	gasconstant	\N
+kboltzmann	1.38064900000000009e-23 m^2*kg/s^2*K	\N	boltzmann	\N
+molarvolume_si	1.20588319868414834e-05 m^3/mol	\N	N_A siliconlattice^3 / 8	\N
+stefanboltzmann	5.67037441918442942e-08 kg/s^3*K^4	\N	pi^2 k^4 / 60 hbar^3 c^2	\N
+sigma	5.67037441918442942e-08 kg/s^3*K^4	\N	stefanboltzmann	\N
+wiendisplacement	0.00289777195518517265 m*K	\N	(h c/k)/4.9651142317442763	\N
 K_J90	483597900000000 s^2*A/m^2*kg	\N	483597.9 GHz/V	\N
-K_J	483597852500000 s^2*A/m^2*kg	\N	483597.8525 GHz/V	\N
+K_J	483597848416983.625 s^2*A/m^2*kg	\N	2e/h	\N
 R_K90	25812.8070000000007 m^2*kg/s^3*A^2	\N	25812.807 ohm	\N
-R_K	25812.8074554999985 m^2*kg/s^3*A^2	\N	25812.8074555 ohm	\N
+R_K	25812.807459304513 m^2*kg/s^3*A^2	\N	h/e^2	\N
+ampere90	1.00000008887143799 A	\N	(K_J90 R_K90 / K_J R_K) A	\N
+coulomb90	1.00000008887143799 s*A	\N	(K_J90 R_K90 / K_J R_K) C	\N
+farad90	0.999999982206332572 s^4*A^2/m^2*kg	\N	(R_K90/R_K) F	\N
+henry90	1.00000001779366787 m^2*kg/s^2*A^2	\N	(R_K/R_K90) H	\N
+ohm90	1.00000001779366787 m^2*kg/s^3*A^2	\N	(R_K/R_K90) ohm	\N
+volt90	1.00000010666510719 m^2*kg/s^3*A	\N	(K_J90/K_J) V	\N
+watt90	1.0000001955365545 m^2*kg/s^3	\N	(K_J90^2 R_K90 / K_J^2 R_K) W	\N
 gravity	9.80664999999999942 m/s^2	\N	9.80665 m/s^2	\N
 force	9.80664999999999942 m/s^2	\N	gravity	\N
 atm	101325 kg/m*s^2	\N	101325 Pa	\N
@@ -371,54 +423,56 @@ in	0.0254000000000000024 m	\N	inch	\N
 foot	0.304800000000000015 m	\N	12 inch	\N
 feet	0.304800000000000015 m	\N	foot	\N
 ft	0.304800000000000015 m	\N	foot	\N
-Rinfinity	10973731.5685389992 m^-1	\N	10973731.568539 /m	\N
 R_H	10967760 m^-1	\N	10967760 /m	\N
-alpha	0.00729735256639999982	\N	7.2973525664e-3	\N
-bohrradius	5.2917721067488903e-11 m	\N	alpha / 4 pi Rinfinity	\N
-prout	2.97203763158400022e-14 m^2*kg/s^2	\N	185.5 keV	\N
-planckmass	2.17650999999999988e-08 kg	\N	2.17651e-8 kg	\N
-m_P	2.17650999999999988e-08 kg	\N	planckmass	\N
-plancktime	5.39105895420116605e-44 s	\N	hbar / planckmass c^2	\N
-t_P	5.39105895420116605e-44 s	\N	plancktime	\N
-plancklength	1.61619881510287697e-35 m	\N	plancktime c	\N
-l_P	1.61619881510287697e-35 m	\N	plancklength	\N
-deuteronchargeradius	2.14129999999999991e-15 m	\N	2.1413e-15 m	\N
+alpha	0.00729735256930000038	\N	7.2973525693e-3	\N
+conductancequantum	7.74809172986364871e-05 s^3*A^2/m^2*kg	\N	2 e^2 / h	\N
+deuteronchargeradius	2.12799000000000009e-15 m	\N	2.12799e-15 m	\N
 protonchargeradius	8.75099999999999961e-16 m	\N	0.8751e-15 m	\N
-electronmass	9.10938355570385163e-31 kg	\N	5.48579909070e-4 u	\N
-m_e	9.10938355570385163e-31 kg	\N	electronmass	\N
-protonmass	1.67262189732584613e-27 kg	\N	1.007276466879 u	\N
-m_p	1.67262189732584613e-27 kg	\N	protonmass	\N
-neutronmass	1.67492747109705606e-27 kg	\N	1.00866491588 u	\N
-m_n	1.67492747109705606e-27 kg	\N	neutronmass	\N
-muonmass	1.88353159390109317e-28 kg	\N	0.1134289257 u	\N
-m_mu	1.88353159390109317e-28 kg	\N	muonmass	\N
-deuteronmass	3.34358371888049842e-27 kg	\N	2.013553212745 u	\N
-m_d	3.34358371888049842e-27 kg	\N	deuteronmass	\N
-alphaparticlemass	6.64465722924161662e-27 kg	\N	4.001506179127 u	\N
-m_alpha	6.64465722924161662e-27 kg	\N	alphaparticlemass	\N
-taumass	3.16746161340959973e-27 kg	\N	1.90749 u	\N
-m_tau	3.16746161340959973e-27 kg	\N	taumass	\N
-tritonmass	5.00735666459732467e-27 kg	\N	3.01550071632 u	\N
-m_t	5.00735666459732467e-27 kg	\N	tritonmass	\N
-helionmass	5.00641269865007681e-27 kg	\N	3.01493224673 u	\N
-m_h	5.00641269865007681e-27 kg	\N	helionmass	\N
-electronwavelength	2.42631023703734403e-12 m	\N	hplanck / m_e c	\N
-lambda_C	2.42631023703734403e-12 m	\N	electronwavelength	\N
-protonwavelength	1.32140985417208943e-15 m	\N	hplanck / m_p c	\N
-lambda_Cp	1.32140985417208943e-15 m	\N	protonwavelength	\N
-neutronwavelength	1.31959090502153181e-15 m	\N	hplanck / m_n c	\N
-lambda_Cn	1.31959090502153181e-15 m	\N	neutronwavelength	\N
-bohrmagneton	9.27400999566503245e-24 m^2*A	\N	e hbar / 2 electronmass	\N
-mu_B	9.27400999566503245e-24 m^2*A	\N	bohrmagneton	\N
-nuclearmagneton	5.05078369983137966e-27 m^2*A	\N	e hbar /  2 protonmass	\N
-mu_N	5.05078369983137966e-27 m^2*A	\N	nuclearmagneton	\N
-mu_mu	-4.49044826000000025e-26 m^2*A	\N	-4.49044826e-26 J/T	\N
-mu_p	1.4106067872999999e-26 m^2*A	\N	1.4106067873e-26 J/T	\N
-mu_e	-9.28476462000000064e-24 m^2*A	\N	-928.4764620e-26 J/T	\N
-mu_n	-9.66236500000000034e-27 m^2*A	\N	-0.96623650e-26 J/T	\N
-mu_d	4.33073503999999972e-27 m^2*A	\N	0.4330735040e-26 J/T	\N
-mu_t	1.50460950299999998e-26 m^2*A	\N	1.504609503e-26 J/T	\N
-mu_h	-1.07461752200000006e-26 m^2*A	\N	-1.074617522e-26 J/T	\N
+electronmass_u	0.000548579909065000028	\N	5.48579909065e-4	\N
+electronmass	9.10938370154308021e-31 kg	\N	5.48579909065e-4 u	\N
+m_e	9.10938370154308021e-31 kg	\N	electronmass	\N
+muonmass	1.88353162739426563e-28 kg	\N	0.1134289259 u	\N
+m_mu	1.88353162739426563e-28 kg	\N	muonmass	\N
+taumass	3.1675446911021641e-27 kg	\N	1.90754 u	\N
+m_tau	3.1675446911021641e-27 kg	\N	taumass	\N
+protonmass	1.67262192369098123e-27 kg	\N	1.007276466621 u	\N
+m_p	1.67262192369098123e-27 kg	\N	protonmass	\N
+neutronmass	1.67492749804378069e-27 kg	\N	1.00866491595 u	\N
+m_n	1.67492749804378069e-27 kg	\N	neutronmass	\N
+deuteronmass	3.34358377244101388e-27 kg	\N	2.013553212745 u	\N
+m_d	3.34358377244101388e-27 kg	\N	deuteronmass	\N
+alphaparticlemass	6.6446573356816816e-27 kg	\N	4.001506179127 u	\N
+m_alpha	6.6446573356816816e-27 kg	\N	alphaparticlemass	\N
+tritonmass	5.00735674462698467e-27 kg	\N	3.01550071621 u	\N
+m_t	5.00735674462698467e-27 kg	\N	tritonmass	\N
+helionmass	5.00641277958621486e-27 kg	\N	3.014932247175 u	\N
+m_h	5.00641277958621486e-27 kg	\N	helionmass	\N
+electronwavelength	2.42631023867161786e-12 m	\N	h / m_e c	\N
+lambda_C	2.42631023867161786e-12 m	\N	electronwavelength	\N
+protonwavelength	1.32140985538855929e-15 m	\N	h / m_p c	\N
+lambda_C,p	1.32140985538855929e-15 m	\N	protonwavelength	\N
+neutronwavelength	1.31959090580675449e-15 m	\N	h / m_n c	\N
+lambda_C,n	1.31959090580675449e-15 m	\N	neutronwavelength	\N
+muonwavelength	1.17344411007417876e-14 m	\N	h / m_mu c	\N
+lambda_C,mu	1.17344411007417876e-14 m	\N	muonwavelength	\N
+g_d	0.857438233799999949	\N	0.8574382338	\N
+g_e	-2.00231930436256	\N	-2.00231930436256	\N
+g_h	-4.25525061499999957	\N	-4.255250615	\N
+g_mu	-2.00233184179999979	\N	-2.0023318418	\N
+g_n	-3.82608544999999989	\N	-3.82608545	\N
+g_p	5.58569468930000035	\N	5.5856946893	\N
+g_t	5.95792493099999998	\N	5.957924931	\N
+bohrmagneton	9.27401007831830583e-24 m^2*A	\N	e hbar / 2 electronmass	\N
+mu_B	9.27401007831830583e-24 m^2*A	\N	bohrmagneton	\N
+nuclearmagneton	5.05078374609341255e-27 m^2*A	\N	e hbar /  2 protonmass	\N
+mu_N	5.05078374609341255e-27 m^2*A	\N	nuclearmagneton	\N
+mu_e	-9.28476470433484073e-24 m^2*A	\N	g_e mu_B / 2	\N
+mu_mu	-4.49044829536168336e-26 m^2*A	\N	g_mu e hbar / 4 muonmass	\N
+mu_p	1.41060679736783667e-26 m^2*A	\N	g_p mu_N / 2	\N
+mu_n	-9.66236510101225028e-27 m^2*A	\N	g_n mu_N / 2	\N
+mu_t	1.50460952009697584e-26 m^2*A	\N	g_t mu_N / 2	\N
+mu_d	4.33073509455608299e-27 m^2*A	\N	g_d mu_N	\N
+mu_h	-1.07461753208979971e-26 m^2*A	\N	g_h mu_N / 2	\N
 kgf	9.80664999999999942 m*kg/s^2	\N	kg force	\N
 technicalatmosphere	98066.4999999999854 kg/m*s^2	\N	kgf / cm^2	\N
 at	98066.4999999999854 kg/m*s^2	\N	technicalatmosphere	\N
@@ -429,14 +483,17 @@ tor	1 kg/m*s^2	\N	Pa	\N
 inHg	3386.3886403409997 kg/m*s^2	\N	inch Hg	\N
 inH2O	249.08890999999997 kg/m*s^2	\N	inch water	\N
 mmH2O	9.80664999999999765 kg/m*s^2	\N	mm water	\N
+eV	1.60217663399999989e-19 m^2*kg/s^2	\N	e V	\N
+electronvolt	1.60217663399999989e-19 m^2*kg/s^2	\N	eV	\N
 lightsecond	299792458 m	\N	c s	\N
 lightminute	17987547480 m	\N	c min	\N
-rydberg	2.17987232481131225e-18 m^2*kg/s^2	\N	hplanck c Rinfinity	\N
+parsec	30856775814671916 m	\N	au / tan(arcsec)	\N
+pc	30856775814671916 m	\N	parsec	\N
 crith	8.9885000000000011e-05 kg	\N	0.089885 gram	\N
-lorentz	46.6864481456200764 s^2*A/m*kg	\N	bohrmagneton / hplanck c	\N
-cminv	1.98644582400837055e-23 m^2*kg/s^2	\N	hplanck c / cm	\N
-invcm	1.98644582400837055e-23 m^2*kg/s^2	\N	cminv	\N
-wavenumber	1.98644582400837055e-23 m^2*kg/s^2	\N	cminv	\N
+lorentz	46.6864477828202453 s^2*A/m*kg	\N	bohrmagneton / h c	\N
+cminv	1.9864458571489285e-23 m^2*kg/s^2	\N	h c / cm	\N
+invcm	1.9864458571489285e-23 m^2*kg/s^2	\N	cminv	\N
+wavenumber	1.9864458571489285e-23 m^2*kg/s^2	\N	cminv	\N
 dyne	1.00000000000000008e-05 m*kg/s^2	\N	cm gram / s^2	\N
 dyn	1.00000000000000008e-05 m*kg/s^2	\N	dyne	\N
 erg	1.00000000000000009e-07 m^2*kg/s^2	\N	cm dyne	\N
@@ -514,20 +571,47 @@ gauss	9.99999999999999912e-05 kg/s^2*A	\N	abvolt sec / cm^2	\N
 Gs	9.99999999999999912e-05 kg/s^2*A	\N	gauss	\N
 maxwell	1.00000000000000002e-08 m^2*kg/s^2*A	\N	gauss cm^2	\N
 Mx	1.00000000000000002e-08 m^2*kg/s^2*A	\N	maxwell	\N
-oersted	79.5774715459476596 A/m	\N	gauss / mu0	\N
-Oe	79.5774715459476596 A/m	\N	oersted	\N
-gilbert	0.795774715459476645 A	\N	gauss cm / mu0	\N
-Gb	0.795774715459476645 A	\N	gilbert	\N
-Gi	0.795774715459476645 A	\N	gilbert	\N
 unitpole	1.25663706143591724e-07 m^2*kg/s^2*A	\N	4 pi maxwell	\N
 emu	0.00100000000000000024 m^2*A	\N	erg/gauss	\N
+hlu_charge	9.4096693978164779e-11 s*A	\N	statcoulomb / sqrt(4 pi)	\N
+hlu_current	9.4096693978164779e-11 A	\N	hlu_charge / sec	\N
+hlu_volt	1062.73659330906025 m^2*kg/s^3*A	\N	erg / hlu_charge	\N
+hlu_efield	106273.659330906026 m*kg/s^3*A	\N	hlu_volt / cm	\N
+hlu_bfield	0.000354490770181103141 kg/s^2*A	\N	sqrt(4 pi) gauss	\N
+natural_length	1.97326980459302488e-07 m	\N	hbar c / eV	\N
+natural_mass	1.78266192162789753e-36 kg	\N	eV / c^2	\N
+natural_time	6.58211956950906704e-16 s	\N	hbar / eV	\N
+natural_temp	11604.5181215500816 K	\N	eV / boltzmann	\N
+natural_charge	5.29081768988981784e-19 s*A	\N	e / sqrt(4 pi alpha)	\N
+natural_current	0.000803816708890999019 A	\N	natural_charge / natural_time	\N
+natural_force	8.11939974082986035e-13 m*kg/s^2	\N	natural_mass natural_length / natural_time^2	\N
+natural_energy	1.60217663399999965e-19 m^2*kg/s^2	\N	natural_force natural_length	\N
+natural_power	0.000243413480578794664 m^2*kg/s^3	\N	natural_energy / natural_time	\N
+natural_volt	0.302822120872088707 m^2*kg/s^3*A	\N	natural_energy / natural_charge	\N
+natural_Efield	1534620.96347510861 m*kg/s^3*A	\N	natural_volt / natural_length	\N
+natural_Bfield	0.00511894453153690938 kg/s^2*A	\N	natural_volt natural_time / natural_length^2	\N
+planckmass	2.17643434271789836e-08 kg	\N	sqrt(hbar c / G)	\N
+m_P	2.17643434271789836e-08 kg	\N	planckmass	\N
+plancktime	5.39124644831360455e-44 s	\N	hbar / planckmass c^2	\N
+t_P	5.39124644831360455e-44 s	\N	plancktime	\N
+plancklength	1.61625502442370555e-35 m	\N	plancktime c	\N
+l_P	1.61625502442370555e-35 m	\N	plancklength	\N
+plancktemperature	1.41678416215734246e+32 K	\N	hbar / k plancktime	\N
+T_P	1.41678416215734246e+32 K	\N	plancktemperature	\N
+planckenergy	1956081636.69837308 m^2*kg/s^2	\N	planckmass plancklength^2 / plancktime^2	\N
+E_P	1956081636.69837308 m^2*kg/s^2	\N	planckenergy	\N
+planckmass_red	4.34135839913935817e-09 kg	\N	sqrt(hbar c / 8 pi G)	\N
+plancktime_red	2.70277015656936788e-43 s	\N	hbar / planckmass_red c^2	\N
+plancklength_red	8.102701086469756e-35 m	\N	plancktime_red c	\N
+plancktemperature_red	2.82607552243841721e+31 K	\N	hbar / k plancktime_red	\N
+planckenergy_red	390181834.397907794 m^2*kg/s^2	\N	planckmass_red plancklength_red^2 / plancktime_red^2	\N
 intampere	0.999835000000000029 A	\N	0.999835 A	\N
 intamp	0.999835000000000029 A	\N	intampere	\N
 intfarad	0.999504999999999977 s^4*A^2/m^2*kg	\N	0.999505 F	\N
 intvolt	1.00032999999999994 m^2*kg/s^3*A	\N	1.00033 V	\N
 intohm	1.00049499999999991 m^2*kg/s^3*A^2	\N	1.000495 ohm	\N
 daniell	1.04200000000000004 m^2*kg/s^3*A	\N	1.042 V	\N
-faraday	96485.3329073190835 s*A	\N	N_A e mol	\N
+faraday	96485.3321233100141 s*A	\N	N_A e mol	\N
 faraday_phys	96521.8999999999942 s*A	\N	96521.9 C	\N
 faraday_chem	96495.6999999999971 s*A	\N	96495.7 C	\N
 kappline	6.00000000000000015e-05 m^2*kg/s^2*A	\N	6000 maxwell	\N
@@ -648,30 +732,27 @@ moonradius	1738000 m	\N	1738 km	\N
 sunradius	696000000 m	\N	6.96e8 m	\N
 gauss_k	0.0172020989500000013	\N	0.01720209895	\N
 gaussianyear	31558196.0153947473 s	\N	(2 pi / gauss_k) days	\N
-astronomicalunit	149597870700 m	\N	149597870700 m	\N
-au	149597870700 m	\N	astronomicalunit	\N
-parsec	30856775814671944 m	\N	au / 4.84813681113334e-06	\N
-pc	30856775814671944 m	\N	parsec	\N
-solarmass	1.98909999999999989e+30 kg	\N	1.9891e30 kg	\N
-sunmass	1.98909999999999989e+30 kg	\N	solarmass	\N
+GMsun	1.32712440018000003e+20 m^3/s^2	\N	1.32712440018e20 m^3 / s^2	\N
+solarmass	1.98840987096774227e+30 kg	\N	GMsun/G	\N
+sunmass	1.98840987096774227e+30 kg	\N	solarmass	\N
 sundist	149598022960.712799 m	\N	1.0000010178 au	\N
 moondist	384400000 m	\N	3.844e8 m	\N
 sundist_near	147100000000 m	\N	1.471e11 m	\N
 sundist_far	152100000000 m	\N	1.521e11 m	\N
 moondist_min	356400000 m	\N	3.564e8 m	\N
 moondist_max	406700000 m	\N	4.067e8 m	\N
-mercurymass	3.30217809947539691e+23 kg	\N	solarmass / 6023600	\N
-venusmass	4.86899524142674548e+24 kg	\N	solarmass / 408523.71	\N
-earthmoonmass	6.04772457669272436e+24 kg	\N	solarmass / 328900.56	\N
-marsmass	6.41912693935666004e+23 kg	\N	solarmass / 3098708	\N
-jupitermass	1.89917664471981898e+27 kg	\N	solarmass / 1047.3486	\N
-saturnmass	5.68655804142945189e+26 kg	\N	solarmass / 3497.898	\N
-uranusmass	8.68489602663059543e+25 kg	\N	solarmass / 22902.98	\N
-neptunemass	1.02466279007471556e+26 kg	\N	solarmass / 19412.24	\N
-plutomass	1.47340740740740725e+22 kg	\N	solarmass / 1.35e8	\N
+mercurymass	3.3010323908754605e+23 kg	\N	solarmass / 6023600	\N
+venusmass	4.86730591712226958e+24 kg	\N	solarmass / 408523.71	\N
+earthmoonmass	6.04562628585290998e+24 kg	\N	solarmass / 328900.56	\N
+marsmass	6.41689978845293703e+23 kg	\N	solarmass / 3098708	\N
+jupitermass	1.89851771508334692e+27 kg	\N	solarmass / 1047.3486	\N
+saturnmass	5.68458505927772092e+26 kg	\N	solarmass / 3497.898	\N
+uranusmass	8.68188275485435714e+25 kg	\N	solarmass / 22902.98	\N
+neptunemass	1.02430727776276313e+26 kg	\N	solarmass / 19412.24	\N
+plutomass	1.4728962007168461e+22 kg	\N	solarmass / 1.35e8	\N
 moonearthmassratio	0.0123000339999999996	\N	0.012300034	\N
-earthmass	5.97424120672579648e+24 kg	\N	earthmoonmass / ( 1 + moonearthmassratio)	\N
-moonmass	7.34833699669283208e+22 kg	\N	moonearthmassratio earthmass	\N
+earthmass	5.97216841133970586e+24 kg	\N	earthmoonmass / ( 1 + moonearthmassratio)	\N
+moonmass	7.34578745132043616e+22 kg	\N	moonearthmassratio earthmass	\N
 oldmercurymass	3.30219999999999997e+23 kg	\N	0.33022e24 kg	\N
 oldvenusmass	4.86900000000000012e+24 kg	\N	4.8690e24 kg	\N
 oldmarsmass	6.41910000000000066e+23 kg	\N	0.64191e24 kg	\N
@@ -690,19 +771,18 @@ uranusradius	25362000 m	\N	25362 km	\N
 neptuneradius	24624000 m	\N	24624 km	\N
 plutoradius	1151000 m	\N	1151 km	\N
 moongravity	1.62000000000000011 m/s^2	\N	1.62 m/s^2	\N
-hubble	2.268545502628827e-18 s^-1	\N	70 km/s/Mpc	\N
-H0	2.268545502628827e-18 s^-1	\N	hubble	\N
+hubble	2.26854550262882893e-18 s^-1	\N	70 km/s/Mpc	\N
+H0	2.26854550262882893e-18 s^-1	\N	hubble	\N
+lunarparallax	0.0165932080808970199	\N	asin(earthradius_equatorial / moondist)	\N
+moonhp	0.0165932080808970199	\N	lunarparallax	\N
 extinction_coeff	0.209999999999999992	\N	0.21	\N
 moonvmag	-12.7400000000000002	\N	-12.74	\N
 sunvmag	-26.7399999999999984	\N	-26.74	\N
-atomicmass	9.10938355570385163e-31 kg	\N	electronmass	\N
-atomiccharge	1.60217662080000009e-19 s*A	\N	e	\N
-atomicaction	1.05457180005237273e-34 m^2*kg/s	\N	hbar	\N
-atomiclength	5.2917721067488903e-11 m	\N	bohrradius	\N
-atomictime	2.41888432660259616e-17 s	\N	hbar^3/coulombconst^2 atomicmass e^4	\N
-atomicvelocity	2187691.26268280903 m/s	\N	atomiclength / atomictime	\N
-atomicenergy	4.35974464944156321e-18 m^2*kg/s^2	\N	hbar / atomictime	\N
-hartree	4.35974464944156321e-18 m^2*kg/s^2	\N	atomicenergy	\N
+moonsd	0.0045213473505428441	\N	asin(moonradius / moondist)	\N
+sunsd	0.00465248468611326182	\N	asin(sunradius / sundist)	\N
+atomicmass	9.10938370154308021e-31 kg	\N	electronmass	\N
+atomiccharge	1.60217663399999989e-19 s*A	\N	e	\N
+atomicaction	1.05457181764615647e-34 m^2*kg/s	\N	hbar	\N
 thermalcoulomb	1 m^2*kg/s^2*K	\N	J/K	\N
 thermalampere	1 m^2*kg/s^3*K	\N	W/K	\N
 thermalfarad	1 m^2*kg/s^2*K^2	\N	J/K^2	\N
@@ -937,7 +1017,6 @@ mancus	0.0566990462500000028 kg	\N	2 oz	\N
 mast	1.13398092500000014 kg	\N	2.5 lb	\N
 nailkeg	45.3592370000000003 kg	\N	100 lbs	\N
 basebox	20.232217600000002 m^2	\N	31360 in^2	\N
-metre	1 m	\N	meter	\N
 gramme	0.00100000000000000002 kg	\N	gram	\N
 litre	0.00100000000000000024 m^3	\N	liter	\N
 dioptre	1 m^-1	\N	diopter	\N
@@ -952,6 +1031,7 @@ palmlength	0.203200000000000019 m	\N	8 in	\N
 hand	0.10160000000000001 m	\N	4 inch	\N
 shaftment	0.152400000000000008 m	\N	6 inch	\N
 smoot	1.70179999999999998 m	\N	5 ft + 7 in	\N
+tomcruise	1.72084999999999999 m	\N	5 ft + 7.75 in	\N
 uscup	0.000236588236500000091 m^3	\N	8 usfloz	\N
 ustablespoon	1.47867647812500057e-05 m^3	\N	1|16 uscup	\N
 usteaspoon	4.92892159375000132e-06 m^3	\N	1|3 ustablespoon	\N
@@ -1046,6 +1126,318 @@ eggyolkvolume	1.72512255781250046e-05 m^3	\N	3.5 ustsp	\N
 ethanoldensity	789.299999999999955 kg/m^3	\N	0.7893 g/cm^3	\N
 alcoholdensity	789.299999999999955 kg/m^3	\N	ethanoldensity	\N
 baumeconst	145	\N	145	\N
+wood_cherry	560.646218088604883 kg/m^3	\N	35 lb/ft^3	\N
+wood_redoak	704.812388454246161 kg/m^3	\N	44 lb/ft^3	\N
+wood_whiteoak	752.867778576126398 kg/m^3	\N	47 lb/ft^3	\N
+wood_blackwalnut	608.701608210485233 kg/m^3	\N	38 lb/ft^3	\N
+wood_walnut	608.701608210485233 kg/m^3	\N	wood_blackwalnut	\N
+wood_birch	688.793925080285931 kg/m^3	\N	43 lb/ft^3	\N
+wood_hardmaple	704.812388454246161 kg/m^3	\N	44 lb/ft^3	\N
+wood_bigleafmaple	544.627754714644652 kg/m^3	\N	34 lb/ft^3	\N
+wood_boxeldermaple	480.553901218804128 kg/m^3	\N	30 lb/ft^3	\N
+wood_redmaple	608.701608210485233 kg/m^3	\N	38 lb/ft^3	\N
+wood_silvermaple	528.609291340684535 kg/m^3	\N	33 lb/ft^3	\N
+wood_stripedmaple	512.590827966724419 kg/m^3	\N	32 lb/ft^3	\N
+wood_softmaple	535.016676690268696 kg/m^3	\N	(wood_bigleafmaple + wood_boxeldermaple + wood_redmaple + wood_silvermaple + wood_stripedmaple) / 5	\N
+wood_poplar	464.535437844843955 kg/m^3	\N	29 lb/ft^3	\N
+wood_beech	720.830851828206164 kg/m^3	\N	45 lb/ft^3	\N
+wood_jeffreypine	448.516974470883895 kg/m^3	\N	28 lb/ft^3	\N
+wood_ocotepine	704.812388454246161 kg/m^3	\N	44 lb/ft^3	\N
+wood_ponderosapine	448.516974470883895 kg/m^3	\N	28 lb/ft^3	\N
+wood_loblollypine	560.646218088604883 kg/m^3	\N	35 lb/ft^3	\N
+wood_longleafpine	656.756998332365697 kg/m^3	\N	41 lb/ft^3	\N
+wood_shortleafpine	560.646218088604883 kg/m^3	\N	35 lb/ft^3	\N
+wood_slashpine	656.756998332365697 kg/m^3	\N	41 lb/ft^3	\N
+wood_yellowpine	608.701608210485347 kg/m^3	\N	(wood_loblollypine + wood_longleafpine + wood_shortleafpine + wood_slashpine) / 4	\N
+wood_redpine	544.627754714644652 kg/m^3	\N	34 lb/ft^3	\N
+wood_easternwhitepine	400.461584349003431 kg/m^3	\N	25 lb/ft^3	\N
+wood_westernwhitepine	432.498511096923721 kg/m^3	\N	27 lb/ft^3	\N
+wood_whitepine	416.480047722963604 kg/m^3	\N	(wood_easternwhitepine + wood_westernwhitepine) / 2	\N
+wood_douglasfir	512.590827966724419 kg/m^3	\N	32 lb/ft^3	\N
+wood_blackspruce	448.516974470883895 kg/m^3	\N	28 lb/ft^3	\N
+wood_engelmannspruce	384.443120975043314 kg/m^3	\N	24 lb/ft^3	\N
+wood_redspruce	432.498511096923721 kg/m^3	\N	27 lb/ft^3	\N
+wood_sitkaspruce	432.498511096923721 kg/m^3	\N	27 lb/ft^3	\N
+wood_whitespruce	432.498511096923721 kg/m^3	\N	27 lb/ft^3	\N
+wood_spruce	426.091125747339731 kg/m^3	\N	(wood_blackspruce + wood_engelmannspruce + wood_redspruce + wood_sitkaspruce + wood_whitespruce) / 5	\N
+wood_basswood	416.480047722963604 kg/m^3	\N	26 lb/ft^3	\N
+wood_balsa	144.16617036564125 kg/m^3	\N	9 lb/ft^3	\N
+wood_ebony_gaboon	961.107802437608257 kg/m^3	\N	60 lb/ft^3	\N
+wood_ebony_macassar	1121.29243617720977 kg/m^3	\N	70 lb/ft^3	\N
+wood_mahogany	592.683144836525116 kg/m^3	\N	37 lb/ft^3	\N
+wood_teak	656.756998332365697 kg/m^3	\N	41 lb/ft^3	\N
+wood_rosewood_brazilian	832.960095445927209 kg/m^3	\N	52 lb/ft^3	\N
+wood_rosewood_honduran	1025.18165593344884 kg/m^3	\N	64 lb/ft^3	\N
+wood_rosewood_indian	832.960095445927209 kg/m^3	\N	52 lb/ft^3	\N
+wood_cocobolo	1105.27397280324953 kg/m^3	\N	69 lb/ft^3	\N
+wood_bubinga	897.03394894176779 kg/m^3	\N	56 lb/ft^3	\N
+wood_zebrawood	800.923168698006862 kg/m^3	\N	50 lb/ft^3	\N
+wood_koa	608.701608210485233 kg/m^3	\N	38 lb/ft^3	\N
+wood_snakewood	1212.59767740878237 kg/m^3	\N	75.7 lb/ft^3	\N
+wood_lignumvitae	1257.44937485587093 kg/m^3	\N	78.5 lb/ft^3	\N
+wood_blackwood	1270.26414555503879 kg/m^3	\N	79.3 lb/ft^3	\N
+wood_blackironwood	1353.56015509963163 kg/m^3	\N	84.5 lb/ft^3	\N
+area_russia	17098246000000 m^2	\N	17098246 km^2	\N
+area_antarctica	14000000000000 m^2	\N	14000000 km^2	\N
+area_china	9596961000000 m^2	\N	9596961 km^2	\N
+area_brazil	8515767000000 m^2	\N	8515767 km^2	\N
+area_australia	7692024000000 m^2	\N	7692024 km^2	\N
+area_india	3287263000000 m^2	\N	3287263 km^2	\N
+area_argentina	2780400000000 m^2	\N	2780400 km^2	\N
+area_kazakhstan	2724900000000 m^2	\N	2724900 km^2	\N
+area_algeria	2381741000000 m^2	\N	2381741 km^2	\N
+area_drcongo	2344858000000 m^2	\N	2344858 km^2	\N
+area_greenland	2166086000000 m^2	\N	2166086 km^2	\N
+area_saudiarabia	2149690000000 m^2	\N	2149690 km^2	\N
+area_mexico	1964375000000 m^2	\N	1964375 km^2	\N
+area_indonesia	1910931000000 m^2	\N	1910931 km^2	\N
+area_sudan	1861484000000 m^2	\N	1861484 km^2	\N
+area_libya	1759540000000 m^2	\N	1759540 km^2	\N
+area_iran	1648195000000 m^2	\N	1648195 km^2	\N
+area_mongolia	1564110000000 m^2	\N	1564110 km^2	\N
+area_peru	1285216000000 m^2	\N	1285216 km^2	\N
+area_chad	1284000000000 m^2	\N	1284000 km^2	\N
+area_niger	1267000000000 m^2	\N	1267000 km^2	\N
+area_angola	1246700000000 m^2	\N	1246700 km^2	\N
+area_mali	1240192000000 m^2	\N	1240192 km^2	\N
+area_southafrica	1221037000000 m^2	\N	1221037 km^2	\N
+area_colombia	1141748000000 m^2	\N	1141748 km^2	\N
+area_ethiopia	1104300000000 m^2	\N	1104300 km^2	\N
+area_bolivia	1098581000000 m^2	\N	1098581 km^2	\N
+area_mauritania	1030700000000 m^2	\N	1030700 km^2	\N
+area_egypt	1002450000000 m^2	\N	1002450 km^2	\N
+area_tanzania	945087000000 m^2	\N	945087 km^2	\N
+area_nigeria	923768000000 m^2	\N	923768 km^2	\N
+area_venezuela	916445000000 m^2	\N	916445 km^2	\N
+area_pakistan	881912000000 m^2	\N	881912 km^2	\N
+area_namibia	825615000000 m^2	\N	825615 km^2	\N
+area_mozambique	801590000000 m^2	\N	801590 km^2	\N
+area_turkey	783562000000 m^2	\N	783562 km^2	\N
+area_chile	756102000000 m^2	\N	756102 km^2	\N
+area_zambia	752612000000 m^2	\N	752612 km^2	\N
+area_myanmar	676578000000 m^2	\N	676578 km^2	\N
+area_burma	676578000000 m^2	\N	area_myanmar	\N
+area_afghanistan	652230000000 m^2	\N	652230 km^2	\N
+area_southsudan	644329000000 m^2	\N	644329 km^2	\N
+area_france	640679000000 m^2	\N	640679 km^2	\N
+area_somalia	637657000000 m^2	\N	637657 km^2	\N
+area_centralafrica	622984000000 m^2	\N	622984 km^2	\N
+area_ukraine	603500000000 m^2	\N	603500 km^2	\N
+area_crimea	27000000000 m^2	\N	27000 km^2	\N
+area_madagascar	587041000000 m^2	\N	587041 km^2	\N
+area_botswana	581730000000 m^2	\N	581730 km^2	\N
+area_kenya	580367000000 m^2	\N	580367 km^2	\N
+area_yemen	527968000000 m^2	\N	527968 km^2	\N
+area_thailand	513120000000 m^2	\N	513120 km^2	\N
+area_spain	505992000000 m^2	\N	505992 km^2	\N
+area_turkmenistan	488100000000 m^2	\N	488100 km^2	\N
+area_cameroon	475422000000 m^2	\N	475422 km^2	\N
+area_papuanewguinea	462840000000 m^2	\N	462840 km^2	\N
+area_sweden	450295000000 m^2	\N	450295 km^2	\N
+area_uzbekistan	447400000000 m^2	\N	447400 km^2	\N
+area_morocco	446550000000 m^2	\N	446550 km^2	\N
+area_iraq	438317000000 m^2	\N	438317 km^2	\N
+area_paraguay	406752000000 m^2	\N	406752 km^2	\N
+area_zimbabwe	390757000000 m^2	\N	390757 km^2	\N
+area_japan	377973000000 m^2	\N	377973 km^2	\N
+area_germany	357114000000 m^2	\N	357114 km^2	\N
+area_congorepublic	342000000000 m^2	\N	342000 km^2	\N
+area_finland	338424000000 m^2	\N	338424 km^2	\N
+area_vietnam	331212000000 m^2	\N	331212 km^2	\N
+area_malaysia	330803000000 m^2	\N	330803 km^2	\N
+area_norway	323802000000 m^2	\N	323802 km^2	\N
+area_ivorycoast	322463000000 m^2	\N	322463 km^2	\N
+area_poland	312696000000 m^2	\N	312696 km^2	\N
+area_oman	309500000000 m^2	\N	309500 km^2	\N
+area_italy	301339000000 m^2	\N	301339 km^2	\N
+area_philippines	300000000000 m^2	\N	300000 km^2	\N
+area_ecuador	276841000000 m^2	\N	276841 km^2	\N
+area_burkinafaso	274222000000 m^2	\N	274222 km^2	\N
+area_newzealand	270467000000 m^2	\N	270467 km^2	\N
+area_gabon	267668000000 m^2	\N	267668 km^2	\N
+area_westernsahara	266000000000 m^2	\N	266000 km^2	\N
+area_guinea	245857000000 m^2	\N	245857 km^2	\N
+area_uganda	241550000000 m^2	\N	241550 km^2	\N
+area_ghana	238533000000 m^2	\N	238533 km^2	\N
+area_romania	238397000000 m^2	\N	238397 km^2	\N
+area_laos	236800000000 m^2	\N	236800 km^2	\N
+area_guyana	214969000000 m^2	\N	214969 km^2	\N
+area_belarus	207600000000 m^2	\N	207600 km^2	\N
+area_kyrgyzstan	199951000000 m^2	\N	199951 km^2	\N
+area_senegal	196722000000 m^2	\N	196722 km^2	\N
+area_syria	185180000000 m^2	\N	185180 km^2	\N
+area_golanheights	1150000000 m^2	\N	1150 km^2	\N
+area_cambodia	181035000000 m^2	\N	181035 km^2	\N
+area_uruguay	176215000000 m^2	\N	176215 km^2	\N
+area_somaliland	176120000000 m^2	\N	176120 km^2	\N
+area_suriname	163820000000 m^2	\N	163820 km^2	\N
+area_tunisia	163610000000 m^2	\N	163610 km^2	\N
+area_bangladesh	147570000000 m^2	\N	147570 km^2	\N
+area_nepal	147181000000 m^2	\N	147181 km^2	\N
+area_tajikistan	143100000000 m^2	\N	143100 km^2	\N
+area_greece	131990000000 m^2	\N	131990 km^2	\N
+area_nicaragua	130373000000 m^2	\N	130373 km^2	\N
+area_northkorea	120540000000 m^2	\N	120540 km^2	\N
+area_malawi	118484000000 m^2	\N	118484 km^2	\N
+area_eritrea	117600000000 m^2	\N	117600 km^2	\N
+area_benin	114763000000 m^2	\N	114763 km^2	\N
+area_honduras	112492000000 m^2	\N	112492 km^2	\N
+area_liberia	111369000000 m^2	\N	111369 km^2	\N
+area_bulgaria	110879000000 m^2	\N	110879 km^2	\N
+area_cuba	109884000000 m^2	\N	109884 km^2	\N
+area_guatemala	108889000000 m^2	\N	108889 km^2	\N
+area_iceland	103000000000 m^2	\N	103000 km^2	\N
+area_southkorea	100210000000 m^2	\N	100210 km^2	\N
+area_hungary	93028000000 m^2	\N	93028 km^2	\N
+area_portugal	92090000000 m^2	\N	92090 km^2	\N
+area_jordan	89342000000 m^2	\N	89342 km^2	\N
+area_serbia	88361000000 m^2	\N	88361 km^2	\N
+area_azerbaijan	86600000000 m^2	\N	86600 km^2	\N
+area_austria	83871000000 m^2	\N	83871 km^2	\N
+area_uae	83600000000 m^2	\N	83600 km^2	\N
+area_czechia	78865000000 m^2	\N	78865 km^2	\N
+area_czechrepublic	78865000000 m^2	\N	area_czechia	\N
+area_panama	75417000000 m^2	\N	75417 km^2	\N
+area_sierraleone	71740000000 m^2	\N	71740 km^2	\N
+area_ireland	70273000000 m^2	\N	70273 km^2	\N
+area_georgia	69700000000 m^2	\N	69700 km^2	\N
+area_srilanka	65610000000 m^2	\N	65610 km^2	\N
+area_lithuania	65300000000 m^2	\N	65300 km^2	\N
+area_latvia	64559000000 m^2	\N	64559 km^2	\N
+area_togo	56785000000 m^2	\N	56785 km^2	\N
+area_croatia	56594000000 m^2	\N	56594 km^2	\N
+area_bosnia	51209000000 m^2	\N	51209 km^2	\N
+area_costarica	51100000000 m^2	\N	51100 km^2	\N
+area_slovakia	49037000000 m^2	\N	49037 km^2	\N
+area_dominicanrepublic	48671000000 m^2	\N	48671 km^2	\N
+area_estonia	45227000000 m^2	\N	45227 km^2	\N
+area_denmark	43094000000 m^2	\N	43094 km^2	\N
+area_netherlands	41850000000 m^2	\N	41850 km^2	\N
+area_switzerland	41284000000 m^2	\N	41284 km^2	\N
+area_bhutan	38394000000 m^2	\N	38394 km^2	\N
+area_taiwan	36193000000 m^2	\N	36193 km^2	\N
+area_guineabissau	36125000000 m^2	\N	36125 km^2	\N
+area_moldova	33846000000 m^2	\N	33846 km^2	\N
+area_belgium	30528000000 m^2	\N	30528 km^2	\N
+area_lesotho	30355000000 m^2	\N	30355 km^2	\N
+area_armenia	29743000000 m^2	\N	29743 km^2	\N
+area_solomonislands	28896000000 m^2	\N	28896 km^2	\N
+area_albania	28748000000 m^2	\N	28748 km^2	\N
+area_equitorialguinea	28051000000 m^2	\N	28051 km^2	\N
+area_burundi	27834000000 m^2	\N	27834 km^2	\N
+area_haiti	27750000000 m^2	\N	27750 km^2	\N
+area_rwanda	26338000000 m^2	\N	26338 km^2	\N
+area_northmacedonia	25713000000 m^2	\N	25713 km^2	\N
+area_djibouti	23200000000 m^2	\N	23200 km^2	\N
+area_belize	22966000000 m^2	\N	22966 km^2	\N
+area_elsalvador	21041000000 m^2	\N	21041 km^2	\N
+area_israel	20770000000 m^2	\N	20770 km^2	\N
+area_slovenia	20273000000 m^2	\N	20273 km^2	\N
+area_fiji	18272000000 m^2	\N	18272 km^2	\N
+area_kuwait	17818000000 m^2	\N	17818 km^2	\N
+area_eswatini	17364000000 m^2	\N	17364 km^2	\N
+area_easttimor	14919000000 m^2	\N	14919 km^2	\N
+area_bahamas	13943000000 m^2	\N	13943 km^2	\N
+area_montenegro	13812000000 m^2	\N	13812 km^2	\N
+area_vanatu	12189000000 m^2	\N	12189 km^2	\N
+area_qatar	11586000000 m^2	\N	11586 km^2	\N
+area_gambia	11295000000 m^2	\N	11295 km^2	\N
+area_jamaica	10991000000 m^2	\N	10991 km^2	\N
+area_kosovo	10887000000 m^2	\N	10887 km^2	\N
+area_lebanon	10452000000 m^2	\N	10452 km^2	\N
+area_cyprus	9251000000 m^2	\N	9251 km^2	\N
+area_puertorico	9104000000 m^2	\N	9104 km^2	\N
+area_westbank	5860000000 m^2	\N	5860 km^2	\N
+area_hongkong	2755000000 m^2	\N	2755 km^2	\N
+area_luxembourg	2586000000 m^2	\N	2586 km^2	\N
+area_singapore	716000000 m^2	\N	716 km^2	\N
+area_gazastrip	360000000 m^2	\N	360 km^2	\N
+area_malta	316000000 m^2	\N	316 km^2	\N
+area_liechtenstein	160000000 m^2	\N	160 km^2	\N
+area_monaco	2020000 m^2	\N	2.02 km^2	\N
+area_vaticancity	440000 m^2	\N	0.44 km^2	\N
+area_europeanunion	4234547000000 m^2	\N	area_austria + area_belgium + area_bulgaria + area_croatia + area_cyprus + area_czechia + area_denmark + area_estonia + area_finland + area_france + area_germany + area_greece + area_hungary + area_ireland + area_italy + area_latvia + area_lithuania + area_luxembourg + area_malta + area_netherlands + area_poland + area_portugal + area_romania + area_slovakia + area_slovenia + area_spain + area_sweden	\N
+area_eu	4234547000000 m^2	\N	area_europeanunion	\N
+area_alaska	1723336800000 m^2	\N	1723336.8 km^2	\N
+area_texas	695661600000 m^2	\N	695661.6 km^2	\N
+area_california	423967400000 m^2	\N	423967.4 km^2	\N
+area_montana	380831100000 m^2	\N	380831.1 km^2	\N
+area_newmexico	314917400000 m^2	\N	314917.4 km^2	\N
+area_arizona	295233500000 m^2	\N	295233.5 km^2	\N
+area_nevada	286379700000 m^2	\N	286379.7 km^2	\N
+area_colorado	269601400000.000031 m^2	\N	269601.4 km^2	\N
+area_oregon	254799200000 m^2	\N	254799.2 km^2	\N
+area_wyoming	253334500000 m^2	\N	253334.5 km^2	\N
+area_michigan	250486800000 m^2	\N	250486.8 km^2	\N
+area_minnesota	225162800000 m^2	\N	225162.8 km^2	\N
+area_utah	219881900000 m^2	\N	219881.9 km^2	\N
+area_idaho	216442600000 m^2	\N	216442.6 km^2	\N
+area_kansas	213100000000 m^2	\N	213100.0 km^2	\N
+area_nebraska	200329900000 m^2	\N	200329.9 km^2	\N
+area_southdakota	199728700000 m^2	\N	199728.7 km^2	\N
+area_washington	184660800000 m^2	\N	184660.8 km^2	\N
+area_northdakota	183107800000 m^2	\N	183107.8 km^2	\N
+area_oklahoma	181037200000 m^2	\N	181037.2 km^2	\N
+area_missouri	180540300000 m^2	\N	180540.3 km^2	\N
+area_florida	170311700000 m^2	\N	170311.7 km^2	\N
+area_wisconsin	169634800000 m^2	\N	169634.8 km^2	\N
+area_georgia_us	153910400000 m^2	\N	153910.4 km^2	\N
+area_illinois	149995400000 m^2	\N	149995.4 km^2	\N
+area_iowa	145745900000 m^2	\N	145745.9 km^2	\N
+area_newyork	141296700000 m^2	\N	141296.7 km^2	\N
+area_northcarolina	139391000000 m^2	\N	139391.0 km^2	\N
+area_arkansas	137731800000 m^2	\N	137731.8 km^2	\N
+area_alabama	135767400000 m^2	\N	135767.4 km^2	\N
+area_louisiana	135658700000.000015 m^2	\N	135658.7 km^2	\N
+area_mississippi	125437700000 m^2	\N	125437.7 km^2	\N
+area_pennsylvania	119280200000 m^2	\N	119280.2 km^2	\N
+area_ohio	116097700000 m^2	\N	116097.7 km^2	\N
+area_virginia	110786600000 m^2	\N	110786.6 km^2	\N
+area_tennessee	109153100000 m^2	\N	109153.1 km^2	\N
+area_kentucky	104655700000 m^2	\N	104655.7 km^2	\N
+area_indiana	94326200000 m^2	\N	94326.2 km^2	\N
+area_maine	91633100000 m^2	\N	91633.1 km^2	\N
+area_southcarolina	82932700000 m^2	\N	82932.7 km^2	\N
+area_westvirginia	62755500000 m^2	\N	62755.5 km^2	\N
+area_maryland	32131200000 m^2	\N	32131.2 km^2	\N
+area_hawaii	28313000000 m^2	\N	28313.0 km^2	\N
+area_massachusetts	27335700000 m^2	\N	27335.7 km^2	\N
+area_vermont	24906300000 m^2	\N	24906.3 km^2	\N
+area_newhampshire	24214200000 m^2	\N	24214.2 km^2	\N
+area_newjersey	22591400000 m^2	\N	22591.4 km^2	\N
+area_connecticut	14357400000 m^2	\N	14357.4 km^2	\N
+area_delaware	6445800000 m^2	\N	6445.8 km^2	\N
+area_rhodeisland	4001200000 m^2	\N	4001.2 km^2	\N
+area_districtofcolumbia	177000000 m^2	\N	177.0 km^2	\N
+area_unitedstates	9833516900000 m^2	\N	area_alabama + area_alaska + area_arizona + area_arkansas + area_california + area_colorado + area_connecticut + area_delaware + area_districtofcolumbia + area_florida + area_georgia_us + area_hawaii + area_idaho + area_illinois + area_indiana + area_iowa + area_kansas + area_kentucky + area_louisiana + area_maine + area_maryland + area_massachusetts + area_michigan + area_minnesota + area_mississippi + area_missouri + area_montana + area_nebraska + area_nevada + area_newhampshire + area_newjersey + area_newmexico + area_newyork + area_northcarolina + area_northdakota + area_ohio + area_oklahoma + area_oregon + area_pennsylvania + area_rhodeisland + area_southcarolina + area_southdakota + area_tennessee + area_texas + area_utah + area_vermont + area_virginia + area_washington + area_westvirginia + area_wisconsin + area_wyoming	\N
+area_ontario	1076395000000 m^2	\N	1076395 km^2	\N
+area_quebec	1542056000000 m^2	\N	1542056 km^2	\N
+area_novascotia	55284000000 m^2	\N	55284 km^2	\N
+area_newbrunswick	72908000000 m^2	\N	72908 km^2	\N
+area_canada_original	2746643000000 m^2	\N	area_ontario + area_quebec + area_novascotia + area_newbrunswick	\N
+area_manitoba	647797000000 m^2	\N	647797 km^2	\N
+area_britishcolumbia	944735000000 m^2	\N	944735 km^2	\N
+area_princeedwardisland	5660000000 m^2	\N	5660 km^2	\N
+area_canada_additional	1598192000000 m^2	\N	area_manitoba + area_britishcolumbia + area_princeedwardisland	\N
+area_alberta	661848000000 m^2	\N	661848 km^2	\N
+area_saskatchewan	651036000000 m^2	\N	651036 km^2	\N
+area_newfoundlandandlabrador	405212000000 m^2	\N	405212 km^2	\N
+area_canada_recent	1718096000000 m^2	\N	area_alberta + area_saskatchewan + area_newfoundlandandlabrador	\N
+area_canada_provinces	6062931000000 m^2	\N	area_canada_original + area_canada_additional + area_canada_recent	\N
+area_northwestterritories	1346106000000 m^2	\N	1346106 km^2	\N
+area_yukon	482443000000 m^2	\N	482443 km^2	\N
+area_nunavut	2093190000000 m^2	\N	2093190 km^2	\N
+area_canada_territories	3921739000000 m^2	\N	area_northwestterritories + area_yukon + area_nunavut	\N
+area_canada	9984670000000 m^2	\N	area_canada_provinces + area_canada_territories	\N
+area_england	132947760000.000015 m^2	\N	132947.76 km^2	\N
+area_wales	21224480000 m^2	\N	21224.48 km^2	\N
+area_englandwales	154172240000 m^2	\N	area_england + area_wales	\N
+area_scotland	80226360000 m^2	\N	80226.36 km^2	\N
+area_greatbritain	234398600000 m^2	\N	area_england + area_wales + area_scotland	\N
+area_gb	234398600000 m^2	\N	area_greatbritain	\N
+area_northernireland	14133380000 m^2	\N	14133.38 km^2	\N
+area_unitedkingdom	248531980000 m^2	\N	area_greatbritain + area_northernireland	\N
+area_uk	248531980000 m^2	\N	area_unitedkingdom	\N
 ouncedal	0.00864093464850000138 m*kg/s^2	\N	oz ft / s^2	\N
 poundal	0.138254954376000022 m*kg/s^2	\N	lb ft / s^2	\N
 tondal	309.691097802240051 m*kg/s^2	\N	longton ft / s^2	\N
@@ -1086,6 +1478,8 @@ diamond	0.487680000000000058 m	\N	8|5 ft	\N
 retmaunit	0.0444500000000000034 m	\N	1.75 in	\N
 U	0.0444500000000000034 m	\N	retmaunit	\N
 RU	0.0444500000000000034 m	\N	U	\N
+flightlevel	30.4800000000000004 m	\N	100 ft	\N
+FL	30.4800000000000004 m	\N	flightlevel	\N
 ENERGY	1 m^2*kg/s^2	\N	joule	\N
 WORK	1 m^2*kg/s^2	\N	joule	\N
 calorie_th	4.18400000000000016 m^2*kg/s^2	\N	4.184 J	\N
@@ -1204,8 +1598,8 @@ heating	37299999999.9999924 kg/m*s^2	\N	37.3 MJ/liter	\N
 fueloil	39699999999.9999924 kg/m*s^2	\N	39.7 MJ/liter	\N
 propane	93300000 kg/m*s^2	\N	93.3 MJ/m^3	\N
 butane	124000000 kg/m*s^2	\N	124 MJ/m^3	\N
-uranium_pure	82099829549624.1875 m^2/s^2	\N	200 MeV avogadro / (235.0439299 g/mol)	\N
-uranium_natural	574698806847.369385 m^2/s^2	\N	0.7% uranium_pure	\N
+uranium_pure	82099828882507.1406 m^2/s^2	\N	200 MeV avogadro / (235.0439299 g/mol)	\N
+uranium_natural	574698802177.549927 m^2/s^2	\N	0.7% uranium_pure	\N
 POWER	1 m^2*kg/s^3	\N	watt	\N
 VA	1 m^2*kg/s^3	\N	volt ampere	\N
 kWh	3600000 m^2*kg/s^2	\N	kilowatt hour	\N
@@ -1216,7 +1610,7 @@ metrichorsepower	735.498749999999973 m^2*kg/s^3	\N	75 kilogram force meter / sec
 electrichorsepower	746 m^2*kg/s^3	\N	746 W	\N
 boilerhorsepower	9809.5 m^2*kg/s^3	\N	9809.50 W	\N
 waterhorsepower	746.043000000000006 m^2*kg/s^3	\N	746.043 W	\N
-brhorsepower	745.700000000000045 m^2*kg/s^3	\N	745.70 W	\N
+brhorsepower	745.699871582270134 m^2*kg/s^3	\N	horsepower	\N
 donkeypower	250 m^2*kg/s^3	\N	250 W	\N
 chevalvapeur	735.498749999999973 m^2*kg/s^3	\N	metrichorsepower	\N
 THERMAL_CONDUCTIVITY	1 m*kg/s^3*K	\N	POWER / AREA (TEMPERATURE_DIFFERENCE/LENGTH)	\N
@@ -1230,6 +1624,11 @@ europeanUvalue	1 kg/s^3*K	\N	watt / m^2 K	\N
 RSI	1 s^3*K/kg	\N	degC m^2 / W	\N
 clo	0.154999999999999999 s^3*K/kg	\N	0.155 * degC m^2 / W	\N
 tog	0.100000000000000006 s^3*K/kg	\N	0.1 * degC m^2 / W	\N
+silver_thermal_conductivity	406 m*kg/s^3*K	\N	406 W / m K	\N
+aluminum_thermal_conductivity	205 m*kg/s^3*K	\N	205 W / m K	\N
+copper_thermal_conductivity	385 m*kg/s^3*K	\N	385 W / m K	\N
+gold_thermal_conductivity	314 m*kg/s^3*K	\N	314 W / m K	\N
+iron_thermal_conductivity	79.5 m*kg/s^3*K	\N	79.5 W / m K	\N
 ENTROPY	1 m^2*kg/s^2*K	\N	ENERGY / TEMPERATURE	\N
 langley	41840 kg/s^2	\N	thermcalorie/cm^2	\N
 poncelet	980.664999999999964 m^2*kg/s^3	\N	100 kg force m / s	\N
@@ -1458,10 +1857,10 @@ missal	0.0180511199999999969 m	\N	48 didotpoint	\N
 kleine_sabon	0.0270766799999999988 m	\N	72 didotpoint	\N
 grobe_sabon	0.0315894599999999998 m	\N	84 didotpoint	\N
 INFORMATION	0.125 B	\N	bit	\N
-nat	0.180336880111120507 B	\N	(1/0.693147180559945) bits	\N
-hartley	0.415241011860920384 B	\N	3.321928094887363 bits	\N
-ban	0.415241011860920384 B	\N	hartley	\N
-dit	0.415241011860920384 B	\N	hartley	\N
+nat	0.180336880111120423 B	\N	(1/ln(2)) bits	\N
+hartley	0.415241011860920273 B	\N	log2(10) bits	\N
+ban	0.415241011860920273 B	\N	hartley	\N
+dit	0.415241011860920273 B	\N	hartley	\N
 bps	0.125 B/s	\N	bit/sec	\N
 octet	1 B	\N	8 bits	\N
 nybble	0.5 B	\N	4 bits	\N
@@ -1474,6 +1873,7 @@ jiffies	0.0100000000000000002 s	\N	jiffy	\N
 cdaudiospeed	176400 B/s	\N	44.1 kHz 2*16 bits	\N
 cdromspeed	153600 B/s	\N	75 2048 bytes / sec	\N
 dvdspeed	1385000 B/s	\N	1385 kB/s	\N
+FIT	2.77777777777777795e-13 s^-1	\N	/ 1e9 hour	\N
 octave	2	\N	2	\N
 majorthird	1.25	\N	5|4	\N
 minorthird	1.19999999999999996	\N	6|5	\N
@@ -1583,7 +1983,11 @@ slpm	1.6887500000000002 m^2*kg/s^3	\N	atm liter/min	\N
 slph	0.0281458333333333387 m^2*kg/s^3	\N	atm liter/hour	\N
 lusec	0.000133322387414999992 m^2*kg/s^3	\N	liter micron Hg / s	\N
 lapserate	0.0064999999999999997 K/m	\N	6.5 K/km	\N
+air_1976	28.9644253795909989	\N	78.084   %    28.0134 + 20.9476  %    31.9988 + 9340     ppm  39.948 +  314     ppm  44.00995 +   18.18  ppm  20.183 +    5.24  ppm   4.0026 +    2     ppm  16.04303 +    1.14  ppm  83.80 +    0.55  ppm   2.01594 +    0.087 ppm 131.30	\N
 R_1976	8.31432000000000038 m^2*kg/s^2*K*mol	\N	8.31432e3 N m/(kmol K)	\N
+polyndx_1976	4.25588071865567397	\N	air_1976 (kg/kmol) gravity/(R_1976 lapserate) - 1	\N
+polyndx	4.25588071865567397	\N	polyndx_1976	\N
+polyexpnt	1.23496899140441019	\N	(polyndx + 1) / polyndx	\N
 stdatmT0	288.149999999999977 K	\N	288.15 K	\N
 stdatmP0	101325 kg/m*s^2	\N	atm	\N
 earthradUSAtm	6356766 m	\N	6356766 m	\N
@@ -1688,6 +2092,8 @@ kph	0.27777777777777779 m/s	\N	km/hr	\N
 fL	3.42625909963539055 cd/m^2	\N	footlambert	\N
 fpm	0.00508000000000000031 m/s	\N	ft/min	\N
 fps	0.304800000000000015 m/s	\N	ft/s	\N
+rpm	0.104719755119659766 s^-1	\N	rev/min	\N
+rps	6.28318530717958623 s^-1	\N	rev/sec	\N
 mi	1609.34400000000005 m	\N	mile	\N
 smi	1609.34400000000005 m	\N	mile	\N
 nmi	1852 m	\N	nauticalmile	\N
@@ -1701,8 +2107,7 @@ Wh	3600 m^2*kg/s^2	\N	W hour	\N
 hph	2684519.53769617248 m^2*kg/s^2	\N	hp hour	\N
 plf	1.48816394356955373 kg/m	\N	lb / foot	\N
 pa	1 kg/m*s^2	\N	Pa	\N
-ev	1.60217662080000009e-19 m^2*kg/s^2	\N	eV	\N
-oe	79.5774715459476596 A/m	\N	Oe	\N
+ev	1.60217663399999989e-19 m^2*kg/s^2	\N	eV	\N
 mh	0.00100000000000000002 m^2*kg/s^2*A^2	\N	mH	\N
 rd	5.02920000000000034 m	\N	rod	\N
 pf	9.9999999999999998e-13 s^4*A^2/m^2*kg	\N	pF	\N
@@ -1711,8 +2116,8 @@ nt	1 m*kg/s^2	\N	N	\N
 hz	1 s^-1	\N	Hz	\N
 dry	1.16364718614718621	\N	drygallon/gallon	\N
 nmile	1852 m	\N	nauticalmile	\N
-beV	1.60217662080000021e-10 m^2*kg/s^2	\N	GeV	\N
-bev	1.60217662080000021e-10 m^2*kg/s^2	\N	beV	\N
+beV	1.60217663399999979e-10 m^2*kg/s^2	\N	GeV	\N
+bev	1.60217663399999979e-10 m^2*kg/s^2	\N	beV	\N
 coul	1 s*A	\N	C	\N
 becquerel	1 s^-1	\N	/s	\N
 Bq	1 s^-1	\N	becquerel	\N
@@ -1836,6 +2241,133 @@ ytterbium	173.039999999999992	\N	173.04	\N
 yttrium	88.9058500000000009	\N	88.90585	\N
 zinc	65.3900000000000006	\N	65.39	\N
 zirconium	91.2240000000000038	\N	91.224	\N
+air	28.9679037780064803	\N	78.08% nitrogen 2 + 20.95% oxygen 2 + 9340 ppm argon +  400 ppm (carbon + oxygen 2) +   18.18 ppm neon +    5.24 ppm helium +    1.7  ppm (carbon + 4 hydrogen) +    1.14 ppm krypton +    0.55 ppm hydrogen 2	\N
+hydrogendensity	0.0898799999999999738 kg/m^3	\N	0.08988 g/l	\N
+heliumdensity	0.178599999999999953 kg/m^3	\N	0.1786 g/l	\N
+neondensity	0.900199999999999778 kg/m^3	\N	0.9002 g/l	\N
+nitrogendensity	1.25059999999999971 kg/m^3	\N	1.2506 g/l	\N
+oxygendensity	1.42899999999999983 kg/m^3	\N	1.429 g/l	\N
+fluorinedensity	1.69599999999999973 kg/m^3	\N	1.696 g/l	\N
+argondensity	1.78399999999999959 kg/m^3	\N	1.784 g/l	\N
+chlorinedensity	3.19999999999999929 kg/m^3	\N	3.2 g/l	\N
+kryptondensity	3.74899999999999922 kg/m^3	\N	3.749 g/l	\N
+xenondensity	5.89399999999999835 kg/m^3	\N	5.894 g/l	\N
+radondensity	9.72999999999999865 kg/m^3	\N	9.73 g/l	\N
+brominedensity	3102.79999999999927 kg/m^3	\N	3.1028 g/cm^3	\N
+mercurydensity	13533.9999999999982 kg/m^3	\N	13.534 g/cm^3	\N
+lithiumdensity	534 kg/m^3	\N	0.534 g/cm^3	\N
+potassiumdensity	861.999999999999886 kg/m^3	\N	0.862 g/cm^3	\N
+sodiumdensity	967.999999999999886 kg/m^3	\N	0.968 g/cm^3	\N
+rubidiumdensity	1532 kg/m^3	\N	1.532 g/cm^3	\N
+calciumdensity	1550 kg/m^3	\N	1.55 g/cm^3	\N
+magnesiumdensity	1737.99999999999977 kg/m^3	\N	1.738 g/cm^3	\N
+phosphorus_white_density	1822.99999999999977 kg/m^3	\N	1.823 g/cm^3	\N
+berylliumdensity	1849.99999999999977 kg/m^3	\N	1.85 g/cm^3	\N
+sulfur_gamma_density	1919.99999999999977 kg/m^3	\N	1.92 g/cm^3	\N
+cesiumdensity	1929.99999999999977 kg/m^3	\N	1.93 g/cm^3	\N
+carbon_amorphous_density	1949.99999999999955 kg/m^3	\N	1.95 g/cm^3	\N
+sulfur_betadensity	1959.99999999999955 kg/m^3	\N	1.96 g/cm^3	\N
+sulfur_alpha_density	2069.99999999999955 kg/m^3	\N	2.07 g/cm^3	\N
+carbon_graphite_density	2266.99999999999955 kg/m^3	\N	2.267 g/cm^3	\N
+phosphorus_red_density	2269.99999999999955 kg/m^3	\N	2.27 g/cm^3	\N
+silicondensity	2329 kg/m^3	\N	2.3290 g/cm^3	\N
+phosphorus_violet_density	2359.99999999999955 kg/m^3	\N	2.36 g/cm^3	\N
+borondensity	2369.99999999999955 kg/m^3	\N	2.37 g/cm^3	\N
+strontiumdensity	2639.99999999999955 kg/m^3	\N	2.64 g/cm^3	\N
+phosphorus_black_density	2689.99999999999955 kg/m^3	\N	2.69 g/cm^3	\N
+aluminumdensity	2699.99999999999955 kg/m^3	\N	2.7 g/cm^3	\N
+bariumdensity	3509.99999999999909 kg/m^3	\N	3.51 g/cm^3	\N
+carbon_diamond_density	3514.99999999999955 kg/m^3	\N	3.515 g/cm^3	\N
+scandiumdensity	3984.99999999999909 kg/m^3	\N	3.985 g/cm^3	\N
+selenium_vitreous_density	4279.99999999999909 kg/m^3	\N	4.28 g/cm^3	\N
+selenium_alpha_density	4389.99999999999909 kg/m^3	\N	4.39 g/cm^3	\N
+titaniumdensity	4405.99999999999909 kg/m^3	\N	4.406 g/cm^3	\N
+yttriumdensity	4471.99999999999909 kg/m^3	\N	4.472 g/cm^3	\N
+selenium_gray_density	4809.99999999999909 kg/m^3	\N	4.81 g/cm^3	\N
+iodinedensity	4932.99999999999909 kg/m^3	\N	4.933 g/cm^3	\N
+europiumdensity	5264 kg/m^3	\N	5.264 g/cm^3	\N
+germaniumdensity	5323 kg/m^3	\N	5.323 g/cm^3	\N
+radiumdensity	5499.99999999999909 kg/m^3	\N	5.5 g/cm^3	\N
+arsenicdensity	5726.99999999999909 kg/m^3	\N	5.727 g/cm^3	\N
+tin_alpha_density	5768.99999999999909 kg/m^3	\N	5.769 g/cm^3	\N
+galliumdensity	5909.99999999999909 kg/m^3	\N	5.91 g/cm^3	\N
+vanadiumdensity	6110 kg/m^3	\N	6.11 g/cm^3	\N
+lanthanumdensity	6161.99999999999909 kg/m^3	\N	6.162 g/cm^3	\N
+telluriumdensity	6240 kg/m^3	\N	6.24 g/cm^3	\N
+zirconiumdensity	6519.99999999999909 kg/m^3	\N	6.52 g/cm^3	\N
+antimonydensity	6696.99999999999909 kg/m^3	\N	6.697 g/cm^3	\N
+ceriumdensity	6769.99999999999909 kg/m^3	\N	6.77 g/cm^3	\N
+praseodymiumdensity	6769.99999999999909 kg/m^3	\N	6.77 g/cm^3	\N
+ytterbiumdensity	6900 kg/m^3	\N	6.9 g/cm^3	\N
+neodymiumdensity	7009.99999999999818 kg/m^3	\N	7.01 g/cm^3	\N
+zincdensity	7139.99999999999818 kg/m^3	\N	7.14 g/cm^3	\N
+chromiumdensity	7189.99999999999909 kg/m^3	\N	7.19 g/cm^3	\N
+manganesedensity	7209.99999999999909 kg/m^3	\N	7.21 g/cm^3	\N
+promethiumdensity	7259.99999999999909 kg/m^3	\N	7.26 g/cm^3	\N
+tin_beta_density	7264.99999999999818 kg/m^3	\N	7.265 g/cm^3	\N
+indiumdensity	7309.99999999999818 kg/m^3	\N	7.31 g/cm^3	\N
+samariumdensity	7519.99999999999818 kg/m^3	\N	7.52 g/cm^3	\N
+irondensity	7873.99999999999818 kg/m^3	\N	7.874 g/cm^3	\N
+gadoliniumdensity	7899.99999999999909 kg/m^3	\N	7.9 g/cm^3	\N
+terbiumdensity	8230 kg/m^3	\N	8.23 g/cm^3	\N
+dysprosiumdensity	8539.99999999999818 kg/m^3	\N	8.54 g/cm^3	\N
+niobiumdensity	8570 kg/m^3	\N	8.57 g/cm^3	\N
+cadmiumdensity	8649.99999999999818 kg/m^3	\N	8.65 g/cm^3	\N
+holmiumdensity	8789.99999999999818 kg/m^3	\N	8.79 g/cm^3	\N
+cobaltdensity	8899.99999999999818 kg/m^3	\N	8.9 g/cm^3	\N
+nickeldensity	8907.99999999999818 kg/m^3	\N	8.908 g/cm^3	\N
+erbiumdensity	9066 kg/m^3	\N	9.066 g/cm^3	\N
+polonium_alpha_density	9195.99999999999818 kg/m^3	\N	9.196 g/cm^3	\N
+thuliumdensity	9319.99999999999818 kg/m^3	\N	9.32 g/cm^3	\N
+polonium_beta_density	9397.99999999999818 kg/m^3	\N	9.398 g/cm^3	\N
+bismuthdensity	9779.99999999999636 kg/m^3	\N	9.78 g/cm^3	\N
+lutetiumdensity	9840.99999999999818 kg/m^3	\N	9.841 g/cm^3	\N
+actiniumdensity	9999.99999999999818 kg/m^3	\N	10 g/cm^3	\N
+molybdenumdensity	10279.9999999999982 kg/m^3	\N	10.28 g/cm^3	\N
+silverdensity	10490 kg/m^3	\N	10.49 g/cm^3	\N
+technetiumdensity	10999.9999999999982 kg/m^3	\N	11 g/cm^3	\N
+leaddensity	11339.9999999999982 kg/m^3	\N	11.34 g/cm^3	\N
+thoriumdensity	11699.9999999999982 kg/m^3	\N	11.7 g/cm^3	\N
+thalliumdensity	11849.9999999999982 kg/m^3	\N	11.85 g/cm^3	\N
+americiumdensity	11999.9999999999982 kg/m^3	\N	12 g/cm^3	\N
+palladiumdensity	12022.9999999999982 kg/m^3	\N	12.023 g/cm^3	\N
+rhodiumdensity	12409.9999999999982 kg/m^3	\N	12.41 g/cm^3	\N
+rutheniumdensity	12449.9999999999964 kg/m^3	\N	12.45 g/cm^3	\N
+berkelium_beta_density	13249.9999999999982 kg/m^3	\N	13.25 g/cm^3	\N
+hafniumdensity	13309.9999999999982 kg/m^3	\N	13.31 g/cm^3	\N
+curiumdensity	13509.9999999999964 kg/m^3	\N	13.51 g/cm^3	\N
+berkelium_alphadensity	14779.9999999999982 kg/m^3	\N	14.78 g/cm^3	\N
+californiumdensity	15099.9999999999982 kg/m^3	\N	15.1 g/cm^3	\N
+protactiniumdensity	15369.9999999999982 kg/m^3	\N	15.37 g/cm^3	\N
+tantalumdensity	16689.9999999999964 kg/m^3	\N	16.69 g/cm^3	\N
+uraniumdensity	19100 kg/m^3	\N	19.1 g/cm^3	\N
+tungstendensity	19299.9999999999964 kg/m^3	\N	19.3 g/cm^3	\N
+golddensity	19299.9999999999964 kg/m^3	\N	19.30 g/cm^3	\N
+plutoniumdensity	19815.9999999999964 kg/m^3	\N	19.816 g/cm^3	\N
+neptuniumdensity	20449.9999999999964 kg/m^3	\N	20.45 g/cm^3	\N
+rheniumdensity	21019.9999999999964 kg/m^3	\N	21.02 g/cm^3	\N
+platinumdensity	21449.9999999999964 kg/m^3	\N	21.45 g/cm^3	\N
+iridiumdensity	22559.9999999999964 kg/m^3	\N	22.56 g/cm^3	\N
+osmiumdensity	22589.9999999999964 kg/m^3	\N	22.59 g/cm^3	\N
+tin_gray	5768.99999999999909 kg/m^3	\N	tin_alpha_density	\N
+tin_white	7264.99999999999818 kg/m^3	\N	tin_beta_density	\N
+graphitedensity	2266.99999999999955 kg/m^3	\N	carbon_graphite_density	\N
+diamonddensity	3514.99999999999955 kg/m^3	\N	carbon_diamond_density	\N
+franciumdensity	2479.99999999999955 kg/m^3	\N	2.48 g/cm^3	\N
+astatinedensity	6349.99999999999909 kg/m^3	\N	6.35 g/cm^3	\N
+einsteiniumdensity	8840 kg/m^3	\N	8.84 g/cm^3	\N
+fermiumdensity	9699.99999999999818 kg/m^3	\N	9.7 g/cm^3	\N
+nobeliumdensity	9900 kg/m^3	\N	9.9 g/cm^3	\N
+mendeleviumdensity	10299.9999999999982 kg/m^3	\N	10.3 g/cm^3	\N
+lawrenciumdensity	15999.9999999999982 kg/m^3	\N	16 g/cm^3	\N
+rutherfordiumdensity	23199.9999999999927 kg/m^3	\N	23.2 g/cm^3	\N
+roentgeniumdensity	28699.9999999999964 kg/m^3	\N	28.7 g/cm^3	\N
+dubniumdensity	29299.9999999999964 kg/m^3	\N	29.3 g/cm^3	\N
+darmstadtiumdensity	34799.9999999999927 kg/m^3	\N	34.8 g/cm^3	\N
+seaborgiumdensity	35000 kg/m^3	\N	35 g/cm^3	\N
+bohriumdensity	37099.9999999999927 kg/m^3	\N	37.1 g/cm^3	\N
+meitneriumdensity	37400 kg/m^3	\N	37.4 g/cm^3	\N
+hassiumdensity	40999.9999999999927 kg/m^3	\N	41 g/cm^3	\N
 people	1	\N	1	\N
 person	1	\N	people	\N
 death	1	\N	people	\N
@@ -1913,6 +2445,24 @@ australiasquare	9.29030400000000078 m^2	\N	(10 ft)^2	\N
 zentner	50 kg	\N	50 kg	\N
 doppelzentner	100 kg	\N	2 zentner	\N
 pfund	0.5 kg	\N	500 g	\N
+austriaklafter	1.89648383999999992 m	\N	1.89648384 m	\N
+austriafoot	0.316080639999999968 m	\N	1|6 austriaklafter	\N
+prussiaklafter	1.87999999999999989 m	\N	1.88 m	\N
+prussiafoot	0.313333333333333297 m	\N	1|6 prussiaklafter	\N
+bavariaklafter	1.75115500000000002 m	\N	1.751155 m	\N
+bavariafoot	0.29185916666666667 m	\N	1|6 bavariaklafter	\N
+hesseklafter	2.5 m	\N	2.5 m	\N
+hessefoot	0.41666666666666663 m	\N	1|6 hesseklafter	\N
+metricklafter	1.80000000000000004 m	\N	1.8 m	\N
+austriayoke	5754.64152860983268 m^2	\N	8 austriaklafter * 200 austriaklafter	\N
+liechtensteinsquareklafter	3.59665200000000018 m^2	\N	3.596652 m^2	\N
+liechtensteinklafter	1.89648411540935413 m	\N	sqrt(liechtensteinsquareklafter)	\N
+prussiawoodklafter	3.32233599999999951 m^3	\N	0.5 prussiaklafter^3	\N
+austriawoodklafter	3.41049520750045154 m^3	\N	0.5 austriaklafter^3	\N
+festmeter	1 m^3	\N	m^3	\N
+raummeter	0.699999999999999956 m^3	\N	0.7 festmeter	\N
+schuettraummeter	0.45499999999999996 m^3	\N	0.65 raummeter	\N
+schüttraummeter	0.45499999999999996 m^3	\N	schuettraummeter	\N
 verklinje	0.00206181249999999984 m	\N	2.0618125 mm	\N
 verktum	0.0247417499999999999 m	\N	12 verklinje	\N
 kvarter	0.148450499999999985 m	\N	6 verktum	\N
@@ -2148,16 +2698,18 @@ teaspoon	4.92892159375000132e-06 m^3	\N	usteaspoon	\N
 pony	2.95735295625000113e-05 m^3	\N	ponyvolume	\N
 firkin	0.0340687060560000143 m^3	\N	usfirkin	\N
 hogshead	0.2384809423920001 m^3	\N	ushogshead	\N
+ℯ	2.71828182845904509	\N	exp(1)	\N
 ångström	1.00000000000000004e-10 m	\N	angstrom	\N
 Å	1.00000000000000004e-10 m	\N	angstrom	\N
 Å	1.00000000000000004e-10 m	\N	angstrom	\N
 röntgen	0.000257999999999999983 s*A/kg	\N	roentgen	\N
-°C	1 K	273.149999999999977	degC	\N
-°F	0.55555555555555558 K	255.372222222222234	degF	\N
+°C	1 K	273.15	degC	\N
+°F	0.55555555555555558 K	255.37222222222223	degF	\N
 °K	1 K	\N	K	\N
 °R	0.55555555555555558 K	\N	degR	\N
-℃	1 K	273.149999999999977	degC	\N
-℉	0.55555555555555558 K	255.372222222222234	degF	\N
+°	0.0174532925199432955	\N	degree	\N
+℃	1 K	273.15	degC	\N
+℉	0.55555555555555558 K	255.37222222222223	degF	\N
 K	1 K	\N	K	\N
 ℓ	0.00100000000000000024 m^3	\N	liter	\N
 Ω	1 m^2*kg/s^3*A^2	\N	ohm	\N
@@ -2167,15 +2719,17 @@ röntgen	0.000257999999999999983 s*A/kg	\N	roentgen	\N
 ℈	0.0012959782 kg	\N	scruple	\N
 ℥	0.0283495231250000014 kg	\N	ounce	\N
 ℔	0.453592370000000022 kg	\N	lb	\N
-ℎ	6.62607003945499709e-34 m^2*kg/s	\N	hplanck	\N
-ℏ	1.05457180005237273e-34 m^2*kg/s	\N	hbar	\N
+ℎ	6.62607014999999983e-34 m^2*kg/s	\N	h	\N
+ℏ	1.05457181764615647e-34 m^2*kg/s	\N	hbar	\N
 ‰	0.00100000000000000002	\N	1|1000	\N
 ‱	0.000100000000000000005	\N	1|10000	\N
+′	0.00029088820866572158	\N	'	\N
+″	4.84813681109535984e-06	\N	"	\N
 ㍱	100 kg/m*s^2	\N	hPa	\N
 ㍲	86400 s	\N	da	\N
 ㍳	149597870700 m	\N	au	\N
 ㍴	100000 kg/m*s^2	\N	bar	\N
-㍶	30856775814671944 m	\N	pc	\N
+㍶	30856775814671916 m	\N	pc	\N
 ㎀	9.9999999999999998e-13 A	\N	pA	\N
 ㎁	1.00000000000000006e-09 A	\N	nA	\N
 ㎂	9.99999999999999955e-07 A	\N	µA	\N
@@ -2271,12 +2825,8 @@ VELOCITY	1 m/s	\N	LENGTH / TIME	\N
 ACCELERATION	1 m/s^2	\N	VELOCITY / TIME	\N
 VISCOSITY	1 kg/m*s	\N	FORCE TIME / AREA	\N
 KINEMATIC_VISCOSITY	1 m^2/s	\N	VISCOSITY / DENSITY	\N
-E_FIELD	1 m*kg/s^3*A	\N	ELECTRIC_POTENTIAL / LENGTH	\N
-D_FIELD	0.999999999999999889 s*A/m^2	\N	E_FIELD epsilon0 (c/(m/s))^2 4 pi 1e-7	\N
-H_FIELD	633257397764.611084 A/m	\N	B_FIELD / mu0 * 4 pi 1e-7	\N
-E_FLUX	1 m^3*kg/s^3*A	\N	E_FIELD AREA	\N
-D_FLUX	0.999999999999999889 s*A	\N	D_FIELD AREA	\N
-H_FLUX	633257397764.611084 m*A	\N	H_FIELD AREA	\N
+ELECTRIC_POTENTIAL	1 m^2*kg/s^3*A	\N	ENERGY / CHARGE	\N
+VOLTAGE	1 m^2*kg/s^3*A	\N	ELECTRIC_POTENTIAL	\N
 xunit	1.00207697000000001e-13 m	\N	xunit_cu	\N
 siegbahn	1.00207697000000001e-13 m	\N	xunit	\N
 shake	1.00000000000000002e-08 s	\N	1e-8 sec	\N
@@ -2287,55 +2837,46 @@ solarirradiance	1361.16369462234866 kg/s^3	\N	solarluminosity / (4 pi sundist^2)
 solarconstant	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
 TSI	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
 cron	31556925974678.4023 s	\N	1e6 years	\N
-circle	6.28318530717958623	\N	2 pi radian	\N
-degree	0.0174532925199432955	\N	1|360 circle	\N
-deg	0.0174532925199432955	\N	degree	\N
-arcdeg	0.0174532925199432955	\N	degree	\N
-arcmin	0.00029088820866572158	\N	1|60 degree	\N
-arcminute	0.00029088820866572158	\N	arcmin	\N
-'	0.00029088820866572158	\N	arcmin	\N
-arcsec	4.84813681109535984e-06	\N	1|60 arcmin	\N
-arcsecond	4.84813681109535984e-06	\N	arcsec	\N
-"	4.84813681109535984e-06	\N	arcsec	\N
-''	4.84813681109535984e-06	\N	"	\N
-rightangle	1.57079632679489656	\N	90 degrees	\N
-quadrant	1.57079632679489656	\N	1|4 circle	\N
-quintant	1.25663706143591725	\N	1|5 circle	\N
-sextant	1.04719755119659763	\N	1|6 circle	\N
-sign	0.523598775598298816	\N	1|12 circle	\N
-turn	6.28318530717958623	\N	circle	\N
-revolution	6.28318530717958623	\N	turn	\N
-rev	6.28318530717958623	\N	turn	\N
-gon	0.015707963267948967	\N	1|100 rightangle	\N
-grade	0.015707963267948967	\N	gon	\N
-centesimalminute	0.000157079632679489682	\N	1|100 grade	\N
-centesimalsecond	1.57079632679489688e-06	\N	1|100 centesimalminute	\N
-milangle	0.000981747704246810435	\N	1|6400 circle	\N
-pointangle	0.19634954084936207	\N	1|32 circle	\N
-mas	4.84813681109536025e-09	\N	milliarcsec	\N
-seclongitude	7.27220521664303951e-05	\N	circle (seconds/day)	\N
-sphere	12.5663706143591725	\N	4 pi sr	\N
-squaredegree	0.000304617419786708569	\N	1|180^2 pi^2 sr	\N
-squareminute	8.46159499407523867e-08	\N	1|60^2 squaredegree	\N
-squaresecond	2.35044305390978853e-11	\N	1|60^2 squareminute	\N
-squarearcmin	8.46159499407523867e-08	\N	squareminute	\N
-squarearcsec	2.35044305390978853e-11	\N	squaresecond	\N
-sphericalrightangle	1.57079632679489656	\N	0.5 pi sr	\N
-octant	1.57079632679489656	\N	0.5 pi sr	\N
-gasconstant	8.3144598635874285 m^2*kg/s^2*K*mol	\N	k N_A	\N
-R	8.3144598635874285 m^2*kg/s^2*K*mol	\N	gasconstant	\N
-molarvolume	0.0224139621193082256 m^3	\N	mol R stdtemp / atm	\N
-loschmidt	2.68678104589168735e+25 m^-3	\N	avogadro mol / molarvolume	\N
-electronradius	2.81794032333921876e-15 m	\N	coulombconst e^2 / electronmass c^2	\N
+mu0_SI	1.25663706212383764e-06	\N	2 alpha h_SI / e_SI^2 c_SI	\N
+mu0	1.25663706212383764e-06 m*kg/s^2*A^2	\N	2 alpha h / e^2 c	\N
+epsilon0_SI	8.85418781277334503e-12	\N	1/mu0_SI c_SI^2	\N
+epsilon0	8.85418781277334503e-12 s^4*A^2/m^3*kg	\N	1/mu0 c^2	\N
+Z0	376.730313668003987 m^2*kg/s^3*A^2	\N	mu0 c	\N
+coulombconst	8987551792.28822899 m^3*kg/s^4*A^2	\N	1/4 pi epsilon0	\N
+k_C	8987551792.28822899 m^3*kg/s^4*A^2	\N	coulombconst	\N
+molarvolume	0.0224139695450141369 m^3	\N	mol R stdtemp / atm	\N
+loschmidt	2.68678011179844392e+25 m^-3	\N	avogadro mol / molarvolume	\N
+Rinfinity	10973731.5681905393 m^-1	\N	m_e c alpha^2 / 2 h	\N
+bohrradius	5.29177210901989852e-11 m	\N	alpha / 4 pi Rinfinity	\N
+prout	2.97203765606999975e-14 m^2*kg/s^2	\N	185.5 keV	\N
+electronradius	2.81794032620008515e-15 m	\N	coulombconst e^2 / electronmass c^2	\N
+electronmass_SI	9.10938370154308021e-31	\N	electronmass_u atomicmassunit_SI	\N
+fermicoupling	454379566261215.938 s^4/m^4*kg^2	\N	1.1663787e-5 / GeV^2	\N
 lightyear	9460730472580800 m	\N	c julianyear	\N
 ly	9460730472580800 m	\N	lightyear	\N
-amagatvolume	0.0224139621193082256 m^3	\N	molarvolume	\N
-amagat	44.6150481863517854 mol/m^3	\N	mol/amagatvolume	\N
-kcal_mol	6.94769534335999871e-21 m^2*kg/s^2	\N	kcal_th / mol N_A	\N
+rydberg	2.17987236110965134e-18 m^2*kg/s^2	\N	h c Rinfinity	\N
+amagatvolume	0.0224139695450141369 m^3	\N	molarvolume	\N
+amagat	44.6150334054703137 mol/m^3	\N	mol/amagatvolume	\N
+kcal_mol	6.94769545705537413e-21 m^2*kg/s^2	\N	kcal_th / mol N_A	\N
 abfarad	1000000000 s^4*A^2/m^2*kg	\N	abampere sec / abvolt	\N
 abF	1000000000 s^4*A^2/m^2*kg	\N	abfarad	\N
 abhenry	1.00000000000000006e-09 m^2*kg/s^2*A^2	\N	abvolt sec / abamp	\N
 abH	1.00000000000000006e-09 m^2*kg/s^2*A^2	\N	abhenry	\N
+oersted	79.5774715023845971 A/m	\N	gauss / mu0	\N
+Oe	79.5774715023845971 A/m	\N	oersted	\N
+gilbert	0.795774715023846002 A	\N	gauss cm / mu0	\N
+Gb	0.795774715023846002 A	\N	gilbert	\N
+Gi	0.795774715023846002 A	\N	gilbert	\N
+planckcharge	5.29081768988981784e-19 s*A	\N	sqrt(epsilon0 hbar c)	\N
+planckcurrent	9.81371885075815513e+24 A	\N	planckcharge / plancktime	\N
+planckvolt	3.69712538089572486e+27 m^2*kg/s^3*A	\N	planckenergy / planckcharge	\N
+planckEfield	2.2874641223243699e+62 m*kg/s^3*A	\N	planckvolt / plancklength	\N
+planckBfield	7.63015900261363448e+53 kg/s^2*A	\N	planckvolt plancktime / plancklength^2	\N
+planckcharge_red	5.29081768988981784e-19 s*A	\N	sqrt(epsilon0 hbar c)	\N
+planckcurrent_red	1.95755368876999299e+24 A	\N	planckcharge_red / plancktime_red	\N
+planckvolt_red	7.37469815192277718e+26 m^2*kg/s^3*A	\N	planckenergy_red / planckcharge_red	\N
+planckEfield_red	9.10153055533218475e+60 m*kg/s^3*A	\N	planckvolt_red / plancklength_red	\N
+planckBfield_red	3.03594380460771469e+52 kg/s^2*A	\N	planckvolt_red plancktime_red / plancklength_red^2	\N
 ouncecopper	3.43252786584860234e-05 m	\N	oz / ft^2 copperdensity	\N
 ozcu	3.43252786584860234e-05 m	\N	ouncecopper	\N
 LUMINOUS_FLUX	1 cd	\N	lumen	\N
@@ -2345,6 +2886,19 @@ EXITANCE	1 cd/m^2	\N	lux	\N
 skot	0.000318309886183790701 cd/m^2	\N	1e-3 apostilb	\N
 LUMINANCE	1 cd/m^2	\N	nit	\N
 saros	568971744.399999976 s	\N	223 synodicmonth	\N
+hartree	4.35974472221930268e-18 m^2*kg/s^2	\N	2 rydberg	\N
+atomicenergy	4.35974472221930268e-18 m^2*kg/s^2	\N	hartree	\N
+atomicvelocity	2187691.26364306221 m/s	\N	sqrt(atomicenergy / atomicmass)	\N
+atomictime	2.41888432657894882e-17 s	\N	atomicaction / atomicenergy	\N
+atomiclength	5.29177210901989787e-11 m	\N	atomicvelocity atomictime	\N
+atomicforce	8.23872349829286471e-08 m*kg/s^2	\N	atomicenergy / atomiclength	\N
+atomicmomentum	1.99285191410382994e-24 m*kg/s	\N	atomicenergy / atomicvelocity	\N
+atomiccurrent	0.0066236182375284296 A	\N	atomiccharge / atomictime	\N
+atomicpotential	27.2113862460641975 m^2*kg/s^3*A	\N	atomicenergy / atomiccharge	\N
+atomicvolt	27.2113862460641975 m^2*kg/s^3*A	\N	atomicpotential	\N
+atomicEfield	514220674765.68042 m*kg/s^3*A	\N	atomicpotential / atomiclength	\N
+atomicBfield	235051.756759028358 kg/s^2*A	\N	atomicvolt atomictime / atomiclength^2	\N
+atomictemperature	315775.024804950575 K	\N	atomicenergy / boltzmann	\N
 intacrefoot	1233.48183754752017 m^3	\N	acre foot	\N
 acrefoot	1233.48183754752017 m^3	\N	intacrefoot	\N
 geographicalmile	1853.1840000000002 m	\N	brnauticalmile	\N
@@ -2394,6 +2948,58 @@ tblsp	1.47867647812500057e-05 m^3	\N	tablespoon	\N
 Tb	1.47867647812500057e-05 m^3	\N	tablespoon	\N
 tsp	4.92892159375000132e-06 m^3	\N	teaspoon	\N
 saltspoon	1.23223039843750033e-06 m^3	\N	1|4 tsp	\N
+wood_mod_beech	11858982544.2495785 kg/m*s^2	\N	1.720e6 lbf/in^2	\N
+wood_mod_birchyellow	13858462159.2684021 kg/m*s^2	\N	2.010e6 lbf/in^2	\N
+wood_mod_birch	13858462159.2684021 kg/m*s^2	\N	wood_mod_birchyellow	\N
+wood_mod_cherry	10273188366.8208561 kg/m*s^2	\N	1.490e6 lbf/in^2	\N
+wood_mod_hardmaple	12617405846.4980984 kg/m*s^2	\N	1.830e6 lbf/in^2	\N
+wood_mod_bigleafmaple	9997398075.09412193 kg/m*s^2	\N	1.450e6 lbf/in^2	\N
+wood_mod_boxeldermaple	7239495157.82677841 kg/m*s^2	\N	1.050e6 lbf/in^2	\N
+wood_mod_redmaple	11307401960.7961102 kg/m*s^2	\N	1.640e6 lbf/in^2	\N
+wood_mod_silvermaple	7860023314.21193027 kg/m*s^2	\N	1.140e6 lbf/in^2	\N
+wood_mod_softmaple	9101079626.98223495 kg/m*s^2	\N	(wood_mod_bigleafmaple + wood_mod_boxeldermaple + wood_mod_redmaple + wood_mod_silvermaple) / 4	\N
+wood_mod_redoak	12141667593.2694817 kg/m*s^2	\N	1.761e6 lbf/in^2	\N
+wood_mod_whiteoak	12148562350.5626507 kg/m*s^2	\N	1.762e6 lbf/in^2	\N
+wood_mod_poplar	10893716523.206007 kg/m*s^2	\N	1.580e6 lbf/in^2	\N
+wood_mod_blackwalnut	11583192252.5228443 kg/m*s^2	\N	1.680e6 lbf/in^2	\N
+wood_mod_walnut	11583192252.5228443 kg/m*s^2	\N	wood_mod_blackwalnut	\N
+wood_mod_jeffreypine	8549499043.52876663 kg/m*s^2	\N	1.240e6 lbf/in^2	\N
+wood_mod_ocotepine	15230518860.6089077 kg/m*s^2	\N	2.209e6 lbf/in^2	\N
+wood_mod_ponderosapine	8894236908.18718338 kg/m*s^2	\N	1.290e6 lbf/in^2	\N
+wood_mod_loblollypine	12341615554.7713642 kg/m*s^2	\N	1.790e6 lbf/in^2	\N
+wood_mod_longleafpine	13651619440.4733524 kg/m*s^2	\N	1.980e6 lbf/in^2	\N
+wood_mod_shortleafpine	12065825263.0446281 kg/m*s^2	\N	1.750e6 lbf/in^2	\N
+wood_mod_slashpine	13651619440.4733524 kg/m*s^2	\N	1.980e6 lbf/in^2	\N
+wood_mod_yellowpine	12927669924.6906738 kg/m*s^2	\N	(wood_mod_loblollypine + wood_mod_longleafpine + wood_mod_shortleafpine + wood_mod_slashpine) / 4	\N
+wood_mod_redpine	11238454387.8644257 kg/m*s^2	\N	1.630e6 lbf/in^2	\N
+wood_mod_easternwhitepine	8549499043.52876663 kg/m*s^2	\N	1.240e6 lbf/in^2	\N
+wood_mod_westernwhitepine	10066345648.0258045 kg/m*s^2	\N	1.460e6 lbf/in^2	\N
+wood_mod_whitepine	9307922345.77728653 kg/m*s^2	\N	(wood_mod_easternwhitepine + wood_mod_westernwhitepine) / 2	\N
+wood_mod_douglasfir	12169246622.4421558 kg/m*s^2	\N	1.765e6  lbf/in^2	\N
+wood_mod_blackspruce	10500715357.4954109 kg/m*s^2	\N	1.523e6 lbf/in^2	\N
+wood_mod_englemannspruce	9438922734.34748459 kg/m*s^2	\N	1.369e6 lbf/in^2	\N
+wood_mod_redspruce	10755821377.3426418 kg/m*s^2	\N	1.560e6 lbf/in^2	\N
+wood_mod_sitkaspruce	11031611669.069376 kg/m*s^2	\N	1.600e6 lbf/in^2	\N
+wood_mod_whitespruce	9066605840.51639366 kg/m*s^2	\N	1.315e6 lbf/in^2	\N
+wood_mod_spruce	10158735395.754261 kg/m*s^2	\N	(wood_mod_blackspruce + wood_mod_englemannspruce + wood_mod_redspruce + wood_mod_sitkaspruce + wood_mod_whitespruce) / 5	\N
+wood_mod_balsa	3709379423.7245779 kg/m*s^2	\N	0.538e6 lbf/in^2	\N
+wood_mod_basswood	10066345648.0258045 kg/m*s^2	\N	1.460e6 lbf/in^2	\N
+wood_mod_blackwood	17947053234.1172409 kg/m*s^2	\N	2.603e6 lbf/in^2	\N
+wood_mod_bubinga	18409001972.7595215 kg/m*s^2	\N	2.670e6 lbf/in^2	\N
+wood_mod_cocobolo	18698581779.0725937 kg/m*s^2	\N	2.712e6 lbf/in^2	\N
+wood_mod_ebony_gaboon	16885260610.9693127 kg/m*s^2	\N	2.449e6 lbf/in^2	\N
+wood_mod_ebony_macassar	17340314592.3184242 kg/m*s^2	\N	2.515e6 lbf/in^2	\N
+wood_mod_blackironwood	20449850131.5373535 kg/m*s^2	\N	2.966e6 lbf/in^2	\N
+wood_mod_koa	10362820211.6320457 kg/m*s^2	\N	1.503e6 lbf/in^2	\N
+wood_mod_lignumvitae	14085989149.9429588 kg/m*s^2	\N	2.043e6 lbf/in^2	\N
+wood_mod_mahogany	10052556133.4394684 kg/m*s^2	\N	1.458e6 lbf/in^2	\N
+wood_mod_rosewood_brazilian	13927409732.2000847 kg/m*s^2	\N	2.020e6 lbf/in^2	\N
+wood_mod_rosewood_honduran	21994275765.2070694 kg/m*s^2	\N	3.190e6 lbf/in^2	\N
+wood_mod_rosewood_indian	11500455165.0048256 kg/m*s^2	\N	1.668e6 lbf/in^2	\N
+wood_mod_snakewood	23193963534.2183609 kg/m*s^2	\N	3.364e6 lbf/in^2	\N
+wood_mod_teak	12279562739.1328487 kg/m*s^2	\N	1.781e6 lbf/in^2	\N
+wood_mod_zebrawood	16368153813.9816875 kg/m*s^2	\N	2.374e6 lbf/in^2	\N
+area_us	9833516900000 m^2	\N	area_unitedstates	\N
 slug	14.5939029372063622 kg	\N	lbf s^2 / ft	\N
 slugf	143.117298239154763 m*kg/s^2	\N	slug force	\N
 slinch	175.126835246476361 kg	\N	lbf s^2 / inch	\N
@@ -2431,9 +3037,8 @@ majorsecond	1.125	\N	musicalfifth^2 / octave	\N
 pythagoreanthird	1.265625	\N	majorsecond musicalfifth^2 / octave	\N
 syntoniccomma	1.01249999999999996	\N	pythagoreanthird / majorthird	\N
 denier	1.11111111111111096e-07 kg/m	\N	1|9 tex	\N
-rpm	0.104719755119659766 s^-1	\N	rev/min	\N
-rps	6.28318530717958623 s^-1	\N	rev/sec	\N
 mbh	293.071070172222278 m^2*kg/s^3	\N	1e3 btu/hour	\N
+oe	79.5774715023845971 A/m	\N	Oe	\N
 hd	0.2384809423920001 m^3	\N	hogshead	\N
 RADIATION_DOSE	1 m^2/s^2	\N	gray	\N
 Denz	999.972000783977819 kg/m^3	\N	Maz/Volm	\N
@@ -2444,6 +3049,10 @@ gou_volume	0.000180390683696468905 m^3	\N	1|10 shou	\N
 gou	0.000180390683696468905 m^3	\N	gou_volume	\N
 bu_weight	0.000375000000000000008 kg	\N	1|10 monme	\N
 fun	0.000375000000000000008 kg	\N	1|10 monme	\N
+switzerlandklafter	1.80000000000000004 m	\N	metricklafter	\N
+switzerlandfoot	0.299999999999999989 m	\N	1|6 switzerlandklafter	\N
+swissklafter	1.80000000000000004 m	\N	switzerlandklafter	\N
+swissfoot	0.299999999999999989 m	\N	1|6 swissklafter	\N
 dessiatine	10925.3975040000041 m^2	\N	2400 sazhen^2	\N
 dessjatine	10925.3975040000041 m^2	\N	dessiatine	\N
 scotsinch	0.025537129310809481 m	\N	1.00540054 UKinch	\N
@@ -2519,11 +3128,14 @@ irishquarter	0.224645811086291197 m^3	\N	2 irishbarrel	\N
 ton	907.184740000000033 kg	\N	uston	\N
 quarter	226.796185000000008 kg	\N	quarterweight	\N
 minim	6.16115199218750165e-08 m^3	\N	minimvolume	\N
-°	0.0174532925199432955	\N	degree	\N
-′	0.00029088820866572158	\N	'	\N
-″	4.84813681109535984e-06	\N	"	\N
 ㎈	4.18400000000000016 m^2*kg/s^2	\N	cal	\N
 ㎉	4184 m^2*kg/s^2	\N	kcal	\N
+E_FIELD	1 m*kg/s^3*A	\N	ELECTRIC_POTENTIAL / LENGTH	\N
+D_FIELD	1 s*A/m^2	\N	E_FIELD epsilon0 / epsilon0_SI	\N
+H_FIELD	1 A/m	\N	B_FIELD / (mu0/mu0_SI)	\N
+E_FLUX	1 m^3*kg/s^3*A	\N	E_FIELD AREA	\N
+D_FLUX	1 s*A	\N	D_FIELD AREA	\N
+H_FLUX	1 m*A	\N	H_FIELD AREA	\N
 assayton	0.0291666666666666637 kg	\N	mg ton / troyounce	\N
 brpint	0.00056826125000000022 m^3	\N	1|2 brquart	\N
 imperialpint	0.00056826125000000022 m^3	\N	brpint	\N
@@ -2540,6 +3152,7 @@ fatman	87864000000000 m^2*kg/s^2	\N	nagasaki	\N
 littleboy	64852000000000 m^2*kg/s^2	\N	hiroshima	\N
 ivyking	2092000000000000 m^2*kg/s^2	\N	500 kiloton tnt	\N
 castlebravo	62760000000000000 m^2*kg/s^2	\N	15 megaton tnt	\N
+tsarbomba	209200000000000000 m^2*kg/s^2	\N	50 megaton tnt	\N
 b53bomb	37656000000000000 m^2*kg/s^2	\N	9 megaton tnt	\N
 trinity	75312000000000 m^2*kg/s^2	\N	18 kiloton tnt	\N
 gadget	75312000000000 m^2*kg/s^2	\N	trinity	\N

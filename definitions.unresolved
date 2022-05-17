@@ -1,0 +1,143 @@
+MONEY	US$
+normaltemp	tempF(70)
+normtemp	normaltemp
+sqrt_cm	sqrt_cm
+sqrt_centimeter	sqrt_cm
+sqrt_g	sqrt_g
+sqrt_gram	sqrt_g
+S10	SB_degree(10)
+buck	US$
+fin	5 US$
+sawbuck	10 US$
+usgrand	1000 US$
+greenback	US$
+count	per pound
+diamond_natural_thermal_conductivity	2200 W / m K
+diamond_synthetic_thermal_conductivity	3320 W / m K
+stainless_304_thermal_conductivity	15.5 W / m K
+ipv4classA	ipv4subnetsize(8)
+ipv4classB	ipv4subnetsize(16)
+ipv4classC	ipv4subnetsize(24)
+semitone	octave^(1|12)
+wholenote	wholenote
+MUSICAL_NOTE_LENGTH	wholenote
+halfnote	1|2 wholenote
+quarternote	1|4 wholenote
+eighthnote	1|8 wholenote
+sixteenthnote	1|16 wholenote
+thirtysecondnote	1|32 wholenote
+sixtyfourthnote	1|64 wholenote
+breve	doublewholenote
+semibreve	wholenote
+minimnote	halfnote
+crotchet	quarternote
+quaver	eighthnote
+semiquaver	sixteenthnote
+demisemiquaver	thirtysecondnote
+hemidemisemiquaver	sixtyfourthnote
+semidemisemiquaver	hemidemisemiquaver
+unitedstatesdollar	US$
+usdollar	US$
+$	dollar
+mark	germanymark
+peseta	spainpeseta
+rand	southafricarand
+escudo	portugalescudo
+guilder	netherlandsguilder
+hollandguilder	netherlandsguilder
+peso	mexicopeso
+yen	japanyen
+lira	italylira
+rupee	indiarupee
+drachma	greecedrachma
+franc	francefranc
+markka	finlandmarkka
+britainpound	unitedkingdompound
+greatbritainpound	unitedkingdompound
+unitedkingdompound	ukpound
+poundsterling	britainpound
+yuan	chinayuan
+icelandkróna	icelandkrona
+polandzłoty	polandzloty
+tongapa’anga	tongapa'anga
+vietnamđồng	vietnamdong
+mongoliatögrög	mongoliatugrik
+sãotomé&príncipedobra	saotome&principedobra
+UKP	GBP
+olddollargold	23.22 grains goldprice
+newdollargold	96|7 grains goldprice
+dollargold	newdollargold
+poundgold	113 grains goldprice
+goldounce	goldprice troyounce
+silverounce	silverprice troyounce
+platinumounce	platinumprice troyounce
+XAU	goldounce
+XPT	platinumounce
+XAG	silverounce
+USdimeweight	US$ 0.10 / (20 US$ / lb)
+USquarterweight	US$ 0.25 / (20 US$ / lb)
+UShalfdollarweight	US$ 0.50 / (20 US$ / lb)
+quid	britainpound
+fiver	5 quid
+tenner	10 quid
+monkey	500 quid
+brgrand	1000 quid
+bob	shilling
+shilling	1|20 britainpound
+oldpence	1|12 shilling
+farthing	1|4 oldpence
+guinea	21 shilling
+crown	5 shilling
+florin	2 shilling
+groat	4 oldpence
+tanner	6 oldpence
+brpenny	0.01 britainpound
+pence	brpenny
+tuppence	2 pence
+tuppenny	tuppence
+ha'penny	halfbrpenny
+hapenny	ha'penny
+oldpenny	oldpence
+oldtuppence	2 oldpence
+oldtuppenny	oldtuppence
+threepence	3 oldpence
+threepenny	threepence
+oldthreepence	threepence
+oldthreepenny	threepence
+oldhalfpenny	halfoldpenny
+oldha'penny	oldhalfpenny
+oldhapenny	oldha'penny
+brpony	25 britainpound
+loony	1 canadadollar
+toony	2 canadadollar
+satoshi	1e-8 bitcoin
+XBT	bitcoin
+percapita	per capita
+dollar	US$
+cent	$ 0.01
+penny	cent
+grand	usgrand
+¢	cent
+£	britainpound
+¥	japanyen
+€	euro
+₩	southkoreawon
+₪	israelnewshekel
+₤	lira
+₨	rupee
+฿	thailandbaht
+₡	elsalvadorcolon
+₣	francefranc
+₦	nigerianaira
+₧	spainpeseta
+₫	vietnamdong
+₭	laokip
+₮	mongoliatugrik
+₯	greecedrachma
+₱	philippinepeso
+﷼	iranrial
+﹩	$
+￠	¢
+￡	£
+￥	¥
+￦	₩
