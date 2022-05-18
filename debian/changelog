@@ -1,9 +1,12 @@
-postgresql-unit (7.5-1) UNRELEASED; urgency=medium
+postgresql-unit (7.5-1) unstable; urgency=medium
 
   * Use "create" without "or replace" in extension sql scripts.
     Fixes security issue spotted by Sven Klemm, thanks!
+  * Update definitions.units to September 2020 Version 3.09 from GNU units.
+  * Breaking change: 'h' is the Planck constant now; use 'hr' for hours.
+  * Implement functions in input language: sqrt exp ln log2 asin tan.
 
- -- Christoph Berg <myon@debian.org>  Mon, 16 May 2022 15:40:32 +0200
+ -- Christoph Berg <myon@debian.org>  Wed, 18 May 2022 16:11:56 +0200
 
 postgresql-unit (7.4-2) unstable; urgency=medium
 

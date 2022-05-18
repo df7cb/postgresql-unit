@@ -1,0 +1,7 @@
+postgresql-unit (7.5-1) unstable; urgency=medium
+
+  In previous postgresql-unit versions, 'h' used to mean "hour". To mirror the
+  behavior of GNU units, where we get the unit definitions from, 'h' has been
+  changed to mean the Planck constant. Use 'hr' or 'hour' for hours.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 18 May 2022 16:09:19 +0200
