@@ -161,6 +161,7 @@ pi	3.14159265358979312	\N	3.14159265358979323846	\N
 π	3.14159265358979312	\N	pi	\N
 astronomicalunit	149597870700 m	\N	149597870700 m	\N
 au	149597870700 m	\N	astronomicalunit	\N
+m2	1 m^2	\N	m^2	\N
 newton	1 m*kg/s^2	\N	kg m / s^2	\N
 N	1 m*kg/s^2	\N	newton	\N
 pascal	1 kg/m*s^2	\N	N/m^2	\N
@@ -420,9 +421,11 @@ H2O50C	9689.65666549999878 kg/m^2*s^2	\N	0.98807 force gram / cm^3	\N
 H2O100C	9398.49722699999984 kg/m^2*s^2	\N	0.95838 force gram / cm^3	\N
 inch	0.0254000000000000024 m	\N	2.54 cm	\N
 in	0.0254000000000000024 m	\N	inch	\N
+inches	0.0254000000000000024 m	\N	inch	\N
 foot	0.304800000000000015 m	\N	12 inch	\N
 feet	0.304800000000000015 m	\N	foot	\N
 ft	0.304800000000000015 m	\N	foot	\N
+ft3	0.0283168465920000043 m^3	\N	ft^3	\N
 R_H	10967760 m^-1	\N	10967760 /m	\N
 alpha	0.00729735256930000038	\N	7.2973525693e-3	\N
 conductancequantum	7.74809172986364871e-05 s^3*A^2/m^2*kg	\N	2 e^2 / h	\N
@@ -656,12 +659,12 @@ skylum_o	2000 cd/m^2	\N	2000 cd/m^2	\N
 moonlum	2500 cd/m^2	\N	2500 cd/m^2	\N
 s100	100 m^2/s*cd	\N	100 / lx s	\N
 iso100	100 m^2/s*cd	\N	s100	\N
-k1250	12.5 s^-1	\N	12.5 (cd/m^2) / lx s	\N
-k1400	14 s^-1	\N	14   (cd/m^2) / lx s	\N
+k1250	12.5 s^-1	\N	12.5 (cd/m2) / lx s	\N
+k1400	14 s^-1	\N	14   (cd/m2) / lx s	\N
 c250	250 s^-1	\N	250 lx / lx s	\N
 N_exif	0.320000000000000007 s*cd/m^2	\N	1|3.125 lx s	\N
-K_apex1961	11.4000000000000004 s^-1	\N	11.4 (cd/m^2) / lx s	\N
-K_apex1971	12.5 s^-1	\N	12.5 (cd/m^2) / lx s	\N
+K_apex1961	11.4000000000000004 s^-1	\N	11.4 (cd/m2) / lx s	\N
+K_apex1971	12.5 s^-1	\N	12.5 (cd/m2) / lx s	\N
 C_apex1961	224 s^-1	\N	224 lx / lx s	\N
 C_apex1971	322 s^-1	\N	322 lx / lx s	\N
 N_speed	0.320000000000000007 s*cd/m^2	\N	N_exif	\N
@@ -1814,7 +1817,7 @@ Q	0.000250000000000000005 m	\N	1|4 mm	\N
 didotpoint	0.000376064999999999971 m	\N	germandidotpoint	\N
 europeanpoint	0.000376064999999999971 m	\N	didotpoint	\N
 cicero	0.00451277999999999922 m	\N	12 didotpoint	\N
-stick	0.0508000000000000049 m	\N	2 in	\N
+stick	0.0508000000000000049 m	\N	2 inches	\N
 excelsior	0.00105437941054379409 m	\N	3 oldpoint	\N
 brilliant	0.00123010931230109325 m	\N	3.5 oldpoint	\N
 diamondtype	0.0014058392140583922 m	\N	4 oldpoint	\N
@@ -1935,7 +1938,7 @@ boardfoot	0.00235973721600000021 m^3	\N	ft^2 inch	\N
 boardfeet	0.00235973721600000021 m^3	\N	boardfoot	\N
 fbm	0.00235973721600000021 m^3	\N	boardfoot	\N
 stack	3.05821943193600099 m^3	\N	4 yard^3	\N
-rick	1.20818545459200033 m^3	\N	4 ft 8 ft 16 in	\N
+rick	1.20818545459200033 m^3	\N	4 ft 8 ft 16 inches	\N
 stere	1 m^3	\N	m^3	\N
 timberfoot	0.0283168465920000043 m^3	\N	ft^3	\N
 standard	4.67227968768000146 m^3	\N	120 12 ft 11 in 1.5 in	\N
@@ -3014,8 +3017,8 @@ quad	1.05505585262000026e+18 m^2*kg/s^2	\N	quadrillion btu	\N
 specificheat_water	4184 m^2/s^2*K	\N	calorie / g K	\N
 water_specificheat	4184 m^2/s^2*K	\N	specificheat_water	\N
 barreloil	6119323945.19600105 m^2*kg/s^2	\N	5.8 Mbtu	\N
-naturalgas_HHV	38264937.344642736 kg/m*s^2	\N	1027 btu/ft^3	\N
-naturalgas_LHV	34650819.6012830958 kg/m*s^2	\N	930 btu/ft^3	\N
+naturalgas_HHV	38264937.344642736 kg/m*s^2	\N	1027 btu/ft3	\N
+naturalgas_LHV	34650819.6012830958 kg/m*s^2	\N	930 btu/ft3	\N
 naturalgas	38264937.344642736 kg/m*s^2	\N	naturalgas_HHV	\N
 coal_US	24250848.8403365314 m^2/s^2	\N	22 GJ / uston	\N
 ethanol_HHV	23412166674.8845291 kg/m*s^2	\N	84000 btu/usgallon	\N

@@ -688,6 +688,7 @@ pi                      3.14159265358979323846
 π                       pi
 astronomicalunit        149597870700 m # IAU definition from 2012, exact
 au                      astronomicalunit # ephemeris for the above described
+m2                      m^2
 
 
 #############################################################################
@@ -1327,9 +1328,11 @@ H2O100C       0.95838 force gram / cm^3
 # moved because ft is used before being defined (and otherwise parsed as femtotonne)
 inch                    2.54 cm
 in                      inch
+inches                  inch
 foot                    12 inch
 feet                    foot
 ft                      foot
+ft3                     ft^3
 
 # Atomic constants
 
@@ -2113,8 +2116,8 @@ iso100                  s100
 
 # Reflected-light meter calibration constant with ISO 100 speed
 
-k1250                   12.5 (cd/m^2) / lx s   # For Canon, Nikon, and Sekonic
-k1400                   14   (cd/m^2) / lx s   # For Kenko (Minolta) and Pentax
+k1250                   12.5 (cd/m2) / lx s   # For Canon, Nikon, and Sekonic
+k1400                   14   (cd/m2) / lx s   # For Kenko (Minolta) and Pentax
 
 # Incident-light meter calibration constant with ISO 100 film
 
@@ -2168,8 +2171,8 @@ iv100(x) units=[1;lx] range=(0,) 2^x c250 / s100; log2(iv100 s100 / c250)
                                 # ASA PH2.12-1961, and ANSI PH2.7-1986
 #N_apex         0.3162 lx s     # value in ANSI PH2.7-1973
 N_exif          1|3.125 lx s    # value in Exif 2.3 (2010), making Sv(5) = 100
-K_apex1961      11.4 (cd/m^2) / lx s    # value in ASA PH2.12-1961
-K_apex1971      12.5 (cd/m^2) / lx s    # value in ANSI PH3.49-1971; more common
+K_apex1961      11.4 (cd/m2) / lx s    # value in ASA PH2.12-1961
+K_apex1971      12.5 (cd/m2) / lx s    # value in ANSI PH3.49-1971; more common
 C_apex1961      224 lx / lx s   # value in PH2.12-1961 (20.83 for I in 
                                 #   footcandles; flat sensor?)
 C_apex1971      322 lx / lx s   # mean value in PH3.49-1971 (30 +/- 5 for I in
@@ -4616,8 +4619,8 @@ toncoal                 7e9 cal_IT     # Energy in metric ton coal from [18].
                                        # of coal used in the 1950's
 barreloil               5.8 Mbtu       # Conventional value for barrel of crude
                                        # oil [E2].  Actual range is 5.6 - 6.3.
-naturalgas_HHV          1027 btu/ft^3  # Energy content of natural gas.  HHV
-naturalgas_LHV          930 btu/ft^3   # is for Higher Heating Value and
+naturalgas_HHV          1027 btu/ft3   # Energy content of natural gas.  HHV
+naturalgas_LHV          930 btu/ft3    # is for Higher Heating Value and
 naturalgas              naturalgas_HHV # includes energy from condensation
                                        # combustion products.  LHV is for Lower
                                        # Heating Value and excludes these.
@@ -5111,7 +5114,7 @@ didotpoint              germandidotpoint  # This seems to be the dominant value
 europeanpoint           didotpoint        # for the point used in Europe
 cicero                  12 didotpoint
 
-stick                   2 in
+stick                   2 inches
 
 # Type sizes
 
@@ -5544,7 +5547,7 @@ boardfoot               ft^2 inch    # Usually 1 inch thick wood
 boardfeet               boardfoot
 fbm                     boardfoot    # feet board measure
 stack                   4 yard^3     # British, used for firewood and coal [18]
-rick                    4 ft 8 ft 16 in # Stack of firewood, supposedly
+rick                    4 ft 8 ft 16 inches # Stack of firewood, supposedly
                                      #   sometimes called a face cord, but this
                                      #   value is equal to 1|3 cord.  Name
                                      #   comes from an old Norse word for a
@@ -7797,6 +7800,7 @@ hundredweight           ushundredweight
 ton                     uston
 scruple                 apscruple
 fluidounce              usfluidounce
+#gallon                  usgallon
 bushel                  usbushel
 quarter                 quarterweight
 cup                     uscup

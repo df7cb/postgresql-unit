@@ -1,5 +1,5 @@
 --- definitions.units	2022-05-17 15:32:26.767162879 +0200
-+++ definitions.units.patched	2022-05-17 17:01:46.803764124 +0200
++++ definitions.units.patched	2022-05-18 15:10:02.482372402 +0200
 @@ -227,7 +227,7 @@
                   # equator to a pole.
  
@@ -63,7 +63,7 @@
  n-                      nano
  p-                      pico
  f-                      femto
-@@ -676,6 +683,13 @@
+@@ -676,6 +683,14 @@
  padm                    1e15
  shankh                  1e17
  
@@ -72,12 +72,13 @@
 +π                       pi
 +astronomicalunit        149597870700 m # IAU definition from 2012, exact
 +au                      astronomicalunit # ephemeris for the above described
++m2                      m^2
 +
 +
  #############################################################################
  #                                                                           #
  # Derived units which can be reduced to the primitive units                 #
-@@ -945,7 +959,7 @@
+@@ -945,7 +960,7 @@
  pointangle              1|32 circle  # Used for reporting compass readings
  centrad                 0.01 radian  # Used for angular deviation of light
                                       # through a prism.
@@ -86,7 +87,7 @@
  seclongitude            circle (seconds/day) # Astronomers measure longitude
                                       # (which they call right ascension) in
                                       # time units by dividing the equator into
-@@ -1066,8 +1080,8 @@
+@@ -1066,8 +1081,8 @@
  tempF(x) units=[1;K] domain=[-459.67,) range=[0,) \
                  (x+(-32)) degF + stdtemp ; (tempF+(-stdtemp))/degF + 32
  tempfahrenheit() tempF
@@ -97,7 +98,7 @@
  
  
  degreesrankine          degF              # The Rankine scale has the
-@@ -1079,7 +1093,7 @@
+@@ -1079,7 +1094,7 @@
  
  tempreaumur(x)    units=[1;K] domain=[-218.52,) range=[0,) \
                    x degreaumur+stdtemp ; (tempreaumur+(-stdtemp))/degreaumur
@@ -106,7 +107,7 @@
                                    # particularly in France.  It is defined
                                    # to be 0 at the freezing point of water
                                    # and 80 at the boiling point.  Reaumur
-@@ -1167,7 +1181,7 @@
+@@ -1167,7 +1182,7 @@
  
  # Basic constants
  
@@ -115,21 +116,23 @@
  light                   c
  mu0_SI        2 alpha h_SI / e_SI^2 c_SI # Vacuum magnetic permeability
  mu0                    2 alpha h / e^2 c #   Gets overridden in CGS modes
-@@ -1310,6 +1324,13 @@
+@@ -1310,6 +1325,15 @@
  H2O50C        0.98807 force gram / cm^3
  H2O100C       0.95838 force gram / cm^3
  
 +# moved because ft is used before being defined (and otherwise parsed as femtotonne)
 +inch                    2.54 cm
 +in                      inch
++inches                  inch
 +foot                    12 inch
 +feet                    foot
 +ft                      foot
++ft3                     ft^3
 +
  # Atomic constants
  
  
-@@ -1664,7 +1685,7 @@
+@@ -1664,7 +1688,7 @@
  
  abampere                10 A            # Current which produces a force of
  abamp                   abampere        #   2 dyne/cm between two infinitely
@@ -138,29 +141,7 @@
  abA                     abampere
  biot                    abampere
  Bi                      biot
-@@ -2092,8 +2113,8 @@
- 
- # Reflected-light meter calibration constant with ISO 100 speed
- 
--k1250                   12.5 (cd/m2) / lx s   # For Canon, Nikon, and Sekonic
--k1400                   14   (cd/m2) / lx s   # For Kenko (Minolta) and Pentax
-+k1250                   12.5 (cd/m^2) / lx s   # For Canon, Nikon, and Sekonic
-+k1400                   14   (cd/m^2) / lx s   # For Kenko (Minolta) and Pentax
- 
- # Incident-light meter calibration constant with ISO 100 film
- 
-@@ -2147,8 +2168,8 @@
-                                 # ASA PH2.12-1961, and ANSI PH2.7-1986
- #N_apex         0.3162 lx s     # value in ANSI PH2.7-1973
- N_exif          1|3.125 lx s    # value in Exif 2.3 (2010), making Sv(5) = 100
--K_apex1961      11.4 (cd/m2) / lx s    # value in ASA PH2.12-1961
--K_apex1971      12.5 (cd/m2) / lx s    # value in ANSI PH3.49-1971; more common
-+K_apex1961      11.4 (cd/m^2) / lx s    # value in ASA PH2.12-1961
-+K_apex1971      12.5 (cd/m^2) / lx s    # value in ANSI PH3.49-1971; more common
- C_apex1961      224 lx / lx s   # value in PH2.12-1961 (20.83 for I in 
-                                 #   footcandles; flat sensor?)
- C_apex1971      322 lx / lx s   # mean value in PH3.49-1971 (30 +/- 5 for I in
-@@ -2482,8 +2503,8 @@
+@@ -2482,8 +2506,8 @@
                                          # gravitational constant. This is a
                                          # fictional year, and doesn't
                                          # correspond to any celestial event.
@@ -171,7 +152,7 @@
                                          # astronomical unit.  (See the NASA
                                          # site listed above.)
  GMsun        1.32712440018e20 m^3 / s^2 # heliocentric gravitational constant
-@@ -2851,11 +2872,6 @@
+@@ -2851,11 +2875,6 @@
  int                     3937|1200 ft/m   # Convert US Survey measures to
  int-                    int              #   international measures
  
@@ -183,7 +164,7 @@
  yard                    3 ft
  yd                      yard
  mile                    5280 ft          # The mile was enlarged from 5000 ft
-@@ -3003,6 +3019,7 @@
+@@ -3003,6 +3022,7 @@
  # Liquid measure
  
  usgallon                231 in^3        # US liquid measure is derived from
@@ -191,7 +172,7 @@
  gal                     gallon          # the British wine gallon of 1707.
  quart                   1|4 gallon      # See the "winegallon" entry below
  pint                    1|2 quart       # more historical information.
-@@ -3504,7 +3521,7 @@
+@@ -3504,7 +3524,7 @@
  
  number1can              10 usfloz
  number2can              19 usfloz
@@ -200,7 +181,7 @@
  number3can              4 uscups
  number5can              7 uscups
  number10can             105 usfloz
-@@ -4469,10 +4486,10 @@
+@@ -4469,10 +4489,10 @@
  
  btu                     btu_IT       # International Table BTU is the default
  britishthermalunit      btu
@@ -215,18 +196,7 @@
  btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
                                       #    on the IT calorie
  quad                    quadrillion btu
-@@ -4599,8 +4616,8 @@
-                                        # of coal used in the 1950's
- barreloil               5.8 Mbtu       # Conventional value for barrel of crude
-                                        # oil [E2].  Actual range is 5.6 - 6.3.
--naturalgas_HHV          1027 btu/ft3   # Energy content of natural gas.  HHV
--naturalgas_LHV          930 btu/ft3    # is for Higher Heating Value and
-+naturalgas_HHV          1027 btu/ft^3  # Energy content of natural gas.  HHV
-+naturalgas_LHV          930 btu/ft^3   # is for Higher Heating Value and
- naturalgas              naturalgas_HHV # includes energy from condensation
-                                        # combustion products.  LHV is for Lower
-                                        # Heating Value and excludes these.
-@@ -4635,7 +4652,7 @@
+@@ -4635,7 +4655,7 @@
  
  # Celsius heat unit: energy to raise a pound of water 1 degC
  
@@ -235,7 +205,7 @@
  chu                     celsiusheatunit
  
  POWER                   watt
-@@ -4695,13 +4712,13 @@
+@@ -4695,13 +4715,13 @@
  Uvalue                  1/Rvalue
  europeanUvalue          watt / m^2 K
  RSI                     degC m^2 / W
@@ -251,16 +221,7 @@
  
  
  # Thermal Conductivity of a few materials
-@@ -5094,7 +5111,7 @@
- europeanpoint           didotpoint        # for the point used in Europe
- cicero                  12 didotpoint
- 
--stick                   2 inches
-+stick                   2 in
- 
- # Type sizes
- 
-@@ -5167,8 +5184,8 @@
+@@ -5167,8 +5187,8 @@
                                               #   to symbols per second.  Modern
                                               #   modems transmit several bits
                                               #   per symbol.
@@ -271,16 +232,7 @@
                                               #   them do.  But beware: for
                                               #   transmission over modems, a
                                               #   few extra bits are used so
-@@ -5527,7 +5544,7 @@
- boardfeet               boardfoot
- fbm                     boardfoot    # feet board measure
- stack                   4 yard^3     # British, used for firewood and coal [18]
--rick                    4 ft 8 ft 16 inches # Stack of firewood, supposedly
-+rick                    4 ft 8 ft 16 in # Stack of firewood, supposedly
-                                      #   sometimes called a face cord, but this
-                                      #   value is equal to 1|3 cord.  Name
-                                      #   comes from an old Norse word for a
-@@ -6607,7 +6624,7 @@
+@@ -6607,7 +6627,7 @@
  
  pa                      Pa
  ev                      eV
@@ -289,7 +241,7 @@
  oe                      Oe
  mh                      mH
  rd                      rod
-@@ -6989,7 +7006,8 @@
+@@ -6989,7 +7009,8 @@
  Mag                     Maz gravity        # force
  Maz                     Volm kg / oldliter # mass based on water
  
@@ -299,11 +251,12 @@
  Gf                      Grafut
  Sf                      Surf
  Vm                      Volm
-@@ -7779,7 +7797,6 @@
+@@ -7779,7 +7800,7 @@
  ton                     uston
  scruple                 apscruple
  fluidounce              usfluidounce
 -gallon                  usgallon
++#gallon                  usgallon
  bushel                  usbushel
  quarter                 quarterweight
  cup                     uscup
