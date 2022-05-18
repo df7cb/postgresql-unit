@@ -249,10 +249,11 @@ Unit values allow a fairly complex expression syntax on input.
 * operators + - * /
 * exponentiation: `expr^integer` or Unicode superscripts: `expr⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹`
 * parentheses ()
-* multiplication binds tighter than division such that `kg/s^2*A`
+* multiplication binds tighter than division such that `kg/s^2*A` and `kg/s^2 A`
   can be written without parentheses
 * `N|M` denotes a numeric fraction, e.g. `3|4`
 * use `hh:mm:ss[.sss]` for time values, e.g. `10:05:30 s`
+* functions: `sqrt(unit)`, `exp(x)`, `ln(x)`, `log2(x)`, `asin(x)`, `tan(x)`
 
 *Note: This covers the unit input parser for expressions like
 `'1|2 m / h'::unit`. PostgreSQL operators on type unit values are a separate

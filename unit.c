@@ -995,6 +995,10 @@ unit_ln_internal(Unit *a, Unit *result)
 	int		 i;
 
 	/* compute ln of value */
+	if (a->value < 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+				 errmsg("cannot take ln of a negative-valued unit")));
 	result->value = log(a->value);
 
 	/* check dimension */
@@ -1014,6 +1018,10 @@ unit_log2_internal(Unit *a, Unit *result)
 	int		 i;
 
 	/* compute log2 of value */
+	if (a->value < 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_ARGUMENT_FOR_POWER_FUNCTION),
+				 errmsg("cannot take log2 of a negative-valued unit")));
 	result->value = log2(a->value);
 
 	/* check dimension */

@@ -1,0 +1,62 @@
+select 'sqrt(4 m^2)'::unit;
+ unit 
+------
+ 2 m
+(1 row)
+
+select 'sqrt(-4 m^2)'::unit;
+ERROR:  cannot take square root of a negative-valued unit
+LINE 1: select 'sqrt(-4 m^2)'::unit;
+               ^
+select 'sqrt(4 m^3)'::unit;
+ERROR:  cannot take square root of a unit with odd "m" exponent
+LINE 1: select 'sqrt(4 m^3)'::unit;
+               ^
+select 'exp(1)'::unit;
+       unit       
+------------------
+ 2.71828182845905
+(1 row)
+
+select 'exp(1 A)'::unit;
+ERROR:  cannot take base-e exponent of value that is not dimension-less
+LINE 1: select 'exp(1 A)'::unit;
+               ^
+select 'ln(2.7)'::unit;
+       unit        
+-------------------
+ 0.993251773010283
+(1 row)
+
+select 'ln(-2.7)'::unit;
+ERROR:  cannot take ln of a negative-valued unit
+LINE 1: select 'ln(-2.7)'::unit;
+               ^
+select 'ln(2.7 s)'::unit;
+ERROR:  cannot take ln of value that is not dimension-less
+LINE 1: select 'ln(2.7 s)'::unit;
+               ^
+select 'asin(1)'::unit;
+      unit       
+-----------------
+ 1.5707963267949
+(1 row)
+
+select 'asin(2)'::unit;
+ERROR:  cannot asin of values outside the range -1 to 1
+LINE 1: select 'asin(2)'::unit;
+               ^
+select 'asin(1 kg)'::unit;
+ERROR:  cannot take asin of value that is not dimension-less
+LINE 1: select 'asin(1 kg)'::unit;
+               ^
+select 'tan(1)'::unit;
+      unit       
+-----------------
+ 1.5574077246549
+(1 row)
+
+select 'tan(1 mol)'::unit;
+ERROR:  cannot take tan of value that is not dimension-less
+LINE 1: select 'tan(1 mol)'::unit;
+               ^
