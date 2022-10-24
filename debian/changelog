@@ -1,3 +1,10 @@
+postgresql-unit (7.5-3) UNRELEASED; urgency=medium
+
+  * Remove constraints unnecessary since buster (oldstable):
+    + Build-Depends: Drop versioned constraint on bison.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Mon, 24 Oct 2022 16:32:10 -0000
+
 postgresql-unit (7.5-2) unstable; urgency=medium
 
   * Upload for PostgreSQL 15.
