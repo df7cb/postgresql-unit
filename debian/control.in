@@ -7,7 +7,7 @@ Build-Depends:
  debhelper-compat (= 13),
  flex,
  postgresql-server-dev-all (>= 217~),
-Standards-Version: 4.5.0
+Standards-Version: 4.6.1
 Rules-Requires-Root: no
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit

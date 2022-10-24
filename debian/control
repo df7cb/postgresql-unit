@@ -7,15 +7,15 @@ Build-Depends:
  debhelper-compat (= 13),
  flex,
  postgresql-server-dev-all (>= 217~),
-Standards-Version: 4.5.0
+Standards-Version: 4.6.1
 Rules-Requires-Root: no
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit
 Homepage: https://github.com/df7cb/postgresql-unit
 
-Package: postgresql-14-unit
+Package: postgresql-15-unit
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-14
+Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-15
 Description: SI Units for PostgreSQL
  postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
  base units can be combined to named and unnamed derived units using operators
