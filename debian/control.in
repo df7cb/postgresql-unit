@@ -3,7 +3,7 @@ Section: database
 Priority: optional
 Maintainer: Christoph Berg <myon@debian.org>
 Build-Depends:
- bison (>> 2:3),
+ bison,
  debhelper-compat (= 13),
  flex,
  postgresql-server-dev-all (>= 217~),
