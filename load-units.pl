@@ -27,6 +27,8 @@ my $skip_british = 0;
 my @todo;
 my $continued = '';
 
+<F>; # skip over initial line with BOM
+
 while (<F>) {
 	# skip over locale specific parts
 	$skip_british = 1 if /^!var UNITS_ENGLISH GB/;

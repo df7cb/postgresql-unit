@@ -47,7 +47,7 @@ guilder	netherlandsguilder
 hollandguilder	netherlandsguilder
 peso	mexicopeso
 yen	japanyen
-lira	italylira
+lira	turkeylira
 rupee	indiarupee
 drachma	greecedrachma
 franc	francefranc
@@ -112,11 +112,14 @@ loony	1 canadadollar
 toony	2 canadadollar
 satoshi	1e-8 bitcoin
 XBT	bitcoin
+brmgd	mega brgallon/day
+usmgd	mega usgallon/day
 percapita	per capita
 dollar	US$
 cent	$ 0.01
 penny	cent
 grand	usgrand
+π	pi
 ¢	cent
 £	britainpound
 ¥	japanyen

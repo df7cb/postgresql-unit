@@ -1,3 +1,7 @@
+7.6: Jan 04, 2023
+-----------------
+* Import definitions.units September 2022 Version 3.15.
+
 7.4: May 20, 2021 - World Metrology Day
 ---------------------------------------
 * Fix hash table creation on PostgreSQL 14.

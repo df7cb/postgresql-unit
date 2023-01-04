@@ -1,9 +1,13 @@
-postgresql-unit (7.5-3) UNRELEASED; urgency=medium
+postgresql-unit (7.6-1) UNRELEASED; urgency=medium
 
+  [ Debian Janitor ]
   * Remove constraints unnecessary since buster (oldstable):
     + Build-Depends: Drop versioned constraint on bison.
   * Use secure copyright file specification URI.
   * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository-Browse.
+
+  [ Christoph Berg ]
+  * Import definitions.units September 2022 Version 3.15.
 
  -- Debian Janitor <janitor@jelmer.uk>  Mon, 24 Oct 2022 16:32:10 -0000
 

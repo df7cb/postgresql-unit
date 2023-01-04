@@ -4,13 +4,13 @@ set -eux
 
 export PGDATABASE=postgres
 
-for PGVERSION in ${*:-14 13 12 11 10 9.6 9.5}; do
+for PGVERSION in ${*:-15 14 13 12 11 10 9.6 9.5}; do
 	echo
 	echo "### $PGVERSION ###"
 	PG_CONFIG=/usr/lib/postgresql/$PGVERSION/bin/pg_config
 	export PGCLUSTER="$PGVERSION/main"
 	export PGPORT="54${PGVERSION/./}"
-	[ "$PGVERSION" = "14" ] && unset PGPORT # default version
+	[ "$PGVERSION" = "15" ] && unset PGPORT # default version
 
 	make clean
 	make PG_CONFIG=$PG_CONFIG PROFILE="-Werror"
