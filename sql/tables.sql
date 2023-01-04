@@ -4,17 +4,17 @@ DROP TABLE IF EXISTS prefixes;
 CREATE TABLE prefixes (p text);
 DELETE FROM prefixes;
 INSERT INTO prefixes VALUES
-	('y'),('z'),('a'),('f'),('p'),('n'),('µ'),('mu'),('m'),('c'),('d'),
+	('q'),('r'),('y'),('z'),('a'),('f'),('p'),('n'),('µ'),('mu'),('m'),('c'),('d'),
 	(''),
-	('da'),('h'),('k'),('M'),('G'),('T'),('P'),('E'),('Z'),('Y');
+	('da'),('h'),('k'),('M'),('G'),('T'),('P'),('E'),('Z'),('Y'),('R'),('Q');
 
 DROP TABLE IF EXISTS factors;
 CREATE TABLE factors (f double precision);
 DELETE FROM factors;
 INSERT INTO factors VALUES
-	(1e27), (1e24), (1e21), (1e18), (1e15), (1e12), (1e9), (1e6), (1e3),
+	(1e33), (1e30), (1e27), (1e24), (1e21), (1e18), (1e15), (1e12), (1e9), (1e6), (1e3),
 	(1),
-	(1e-3), (1e-6), (1e-9), (1e-12), (1e-15), (1e-18), (1e-21), (1e-24), (1e-27), (1e-30),
+	(1e-3), (1e-6), (1e-9), (1e-12), (1e-15), (1e-18), (1e-21), (1e-24), (1e-27), (1e-30), (1e-33), (1e-36),
 	(0);
 
 DROP TABLE IF EXISTS units;

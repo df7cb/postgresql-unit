@@ -4,6 +4,10 @@ SET extra_float_digits = 0;
 SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COLLATE "C";
   prefix  |        factor        | definition 
 ----------+----------------------+------------
+ q        |                1e-30 | quecto
+ quecto   |                1e-30 | 1e-30
+ r        |                1e-27 | ronto
+ ronto    |                1e-27 | 1e-27
  y        |                1e-24 | yocto
  yocto    |                1e-24 | 1e-24
  z        |                1e-21 | zepto
@@ -118,7 +122,15 @@ SELECT prefix, factor, definition FROM unit_prefixes ORDER BY factor, prefix COL
  yotta    |                1e+24 | 1e24
  Yi       | 1.20892581961463e+24 | yobi
  yobi     | 1.20892581961463e+24 | 2^80
-(114 rows)
+ R        |                1e+27 | ronna
+ ronna    |                1e+27 | 1e27
+ Ri       | 1.23794003928538e+27 | robi
+ robi     | 1.23794003928538e+27 | 2^90
+ Q        |                1e+30 | quetta
+ quetta   |                1e+30 | 1e30
+ Qi       | 1.26765060022823e+30 | quebi
+ quebi    | 1.26765060022823e+30 | 2^100
+(126 rows)
 
 RESET extra_float_digits;
 SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, name COLLATE "C";
@@ -600,9 +612,9 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  stdatmT0                      | 288.15 K                            | 288.15 K
  natural_temp                  | 11.6045181215501 kK                 | natural_energy / boltzmann
  atomictemperature             | 315.775024804067 kK                 | atomicenergy / boltzmann
- plancktemperature_red         | 2.82607552243842e+31 K              | planckenergy_red / k
- T_P                           | 1.41678416215734e+32 K              | plancktemperature
- plancktemperature             | 1.41678416215734e+32 K              | planckenergy / k
+ plancktemperature_red         | 28.2607552243842 QK                 | planckenergy_red / k
+ T_P                           | 141.678416215734 QK                 | plancktemperature
+ plancktemperature             | 141.678416215734 QK                 | planckenergy / k
  mired                         | 1000000 K^-1                        | / microK
  ㎀                            | 1 pA                                | pA
  hlu_current                   | 94.0966939781648 pA                 | hlu_charge / sec
@@ -823,11 +835,11 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  kat                           | 1 kat                               | katal
  katal                         | 1 kat                               | mol/sec
  natural_mass                  | 1.7826619216279e-36 kg              | natural_energy / c^2
- atomicmass                    | 9.10938370154308e-31 kg             | electronmass
- electronmass                  | 9.10938370154308e-31 kg             | 5.48579909065e-4 u
- m_e                           | 9.10938370154308e-31 kg             | electronmass
- m_mu                          | 1.88353162739427e-28 kg             | muonmass
- muonmass                      | 1.88353162739427e-28 kg             | 0.1134289259 u
+ atomicmass                    | 910.938370154308 qg                 | electronmass
+ electronmass                  | 910.938370154308 qg                 | 5.48579909065e-4 u
+ m_e                           | 910.938370154308 qg                 | electronmass
+ m_mu                          | 188.353162739427 rg                 | muonmass
+ muonmass                      | 188.353162739427 rg                 | 0.1134289259 u
  amu_phys                      | 1.65981 yg                          | 1.65981e-27 kg
  amu_chem                      | 1.66026 yg                          | 1.66026e-27 kg
  Da                            | 1.6605390666 yg                     | dalton
@@ -1076,13 +1088,13 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  moonmass                      | 73.4578924831068 Yg                 | 4902.800118 km^3 / s^2 G
  mercurymass                   | 330.100063692073 Yg                 | 22031.868551 km^3 / s^2 G
  marsmass                      | 641.690901158174 Yg                 | 42828.375816 km^3 / s^2 G
- venusmass                     | 4.86730581484201e+24 kg             | 324858.592000 km^3 / s^2 G
- earthmass                     | 5.97216839978724e+24 kg             | 398600.435507 km^3 / s^2 G
- earthmoonmass                 | 6.04562629227035e+24 kg             | earthmass+moonmass
- uranusmass                    | 8.68189383156286e+25 kg             | 5794556.400000 km^3 / s^2 G
- neptunemass                   | 1.02430623444856e+26 kg             | 6836527.100580 km^3 / s^2 G
- saturnmass                    | 5.68457888344845e+26 kg             | 37940584.841800 km^3 / s^2 G
- jupitermass                   | 1.8985176587807e+27 kg              | 126712764.100000 km^3 / s^2 G
+ venusmass                     | 4.86730581484201 Rg                 | 324858.592000 km^3 / s^2 G
+ earthmass                     | 5.97216839978724 Rg                 | 398600.435507 km^3 / s^2 G
+ earthmoonmass                 | 6.04562629227035 Rg                 | earthmass+moonmass
+ uranusmass                    | 86.8189383156286 Rg                 | 5794556.400000 km^3 / s^2 G
+ neptunemass                   | 102.430623444856 Rg                 | 6836527.100580 km^3 / s^2 G
+ saturnmass                    | 568.457888344845 Rg                 | 37940584.841800 km^3 / s^2 G
+ jupitermass                   | 1.8985176587807 Qg                  | 126712764.100000 km^3 / s^2 G
  solarmass                     | 1.98840987131653e+30 kg             | GMsun/G
  sunmass                       | 1.98840987131653e+30 kg             | solarmass
  pyron                         | 697.8 kg/s^3                        | cal_IT / cm^2 min
@@ -2367,7 +2379,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  crocodile                     | 1 MV                                | megavolt
  ㎹                            | 1 MV                                | MV
  planckvolt_red                | 737.469815192278 YV                 | planckenergy_red / planckcharge_red
- planckvolt                    | 3.69712538089572e+27 V              | planckenergy / planckcharge
+ planckvolt                    | 3.69712538089572 RV                 | planckenergy / planckcharge
  cminv                         | 19.8644585714893 yJ                 | h c / cm
  invcm                         | 19.8644585714893 yJ                 | cminv
  wavenumber                    | 19.8644585714893 yJ                 | cminv

@@ -1,6 +1,6 @@
---- definitions.units	2022-05-17 15:32:26.767162879 +0200
-+++ definitions.units.patched	2022-05-18 15:10:02.482372402 +0200
-@@ -227,7 +227,7 @@
+--- definitions.units	2023-01-04 18:22:06.602713513 +0200
++++ definitions.units.patched	2023-01-04 19:54:54.681679346 +0200
+@@ -230,7 +230,7 @@
                   # equator to a pole.
  
  h_SI      6.62607015e-34
@@ -9,7 +9,7 @@
  
  kg        !      # The kilogram, symbol kg, is the SI unit of mass.  It is
  kilogram  kg     # defined by taking the fixed numerical value of the Planck
-@@ -276,7 +276,7 @@
+@@ -279,7 +279,7 @@
                   # https://en.wikipedia.org/wiki/Kibble_balance
  
  k_SI      1.380649e-23
@@ -18,7 +18,7 @@
  k         boltzmann
  
  K         !      # The kelvin, symbol K, is the SI unit of thermodynamic
-@@ -319,7 +319,7 @@
+@@ -322,7 +322,7 @@
                   # depend directly on temperature.
  
  e_SI      1.602176634e-19
@@ -27,7 +27,7 @@
  
  A         !      # The ampere, symbol A, is the SI unit of electric current.
  ampere    A      # It is defined by taking the fixed numerical value of the
-@@ -422,7 +422,9 @@
+@@ -425,7 +425,9 @@
  # A primitive non-SI unit
  #
  
@@ -38,24 +38,46 @@
                   #   of a random variable over a finite alphabet is defined
                   #   to be the sum of -p(i)*log2(p(i)) over the alphabet where
                   #   p(i) is the probability that the random variable takes
-@@ -477,12 +479,16 @@
- tebi-                   2^40     # Electrotechnical Commission aproved these
- pebi-                   2^50     # binary prefixes for use in 1998.  If you
- exbi-                   2^60     # want to refer to "megabytes" using the
-+zebi-                   2^70
-+yobi-                   2^80
- Ki-                     kibi     # binary definition, use these prefixes.
+@@ -442,6 +444,8 @@
+ #                                                                         #
+ ###########################################################################
+ 
++quetta-                 1e30
++ronna-                  1e27
+ yotta-                  1e24     # Greek or Latin octo, "eight"
+ zetta-                  1e21     # Latin septem, "seven"
+ exa-                    1e18     # Greek hex, "six"
+@@ -464,6 +468,8 @@
+ atto-                   1e-18    # Danish-Norwegian atten, "eighteen"
+ zepto-                  1e-21    # Latin septem, "seven"
+ yocto-                  1e-24    # Greek or Latin octo, "eight"
++ronto-                  1e-27
++quecto-                 1e-30
+ 
+ quarter-                1|4
+ semi-                   0.5
+@@ -482,6 +488,8 @@
+ exbi-                   2^60
+ zebi-                   2^70     # Zebi- and yobi- were added in the 2005 ed.,
+ yobi-                   2^80     # later superseded by ISO/IEC 80000-13:2008.
++robi-                   2^90
++quebi-                  2^100
+ Ki-                     kibi
  Mi-                     mebi
  Gi-                     gibi
- Ti-                     tebi
- Pi-                     pebi
+@@ -490,7 +498,11 @@
  Ei-                     exbi
-+Zi-                     zebi
-+Yi-                     yobi
+ Zi-                     zebi
+ Yi-                     yobi
++Ri-                     robi
++Qi-                     quebi
  
++Q-                      quetta
++R-                      ronna
  Y-                      yotta
  Z-                      zetta
-@@ -498,6 +504,7 @@
+ E-                      exa
+@@ -505,12 +517,15 @@
  c-                      centi
  m-                      milli
  u-                      micro   # it should be a mu but u is easy to type
@@ -63,7 +85,15 @@
  n-                      nano
  p-                      pico
  f-                      femto
-@@ -676,6 +683,14 @@
+ a-                      atto
+ z-                      zepto
+ y-                      yocto
++r-                      ronto
++q-                      quecto
+ 
+ #
+ # Names of some numbers
+@@ -683,6 +698,14 @@
  padm                    1e15
  shankh                  1e17
  
@@ -78,7 +108,7 @@
  #############################################################################
  #                                                                           #
  # Derived units which can be reduced to the primitive units                 #
-@@ -945,7 +960,7 @@
+@@ -962,7 +985,7 @@
  pointangle              1|32 circle  # Used for reporting compass readings
  centrad                 0.01 radian  # Used for angular deviation of light
                                       # through a prism.
@@ -87,7 +117,7 @@
  seclongitude            circle (seconds/day) # Astronomers measure longitude
                                       # (which they call right ascension) in
                                       # time units by dividing the equator into
-@@ -1066,8 +1081,8 @@
+@@ -1083,8 +1106,8 @@
  tempF(x) units=[1;K] domain=[-459.67,) range=[0,) \
                  (x+(-32)) degF + stdtemp ; (tempF+(-stdtemp))/degF + 32
  tempfahrenheit() tempF
@@ -98,7 +128,7 @@
  
  
  degreesrankine          degF              # The Rankine scale has the
-@@ -1079,7 +1094,7 @@
+@@ -1096,7 +1119,7 @@
  
  tempreaumur(x)    units=[1;K] domain=[-218.52,) range=[0,) \
                    x degreaumur+stdtemp ; (tempreaumur+(-stdtemp))/degreaumur
@@ -107,16 +137,16 @@
                                    # particularly in France.  It is defined
                                    # to be 0 at the freezing point of water
                                    # and 80 at the boiling point.  Reaumur
-@@ -1167,7 +1182,7 @@
+@@ -1184,7 +1207,7 @@
  
  # Basic constants
  
 -pi                      3.14159265358979323846
 +#pi                      3.14159265358979323846
+ tau                     2 pi
+ phi                     (sqrt(5)+1)/2
  light                   c
- mu0_SI        2 alpha h_SI / e_SI^2 c_SI # Vacuum magnetic permeability
- mu0                    2 alpha h / e^2 c #   Gets overridden in CGS modes
-@@ -1310,6 +1325,15 @@
+@@ -1341,6 +1364,15 @@
  H2O50C        0.98807 force gram / cm^3
  H2O100C       0.95838 force gram / cm^3
  
@@ -131,8 +161,8 @@
 +
  # Atomic constants
  
- 
-@@ -1664,7 +1688,7 @@
+ hartree            4.3597447222071e-18 J # Approximate electric potential energy
+@@ -1715,7 +1747,7 @@
  
  abampere                10 A            # Current which produces a force of
  abamp                   abampere        #   2 dyne/cm between two infinitely
@@ -141,7 +171,7 @@
  abA                     abampere
  biot                    abampere
  Bi                      biot
-@@ -2482,8 +2506,8 @@
+@@ -2668,8 +2700,8 @@
                                          # gravitational constant. This is a
                                          # fictional year, and doesn't
                                          # correspond to any celestial event.
@@ -151,8 +181,8 @@
 +#au                     astronomicalunit # ephemeris for the above described
                                          # astronomical unit.  (See the NASA
                                          # site listed above.)
- GMsun        1.32712440018e20 m^3 / s^2 # heliocentric gravitational constant
-@@ -2851,11 +2875,6 @@
+ GMsun    132712440041.279419 km^3 / s^2 # heliocentric gravitational constant
+@@ -3003,11 +3035,6 @@
  int                     3937|1200 ft/m   # Convert US Survey measures to
  int-                    int              #   international measures
  
@@ -164,7 +194,7 @@
  yard                    3 ft
  yd                      yard
  mile                    5280 ft          # The mile was enlarged from 5000 ft
-@@ -3003,6 +3022,7 @@
+@@ -3155,6 +3182,7 @@
  # Liquid measure
  
  usgallon                231 in^3        # US liquid measure is derived from
@@ -172,7 +202,7 @@
  gal                     gallon          # the British wine gallon of 1707.
  quart                   1|4 gallon      # See the "winegallon" entry below
  pint                    1|2 quart       # more historical information.
-@@ -3504,7 +3524,7 @@
+@@ -3656,7 +3684,7 @@
  
  number1can              10 usfloz
  number2can              19 usfloz
@@ -181,7 +211,7 @@
  number3can              4 uscups
  number5can              7 uscups
  number10can             105 usfloz
-@@ -4469,10 +4489,10 @@
+@@ -4618,10 +4646,10 @@
  
  btu                     btu_IT       # International Table BTU is the default
  britishthermalunit      btu
@@ -196,7 +226,7 @@
  btu_ISO                 1055.06 J    # Exact, rounded ISO definition based
                                       #    on the IT calorie
  quad                    quadrillion btu
-@@ -4635,7 +4655,7 @@
+@@ -4784,7 +4812,7 @@
  
  # Celsius heat unit: energy to raise a pound of water 1 degC
  
@@ -204,8 +234,8 @@
 +celsiusheatunit         cal lb (degC) / gram K
  chu                     celsiusheatunit
  
- POWER                   watt
-@@ -4695,13 +4715,13 @@
+ # "Apparent" average power in an AC circuit, the product of rms voltage
+@@ -4842,13 +4870,13 @@
  Uvalue                  1/Rvalue
  europeanUvalue          watt / m^2 K
  RSI                     degC m^2 / W
@@ -221,7 +251,7 @@
  
  
  # Thermal Conductivity of a few materials
-@@ -5167,8 +5187,8 @@
+@@ -5352,8 +5380,8 @@
                                               #   to symbols per second.  Modern
                                               #   modems transmit several bits
                                               #   per symbol.
@@ -232,7 +262,7 @@
                                               #   them do.  But beware: for
                                               #   transmission over modems, a
                                               #   few extra bits are used so
-@@ -6607,7 +6627,7 @@
+@@ -6800,7 +6828,7 @@
  
  pa                      Pa
  ev                      eV
@@ -241,7 +271,7 @@
  oe                      Oe
  mh                      mH
  rd                      rod
-@@ -6989,7 +7009,8 @@
+@@ -7182,7 +7210,8 @@
  Mag                     Maz gravity        # force
  Maz                     Volm kg / oldliter # mass based on water
  
@@ -251,7 +281,7 @@
  Gf                      Grafut
  Sf                      Surf
  Vm                      Volm
-@@ -7779,7 +7800,7 @@
+@@ -7972,7 +8001,7 @@
  ton                     uston
  scruple                 apscruple
  fluidounce              usfluidounce

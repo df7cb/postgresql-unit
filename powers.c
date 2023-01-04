@@ -1,10 +1,17 @@
+#include <math.h>
 #include <stdio.h>
 
-#define p(n, p, x) printf("#define POWER_%-3d %-22g /* %s %-22a */\n", n, x, p, x)
+#define p(n, p, x) printf("#define POWER_%-3d %-22a /* %s %-22a */\n", n, nextafter(x, 0), p, x)
 
 int main ()
 {
-	p(27,  " ", 1e27);
+	printf("/* powers-of-10 constants */\n");
+	printf("/* constants here are rounded down so >= comparisons work better */\n\n");
+
+
+	p(33,  " ", 1e33);
+	p(30,  "Q", 1e30);
+	p(27,  "R", 1e27);
 	p(24,  "Y", 1e24);
 	p(21,  "Z", 1e21);
 	p(18,  "E", 1e18);
@@ -22,5 +29,7 @@ int main ()
 	p(-18, "a", 1e-18);
 	p(-21, "z", 1e-21);
 	p(-24, "y", 1e-24);
-	p(-27, " ", 1e-27);
+	p(-27, "r", 1e-27);
+	p(-30, "q", 1e-30);
+	p(-33, " ", 1e-33);
 }

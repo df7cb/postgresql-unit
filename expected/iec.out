@@ -8,7 +8,9 @@ VALUES
 	('1 PiB'::unit),
 	('1 EiB'::unit),
 	('1 ZiB'::unit),
-	('1 YiB'::unit);
+	('1 YiB'::unit),
+	('1 RiB'::unit),
+	('1 QiB'::unit);
        column1       
 ---------------------
  1 mB
@@ -21,7 +23,9 @@ VALUES
  1.15292150460685 EB
  1.18059162071741 ZB
  1.20892581961463 YB
-(10 rows)
+ 1.23794003928538 RB
+ 1.26765060022823 QB
+(12 rows)
 
 VALUES
 	('1 B'::unit @ 'B'),
@@ -32,7 +36,9 @@ VALUES
 	('1 PiB'::unit @ 'PiB'),
 	('1 EiB'::unit @ 'EiB'),
 	('1 ZiB'::unit @ 'ZiB'),
-	('1 YiB'::unit @ 'YiB');
+	('1 YiB'::unit @ 'YiB'),
+	('1 RiB'::unit @ 'RiB'),
+	('1 QiB'::unit @ 'QiB');
  column1 
 ---------
  1 B
@@ -44,7 +50,9 @@ VALUES
  1 EiB
  1 ZiB
  1 YiB
-(9 rows)
+ 1 RiB
+ 1 QiB
+(11 rows)
 
 VALUES
 	('1 B'::unit @ 'B'),
@@ -55,7 +63,9 @@ VALUES
 	('1 PB'::unit @ 'PiB'),
 	('1 EB'::unit @ 'EiB'),
 	('1 ZB'::unit @ 'ZiB'),
-	('1 YB'::unit @ 'YiB');
+	('1 YB'::unit @ 'YiB'),
+	('1 RB'::unit @ 'RiB'),
+	('1 QB'::unit @ 'QiB');
         column1        
 -----------------------
  1 B
@@ -67,7 +77,9 @@ VALUES
  0.867361737988404 EiB
  0.8470329472543 ZiB
  0.827180612553028 YiB
-(9 rows)
+ 0.807793566946316 RiB
+ 0.788860905221012 QiB
+(11 rows)
 
 -- errors
 SELECT '1 kiB'::unit;
@@ -100,7 +112,9 @@ VALUES
 	('1 EiB'::unit, '1 EB'::unit),
 	('1 ZiB'::unit, '1 ZB'::unit),
 	('1 YiB'::unit, '1 YB'::unit),
-	('1024 YiB'::unit, '1000 YB'::unit);
+	('1 RiB'::unit, '1 RB'::unit),
+	('1 QiB'::unit, '1 QB'::unit),
+	('1024 QiB'::unit, '1000 QB'::unit);
         column1         |       column2        
 ------------------------+----------------------
  0.001 B                | 0.001 B
@@ -113,6 +127,8 @@ VALUES
  1 EiB                  | 888.178419700125 PiB
  1 ZiB                  | 867.361737988404 EiB
  1 YiB                  | 847.0329472543 ZiB
- 1.23794003928538e+27 B | 827.180612553028 YiB
-(11 rows)
+ 1 RiB                  | 827.180612553028 YiB
+ 1 QiB                  | 807.793566946316 RiB
+ 1.29807421463371e+33 B | 788.860905221012 QiB
+(13 rows)
 

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2016-2019 Christoph Berg
+Copyright (C) 2016-2023 Christoph Berg
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -336,8 +336,12 @@ unit_cstring (Unit *unit)
 		char	*prefix = "k";
 		double	 factor = 1.0;
 
-		if (v_abs >= POWER_24) {
+		if (v_abs >= POWER_30) {
 			/* do nothing */
+		} else if (v_abs >= POWER_27) {
+			prefix = "Q"; factor = 1e-27;
+		} else if (v_abs >= POWER_24) {
+			prefix = "R"; factor = 1e-24;
 		} else if (v_abs >= POWER_21) {
 			prefix = "Y"; factor = 1e-21;
 		} else if (v_abs >= POWER_18) {
@@ -372,6 +376,10 @@ unit_cstring (Unit *unit)
 			prefix = "z"; factor = 1e24;
 		} else if (v_abs >= POWER__27) {
 			prefix = "y"; factor = 1e27;
+		} else if (v_abs >= POWER__30) {
+			prefix = "r"; factor = 1e30;
+		} else if (v_abs >= POWER__33) {
+			prefix = "q"; factor = 1e33;
 		} /* else: smaller value or 0 (or -0), print using kg */
 
 		print_output("%s %sg", float8out_unit (unit->value * factor),
@@ -384,8 +392,12 @@ unit_cstring (Unit *unit)
 		char	*prefix = "";
 		double	 factor = 1.0;
 
-		if (v_abs >= 0x1p+90) {
+		if (v_abs >= 0x1p+110) {
 			// do nothing
+		} else if (v_abs >= 0x1p+100) {
+			prefix = "Qi"; factor = 0x1p-100;
+		} else if (v_abs >= 0x1p+90) {
+			prefix = "Ri"; factor = 0x1p-90;
 		} else if (v_abs >= 0x1p+80) {
 			prefix = "Yi"; factor = 0x1p-80;
 		} else if (v_abs >= 0x1p+70) {
@@ -424,8 +436,12 @@ unit_cstring (Unit *unit)
 			return output;
 		}
 
-		if (v_abs >= 1e27) {
+		if (v_abs >= 1e33) {
 			// do nothing
+		} else if (v_abs >= POWER_30) {
+			prefix = "Q"; factor = 1e-30;
+		} else if (v_abs >= POWER_27) {
+			prefix = "R"; factor = 1e-27;
 		} else if (v_abs >= POWER_24) {
 			prefix = "Y"; factor = 1e-24;
 		} else if (v_abs >= POWER_21) {
@@ -462,6 +478,10 @@ unit_cstring (Unit *unit)
 			prefix = "z"; factor = 1e21;
 		} else if (v_abs >= POWER__24) {
 			prefix = "y"; factor = 1e24;
+		} else if (v_abs >= POWER__27) {
+			prefix = "r"; factor = 1e27;
+		} else if (v_abs >= POWER__30) {
+			prefix = "q"; factor = 1e30;
 		} /* else do nothing */
 
 		/* print with SI prefix */

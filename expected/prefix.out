@@ -4,8 +4,10 @@ FROM
   factors;
        f       |  meter  | kilogram 
 ---------------+---------+----------
-         1e+27 | 1e+27 m | 1e+27 kg
-         1e+24 | 1 Ym    | 1e+24 kg
+         1e+33 | 1e+33 m | 1e+33 kg
+         1e+30 | 1 Qm    | 1e+30 kg
+         1e+27 | 1 Rm    | 1 Qg
+         1e+24 | 1 Ym    | 1 Rg
          1e+21 | 1 Zm    | 1 Yg
          1e+18 | 1 Em    | 1 Zg
          1e+15 | 1 Pm    | 1 Eg
@@ -22,10 +24,12 @@ FROM
          1e-18 | 1 am    | 1 fg
          1e-21 | 1 zm    | 1 ag
          1e-24 | 1 ym    | 1 zg
-         1e-27 | 1e-27 m | 1 yg
-         1e-30 | 1e-30 m | 1e-30 kg
+         1e-27 | 1 rm    | 1 yg
+         1e-30 | 1 qm    | 1 rg
+         1e-33 | 1e-33 m | 1 qg
+         1e-36 | 1e-36 m | 1e-36 kg
              0 | 0 m     | 0 kg
-(21 rows)
+(25 rows)
 
 SELECT
   p, (p||'m/m')::unit AS factor,
@@ -39,7 +43,9 @@ FROM
   prefixes;
  p  |    factor     | 0.001 m | meter  | 1000 m  | 0.001 g  |  gram  |  1000 g  
 ----+---------------+---------+--------+---------+----------+--------+----------
- y  | 1e-24         | 1e-27 m | 1 ym   | 1 zm    | 1e-30 kg | 1 yg   | 1 zg
+ q  | 1e-30         | 1e-33 m | 1 qm   | 1 rm    | 1e-36 kg | 1 qg   | 1 rg
+ r  | 1e-27         | 1 qm    | 1 rm   | 1 ym    | 1 qg     | 1 rg   | 1 yg
+ y  | 1e-24         | 1 rm    | 1 ym   | 1 zm    | 1 rg     | 1 yg   | 1 zg
  z  | 1e-21         | 1 ym    | 1 zm   | 1 am    | 1 yg     | 1 zg   | 1 ag
  a  | 1e-18         | 1 zm    | 1 am   | 1 fm    | 1 zg     | 1 ag   | 1 fg
  f  | 1e-15         | 1 am    | 1 fm   | 1 pm    | 1 ag     | 1 fg   | 1 pg
@@ -60,6 +66,8 @@ FROM
  P  | 1e+15         | 1 Tm    | 1 Pm   | 1 Em    | 1 Tg     | 1 Pg   | 1 Eg
  E  | 1e+18         | 1 Pm    | 1 Em   | 1 Zm    | 1 Pg     | 1 Eg   | 1 Zg
  Z  | 1e+21         | 1 Em    | 1 Zm   | 1 Ym    | 1 Eg     | 1 Zg   | 1 Yg
- Y  | 1e+24         | 1 Zm    | 1 Ym   | 1e+27 m | 1 Zg     | 1 Yg   | 1e+24 kg
-(22 rows)
+ Y  | 1e+24         | 1 Zm    | 1 Ym   | 1 Rm    | 1 Zg     | 1 Yg   | 1 Rg
+ R  | 1e+27         | 1 Ym    | 1 Rm   | 1 Qm    | 1 Yg     | 1 Rg   | 1 Qg
+ Q  | 1e+30         | 1 Rm    | 1 Qm   | 1e+33 m | 1 Rg     | 1 Qg   | 1e+30 kg
+(26 rows)
 

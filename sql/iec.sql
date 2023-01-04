@@ -8,7 +8,9 @@ VALUES
 	('1 PiB'::unit),
 	('1 EiB'::unit),
 	('1 ZiB'::unit),
-	('1 YiB'::unit);
+	('1 YiB'::unit),
+	('1 RiB'::unit),
+	('1 QiB'::unit);
 
 VALUES
 	('1 B'::unit @ 'B'),
@@ -19,7 +21,9 @@ VALUES
 	('1 PiB'::unit @ 'PiB'),
 	('1 EiB'::unit @ 'EiB'),
 	('1 ZiB'::unit @ 'ZiB'),
-	('1 YiB'::unit @ 'YiB');
+	('1 YiB'::unit @ 'YiB'),
+	('1 RiB'::unit @ 'RiB'),
+	('1 QiB'::unit @ 'QiB');
 
 VALUES
 	('1 B'::unit @ 'B'),
@@ -30,7 +34,9 @@ VALUES
 	('1 PB'::unit @ 'PiB'),
 	('1 EB'::unit @ 'EiB'),
 	('1 ZB'::unit @ 'ZiB'),
-	('1 YB'::unit @ 'YiB');
+	('1 YB'::unit @ 'YiB'),
+	('1 RB'::unit @ 'RiB'),
+	('1 QB'::unit @ 'QiB');
 
 -- errors
 SELECT '1 kiB'::unit;
@@ -53,4 +59,6 @@ VALUES
 	('1 EiB'::unit, '1 EB'::unit),
 	('1 ZiB'::unit, '1 ZB'::unit),
 	('1 YiB'::unit, '1 YB'::unit),
-	('1024 YiB'::unit, '1000 YB'::unit);
+	('1 RiB'::unit, '1 RB'::unit),
+	('1 QiB'::unit, '1 QB'::unit),
+	('1024 QiB'::unit, '1000 QB'::unit);

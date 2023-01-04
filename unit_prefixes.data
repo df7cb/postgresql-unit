@@ -1,3 +1,5 @@
+quetta	1e+30	1e30	\N
+ronna	1e+27	1e27	\N
 yotta	1e+24	1e24	\N
 zetta	1e+21	1e21	\N
 exa	1e+18	1e18	\N
@@ -20,6 +22,8 @@ femto	1e-15	1e-15	\N
 atto	1e-18	1e-18	\N
 zepto	1e-21	1e-21	\N
 yocto	1e-24	1e-24	\N
+ronto	1e-27	1e-27	\N
+quecto	1e-30	1e-30	\N
 quarter	0.25	1|4	\N
 semi	0.5	0.5	\N
 demi	0.5	0.5	\N
@@ -36,6 +40,8 @@ pebi	1.125899906842624e+15	2^50	\N
 exbi	1.152921504606847e+18	2^60	\N
 zebi	1.1805916207174113e+21	2^70	\N
 yobi	1.2089258196146292e+24	2^80	\N
+robi	1.2379400392853803e+27	2^90	\N
+quebi	1.2676506002282294e+30	2^100	\N
 Ki	1024	kibi	\N
 Mi	1048576	mebi	\N
 Gi	1073741824	gibi	\N
@@ -44,6 +50,10 @@ Pi	1.125899906842624e+15	pebi	\N
 Ei	1.152921504606847e+18	exbi	\N
 Zi	1.1805916207174113e+21	zebi	\N
 Yi	1.2089258196146292e+24	yobi	\N
+Ri	1.2379400392853803e+27	robi	\N
+Qi	1.2676506002282294e+30	quebi	\N
+Q	1e+30	quetta	\N
+R	1e+27	ronna	\N
 Y	1e+24	yotta	\N
 Z	1e+21	zetta	\N
 E	1e+18	exa	\N
@@ -65,6 +75,8 @@ f	1e-15	femto	\N
 a	1e-18	atto	\N
 z	1e-21	zepto	\N
 y	1e-24	yocto	\N
+r	1e-27	ronto	\N
+q	1e-30	quecto	\N
 US	1.000002000004	US	\N
 survey	1.000002000004	US	\N
 geodetic	1.000002000004	US	\N

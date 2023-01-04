@@ -444,6 +444,8 @@ bit       1|8 B  # Basic unit of information (entropy).  The entropy in bits
 #                                                                         #
 ###########################################################################
 
+quetta-                 1e30
+ronna-                  1e27
 yotta-                  1e24     # Greek or Latin octo, "eight"
 zetta-                  1e21     # Latin septem, "seven"
 exa-                    1e18     # Greek hex, "six"
@@ -466,6 +468,8 @@ femto-                  1e-15    # Danish-Norwegian femten, "fifteen"
 atto-                   1e-18    # Danish-Norwegian atten, "eighteen"
 zepto-                  1e-21    # Latin septem, "seven"
 yocto-                  1e-24    # Greek or Latin octo, "eight"
+ronto-                  1e-27
+quecto-                 1e-30
 
 quarter-                1|4
 semi-                   0.5
@@ -484,6 +488,8 @@ pebi-                   2^50     # in IEC 60027-2 Amendment 2 (1999).
 exbi-                   2^60
 zebi-                   2^70     # Zebi- and yobi- were added in the 2005 ed.,
 yobi-                   2^80     # later superseded by ISO/IEC 80000-13:2008.
+robi-                   2^90
+quebi-                  2^100
 Ki-                     kibi
 Mi-                     mebi
 Gi-                     gibi
@@ -492,7 +498,11 @@ Pi-                     pebi
 Ei-                     exbi
 Zi-                     zebi
 Yi-                     yobi
+Ri-                     robi
+Qi-                     quebi
 
+Q-                      quetta
+R-                      ronna
 Y-                      yotta
 Z-                      zetta
 E-                      exa
@@ -514,6 +524,8 @@ f-                      femto
 a-                      atto
 z-                      zepto
 y-                      yocto
+r-                      ronto
+q-                      quecto
 
 #
 # Names of some numbers

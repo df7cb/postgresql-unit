@@ -328,6 +328,8 @@ ORDER BY lower(p) COLLATE "C", lower(u) COLLATE "C";
  p | a   | 1 Pa
  p | in  | 0.020457405 m^3
  p | t   | 0.000473176473 m^3
+ q | t   | 0.000946352946 m^3
+ r | d   | 5.0292 m
  y | d   | 914.4 mm
-(15 rows)
+(17 rows)
 

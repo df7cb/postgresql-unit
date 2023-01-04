@@ -34,9 +34,9 @@ Features
 * United States customary units: *inch (in), foot (ft), yard (yd), mile (mi),
   ounce (oz), pound (lb)*
 * about 2400 other units imported from GNU Units (including some humorous ones)
-* prefix multiples: *da, h, k, M, G, T, P, E, Z, Y*
-* prefix fractions: *d, c, m, μ, n, p, f, a, z, y*
-* IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi*
+* prefix multiples: *da, h, k, M, G, T, P, E, Z, Y, R, Q*
+* prefix fractions: *d, c, m, μ, n, p, f, a, z, y, r, q*
+* IEC binary prefix multiples: *Ki, Mi, Gi, Ti, Pi, Ei, Zi, Yi, Ri, Qi*
 * other prefixes imported from GNU Units
 * operators: **+, -, *, /, ^**, conversion to arbitrary scale (**@, @@**)
 * aggregate functions
@@ -94,6 +94,12 @@ CREATE EXTENSION
                earthradius
 -----------------------------------------
  ["6.35675174834046 Mm","6.37813649 Mm")
+
+# SET extra_float_digits = -12;
+# SELECT 'earthmass'::unit as earth;
+  earth
+─────────
+ 5.97 Rg
 ```
 
 Installation
@@ -547,10 +553,10 @@ References
 License
 -------
 
-Copyright (C) 2016-2019 Christoph Berg
+Copyright (C) 2016-2023 Christoph Berg
 
 The definitions.units file is
-Copyright (C) 1996-2018 Free Software Foundation, Inc.
+Copyright (C) 1996-2022 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
