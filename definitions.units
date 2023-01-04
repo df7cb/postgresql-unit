@@ -477,7 +477,7 @@ treble-                 3
 kibi-                   2^10     # In response to the improper and confusing
 mebi-                   2^20     # use of SI prefixes for powers of two,
 gibi-                   2^30     # the International Electrotechnical
-tebi-                   2^40     # Commission aproved these binary prefixes
+tebi-                   2^40     # Commission approved these binary prefixes
 pebi-                   2^50     # in IEC 60027-2 Amendment 2 (1999).
 exbi-                   2^60
 zebi-                   2^70     # Zebi- and yobi- were added in the 2005 ed.,
@@ -803,7 +803,7 @@ bar                     1e5 Pa     # About 1 atm
 b                       bar
 vac                     millibar
 micron                  micrometer # One millionth of a meter
-bicron                  picometer  # One brbillionth of a meter
+bicron                  picometer  # One billionth of a meter
 cc                      cm^3
 are                     100 m^2
 a                       are
@@ -1213,7 +1213,7 @@ Da                      dalton           #   true (with the 2019 SI).
                                          #   Previously the mole was defined to
                                          #   make this relationship exact.
 amu_chem                1.66026e-27 kg   # 1|16 of the weighted average mass of
-                                         #   the 3 naturally occuring neutral
+                                         #   the 3 naturally occurring neutral
                                          #   isotopes of oxygen
 amu_phys                1.65981e-27 kg   # 1|16 of the mass of a neutral
                                          #   oxygen 16 atom
@@ -1305,7 +1305,7 @@ gravity                 9.80665 m/s^2    # std acceleration of gravity (exact)
                                          #   by measuring at the International
                                          #   Bureau and correcting the
                                          #   measurement by a theoretical
-                                         #   cofficient to get the 45 deg
+                                         #   coefficient to get the 45 deg
                                          #   latitude sea level value.
                                          #   (Wikipedia: Standard gravity)
 force                   gravity          # use to turn masses into forces
@@ -1407,7 +1407,7 @@ deuteronmass            2.013553212745 u    # Nucleus of deuterium, one
 m_d                     deuteronmass        #   proton and one neutron
 alphaparticlemass       4.001506179127 u    # Nucleus of He, two protons
 m_alpha                 alphaparticlemass   #   and two neutrons
-tritonmass              3.01550071621 u     # Nucleius of H3, one proton
+tritonmass              3.01550071621 u     # Nucleus of H3, one proton
 m_t                     tritonmass          #   and two neutrons
 helionmass              3.014932247175 u    # Nucleus of He3, two protons
 m_h                     helionmass          #   and one neutron
@@ -3310,7 +3310,7 @@ coffeeratio             55 g/L  # ± 10%
 
 
 #
-# Water is "hard" if it contains various minerals, expecially calcium
+# Water is "hard" if it contains various minerals, especially calcium
 # carbonate.
 #
 
@@ -4813,7 +4813,7 @@ chevalvapeur            metrichorsepower
 # Heat Transfer
 #
 # Thermal conductivity, K, measures the rate of heat transfer across
-# a material.  The heat transfered is
+# a material.  The heat transferred is
 #     Q = K dT A t / L
 # where dT is the temperature difference across the material, A is the
 # cross sectional area, t is the time, and L is the length (thickness).
@@ -5271,7 +5271,7 @@ point                   computerpoint
 computerpica            12 computerpoint  # to an even 1|72 inch by computer
 postscriptpoint         computerpoint     # people at some point.
 pspoint                 postscriptpoint
-twip                    1|20 point        # TWentieth of an Imperial Point
+twip                    1|20 point        # Twentieth of an Imperial Point
 Q                       1|4 mm            # Used in Japanese phototypesetting
                                           # Q is for quarter
 frenchprinterspoint     olddidotpoint
@@ -5551,7 +5551,7 @@ drop                    1|20 ml          # The drop was an old "unit" that was
                                          # drops per ml is actually used.
 bloodunit               450 ml           # For whole blood.  For blood
                                          # components, a blood unit is the
-                                         # quanity of the component found in a
+                                         # quantity of the component found in a
                                          # blood unit of whole blood.  The
                                          # human body contains about 12 blood
                                          # units of whole blood.
@@ -6226,7 +6226,7 @@ screwgauge(g) units=[1;m] range=[0,) \
 # fractions of particles that are passed or retained by different mesh
 # sizes.  As a result, it is not possible to make precise comparisons
 # of different grit standards.  The tables below allow the
-# determination of rough equivlants by using median particle size.
+# determination of rough equivalents by using median particle size.
 #
 # Standards in the USA are determined by the Unified Abrasives
 # Manufacturers' Association (UAMA), which resulted from the merger of
@@ -6669,7 +6669,7 @@ meshbritish[micron] \
 
 # French system, AFNOR NFX11-501: 1970
 # The system appears to be based on size doubling every 3 mesh
-# numbers, though the values have been agressively rounded.
+# numbers, though the values have been aggressively rounded.
 # It's not clear if the unrounded values would be considered
 # incorrect, so this is given as a table rather than a function.
 # Functional form:
@@ -7317,7 +7317,7 @@ fen_area             1|10 jia  # Protection against future collisions
 
 # Japanese architecture is based on a "standard" size of tatami mat.
 # Room sizes today are given in number of tatami, and this number
-# determines the spacing between colums and hence sizes of sliding
+# determines the spacing between columns and hence sizes of sliding
 # doors and paper screens.  However, every region has its own slightly
 # different tatami size.  Edoma, used in and around Tokyo and
 # Hokkaido, is becoming a nationwide standard.  Kyouma is used around
