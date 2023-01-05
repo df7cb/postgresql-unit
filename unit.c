@@ -436,7 +436,7 @@ unit_cstring (Unit *unit)
 			return output;
 		}
 
-		if (v_abs >= 1e33) {
+		if (v_abs >= POWER_33) {
 			// do nothing
 		} else if (v_abs >= POWER_30) {
 			prefix = "Q"; factor = 1e-30;
