@@ -80,6 +80,7 @@ unit_get_definitions(void)
 			memset(unit_name->unit_shift.unit.units, 0, N_UNITS);
 			unit_name->unit_shift.unit.units[i] = 1;
 			unit_name->unit_shift.shift = 0.0;
+			unit_name->unit_shift.logbase = 0.0;
 		}
 	}
 	PG_CATCH();

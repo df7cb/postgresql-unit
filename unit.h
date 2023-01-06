@@ -65,6 +65,7 @@ typedef struct Unit {
 typedef struct UnitShift {
 	Unit			unit;
 	double			shift;
+	double			logbase;
 } UnitShift;
 
 /* hash table and regex interface */

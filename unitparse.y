@@ -59,11 +59,13 @@ expr:
 | '+' simple_expr %prec UMINUS {
 	$$ = $2;
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | '-' simple_expr %prec UMINUS {
 	$$ = $2;
 	$$.unit.value = -$$.unit.value;
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | expr exponent {
 	int i;
@@ -75,33 +77,42 @@ expr:
 		$$ = $1;
 	}
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | expr '+' expr {
 	unit_add_internal(&$1.unit, &$3.unit, &$$.unit);
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | expr '-' expr {
 	unit_sub_internal(&$1.unit, &$3.unit, &$$.unit);
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | expr expr %prec '*' {
 	unit_mult_internal(&$1.unit, &$2.unit, &$$.unit);
 	if ($2.shift != 0.0) /* avoid shift to not destroy -0 */
 		$$.unit.value += $2.shift; /* shift is evaluated exactly here */
+	if ($2.logbase != 0.0)
+		$$.unit.value = pow(10.0, $1.unit.value / 10.0) * $2.unit.value;
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | expr '*' expr {
 	unit_mult_internal(&$1.unit, &$3.unit, &$$.unit);
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | expr '/' expr {
 	unit_div_internal(&$1.unit, &$3.unit, &$$.unit);
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | '/' expr {
 	Unit nominator = { 1.0, {0} };
 	unit_div_internal(&nominator, &$2.unit, &$$.unit);
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 ;
 
@@ -110,6 +121,7 @@ simple_expr:
 	$$.unit.value = $1;
 	memset(&$$.unit.units, 0, N_UNITS);
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 | UNIT_SHIFT
 | FUNCTION '(' expr ')' {
@@ -137,6 +149,7 @@ simple_expr:
 | '(' expr ')' {
 	$$ = $2;
 	$$.shift = 0.0;
+	$$.logbase = 0.0;
   }
 
 number:

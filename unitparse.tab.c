@@ -528,9 +528,9 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    50,    50,    56,    59,    63,    68,    79,    83,    87,
-      93,    97,   101,   109,   114,   115,   137,   143,   144,   149,
-     150,   151,   155,   156
+       0,    50,    50,    56,    59,    64,    70,    82,    87,    92,
+     101,   106,   111,   120,   126,   127,   149,   156,   157,   162,
+     163,   164,   168,   169
 };
 #endif
 
@@ -1409,22 +1409,24 @@ yyreduce:
                                {
 	(yyval.expr) = (yyvsp[0].simple_expr);
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
-#line 1414 "unitparse.tab.c"
+#line 1415 "unitparse.tab.c"
     break;
 
   case 5: /* expr: '-' simple_expr  */
-#line 63 "unitparse.y"
+#line 64 "unitparse.y"
                                {
 	(yyval.expr) = (yyvsp[0].simple_expr);
 	(yyval.expr).unit.value = -(yyval.expr).unit.value;
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
-#line 1424 "unitparse.tab.c"
+#line 1426 "unitparse.tab.c"
     break;
 
   case 6: /* expr: expr exponent  */
-#line 68 "unitparse.y"
+#line 70 "unitparse.y"
                 {
 	int i;
 	if ((yyvsp[0].exponent) != 1) {
@@ -1435,79 +1437,89 @@ yyreduce:
 		(yyval.expr) = (yyvsp[-1].expr);
 	}
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
-#line 1440 "unitparse.tab.c"
+#line 1443 "unitparse.tab.c"
     break;
 
   case 7: /* expr: expr '+' expr  */
-#line 79 "unitparse.y"
+#line 82 "unitparse.y"
                 {
 	unit_add_internal(&(yyvsp[-2].expr).unit, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
-#line 1449 "unitparse.tab.c"
+#line 1453 "unitparse.tab.c"
     break;
 
   case 8: /* expr: expr '-' expr  */
-#line 83 "unitparse.y"
+#line 87 "unitparse.y"
                 {
 	unit_sub_internal(&(yyvsp[-2].expr).unit, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
-#line 1458 "unitparse.tab.c"
+#line 1463 "unitparse.tab.c"
     break;
 
   case 9: /* expr: expr expr  */
-#line 87 "unitparse.y"
+#line 92 "unitparse.y"
                       {
 	unit_mult_internal(&(yyvsp[-1].expr).unit, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
 	if ((yyvsp[0].expr).shift != 0.0) /* avoid shift to not destroy -0 */
 		(yyval.expr).unit.value += (yyvsp[0].expr).shift; /* shift is evaluated exactly here */
+	if ((yyvsp[0].expr).logbase != 0.0)
+		(yyval.expr).unit.value = pow(10.0, (yyvsp[-1].expr).unit.value / 10.0) * (yyvsp[0].expr).unit.value;
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
-#line 1469 "unitparse.tab.c"
+#line 1477 "unitparse.tab.c"
     break;
 
   case 10: /* expr: expr '*' expr  */
-#line 93 "unitparse.y"
+#line 101 "unitparse.y"
                 {
 	unit_mult_internal(&(yyvsp[-2].expr).unit, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
 	(yyval.expr).shift = 0.0;
-  }
-#line 1478 "unitparse.tab.c"
-    break;
-
-  case 11: /* expr: expr '/' expr  */
-#line 97 "unitparse.y"
-                {
-	unit_div_internal(&(yyvsp[-2].expr).unit, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
-	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
 #line 1487 "unitparse.tab.c"
     break;
 
-  case 12: /* expr: '/' expr  */
-#line 101 "unitparse.y"
-           {
-	Unit nominator = { 1.0, {0} };
-	unit_div_internal(&nominator, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
+  case 11: /* expr: expr '/' expr  */
+#line 106 "unitparse.y"
+                {
+	unit_div_internal(&(yyvsp[-2].expr).unit, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
 	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
   }
 #line 1497 "unitparse.tab.c"
     break;
 
+  case 12: /* expr: '/' expr  */
+#line 111 "unitparse.y"
+           {
+	Unit nominator = { 1.0, {0} };
+	unit_div_internal(&nominator, &(yyvsp[0].expr).unit, &(yyval.expr).unit);
+	(yyval.expr).shift = 0.0;
+	(yyval.expr).logbase = 0.0;
+  }
+#line 1508 "unitparse.tab.c"
+    break;
+
   case 13: /* simple_expr: number  */
-#line 109 "unitparse.y"
+#line 120 "unitparse.y"
          {
 	(yyval.simple_expr).unit.value = (yyvsp[0].number);
 	memset(&(yyval.simple_expr).unit.units, 0, N_UNITS);
 	(yyval.simple_expr).shift = 0.0;
+	(yyval.simple_expr).logbase = 0.0;
   }
-#line 1507 "unitparse.tab.c"
+#line 1519 "unitparse.tab.c"
     break;
 
   case 15: /* simple_expr: FUNCTION '(' expr ')'  */
-#line 115 "unitparse.y"
+#line 127 "unitparse.y"
                         {
 	switch ((yyvsp[-3].FUNCTION)) {
 		case FUNCTION_SQRT:
@@ -1530,40 +1542,41 @@ yyreduce:
 			break;
 	}
   }
-#line 1534 "unitparse.tab.c"
+#line 1546 "unitparse.tab.c"
     break;
 
   case 16: /* simple_expr: '(' expr ')'  */
-#line 137 "unitparse.y"
+#line 149 "unitparse.y"
                {
 	(yyval.simple_expr) = (yyvsp[-1].expr);
 	(yyval.simple_expr).shift = 0.0;
+	(yyval.simple_expr).logbase = 0.0;
   }
-#line 1543 "unitparse.tab.c"
+#line 1556 "unitparse.tab.c"
     break;
 
   case 18: /* number: DOUBLE '|' DOUBLE  */
-#line 144 "unitparse.y"
+#line 157 "unitparse.y"
                     {
     (yyval.number) = (yyvsp[-2].DOUBLE) / (yyvsp[0].DOUBLE);
   }
-#line 1551 "unitparse.tab.c"
+#line 1564 "unitparse.tab.c"
     break;
 
   case 20: /* exponent: SUPER_SIGN super  */
-#line 150 "unitparse.y"
+#line 163 "unitparse.y"
                    { (yyval.exponent) = (yyvsp[-1].SUPER_SIGN) * (yyvsp[0].super); }
-#line 1557 "unitparse.tab.c"
+#line 1570 "unitparse.tab.c"
     break;
 
   case 23: /* super: SUPER super  */
-#line 156 "unitparse.y"
+#line 169 "unitparse.y"
               { (yyval.super) = 10 * (yyvsp[-1].SUPER) + (yyvsp[0].super); }
-#line 1563 "unitparse.tab.c"
+#line 1576 "unitparse.tab.c"
     break;
 
 
-#line 1567 "unitparse.tab.c"
+#line 1580 "unitparse.tab.c"
 
       default: break;
     }
@@ -1787,7 +1800,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 159 "unitparse.y"
+#line 172 "unitparse.y"
 
 
 /* parse a given string and return the result via the second argument */

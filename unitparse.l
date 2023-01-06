@@ -146,7 +146,7 @@ tan {
 	values[0] = CStringGetTextDatum(yytext);
 
 	/* look up unit definition without prefix first */
-	ret = SPI_execute_with_args("SELECT unit, shift "
+	ret = SPI_execute_with_args("SELECT unit, shift, logbase "
 								"FROM unit_units WHERE "
 								"name = $1",
 								1, /* nargs */
@@ -162,6 +162,7 @@ tan {
 	{
 		Unit	   *unitp;
 		Datum		shift;
+		Datum		logbase;
 		bool		is_null;
 
 		unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
@@ -172,6 +173,9 @@ tan {
 		shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null);
 		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
+		logbase = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3, &is_null);
+		yyunitlval.UNIT_SHIFT.logbase = is_null ? 0.0 : DatumGetFloat8(logbase);
+
 		elog(DEBUG1, "unit %s (value %g)",
 				SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
 				unitp->value);
@@ -180,7 +184,7 @@ tan {
 	}
 
 	/* look up definition with prefix */
-	ret = SPI_execute_with_args("SELECT prefix, factor, name, unit, shift "
+	ret = SPI_execute_with_args("SELECT prefix, factor, name, unit, shift, logbase "
 								"FROM unit_prefixes CROSS JOIN unit_units WHERE "
 								"prefix||name = $1 AND "
 								"$1 LIKE prefix||'%' AND "
@@ -217,6 +221,7 @@ tan {
 		double		factor;
 		Unit	   *unitp;
 		Datum		shift;
+		Datum		logbase;
 		bool		is_null;
 
 		factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
@@ -230,13 +235,16 @@ tan {
 		shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null);
 		yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
+		logbase = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 6, &is_null);
+		yyunitlval.UNIT_SHIFT.logbase = is_null ? 0.0 : DatumGetFloat8(logbase);
+
 		goto found;
 	}
 
 	/* if unit is long enough, look up unit definition with plural 's' removed */
 	yytext_len = strlen(yytext);
 	if (yytext_len >= MIN_PLURAL_LENGTH && yytext[yytext_len - 1] == 's') {
-		ret = SPI_execute_with_args("SELECT unit, shift "
+		ret = SPI_execute_with_args("SELECT unit, shift, logbase "
 									"FROM unit_units WHERE "
 									"name = substring($1 for length($1) - 1)",
 									1, /* nargs */
@@ -252,6 +260,7 @@ tan {
 		{
 			Unit	   *unitp;
 			Datum		shift;
+			Datum		logbase;
 			bool		is_null;
 
 			unitp = (Unit *) DatumGetPointer(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1, &is_null));
@@ -262,6 +271,9 @@ tan {
 			shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null);
 			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
 
+			logbase = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 3, &is_null);
+			yyunitlval.UNIT_SHIFT.logbase = is_null ? 0.0 : DatumGetFloat8(logbase);
+
 			elog(DEBUG1, "unit %s (value %g)",
 					SPI_getvalue(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 1),
 					unitp->value);
@@ -270,7 +282,7 @@ tan {
 		}
 
 		/* look up definition with prefix */
-		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit, shift "
+		ret = SPI_execute_with_args("SELECT prefix, factor, name, unit, shift, logbase "
 									"FROM unit_prefixes CROSS JOIN unit_units WHERE "
 									"prefix||name = substring($1 for length($1) - 1) AND "
 									"substring($1 for length($1) - 1) LIKE prefix||'%' AND "
@@ -307,6 +319,7 @@ tan {
 			double		factor;
 			Unit	   *unitp;
 			Datum		shift;
+			Datum		logbase;
 			bool		is_null;
 
 			factor = DatumGetFloat8(SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 2, &is_null)); /* we discard is_null here */
@@ -318,6 +331,9 @@ tan {
 
 			shift = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 5, &is_null);
 			yyunitlval.UNIT_SHIFT.shift = is_null ? 0.0 : DatumGetFloat8(shift);
+
+			logbase = SPI_getbinval(SPI_tuptable->vals[0], SPI_tuptable->tupdesc, 6, &is_null);
+			yyunitlval.UNIT_SHIFT.logbase = is_null ? 0.0 : DatumGetFloat8(logbase);
 
 			goto found;
 		}

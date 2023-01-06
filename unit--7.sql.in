@@ -61,6 +61,7 @@ CREATE TABLE unit_units (
 	name varchar(32) PRIMARY KEY,
 	unit unit NOT NULL,
 	shift double precision, -- NULL means 0.0 here
+	logbase double precision, -- NULL means 0.0 here
 	definition text, -- original definition, informational
 	dump boolean DEFAULT true
 );
