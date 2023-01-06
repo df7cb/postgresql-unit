@@ -1,3 +1,7 @@
+7.7: Jan 06, 2023
+-----------------
+* Fix printing of values around 1e33 on i386.
+
 7.6: Jan 04, 2023
 -----------------
 * Import definitions.units September 2022 Version 3.15.
