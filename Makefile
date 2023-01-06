@@ -3,7 +3,8 @@ OBJS = unit.o unitparse.yy.o unitparse.tab.o
 EXTENSION = unit
 DATA = unit_prefixes.data unit_units.data \
 	   unit--1.sql unit--1--2.sql \
-	   unit--2.sql
+	   unit--2.sql \
+	   unit--7--8.sql
 DATA_built = unit--2--3.sql unit--3.sql \
 			 unit--3--4.sql unit--4.sql \
 			 unit--4--5.sql unit--5.sql \

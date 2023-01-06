@@ -231,16 +231,18 @@ print_exponent (char **output_p, int e)
 }
 
 /* this function is used to format time values of at least one minute */
-static void
-print_time_interval (char **output_p, double t)
+static char *
+print_time_interval (double t)
 {
 	int		 h, m;
 	char	*sign = "+";
 	int		 ndig;
+	char	*output = palloc(128);
+	char	*output_p = output;
 
 	/* print - */
 	if (t < 0) {
-		*output_p += sprintf(*output_p, "-");
+		output_p += sprintf(output_p, "-");
 		t = -t;
 		sign = "-";
 	}
@@ -257,53 +259,55 @@ print_time_interval (char **output_p, double t)
 	if (t >= TIME_YEAR) {
 		double years = trunc(t / TIME_YEAR);
 		t = fmod(t, TIME_YEAR);
-		*output_p += sprintf(*output_p, "%g " TIME_YEAR_NAME, years);
+		output_p += sprintf(output_p, "%g " TIME_YEAR_NAME, years);
 		if (t != 0)
-			*output_p += sprintf(*output_p, " %s ", sign);
+			output_p += sprintf(output_p, " %s ", sign);
 	}
 	if (t == 0)
-		return;
+		return output;
 
 	/* print days */
 	if (t >= TIME_DAY) {
 		int days = trunc(t / TIME_DAY);
 		t = fmod(t, TIME_DAY);
-		*output_p += sprintf(*output_p, "%d d", days);
+		output_p += sprintf(output_p, "%d d", days);
 		if (t != 0)
-			*output_p += sprintf(*output_p, " %s ", sign);
+			output_p += sprintf(output_p, " %s ", sign);
 	}
 	if (t == 0)
-		return;
+		return output;
 
 	/* print hh:mm: */
 	h = trunc(t / TIME_HOUR);
 	t = fmod(t, TIME_HOUR);
 	m = trunc(t / TIME_MINUTE);
 	t = fmod(t, TIME_MINUTE);
-	*output_p += sprintf(*output_p, "%02d:%02d:", h, m);
+	output_p += sprintf(output_p, "%02d:%02d:", h, m);
 
 	/* print ss.sss */
 	if (t < 10.0) /* zero-pad */
-		*output_p += sprintf(*output_p, "0");
+		output_p += sprintf(output_p, "0");
 	if (ndig < 0)
 		ndig = 0;
-	*output_p += sprintf(*output_p, "%.*f", ndig, t);
+	output_p += sprintf(output_p, "%.*f", ndig, t);
 	if (ndig > 0) {
 		/* strip trailing zeros from %f format */
-		while (*(*output_p - 1) == '0') {
-			--*output_p;
+		while (*(output_p - 1) == '0') {
+			--output_p;
 		}
-		if (*(*output_p - 1) == '.') {
-			--*output_p;
+		if (*(output_p - 1) == '.') {
+			--output_p;
 		}
-		**output_p = '\0';
+		*output_p = '\0';
 	}
-	*output_p += sprintf(*output_p, " s");
+	output_p += sprintf(output_p, " s");
+
+	return output;
 }
 
 /* format Unit as string */
-char *
-unit_cstring (Unit *unit)
+static char *
+unit_cstring_internal (Unit *unit, double *value)
 {
 	int		 i;
 	int		 n_numerator = 0;
@@ -382,8 +386,8 @@ unit_cstring (Unit *unit)
 			prefix = "q"; factor = 1e33;
 		} /* else: smaller value or 0 (or -0), print using kg */
 
-		print_output("%s %sg", float8out_unit (unit->value * factor),
-				prefix); /* gram with SI prefix */
+		*value = unit->value * factor;
+		print_output("%sg", prefix); /* gram with SI prefix */
 		numerator = true;
 
 	/* case 1b: byte in numerator (exponent 1), and binary IEC prefix requested */
@@ -416,8 +420,8 @@ unit_cstring (Unit *unit)
 			prefix = "Ki"; factor = 0x1p-10;
 		} /* else do nothing */
 
-		print_output("%s %sB", float8out_unit (unit->value * factor),
-				prefix); /* byte with binary prefix */
+		*value = unit->value * factor;
+		print_output("%sB", prefix); /* byte with binary prefix */
 		numerator = true;
 
 	/* case 2: derived unit, or numerator with exactly one unit (exponent 1)
@@ -427,14 +431,6 @@ unit_cstring (Unit *unit)
 		char	*prefix = "";
 		double	 factor = 1.0;
 		char	*unit_name = derived_unit ? derived_unit->name : (char *)base_units[u_numerator];
-
-		/* case 2a: minute/hour/day output requested, unit is seconds, and
-		 * absolute value is >= 60 seconds. Print as interval and exit */
-		if (unit_time_output_custom && derived_unit &&
-				!strcmp(derived_unit->name, "s") && v_abs >= TIME_MINUTE) {
-			print_time_interval(&output_p, unit->value);
-			return output;
-		}
 
 		if (v_abs >= POWER_33) {
 			// do nothing
@@ -485,8 +481,8 @@ unit_cstring (Unit *unit)
 		} /* else do nothing */
 
 		/* print with SI prefix */
-		print_output("%s %s%s", float8out_unit (unit->value * factor),
-				prefix, unit_name);
+		*value = unit->value * factor;
+		print_output("%s%s", prefix, unit_name);
 
 		/* case 2b: derived unit: stop here */
 		if (derived_unit)
@@ -498,11 +494,12 @@ unit_cstring (Unit *unit)
 	/* case 3: zero or more than one unit in numerator */
 	} else {
 		/* always use scientific notation here */
-		print_output("%s", float8out_unit (unit->value));
+		*value = unit->value;
+		*output = '\0';
 
 		for (i = 0; i < N_UNITS; i++) /* format units in numerator */
 			if (unit->units[i] > 0) {
-				print_output("%s%s", numerator ? "*" : " ", base_units[i]);
+				print_output("%s%s", numerator ? "*" : "", base_units[i]);
 				if (unit->units[i] > 1)
 					print_exponent(&output_p, unit->units[i]);
 				numerator = true;
@@ -517,7 +514,7 @@ unit_cstring (Unit *unit)
 				if (unit->units[i] < -1)
 					print_exponent(&output_p, -unit->units[i]);
 			} else { /* format as a^-x*b^-y */
-				print_output("%s%s", denominator ? "*" : " ", base_units[i]);
+				print_output("%s%s", denominator ? "*" : "", base_units[i]);
 				print_exponent(&output_p, unit->units[i]);
 			}
 			denominator = true;
@@ -525,6 +522,29 @@ unit_cstring (Unit *unit)
 
 	/* done */
 	return output;
+}
+
+char *
+unit_cstring(Unit *unit)
+{
+	double	value;
+	char *output;
+	char *value_str;
+	static Unit unit_seconds = {0, {0, 0, 1, 0, 0, 0, 0, 0}};
+
+	/* minute/hour/day output requested, unit is seconds, and absolute value is >= 60 seconds. */
+	if (unit_time_output_custom && !memcmp(unit->units, unit_seconds.units, N_UNITS)
+			&& fabs(unit->value) >= TIME_MINUTE) {
+		return print_time_interval(unit->value);
+	}
+
+	output = unit_cstring_internal(unit, &value);
+	value_str = float8out_unit(value);
+
+	if (*output)
+		return psprintf("%s %s", value_str, output);
+	else
+		return value_str;
 }
 
 /* input and output */
@@ -736,6 +756,28 @@ unit_dimension(PG_FUNCTION_ARGS)
 	result->value = 1;
 	memcpy(result->units, a->units, N_UNITS);
 	PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(unit_number);
+
+Datum
+unit_number(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	double value;
+	unit_cstring_internal(a, &value);
+	PG_RETURN_FLOAT8(value);
+}
+
+PG_FUNCTION_INFO_V1(unit_string);
+
+Datum
+unit_string(PG_FUNCTION_ARGS)
+{
+	Unit	*a = (Unit *) PG_GETARG_POINTER(0);
+	double value;
+	char *output = unit_cstring_internal(a, &value);
+	PG_RETURN_TEXT_P(output);
 }
 
 PG_FUNCTION_INFO_V1(unit_round);
