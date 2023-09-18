@@ -1,3 +1,10 @@
+postgresql-unit (7.7-2) unstable; urgency=medium
+
+  * Upload for PostgreSQL 16.
+  * Use ${postgresql:Depends}.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 18 Sep 2023 22:22:20 +0200
+
 postgresql-unit (7.7-1) unstable; urgency=medium
 
   * Fix printing of values around 1e33 on i386.

@@ -7,7 +7,7 @@ Build-Depends:
  debhelper-compat (= 13),
  flex,
  postgresql-server-dev-all (>= 217~),
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit
@@ -15,7 +15,7 @@ Homepage: https://github.com/df7cb/postgresql-unit
 
 Package: postgresql-PGVERSION-unit
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, postgresql-PGVERSION
+Depends: ${misc:Depends}, ${shlibs:Depends}, ${postgresql:Depends}
 Description: SI Units for PostgreSQL
  postgresql-unit implements a PostgreSQL datatype for SI units, plus byte. The
  base units can be combined to named and unnamed derived units using operators
