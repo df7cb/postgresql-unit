@@ -1,5 +1,6 @@
-postgresql-unit (7.7-2) unstable; urgency=medium
+postgresql-unit (7.8-1) unstable; urgency=medium
 
+  * New upstream version.
   * Upload for PostgreSQL 16.
   * Use ${postgresql:Depends}.
 
