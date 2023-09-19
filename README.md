@@ -118,6 +118,33 @@ make PG_CONFIG=/usr/lib/postgresql/10/bin/pg_config
 sudo make install PG_CONFIG=/usr/lib/postgresql/10/bin/pg_config
 ```
 
+Docker
+------
+
+To try out this extension, there is an easy way with docker.
+
+This is a [multi-stage build](https://docs.docker.com/develop/develop-images/multistage-build/) ontop of the [official postgres docker image](https://hub.docker.com/_/postgres).
+
+You can easily switch the PostgreSQL Version in the [Dockerfile](docker/Dockerfile).
+
+```
+docker build -t postgresql-unit docker/
+
+docker run --name postgresql-unit -p 127.0.0.1:5432:5432 -d postgresql-unit
+
+# wait a few seconds for the database to setup...
+docker exec -itu postgres postgresql-unit psql
+psql (11.4 (Debian 11.4-1.pgdg90+1))
+Type "help" for help.
+
+postgres=# SELECT '2 m/s'::unit@'km/h';
+ ?column?
+----------
+ 7.2 km/h
+(1 row)
+```
+or connect with your favorite database client to `127.0.0.1:5432` (user: `postgres` pw: `postgres`).
+
 Config
 ------
 
