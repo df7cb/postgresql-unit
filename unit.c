@@ -136,7 +136,7 @@ unit_get_definitions(void)
 
 PG_MODULE_MAGIC;
 
-void _PG_init(void);
+void PGDLLEXPORT _PG_init(void);
 
 void
 _PG_init(void)
