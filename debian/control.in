@@ -3,11 +3,12 @@ Section: database
 Priority: optional
 Maintainer: Christoph Berg <myon@debian.org>
 Build-Depends:
+ architecture-is-64-bit <!pkg.postgresql.32-bit>,
  bison,
  debhelper-compat (= 13),
  flex,
  postgresql-server-dev-all (>= 217~),
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit
