@@ -74,7 +74,7 @@ CREATE FUNCTION unit_load()
 	LANGUAGE plpgsql
 	AS $$BEGIN
 DELETE FROM unit_prefixes WHERE dump IS NOT TRUE;
-CREATE TEMP TABLE tmp_prefixes (LIKE unit_prefixes) ON COMMIT DROP;
+CREATE TABLE tmp_prefixes (LIKE unit_prefixes);
 COPY tmp_prefixes (prefix, factor, definition, dump) FROM '@MODULEDIR@/unit_prefixes.data';
 INSERT INTO unit_prefixes
 	SELECT * FROM tmp_prefixes t WHERE NOT EXISTS
@@ -82,7 +82,7 @@ INSERT INTO unit_prefixes
 DROP TABLE tmp_prefixes;
 
 DELETE FROM unit_units WHERE dump IS NOT TRUE;
-CREATE TEMP TABLE tmp_units (LIKE unit_units) ON COMMIT DROP;
+CREATE TABLE tmp_units (LIKE unit_units);
 COPY tmp_units (name, unit, shift, definition, dump) FROM '@MODULEDIR@/unit_units.data';
 INSERT INTO unit_units
 	SELECT * FROM tmp_units t WHERE NOT EXISTS
