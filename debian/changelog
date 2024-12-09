@@ -1,3 +1,10 @@
+postgresql-unit (7.10-1) unstable; urgency=medium
+
+  * Import definitions.units November 2024 Version 3.22.
+  * Also import elements.units, adding some 3800 isotope weights.
+
+ -- Christoph Berg <myon@debian.org>  Mon, 09 Dec 2024 12:16:11 +0100
+
 postgresql-unit (7.9-1) unstable; urgency=medium
 
   * New upstream version.

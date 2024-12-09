@@ -9,9 +9,7 @@ use strict;
 use warnings;
 use DBD::Pg;
 
-my $file = "definitions.units.patched";
-
-open F, "< :encoding(utf-8)", $file or die "$file: $!";
+open F, "cat definitions.units.patched elements.units |";
 
 my $dbh = DBI->connect("dbi:Pg:", '', '',
 	{AutoCommit => 1, PrintError => 0, RaiseError => 0}
@@ -26,8 +24,6 @@ $dbh->do("RESET client_min_messages");
 my $skip_british = 0;
 my @todo;
 my $continued = '';
-
-<F>; # skip over initial line with BOM
 
 while (<F>) {
 	# skip over locale specific parts

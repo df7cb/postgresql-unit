@@ -1,4 +1,5 @@
 MONEY	US$
+sackurtetrodeconstant	5|2 + ln((u k K / 2 pi hbar^2)^(3|2) k K / atm)
 normaltemp	tempF(70)
 normtemp	normaltemp
 sqrt_cm	sqrt_cm
@@ -15,6 +16,9 @@ count	per pound
 diamond_natural_thermal_conductivity	2200 W / m K
 diamond_synthetic_thermal_conductivity	3320 W / m K
 stainless_304_thermal_conductivity	15.5 W / m K
+diamond_synthetic_thermal_diffusivity	1200 mm^2 / s
+diamond_natural_thermal_diffusivity	780 mm^2 / s
+stainless_304_thermal_diffusivity	4.2 mm^2 / s
 ipv4classA	ipv4subnetsize(8)
 ipv4classB	ipv4subnetsize(16)
 ipv4classC	ipv4subnetsize(24)
@@ -112,6 +116,12 @@ loony	1 canadadollar
 toony	2 canadadollar
 satoshi	1e-8 bitcoin
 XBT	bitcoin
+USCPI_now	UScpi_now
+USCPI_lastdate	UScpi_lastdate
+cpi_now	UScpi_now
+CPI_now	UScpi_now
+cpi_lastdate	UScpi_lastdate
+CPI_lastdate	UScpi_lastdate
 brmgd	mega brgallon/day
 usmgd	mega usgallon/day
 percapita	per capita
@@ -129,7 +139,7 @@ grand	usgrand
 ₤	lira
 ₨	rupee
 ฿	thailandbaht
-₡	elsalvadorcolon
+₡	costaricacolon
 ₣	francefranc
 ₦	nigerianaira
 ₧	spainpeseta

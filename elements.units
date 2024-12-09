@@ -1,0 +1,4011 @@
+# This file is the elements database for use with GNU units, a units
+# conversion program by Adrian Mariano adrianm@gnu.org
+#
+# January 2024 Version 1.0
+#
+# Copyright (C) 2024
+# Free Software Foundation, Inc
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This data is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA  02110-1301  USA
+
+# From https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses
+
+#   For several elements, the standard atomic weight A_r is given as an
+#   atomic-weight interval with the symbol [a,b] to denote the set of
+#   atomic-weight values in normal materials; thus, [a <= A_r(E) <= b].
+#   The symbols a and b denote the lower and upper bounds of the
+#   interval [a,b], respectively.  The values in parentheses, following
+#   the last significant digit to which they are attributed, are
+#   uncertainties.
+#
+#   Brackets [ ] enclosing a single value indicate the mass number of
+#   the most stable isotope.  For radioactive elements with atomic
+#   numbers 95 or greater, the mass number of the most stable isotope is
+#   not specified, as the list of studied isotopes is still
+#   incomplete.
+
+# When composition mole fractions of isotopes are given, the atomic mass
+# of an element is given as the sum of the product(s) of mole
+# fraction(s) and the atomic masses of the relevant isotopes.  When composition
+# mole fractions are not given, the atomic mass is given as
+#
+#   * the mass of the most stable isotope, if available, or
+#   * the standard atomic mass of the element, if available.
+#
+# If neither the most stable isotope nore a standard atomic mass is
+# available, no atomic mass for the element is given; the user must
+# select the isotope most suitable for their purposes.
+#
+# If the standard atomic mass is a range, the value given is the
+# midpoint of that range, which may differ from the value determined
+# from the sum of the products of composition mole fraction and isotope
+# atomic mass.
+
+# hydrogen: H (1)  std atomic weight: [1.00784,1.00811]
+hydrogen_1              1.0078250322   # 0.99988500
+hydrogen_2              2.0141017781   # 0.00011500
+hydrogen_3              3.0160492779
+hydrogen_4              4.0264300000
+hydrogen_5              5.0353110000
+hydrogen_6              6.0449600000
+hydrogen_7              7.0527000000
+hydrogen          0.99988500 hydrogen_1 \
+                + 0.00011500 hydrogen_2
+
+# helium: He (2)  std atomic weight: 4.002602(2)
+helium_3                3.0160293201   # 0.00000134
+helium_4                4.0026032541   # 0.99999866
+helium_5                5.0120570000
+helium_6                6.0188858910
+helium_7                7.0279907000
+helium_8                8.0339343900
+helium_9                9.0439460000
+helium_10              10.0527900000
+helium            0.00000134 helium_3 \
+                + 0.99999866 helium_4
+
+# lithium: Li (3)  std atomic weight: [6.938,6.997]
+lithium_3               3.0308000000
+lithium_4               4.0271900000
+lithium_5               5.0125380000
+lithium_6               6.0151228874   # 0.07590000
+lithium_7               7.0160034366   # 0.92410000
+lithium_8               8.0224862460
+lithium_9               9.0267901900
+lithium_10             10.0354830000
+lithium_11             11.0437235800
+lithium_12             12.0525170000
+lithium_13             13.0626300000
+lithium           0.07590000 lithium_6 \
+                + 0.92410000 lithium_7
+
+# beryllium: Be (4)  std atomic weight: 9.0121831(5)
+beryllium_5             5.0399000000
+beryllium_6             6.0197264000
+beryllium_7             7.0169287170
+beryllium_8             8.0053051020
+beryllium_9             9.0121830650   # 1.00000000
+beryllium_10           10.0135346950
+beryllium_11           11.0216610800
+beryllium_12           12.0269221000
+beryllium_13           13.0361350000
+beryllium_14           14.0428900000
+beryllium_15           15.0534200000
+beryllium_16           16.0616700000
+beryllium              beryllium_9
+
+# boron: B (5)  std atomic weight: [10.806,10.821]
+boron_6                 6.0508000000
+boron_7                 7.0297120000
+boron_8                 8.0246073000
+boron_9                 9.0133296500
+boron_10               10.0129369500   # 0.19900000
+boron_11               11.0093053600   # 0.80100000
+boron_12               12.0143527000
+boron_13               13.0177802000
+boron_14               14.0254040000
+boron_15               15.0310880000
+boron_16               16.0398420000
+boron_17               17.0469900000
+boron_18               18.0556600000
+boron_19               19.0631000000
+boron_20               20.0720700000
+boron_21               21.0812900000
+boron             0.19900000 boron_10 \
+                + 0.80100000 boron_11
+
+# carbon: C (6)  std atomic weight: [12.0096,12.0116]
+carbon_8                8.0376430000
+carbon_9                9.0310372000
+carbon_10              10.0168533100
+carbon_11              11.0114336000
+carbon_12              12.0000000000   # 0.98930000
+carbon_13              13.0033548351   # 0.01070000
+carbon_14              14.0032419884
+carbon_15              15.0105992600
+carbon_16              16.0147013000
+carbon_17              17.0225770000
+carbon_18              18.0267510000
+carbon_19              19.0348000000
+carbon_20              20.0403200000
+carbon_21              21.0490000000
+carbon_22              22.0575300000
+carbon_23              23.0689000000
+carbon            0.98930000 carbon_12 \
+                + 0.01070000 carbon_13
+
+# nitrogen: N (7)  std atomic weight: [14.00643,14.00728]
+nitrogen_10            10.0416500000
+nitrogen_11            11.0260910000
+nitrogen_12            12.0186132000
+nitrogen_13            13.0057386100
+nitrogen_14            14.0030740044   # 0.99636000
+nitrogen_15            15.0001088989   # 0.00364000
+nitrogen_16            16.0061019000
+nitrogen_17            17.0084490000
+nitrogen_18            18.0140780000
+nitrogen_19            19.0170220000
+nitrogen_20            20.0233660000
+nitrogen_21            21.0271100000
+nitrogen_22            22.0343900000
+nitrogen_23            23.0411400000
+nitrogen_24            24.0503900000
+nitrogen_25            25.0601000000
+nitrogen          0.99636000 nitrogen_14 \
+                + 0.00364000 nitrogen_15
+
+# oxygen: O (8)  std atomic weight: [15.99903,15.99977]
+oxygen_12              12.0342620000
+oxygen_13              13.0248150000
+oxygen_14              14.0085963600
+oxygen_15              15.0030656200
+oxygen_16              15.9949146196   # 0.99757000
+oxygen_17              16.9991317565   # 0.00038000
+oxygen_18              17.9991596129   # 0.00205000
+oxygen_19              19.0035780000
+oxygen_20              20.0040753500
+oxygen_21              21.0086550000
+oxygen_22              22.0099660000
+oxygen_23              23.0156960000
+oxygen_24              24.0198600000
+oxygen_25              25.0293600000
+oxygen_26              26.0372900000
+oxygen_27              27.0477200000
+oxygen_28              28.0559100000
+oxygen            0.99757000 oxygen_16 \
+                + 0.00038000 oxygen_17 \
+                + 0.00205000 oxygen_18
+
+# fluorine: F (9)  std atomic weight: 18.998403163(6)
+fluorine_14            14.0343150000
+fluorine_15            15.0180430000
+fluorine_16            16.0114657000
+fluorine_17            17.0020952400
+fluorine_18            18.0009373300
+fluorine_19            18.9984031627   # 1.00000000
+fluorine_20            19.9999812520
+fluorine_21            20.9999489000
+fluorine_22            22.0029990000
+fluorine_23            23.0035570000
+fluorine_24            24.0081150000
+fluorine_25            25.0121990000
+fluorine_26            26.0200380000
+fluorine_27            27.0264400000
+fluorine_28            28.0353400000
+fluorine_29            29.0425400000
+fluorine_30            30.0516500000
+fluorine_31            31.0597100000
+fluorine               fluorine_19
+
+# neon: Ne (10)  std atomic weight: 20.1797(6)
+neon_16                16.0257500000
+neon_17                17.0177139600
+neon_18                18.0057087000
+neon_19                19.0018809100
+neon_20                19.9924401762   # 0.90480000
+neon_21                20.9938466850   # 0.00270000
+neon_22                21.9913851140   # 0.09250000
+neon_23                22.9944669100
+neon_24                23.9936106500
+neon_25                24.9977890000
+neon_26                26.0005150000
+neon_27                27.0075530000
+neon_28                28.0121200000
+neon_29                29.0197500000
+neon_30                30.0247300000
+neon_31                31.0331000000
+neon_32                32.0397200000
+neon_33                33.0493800000
+neon_34                34.0567300000
+neon              0.90480000 neon_20 \
+                + 0.00270000 neon_21 \
+                + 0.09250000 neon_22
+
+# sodium: Na (11)  std atomic weight: 22.98976928(2)
+sodium_18              18.0268800000
+sodium_19              19.0138800000
+sodium_20              20.0073544000
+sodium_21              20.9976546900
+sodium_22              21.9944374100
+sodium_23              22.9897692820   # 1.00000000
+sodium_24              23.9909629500
+sodium_25              24.9899540000
+sodium_26              25.9926346000
+sodium_27              26.9940765000
+sodium_28              27.9989390000
+sodium_29              29.0028771000
+sodium_30              30.0090979000
+sodium_31              31.0131630000
+sodium_32              32.0201900000
+sodium_33              33.0257300000
+sodium_34              34.0335900000
+sodium_35              35.0406200000
+sodium_36              36.0492900000
+sodium_37              37.0570500000
+sodium                 sodium_23
+
+# magnesium: Mg (12)  std atomic weight: [24.304,24.307]
+magnesium_19           19.0341690000
+magnesium_20           20.0188500000
+magnesium_21           21.0117160000
+magnesium_22           21.9995706500
+magnesium_23           22.9941242100
+magnesium_24           23.9850416970   # 0.78990000
+magnesium_25           24.9858369760   # 0.10000000
+magnesium_26           25.9825929680   # 0.11010000
+magnesium_27           26.9843406240
+magnesium_28           27.9838767000
+magnesium_29           28.9886170000
+magnesium_30           29.9904629000
+magnesium_31           30.9966480000
+magnesium_32           31.9991102000
+magnesium_33           33.0053271000
+magnesium_34           34.0089350000
+magnesium_35           35.0167900000
+magnesium_36           36.0218800000
+magnesium_37           37.0303700000
+magnesium_38           38.0365800000
+magnesium_39           39.0453800000
+magnesium_40           40.0521800000
+magnesium         0.78990000 magnesium_24 \
+                + 0.10000000 magnesium_25 \
+                + 0.11010000 magnesium_26
+
+# aluminium: Al (13)  std atomic weight: 26.9815385(7)
+# IUPAC spelling
+aluminium_21           21.0289700000
+aluminium_22           22.0195400000
+aluminium_23           23.0072443500
+aluminium_24           23.9999489000
+aluminium_25           24.9904281000
+aluminium_26           25.9868919040
+aluminium_27           26.9815385300   # 1.00000000
+aluminium_28           27.9819102100
+aluminium_29           28.9804565000
+aluminium_30           29.9829600000
+aluminium_31           30.9839450000
+aluminium_32           31.9880850000
+aluminium_33           32.9909090000
+aluminium_34           33.9967050000
+aluminium_35           34.9997640000
+aluminium_36           36.0063900000
+aluminium_37           37.0105300000
+aluminium_38           38.0174000000
+aluminium_39           39.0225400000
+aluminium_40           40.0300300000
+aluminium_41           41.0363800000
+aluminium_42           42.0438400000
+aluminium_43           43.0514700000
+aluminium              aluminium_27
+# American spelling
+aluminum_21            21.0289700000
+aluminum_22            22.0195400000
+aluminum_23            23.0072443500
+aluminum_24            23.9999489000
+aluminum_25            24.9904281000
+aluminum_26            25.9868919040
+aluminum_27            26.9815385300   # 1.00000000
+aluminum_28            27.9819102100
+aluminum_29            28.9804565000
+aluminum_30            29.9829600000
+aluminum_31            30.9839450000
+aluminum_32            31.9880850000
+aluminum_33            32.9909090000
+aluminum_34            33.9967050000
+aluminum_35            34.9997640000
+aluminum_36            36.0063900000
+aluminum_37            37.0105300000
+aluminum_38            38.0174000000
+aluminum_39            39.0225400000
+aluminum_40            40.0300300000
+aluminum_41            41.0363800000
+aluminum_42            42.0438400000
+aluminum_43            43.0514700000
+aluminum               aluminum_27
+
+# silicon: Si (14)  std atomic weight: [28.084,28.086]
+silicon_22             22.0357900000
+silicon_23             23.0254400000
+silicon_24             24.0115350000
+silicon_25             25.0041090000
+silicon_26             25.9923338400
+silicon_27             26.9867048100
+silicon_28             27.9769265347   # 0.92223000
+silicon_29             28.9764946649   # 0.04685000
+silicon_30             29.9737701360   # 0.03092000
+silicon_31             30.9753631940
+silicon_32             31.9741515400
+silicon_33             32.9779769600
+silicon_34             33.9785760000
+silicon_35             34.9845830000
+silicon_36             35.9866950000
+silicon_37             36.9929210000
+silicon_38             37.9955230000
+silicon_39             39.0024910000
+silicon_40             40.0058300000
+silicon_41             41.0130100000
+silicon_42             42.0177800000
+silicon_43             43.0248000000
+silicon_44             44.0306100000
+silicon_45             45.0399500000
+silicon           0.92223000 silicon_28 \
+                + 0.04685000 silicon_29 \
+                + 0.03092000 silicon_30
+
+# phosphorus: P (15)  std atomic weight: 30.973761998(5)
+phosphorus_24          24.0357700000
+phosphorus_25          25.0211900000
+phosphorus_26          26.0117800000
+phosphorus_27          26.9992240000
+phosphorus_28          27.9923266000
+phosphorus_29          28.9818007900
+phosphorus_30          29.9783137500
+phosphorus_31          30.9737619984   # 1.00000000
+phosphorus_32          31.9739076430
+phosphorus_33          32.9717257000
+phosphorus_34          33.9736458900
+phosphorus_35          34.9733141000
+phosphorus_36          35.9782600000
+phosphorus_37          36.9796070000
+phosphorus_38          37.9842520000
+phosphorus_39          38.9862270000
+phosphorus_40          39.9913300000
+phosphorus_41          40.9946540000
+phosphorus_42          42.0010800000
+phosphorus_43          43.0050200000
+phosphorus_44          44.0112100000
+phosphorus_45          45.0164500000
+phosphorus_46          46.0244600000
+phosphorus_47          47.0313900000
+phosphorus             phosphorus_31
+
+# sulfur: S (16)  std atomic weight: [32.059,32.076]
+sulfur_26              26.0290700000
+sulfur_27              27.0182800000
+sulfur_28              28.0043700000
+sulfur_29              28.9966110000
+sulfur_30              29.9849070300
+sulfur_31              30.9795570100
+sulfur_32              31.9720711744   # 0.94990000
+sulfur_33              32.9714589098   # 0.00750000
+sulfur_34              33.9678670040   # 0.04250000
+sulfur_35              34.9690323100
+sulfur_36              35.9670807100   # 0.00010000
+sulfur_37              36.9711255100
+sulfur_38              37.9711633000
+sulfur_39              38.9751340000
+sulfur_40              39.9754826000
+sulfur_41              40.9795935000
+sulfur_42              41.9810651000
+sulfur_43              42.9869076000
+sulfur_44              43.9901188000
+sulfur_45              44.9957200000
+sulfur_46              46.0000400000
+sulfur_47              47.0079500000
+sulfur_48              48.0137000000
+sulfur_49              49.0227600000
+sulfur            0.94990000 sulfur_32 \
+                + 0.00750000 sulfur_33 \
+                + 0.04250000 sulfur_34 \
+                + 0.00010000 sulfur_36
+
+# chlorine: Cl (17)  std atomic weight: [35.446,35.457]
+chlorine_28            28.0295400000
+chlorine_29            29.0147800000
+chlorine_30            30.0047700000
+chlorine_31            30.9924140000
+chlorine_32            31.9856846400
+chlorine_33            32.9774519900
+chlorine_34            33.9737624850
+chlorine_35            34.9688526820   # 0.75760000
+chlorine_36            35.9683068090
+chlorine_37            36.9659026020   # 0.24240000
+chlorine_38            37.9680104400
+chlorine_39            38.9680082000
+chlorine_40            39.9704150000
+chlorine_41            40.9706850000
+chlorine_42            41.9732500000
+chlorine_43            42.9738900000
+chlorine_44            43.9778700000
+chlorine_45            44.9802900000
+chlorine_46            45.9851700000
+chlorine_47            46.9891600000
+chlorine_48            47.9956400000
+chlorine_49            49.0012300000
+chlorine_50            50.0090500000
+chlorine_51            51.0155400000
+chlorine          0.75760000 chlorine_35 \
+                + 0.24240000 chlorine_37
+
+# argon: Ar (18)  std atomic weight: 39.948(1)
+argon_30               30.0230700000
+argon_31               31.0121200000
+argon_32               31.9976378000
+argon_33               32.9899255500
+argon_34               33.9802700900
+argon_35               34.9752575900
+argon_36               35.9675451050   # 0.00333600
+argon_37               36.9667763300
+argon_38               37.9627321100   # 0.00062900
+argon_39               38.9643130000
+argon_40               39.9623831237   # 0.99603500
+argon_41               40.9645005700
+argon_42               41.9630457000
+argon_43               42.9656361000
+argon_44               43.9649238000
+argon_45               44.9680397300
+argon_46               45.9680830000
+argon_47               46.9729350000
+argon_48               47.9759100000
+argon_49               48.9819000000
+argon_50               49.9861300000
+argon_51               50.9937000000
+argon_52               51.9989600000
+argon_53               53.0072900000
+argon             0.00333600 argon_36 \
+                + 0.00062900 argon_38 \
+                + 0.99603500 argon_40
+
+# potassium: K (19)  std atomic weight: 39.0983(1)
+potassium_32           32.0226500000
+potassium_33           33.0075600000
+potassium_34           33.9986900000
+potassium_35           34.9880054100
+potassium_36           35.9813020100
+potassium_37           36.9733758900
+potassium_38           37.9690811200
+potassium_39           38.9637064864   # 0.93258100
+potassium_40           39.9639981660   # 0.00011700
+potassium_41           40.9618252579   # 0.06730200
+potassium_42           41.9624023100
+potassium_43           42.9607347000
+potassium_44           43.9615869900
+potassium_45           44.9606914900
+potassium_46           45.9619815900
+potassium_47           46.9616616000
+potassium_48           47.9653411900
+potassium_49           48.9682107500
+potassium_50           49.9723800000
+potassium_51           50.9758280000
+potassium_52           51.9822400000
+potassium_53           52.9874600000
+potassium_54           53.9946300000
+potassium_55           55.0007600000
+potassium_56           56.0085100000
+potassium         0.93258100 potassium_39 \
+                + 0.00011700 potassium_40 \
+                + 0.06730200 potassium_41
+
+# calcium: Ca (20)  std atomic weight: 40.078(4)
+calcium_34             34.0148700000
+calcium_35             35.0051400000
+calcium_36             35.9930740000
+calcium_37             36.9858978500
+calcium_38             37.9763192200
+calcium_39             38.9707108100
+calcium_40             39.9625908630   # 0.96941000
+calcium_41             40.9622779200
+calcium_42             41.9586178300   # 0.00647000
+calcium_43             42.9587664400   # 0.00135000
+calcium_44             43.9554815600   # 0.02086000
+calcium_45             44.9561863500
+calcium_46             45.9536890000   # 0.00004000
+calcium_47             46.9545424000
+calcium_48             47.9525227600   # 0.00187000
+calcium_49             48.9556627400
+calcium_50             49.9574992000
+calcium_51             50.9609890000
+calcium_52             51.9632170000
+calcium_53             52.9694500000
+calcium_54             53.9734000000
+calcium_55             54.9803000000
+calcium_56             55.9850800000
+calcium_57             56.9926200000
+calcium_58             57.9979400000
+calcium           0.96941000 calcium_40 \
+                + 0.00647000 calcium_42 \
+                + 0.00135000 calcium_43 \
+                + 0.02086000 calcium_44 \
+                + 0.00004000 calcium_46 \
+                + 0.00187000 calcium_48
+
+# scandium: Sc (21)  std atomic weight: 44.955908(5)
+scandium_36            36.0164800000
+scandium_37            37.0037400000
+scandium_38            37.9951200000
+scandium_39            38.9847850000
+scandium_40            39.9779673000
+scandium_41            40.9692511050
+scandium_42            41.9655165300
+scandium_43            42.9611505000
+scandium_44            43.9594029000
+scandium_45            44.9559082800   # 1.00000000
+scandium_46            45.9551682600
+scandium_47            46.9524037000
+scandium_48            47.9522236000
+scandium_49            48.9500146000
+scandium_50            49.9521760000
+scandium_51            50.9535920000
+scandium_52            51.9568800000
+scandium_53            52.9590900000
+scandium_54            53.9639300000
+scandium_55            54.9678200000
+scandium_56            55.9734500000
+scandium_57            56.9777700000
+scandium_58            57.9840300000
+scandium_59            58.9889400000
+scandium_60            59.9956500000
+scandium_61            61.0010000000
+scandium               scandium_45
+
+# titanium: Ti (22)  std atomic weight: 47.867(1)
+titanium_38            38.0114500000
+titanium_39            39.0023600000
+titanium_40            39.9905000000
+titanium_41            40.9831480000
+titanium_42            41.9730490300
+titanium_43            42.9685225000
+titanium_44            43.9596899500
+titanium_45            44.9581219800
+titanium_46            45.9526277200   # 0.08250000
+titanium_47            46.9517587900   # 0.07440000
+titanium_48            47.9479419800   # 0.73720000
+titanium_49            48.9478656800   # 0.05410000
+titanium_50            49.9447868900   # 0.05180000
+titanium_51            50.9466106500
+titanium_52            51.9468930000
+titanium_53            52.9497300000
+titanium_54            53.9510500000
+titanium_55            54.9552700000
+titanium_56            55.9579100000
+titanium_57            56.9636400000
+titanium_58            57.9666000000
+titanium_59            58.9724700000
+titanium_60            59.9760300000
+titanium_61            60.9824500000
+titanium_62            61.9865100000
+titanium_63            62.9937500000
+titanium          0.08250000 titanium_46 \
+                + 0.07440000 titanium_47 \
+                + 0.73720000 titanium_48 \
+                + 0.05410000 titanium_49 \
+                + 0.05180000 titanium_50
+
+# vanadium: V (23)  std atomic weight: 50.9415(1)
+vanadium_40            40.0127600000
+vanadium_41            41.0002100000
+vanadium_42            41.9918200000
+vanadium_43            42.9807660000
+vanadium_44            43.9741100000
+vanadium_45            44.9657748000
+vanadium_46            45.9601987800
+vanadium_47            46.9549049100
+vanadium_48            47.9522522000
+vanadium_49            48.9485118000
+vanadium_50            49.9471560100   # 0.00250000
+vanadium_51            50.9439570400   # 0.99750000
+vanadium_52            51.9447730100
+vanadium_53            52.9443367000
+vanadium_54            53.9464390000
+vanadium_55            54.9472400000
+vanadium_56            55.9504800000
+vanadium_57            56.9525200000
+vanadium_58            57.9567200000
+vanadium_59            58.9593900000
+vanadium_60            59.9643100000
+vanadium_61            60.9672500000
+vanadium_62            61.9726500000
+vanadium_63            62.9763900000
+vanadium_64            63.9826400000
+vanadium_65            64.9875000000
+vanadium_66            65.9939800000
+vanadium          0.00250000 vanadium_50 \
+                + 0.99750000 vanadium_51
+
+# chromium: Cr (24)  std atomic weight: 51.9961(6)
+chromium_42            42.0067000000
+chromium_43            42.9975300000
+chromium_44            43.9853600000
+chromium_45            44.9790500000
+chromium_46            45.9683590000
+chromium_47            46.9628974000
+chromium_48            47.9540291000
+chromium_49            48.9513333000
+chromium_50            49.9460418300   # 0.04345000
+chromium_51            50.9447650200
+chromium_52            51.9405062300   # 0.83789000
+chromium_53            52.9406481500   # 0.09501000
+chromium_54            53.9388791600   # 0.02365000
+chromium_55            54.9408384300
+chromium_56            55.9406531000
+chromium_57            56.9436130000
+chromium_58            57.9443500000
+chromium_59            58.9485900000
+chromium_60            59.9500800000
+chromium_61            60.9544200000
+chromium_62            61.9561000000
+chromium_63            62.9616500000
+chromium_64            63.9640800000
+chromium_65            64.9699600000
+chromium_66            65.9736600000
+chromium_67            66.9801600000
+chromium_68            67.9840300000
+chromium          0.04345000 chromium_50 \
+                + 0.83789000 chromium_52 \
+                + 0.09501000 chromium_53 \
+                + 0.02365000 chromium_54
+
+# manganese: Mn (25)  std atomic weight: 54.938044(3)
+manganese_44           44.0071500000
+manganese_45           44.9944900000
+manganese_46           45.9860900000
+manganese_47           46.9757750000
+manganese_48           47.9685200000
+manganese_49           48.9595950000
+manganese_50           49.9542377800
+manganese_51           50.9482084700
+manganese_52           51.9455639000
+manganese_53           52.9412888900
+manganese_54           53.9403576000
+manganese_55           54.9380439100   # 1.00000000
+manganese_56           55.9389036900
+manganese_57           56.9382861000
+manganese_58           57.9400666000
+manganese_59           58.9403911000
+manganese_60           59.9431366000
+manganese_61           60.9444525000
+manganese_62           61.9479500000
+manganese_63           62.9496647000
+manganese_64           63.9538494000
+manganese_65           64.9560198000
+manganese_66           65.9605470000
+manganese_67           66.9642400000
+manganese_68           67.9696200000
+manganese_69           68.9736600000
+manganese_70           69.9793700000
+manganese_71           70.9836800000
+manganese              manganese_55
+
+# iron: Fe (26)  std atomic weight: 55.845(2)
+iron_45                45.0144200000
+iron_46                46.0006300000
+iron_47                46.9918500000
+iron_48                47.9802300000
+iron_49                48.9734290000
+iron_50                49.9629750000
+iron_51                50.9568410000
+iron_52                51.9481131000
+iron_53                52.9453064000
+iron_54                53.9396089900   # 0.05845000
+iron_55                54.9382919900
+iron_56                55.9349363300   # 0.91754000
+iron_57                56.9353928400   # 0.02119000
+iron_58                57.9332744300   # 0.00282000
+iron_59                58.9348743400
+iron_60                59.9340711000
+iron_61                60.9367462000
+iron_62                61.9367918000
+iron_63                62.9402727000
+iron_64                63.9409878000
+iron_65                64.9450115000
+iron_66                65.9462500000
+iron_67                66.9505400000
+iron_68                67.9529500000
+iron_69                68.9580700000
+iron_70                69.9610200000
+iron_71                70.9667200000
+iron_72                71.9698300000
+iron_73                72.9757200000
+iron_74                73.9793500000
+iron              0.05845000 iron_54 \
+                + 0.91754000 iron_56 \
+                + 0.02119000 iron_57 \
+                + 0.00282000 iron_58
+
+# cobalt: Co (27)  std atomic weight: 58.933194(4)
+cobalt_47              47.0105700000
+cobalt_48              48.0009300000
+cobalt_49              48.9889100000
+cobalt_50              49.9809100000
+cobalt_51              50.9706470000
+cobalt_52              51.9635100000
+cobalt_53              52.9542041000
+cobalt_54              53.9484598700
+cobalt_55              54.9419972000
+cobalt_56              55.9398388000
+cobalt_57              56.9362905700
+cobalt_58              57.9357521000
+cobalt_59              58.9331942900   # 1.00000000
+cobalt_60              59.9338163000
+cobalt_61              60.9324766200
+cobalt_62              61.9340590000
+cobalt_63              62.9336000000
+cobalt_64              63.9358110000
+cobalt_65              64.9364621000
+cobalt_66              65.9394430000
+cobalt_67              66.9406096000
+cobalt_68              67.9442600000
+cobalt_69              68.9461400000
+cobalt_70              69.9496300000
+cobalt_71              70.9523700000
+cobalt_72              71.9572900000
+cobalt_73              72.9603900000
+cobalt_74              73.9651500000
+cobalt_75              74.9687600000
+cobalt_76              75.9741300000
+cobalt                 cobalt_59
+
+# nickel: Ni (28)  std atomic weight: 58.6934(4)
+nickel_48              48.0176900000
+nickel_49              49.0077000000
+nickel_50              49.9947400000
+nickel_51              50.9861100000
+nickel_52              51.9748000000
+nickel_53              52.9681900000
+nickel_54              53.9578920000
+nickel_55              54.9513306300
+nickel_56              55.9421285500
+nickel_57              56.9397921800
+nickel_58              57.9353424100   # 0.68077000
+nickel_59              58.9343462000
+nickel_60              59.9307858800   # 0.26223000
+nickel_61              60.9310555700   # 0.01139900
+nickel_62              61.9283453700   # 0.03634600
+nickel_63              62.9296696300
+nickel_64              63.9279668200   # 0.00925500
+nickel_65              64.9300851700
+nickel_66              65.9291393000
+nickel_67              66.9315694000
+nickel_68              67.9318688000
+nickel_69              68.9356103000
+nickel_70              69.9364313000
+nickel_71              70.9405190000
+nickel_72              71.9417859000
+nickel_73              72.9462067000
+nickel_74              73.9479800000
+nickel_75              74.9525000000
+nickel_76              75.9553300000
+nickel_77              76.9605500000
+nickel_78              77.9633600000
+nickel_79              78.9702500000
+nickel            0.68077000 nickel_58 \
+                + 0.26223000 nickel_60 \
+                + 0.01139900 nickel_61 \
+                + 0.03634600 nickel_62 \
+                + 0.00925500 nickel_64
+
+# copper: Cu (29)  std atomic weight: 63.546(3)
+copper_52              51.9967100000
+copper_53              52.9845900000
+copper_54              53.9766600000
+copper_55              54.9660400000
+copper_56              55.9589500000
+copper_57              56.9492125000
+copper_58              57.9445330500
+copper_59              58.9394974800
+copper_60              59.9373645000
+copper_61              60.9334576000
+copper_62              61.9325954100
+copper_63              62.9295977200   # 0.69150000
+copper_64              63.9297643400
+copper_65              64.9277897000   # 0.30850000
+copper_66              65.9288690300
+copper_67              66.9277303000
+copper_68              67.9296109000
+copper_69              68.9294293000
+copper_70              69.9323921000
+copper_71              70.9326768000
+copper_72              71.9358203000
+copper_73              72.9366744000
+copper_74              73.9398749000
+copper_75              74.9415226000
+copper_76              75.9452750000
+copper_77              76.9479200000
+copper_78              77.9522300000
+copper_79              78.9550200000
+copper_80              79.9608900000
+copper_81              80.9658700000
+copper_82              81.9724400000
+copper            0.69150000 copper_63 \
+                + 0.30850000 copper_65
+
+# zinc: Zn (30)  std atomic weight: 65.38(2)
+zinc_54                53.9920400000
+zinc_55                54.9839800000
+zinc_56                55.9725400000
+zinc_57                56.9650600000
+zinc_58                57.9545910000
+zinc_59                58.9493126600
+zinc_60                59.9418421000
+zinc_61                60.9395070000
+zinc_62                61.9343339700
+zinc_63                62.9332115000
+zinc_64                63.9291420100   # 0.49170000
+zinc_65                64.9292407700
+zinc_66                65.9260338100   # 0.27730000
+zinc_67                66.9271277500   # 0.04040000
+zinc_68                67.9248445500   # 0.18450000
+zinc_69                68.9265507000
+zinc_70                69.9253192000   # 0.00610000
+zinc_71                70.9277196000
+zinc_72                71.9268428000
+zinc_73                72.9295826000
+zinc_74                73.9294073000
+zinc_75                74.9328402000
+zinc_76                75.9331150000
+zinc_77                76.9368872000
+zinc_78                77.9382892000
+zinc_79                78.9426381000
+zinc_80                79.9445529000
+zinc_81                80.9504026000
+zinc_82                81.9542600000
+zinc_83                82.9605600000
+zinc_84                83.9652100000
+zinc_85                84.9722600000
+zinc              0.49170000 zinc_64 \
+                + 0.27730000 zinc_66 \
+                + 0.04040000 zinc_67 \
+                + 0.18450000 zinc_68 \
+                + 0.00610000 zinc_70
+
+# gallium: Ga (31)  std atomic weight: 69.723(1)
+gallium_56             55.9953600000
+gallium_57             56.9832000000
+gallium_58             57.9747800000
+gallium_59             58.9635300000
+gallium_60             59.9572900000
+gallium_61             60.9493990000
+gallium_62             61.9441902500
+gallium_63             62.9392942000
+gallium_64             63.9368404000
+gallium_65             64.9327345900
+gallium_66             65.9315894000
+gallium_67             66.9282025000
+gallium_68             67.9279805000
+gallium_69             68.9255735000   # 0.60108000
+gallium_70             69.9260219000
+gallium_71             70.9247025800   # 0.39892000
+gallium_72             71.9263674700
+gallium_73             72.9251747000
+gallium_74             73.9269457000
+gallium_75             74.9265002000
+gallium_76             75.9288276000
+gallium_77             76.9291543000
+gallium_78             77.9316088000
+gallium_79             78.9328523000
+gallium_80             79.9364208000
+gallium_81             80.9381338000
+gallium_82             81.9431765000
+gallium_83             82.9471203000
+gallium_84             83.9524600000
+gallium_85             84.9569900000
+gallium_86             85.9630100000
+gallium_87             86.9682400000
+gallium           0.60108000 gallium_69 \
+                + 0.39892000 gallium_71
+
+# germanium: Ge (32)  std atomic weight: 72.630(8)
+germanium_58           57.9917200000
+germanium_59           58.9824900000
+germanium_60           59.9703600000
+germanium_61           60.9637900000
+germanium_62           61.9550200000
+germanium_63           62.9496280000
+germanium_64           63.9416899000
+germanium_65           64.9393681000
+germanium_66           65.9338621000
+germanium_67           66.9327339000
+germanium_68           67.9280953000
+germanium_69           68.9279645000
+germanium_70           69.9242487500   # 0.20570000
+germanium_71           70.9249523300
+germanium_72           71.9220758260   # 0.27450000
+germanium_73           72.9234589560   # 0.07750000
+germanium_74           73.9211777610   # 0.36500000
+germanium_75           74.9228583700
+germanium_76           75.9214027260   # 0.07730000
+germanium_77           76.9235498430
+germanium_78           77.9228529000
+germanium_79           78.9253600000
+germanium_80           79.9253508000
+germanium_81           80.9288329000
+germanium_82           81.9297740000
+germanium_83           82.9345391000
+germanium_84           83.9375751000
+germanium_85           84.9429697000
+germanium_86           85.9465800000
+germanium_87           86.9526800000
+germanium_88           87.9569100000
+germanium_89           88.9637900000
+germanium_90           89.9686300000
+germanium         0.20570000 germanium_70 \
+                + 0.27450000 germanium_72 \
+                + 0.07750000 germanium_73 \
+                + 0.36500000 germanium_74 \
+                + 0.07730000 germanium_76
+
+# arsenic: As (33)  std atomic weight: 74.921595(6)
+arsenic_60             59.9938800000
+arsenic_61             60.9811200000
+arsenic_62             61.9736100000
+arsenic_63             62.9639000000
+arsenic_64             63.9574300000
+arsenic_65             64.9496110000
+arsenic_66             65.9441488000
+arsenic_67             66.9392511100
+arsenic_68             67.9367741000
+arsenic_69             68.9322460000
+arsenic_70             69.9309260000
+arsenic_71             70.9271138000
+arsenic_72             71.9267523000
+arsenic_73             72.9238291000
+arsenic_74             73.9239286000
+arsenic_75             74.9215945700   # 1.00000000
+arsenic_76             75.9223920200
+arsenic_77             76.9206476000
+arsenic_78             77.9218280000
+arsenic_79             78.9209484000
+arsenic_80             79.9224746000
+arsenic_81             80.9221323000
+arsenic_82             81.9247412000
+arsenic_83             82.9252069000
+arsenic_84             83.9293033000
+arsenic_85             84.9321637000
+arsenic_86             85.9367015000
+arsenic_87             86.9402917000
+arsenic_88             87.9455500000
+arsenic_89             88.9497600000
+arsenic_90             89.9556300000
+arsenic_91             90.9603900000
+arsenic_92             91.9667400000
+arsenic                arsenic_75
+
+# selenium: Se (34)  std atomic weight: 78.971(8)
+selenium_64            63.9710900000
+selenium_65            64.9644000000
+selenium_66            65.9555900000
+selenium_67            66.9499940000
+selenium_68            67.9418252400
+selenium_69            68.9394148000
+selenium_70            69.9335155000
+selenium_71            70.9322094000
+selenium_72            71.9271405000
+selenium_73            72.9267549000
+selenium_74            73.9224759340   # 0.00890000
+selenium_75            74.9225228700
+selenium_76            75.9192137040   # 0.09370000
+selenium_77            76.9199141540   # 0.07630000
+selenium_78            77.9173092800   # 0.23770000
+selenium_79            78.9184992900
+selenium_80            79.9165218000   # 0.49610000
+selenium_81            80.9179930000
+selenium_82            81.9166995000   # 0.08730000
+selenium_83            82.9191186000
+selenium_84            83.9184668000
+selenium_85            84.9222608000
+selenium_86            85.9243117000
+selenium_87            86.9286886000
+selenium_88            87.9314175000
+selenium_89            88.9366691000
+selenium_90            89.9401000000
+selenium_91            90.9459600000
+selenium_92            91.9498400000
+selenium_93            92.9562900000
+selenium_94            93.9604900000
+selenium_95            94.9673000000
+selenium          0.00890000 selenium_74 \
+                + 0.09370000 selenium_76 \
+                + 0.07630000 selenium_77 \
+                + 0.23770000 selenium_78 \
+                + 0.49610000 selenium_80 \
+                + 0.08730000 selenium_82
+
+# bromine: Br (35)  std atomic weight: [79.901,79.907]
+bromine_67             66.9646500000
+bromine_68             67.9587300000
+bromine_69             68.9504970000
+bromine_70             69.9447920000
+bromine_71             70.9393422000
+bromine_72             71.9365886000
+bromine_73             72.9316715000
+bromine_74             73.9299102000
+bromine_75             74.9258105000
+bromine_76             75.9245420000
+bromine_77             76.9213792000
+bromine_78             77.9211459000
+bromine_79             78.9183376000   # 0.50690000
+bromine_80             79.9185298000
+bromine_81             80.9162897000   # 0.49310000
+bromine_82             81.9168032000
+bromine_83             82.9151756000
+bromine_84             83.9164960000
+bromine_85             84.9156458000
+bromine_86             85.9188054000
+bromine_87             86.9206740000
+bromine_88             87.9240833000
+bromine_89             88.9267046000
+bromine_90             89.9312928000
+bromine_91             90.9343986000
+bromine_92             91.9396316000
+bromine_93             92.9431300000
+bromine_94             93.9489000000
+bromine_95             94.9530100000
+bromine_96             95.9590300000
+bromine_97             96.9634400000
+bromine_98             97.9694600000
+bromine           0.50690000 bromine_79 \
+                + 0.49310000 bromine_81
+
+# krypton: Kr (36)  std atomic weight: 83.798(2)
+krypton_69             68.9651800000
+krypton_70             69.9560400000
+krypton_71             70.9502700000
+krypton_72             71.9420924000
+krypton_73             72.9392892000
+krypton_74             73.9330840000
+krypton_75             74.9309457000
+krypton_76             75.9259103000
+krypton_77             76.9246700000
+krypton_78             77.9203649400   # 0.00355000
+krypton_79             78.9200829000
+krypton_80             79.9163780800   # 0.02286000
+krypton_81             80.9165912000
+krypton_82             81.9134827300   # 0.11593000
+krypton_83             82.9141271600   # 0.11500000
+krypton_84             83.9114977282   # 0.56987000
+krypton_85             84.9125273000
+krypton_86             85.9106106269   # 0.17279000
+krypton_87             86.9133547600
+krypton_88             87.9144479000
+krypton_89             88.9178355000
+krypton_90             89.9195279000
+krypton_91             90.9238063000
+krypton_92             91.9261731000
+krypton_93             92.9311472000
+krypton_94             93.9341400000
+krypton_95             94.9397110000
+krypton_96             95.9430170000
+krypton_97             96.9490900000
+krypton_98             97.9524300000
+krypton_99             98.9583900000
+krypton_100            99.9623700000
+krypton_101           100.9687300000
+krypton           0.00355000 krypton_78 \
+                + 0.02286000 krypton_80 \
+                + 0.11593000 krypton_82 \
+                + 0.11500000 krypton_83 \
+                + 0.56987000 krypton_84 \
+                + 0.17279000 krypton_86
+
+# rubidium: Rb (37)  std atomic weight: 85.4678(3)
+rubidium_71            70.9653200000
+rubidium_72            71.9590800000
+rubidium_73            72.9505300000
+rubidium_74            73.9442659000
+rubidium_75            74.9385732000
+rubidium_76            75.9350730000
+rubidium_77            76.9304016000
+rubidium_78            77.9281419000
+rubidium_79            78.9239899000
+rubidium_80            79.9225164000
+rubidium_81            80.9189939000
+rubidium_82            81.9182090000
+rubidium_83            82.9151142000
+rubidium_84            83.9143752000
+rubidium_85            84.9117897379   # 0.72170000
+rubidium_86            85.9111674300
+rubidium_87            86.9091805310   # 0.27830000
+rubidium_88            87.9113155900
+rubidium_89            88.9122783000
+rubidium_90            89.9147985000
+rubidium_91            90.9165372000
+rubidium_92            91.9197284000
+rubidium_93            92.9220393000
+rubidium_94            93.9263948000
+rubidium_95            94.9292600000
+rubidium_96            95.9341334000
+rubidium_97            96.9371771000
+rubidium_98            97.9416869000
+rubidium_99            98.9450300000
+rubidium_100           99.9500300000
+rubidium_101          100.9540400000
+rubidium_102          101.9595200000
+rubidium_103          102.9639200000
+rubidium          0.72170000 rubidium_85 \
+                + 0.27830000 rubidium_87
+
+# strontium: Sr (38)  std atomic weight: 87.62(1)
+strontium_73           72.9657000000
+strontium_74           73.9561700000
+strontium_75           74.9499500000
+strontium_76           75.9417630000
+strontium_77           76.9379455000
+strontium_78           77.9321800000
+strontium_79           78.9297077000
+strontium_80           79.9245175000
+strontium_81           80.9232114000
+strontium_82           81.9183999000
+strontium_83           82.9175544000
+strontium_84           83.9134191000   # 0.00560000
+strontium_85           84.9129320000
+strontium_86           85.9092606000   # 0.09860000
+strontium_87           86.9088775000   # 0.07000000
+strontium_88           87.9056125000   # 0.82580000
+strontium_89           88.9074511000
+strontium_90           89.9077300000
+strontium_91           90.9101954000
+strontium_92           91.9110382000
+strontium_93           92.9140242000
+strontium_94           93.9153556000
+strontium_95           94.9193529000
+strontium_96           95.9217066000
+strontium_97           96.9263740000
+strontium_98           97.9286888000
+strontium_99           98.9328907000
+strontium_100          99.9357700000
+strontium_101         100.9403520000
+strontium_102         101.9437910000
+strontium_103         102.9490900000
+strontium_104         103.9526500000
+strontium_105         104.9585500000
+strontium_106         105.9626500000
+strontium_107         106.9689700000
+strontium         0.00560000 strontium_84 \
+                + 0.09860000 strontium_86 \
+                + 0.07000000 strontium_87 \
+                + 0.82580000 strontium_88
+
+# yttrium: Y (39)  std atomic weight: 88.90584(2)
+yttrium_76             75.9585600000
+yttrium_77             76.9497810000
+yttrium_78             77.9436100000
+yttrium_79             78.9373500000
+yttrium_80             79.9343561000
+yttrium_81             80.9294556000
+yttrium_82             81.9269314000
+yttrium_83             82.9224850000
+yttrium_84             83.9206721000
+yttrium_85             84.9164330000
+yttrium_86             85.9148860000
+yttrium_87             86.9108761000
+yttrium_88             87.9095016000
+yttrium_89             88.9058403000   # 1.00000000
+yttrium_90             89.9071439000
+yttrium_91             90.9072974000
+yttrium_92             91.9089451000
+yttrium_93             92.9095780000
+yttrium_94             93.9115906000
+yttrium_95             94.9128161000
+yttrium_96             95.9158968000
+yttrium_97             96.9182741000
+yttrium_98             97.9223821000
+yttrium_99             98.9241480000
+yttrium_100            99.9277150000
+yttrium_101           100.9301477000
+yttrium_102           101.9343277000
+yttrium_103           102.9372430000
+yttrium_104           103.9419600000
+yttrium_105           104.9454400000
+yttrium_106           105.9505600000
+yttrium_107           106.9545200000
+yttrium_108           107.9599600000
+yttrium_109           108.9643600000
+yttrium               yttrium_89
+
+# zirconium: Zr (40)  std atomic weight: 91.224(2)
+zirconium_78           77.9556600000
+zirconium_79           78.9494800000
+zirconium_80           79.9404000000
+zirconium_81           80.9373100000
+zirconium_82           81.9313500000
+zirconium_83           82.9292421000
+zirconium_84           83.9233269000
+zirconium_85           84.9214444000
+zirconium_86           85.9162972000
+zirconium_87           86.9148180000
+zirconium_88           87.9102213000
+zirconium_89           88.9088814000
+zirconium_90           89.9046977000   # 0.51450000
+zirconium_91           90.9056396000   # 0.11220000
+zirconium_92           91.9050347000   # 0.17150000
+zirconium_93           92.9064699000
+zirconium_94           93.9063108000   # 0.17380000
+zirconium_95           94.9080385000
+zirconium_96           95.9082714000   # 0.02800000
+zirconium_97           96.9109512000
+zirconium_98           97.9127289000
+zirconium_99           98.9166670000
+zirconium_100          99.9180006000
+zirconium_101         100.9214480000
+zirconium_102         101.9231409000
+zirconium_103         102.9271910000
+zirconium_104         103.9294360000
+zirconium_105         104.9340080000
+zirconium_106         105.9367600000
+zirconium_107         106.9417400000
+zirconium_108         107.9448700000
+zirconium_109         108.9504100000
+zirconium_110         109.9539600000
+zirconium_111         110.9596800000
+zirconium_112         111.9637000000
+zirconium         0.51450000 zirconium_90 \
+                + 0.11220000 zirconium_91 \
+                + 0.17150000 zirconium_92 \
+                + 0.17380000 zirconium_94 \
+                + 0.02800000 zirconium_96
+
+# niobium: Nb (41)  std atomic weight: 92.90637(2)
+niobium_81             80.9496000000
+niobium_82             81.9439600000
+niobium_83             82.9372900000
+niobium_84             83.9344900000
+niobium_85             84.9288458000
+niobium_86             85.9257828000
+niobium_87             86.9206937000
+niobium_88             87.9182220000
+niobium_89             88.9134450000
+niobium_90             89.9112584000
+niobium_91             90.9069897000
+niobium_92             91.9071881000
+niobium_93             92.9063730000   # 1.00000000
+niobium_94             93.9072788000
+niobium_95             94.9068324000
+niobium_96             95.9080973000
+niobium_97             96.9080959000
+niobium_98             97.9103265000
+niobium_99             98.9116130000
+niobium_100            99.9143276000
+niobium_101           100.9153103000
+niobium_102           101.9180772000
+niobium_103           102.9194572000
+niobium_104           103.9228925000
+niobium_105           104.9249465000
+niobium_106           105.9289317000
+niobium_107           106.9315937000
+niobium_108           107.9360748000
+niobium_109           108.9392200000
+niobium_110           109.9440300000
+niobium_111           110.9475300000
+niobium_112           111.9524700000
+niobium_113           112.9565100000
+niobium_114           113.9620100000
+niobium_115           114.9663400000
+niobium               niobium_93
+
+# molybdenum: Mo (42)  std atomic weight: 95.95(1)
+molybdenum_83          82.9498800000
+molybdenum_84          83.9414900000
+molybdenum_85          84.9382610000
+molybdenum_86          85.9311748000
+molybdenum_87          86.9281962000
+molybdenum_88          87.9219678000
+molybdenum_89          88.9194682000
+molybdenum_90          89.9139309000
+molybdenum_91          90.9117453000
+molybdenum_92          91.9068079600   # 0.14530000
+molybdenum_93          92.9068095800
+molybdenum_94          93.9050849000   # 0.09150000
+molybdenum_95          94.9058387700   # 0.15840000
+molybdenum_96          95.9046761200   # 0.16670000
+molybdenum_97          96.9060181200   # 0.09600000
+molybdenum_98          97.9054048200   # 0.24390000
+molybdenum_99          98.9077085100
+molybdenum_100         99.9074718000   # 0.09820000
+molybdenum_101        100.9103414000
+molybdenum_102        101.9102834000
+molybdenum_103        102.9130790000
+molybdenum_104        103.9137344000
+molybdenum_105        104.9169690000
+molybdenum_106        105.9182590000
+molybdenum_107        106.9221060000
+molybdenum_108        107.9240330000
+molybdenum_109        108.9284240000
+molybdenum_110        109.9307040000
+molybdenum_111        110.9356540000
+molybdenum_112        111.9383100000
+molybdenum_113        112.9433500000
+molybdenum_114        113.9465300000
+molybdenum_115        114.9519600000
+molybdenum_116        115.9554500000
+molybdenum_117        116.9611700000
+molybdenum        0.14530000 molybdenum_92 \
+                + 0.09150000 molybdenum_94 \
+                + 0.15840000 molybdenum_95 \
+                + 0.16670000 molybdenum_96 \
+                + 0.09600000 molybdenum_97 \
+                + 0.24390000 molybdenum_98 \
+                + 0.09820000 molybdenum_100
+
+# technetium: Tc (43)  std atomic weight: [98]
+technetium_85          84.9505800000
+technetium_86          85.9449300000
+technetium_87          86.9380672000
+technetium_88          87.9337800000
+technetium_89          88.9276487000
+technetium_90          89.9240739000
+technetium_91          90.9184254000
+technetium_92          91.9152698000
+technetium_93          92.9102460000
+technetium_94          93.9096536000
+technetium_95          94.9076536000
+technetium_96          95.9078680000
+technetium_97          96.9063667000
+technetium_98          97.9072124000
+technetium_99          98.9062508000
+technetium_100         99.9076539000
+technetium_101        100.9073090000
+technetium_102        101.9092097000
+technetium_103        102.9091760000
+technetium_104        103.9114250000
+technetium_105        104.9116550000
+technetium_106        105.9143580000
+technetium_107        106.9154606000
+technetium_108        107.9184957000
+technetium_109        108.9202560000
+technetium_110        109.9237440000
+technetium_111        110.9259010000
+technetium_112        111.9299458000
+technetium_113        112.9325690000
+technetium_114        113.9369100000
+technetium_115        114.9399800000
+technetium_116        115.9447600000
+technetium_117        116.9480600000
+technetium_118        117.9529900000
+technetium_119        118.9566600000
+technetium_120        119.9618700000
+technetium            technetium_98    # most stable
+
+# ruthenium: Ru (44)  std atomic weight: 101.07(2)
+ruthenium_87           86.9506900000
+ruthenium_88           87.9416000000
+ruthenium_89           88.9376200000
+ruthenium_90           89.9303444000
+ruthenium_91           90.9267419000
+ruthenium_92           91.9202344000
+ruthenium_93           92.9171044000
+ruthenium_94           93.9113429000
+ruthenium_95           94.9104060000
+ruthenium_96           95.9075902500   # 0.05540000
+ruthenium_97           96.9075471000
+ruthenium_98           97.9052868000   # 0.01870000
+ruthenium_99           98.9059341000   # 0.12760000
+ruthenium_100          99.9042143000   # 0.12600000
+ruthenium_101         100.9055769000   # 0.17060000
+ruthenium_102         101.9043441000   # 0.31550000
+ruthenium_103         102.9063186000
+ruthenium_104         103.9054275000   # 0.18620000
+ruthenium_105         104.9077476000
+ruthenium_106         105.9073291000
+ruthenium_107         106.9099720000
+ruthenium_108         107.9101880000
+ruthenium_109         108.9133260000
+ruthenium_110         109.9140407000
+ruthenium_111         110.9175700000
+ruthenium_112         111.9188090000
+ruthenium_113         112.9228440000
+ruthenium_114         113.9246136000
+ruthenium_115         114.9288200000
+ruthenium_116         115.9312192000
+ruthenium_117         116.9361000000
+ruthenium_118         117.9385300000
+ruthenium_119         118.9435700000
+ruthenium_120         119.9463100000
+ruthenium_121         120.9516400000
+ruthenium_122         121.9544700000
+ruthenium_123         122.9598900000
+ruthenium_124         123.9630500000
+ruthenium         0.05540000 ruthenium_96 \
+                + 0.01870000 ruthenium_98 \
+                + 0.12760000 ruthenium_99 \
+                + 0.12600000 ruthenium_100 \
+                + 0.17060000 ruthenium_101 \
+                + 0.31550000 ruthenium_102 \
+                + 0.18620000 ruthenium_104
+
+# rhodium: Rh (45)  std atomic weight: 102.90550(2)
+rhodium_89             88.9505800000
+rhodium_90             89.9442200000
+rhodium_91             90.9368800000
+rhodium_92             91.9323677000
+rhodium_93             92.9259128000
+rhodium_94             93.9217305000
+rhodium_95             94.9158979000
+rhodium_96             95.9144530000
+rhodium_97             96.9113290000
+rhodium_98             97.9107080000
+rhodium_99             98.9081282000
+rhodium_100            99.9081170000
+rhodium_101           100.9061606000
+rhodium_102           101.9068374000
+rhodium_103           102.9054980000   # 1.00000000
+rhodium_104           103.9066492000
+rhodium_105           104.9056885000
+rhodium_106           105.9072868000
+rhodium_107           106.9067480000
+rhodium_108           107.9087140000
+rhodium_109           108.9087488000
+rhodium_110           109.9110790000
+rhodium_111           110.9116423000
+rhodium_112           111.9144030000
+rhodium_113           112.9154393000
+rhodium_114           113.9187180000
+rhodium_115           114.9203116000
+rhodium_116           115.9240590000
+rhodium_117           116.9260354000
+rhodium_118           117.9303400000
+rhodium_119           118.9325570000
+rhodium_120           119.9368600000
+rhodium_121           120.9394200000
+rhodium_122           121.9439900000
+rhodium_123           122.9468500000
+rhodium_124           123.9515100000
+rhodium_125           124.9546900000
+rhodium_126           125.9594600000
+rhodium               rhodium_103
+
+# palladium: Pd (46)  std atomic weight: 106.42(1)
+palladium_91           90.9503200000
+palladium_92           91.9408800000
+palladium_93           92.9365100000
+palladium_94           93.9290376000
+palladium_95           94.9248898000
+palladium_96           95.9182151000
+palladium_97           96.9164720000
+palladium_98           97.9126983000
+palladium_99           98.9117748000
+palladium_100          99.9085050000
+palladium_101         100.9082864000
+palladium_102         101.9056022000   # 0.01020000
+palladium_103         102.9060809000
+palladium_104         103.9040305000   # 0.11140000
+palladium_105         104.9050796000   # 0.22330000
+palladium_106         105.9034804000   # 0.27330000
+palladium_107         106.9051282000
+palladium_108         107.9038916000   # 0.26460000
+palladium_109         108.9059504000
+palladium_110         109.9051722000   # 0.11720000
+palladium_111         110.9076896800
+palladium_112         111.9073297000
+palladium_113         112.9102610000
+palladium_114         113.9103686000
+palladium_115         114.9136590000
+palladium_116         115.9142970000
+palladium_117         116.9179547000
+palladium_118         117.9190667000
+palladium_119         118.9233402000
+palladium_120         119.9245511000
+palladium_121         120.9289503000
+palladium_122         121.9306320000
+palladium_123         122.9351400000
+palladium_124         123.9371400000
+palladium_125         124.9417900000
+palladium_126         125.9441600000
+palladium_127         126.9490700000
+palladium_128         127.9518300000
+palladium         0.01020000 palladium_102 \
+                + 0.11140000 palladium_104 \
+                + 0.22330000 palladium_105 \
+                + 0.27330000 palladium_106 \
+                + 0.26460000 palladium_108 \
+                + 0.11720000 palladium_110
+
+# silver: Ag (47)  std atomic weight: 107.8682(2)
+silver_93              92.9503300000
+silver_94              93.9437300000
+silver_95              94.9360200000
+silver_96              95.9307440000
+silver_97              96.9239700000
+silver_98              97.9215600000
+silver_99              98.9176458000
+silver_100             99.9161154000
+silver_101            100.9126840000
+silver_102            101.9117047000
+silver_103            102.9089631000
+silver_104            103.9086239000
+silver_105            104.9065256000
+silver_106            105.9066636000
+silver_107            106.9050916000   # 0.51839000
+silver_108            107.9059503000
+silver_109            108.9047553000   # 0.48161000
+silver_110            109.9061102000
+silver_111            110.9052959000
+silver_112            111.9070486000
+silver_113            112.9065730000
+silver_114            113.9088230000
+silver_115            114.9087670000
+silver_116            115.9113868000
+silver_117            116.9117740000
+silver_118            117.9145955000
+silver_119            118.9155700000
+silver_120            119.9187848000
+silver_121            120.9201250000
+silver_122            121.9236640000
+silver_123            122.9253370000
+silver_124            123.9289300000
+silver_125            124.9310500000
+silver_126            125.9347500000
+silver_127            126.9371100000
+silver_128            127.9410600000
+silver_129            128.9439500000
+silver_130            129.9507000000
+silver            0.51839000 silver_107 \
+                + 0.48161000 silver_109
+
+# cadmium: Cd (48)  std atomic weight: 112.414(4)
+cadmium_95             94.9499400000
+cadmium_96             95.9403400000
+cadmium_97             96.9351000000
+cadmium_98             97.9273890000
+cadmium_99             98.9249258000
+cadmium_100            99.9203488000
+cadmium_101           100.9185862000
+cadmium_102           101.9144820000
+cadmium_103           102.9134165000
+cadmium_104           103.9098564000
+cadmium_105           104.9094639000
+cadmium_106           105.9064599000   # 0.01250000
+cadmium_107           106.9066121000
+cadmium_108           107.9041834000   # 0.00890000
+cadmium_109           108.9049867000
+cadmium_110           109.9030066100   # 0.12490000
+cadmium_111           110.9041828700   # 0.12800000
+cadmium_112           111.9027628700   # 0.24130000
+cadmium_113           112.9044081300   # 0.12220000
+cadmium_114           113.9033650900   # 0.28730000
+cadmium_115           114.9054375100
+cadmium_116           115.9047631500   # 0.07490000
+cadmium_117           116.9072260000
+cadmium_118           117.9069220000
+cadmium_119           118.9098470000
+cadmium_120           119.9098681000
+cadmium_121           120.9129637000
+cadmium_122           121.9134591000
+cadmium_123           122.9168925000
+cadmium_124           123.9176574000
+cadmium_125           124.9212576000
+cadmium_126           125.9224291000
+cadmium_127           126.9264720000
+cadmium_128           127.9278129000
+cadmium_129           128.9318200000
+cadmium_130           129.9339400000
+cadmium_131           130.9406000000
+cadmium_132           131.9460400000
+cadmium_133           132.9528500000
+cadmium           0.01250000 cadmium_106 \
+                + 0.00890000 cadmium_108 \
+                + 0.12490000 cadmium_110 \
+                + 0.12800000 cadmium_111 \
+                + 0.24130000 cadmium_112 \
+                + 0.12220000 cadmium_113 \
+                + 0.28730000 cadmium_114 \
+                + 0.07490000 cadmium_116
+
+# indium: In (49)  std atomic weight: 114.818(1)
+indium_97              96.9493400000
+indium_98              97.9421400000
+indium_99              98.9341100000
+indium_100             99.9309600000
+indium_101            100.9263400000
+indium_102            101.9241071000
+indium_103            102.9198819000
+indium_104            103.9182145000
+indium_105            104.9145020000
+indium_106            105.9134640000
+indium_107            106.9102900000
+indium_108            107.9096935000
+indium_109            108.9071514000
+indium_110            109.9071700000
+indium_111            110.9051085000
+indium_112            111.9055377000
+indium_113            112.9040618400   # 0.04290000
+indium_114            113.9049179100
+indium_115            114.9038787760   # 0.95710000
+indium_116            115.9052599900
+indium_117            116.9045157000
+indium_118            117.9063566000
+indium_119            118.9058507000
+indium_120            119.9079670000
+indium_121            120.9078510000
+indium_122            121.9102810000
+indium_123            122.9104340000
+indium_124            123.9131820000
+indium_125            124.9136050000
+indium_126            125.9165070000
+indium_127            126.9174460000
+indium_128            127.9204000000
+indium_129            128.9218053000
+indium_130            129.9249770000
+indium_131            130.9269715000
+indium_132            131.9330010000
+indium_133            132.9383100000
+indium_134            133.9445400000
+indium_135            134.9500500000
+indium            0.04290000 indium_113 \
+                + 0.95710000 indium_115
+
+# tin: Sn (50)  std atomic weight: 118.710(7)
+tin_99                 98.9485300000
+tin_100                99.9385000000
+tin_101               100.9352600000
+tin_102               101.9302900000
+tin_103               102.9281050000
+tin_104               103.9231052000
+tin_105               104.9212684000
+tin_106               105.9169574000
+tin_107               106.9157137000
+tin_108               107.9118943000
+tin_109               108.9112921000
+tin_110               109.9078450000
+tin_111               110.9077401000
+tin_112               111.9048238700   # 0.00970000
+tin_113               112.9051757000
+tin_114               113.9027827000   # 0.00660000
+tin_115               114.9033446990   # 0.00340000
+tin_116               115.9017428000   # 0.14540000
+tin_117               116.9029539800   # 0.07680000
+tin_118               117.9016065700   # 0.24220000
+tin_119               118.9033111700   # 0.08590000
+tin_120               119.9022016300   # 0.32580000
+tin_121               120.9042426000
+tin_122               121.9034438000   # 0.04630000
+tin_123               122.9057252000
+tin_124               123.9052766000   # 0.05790000
+tin_125               124.9077864000
+tin_126               125.9076590000
+tin_127               126.9103900000
+tin_128               127.9105070000
+tin_129               128.9134650000
+tin_130               129.9139738000
+tin_131               130.9170450000
+tin_132               131.9178267000
+tin_133               132.9239134000
+tin_134               133.9286821000
+tin_135               134.9349086000
+tin_136               135.9399900000
+tin_137               136.9465500000
+tin_138               137.9518400000
+tin               0.00970000 tin_112 \
+                + 0.00660000 tin_114 \
+                + 0.00340000 tin_115 \
+                + 0.14540000 tin_116 \
+                + 0.07680000 tin_117 \
+                + 0.24220000 tin_118 \
+                + 0.08590000 tin_119 \
+                + 0.32580000 tin_120 \
+                + 0.04630000 tin_122 \
+                + 0.05790000 tin_124
+
+# antimony: Sb (51)  std atomic weight: 121.760(1)
+antimony_103          102.9396900000
+antimony_104          103.9364800000
+antimony_105          104.9312760000
+antimony_106          105.9286380000
+antimony_107          106.9241506000
+antimony_108          107.9222267000
+antimony_109          108.9181411000
+antimony_110          109.9168543000
+antimony_111          110.9132182000
+antimony_112          111.9124000000
+antimony_113          112.9093750000
+antimony_114          113.9092900000
+antimony_115          114.9065980000
+antimony_116          115.9067931000
+antimony_117          116.9048415000
+antimony_118          117.9055321000
+antimony_119          118.9039455000
+antimony_120          119.9050794000
+antimony_121          120.9038120000   # 0.57210000
+antimony_122          121.9051699000
+antimony_123          122.9042132000   # 0.42790000
+antimony_124          123.9059350000
+antimony_125          124.9052530000
+antimony_126          125.9072530000
+antimony_127          126.9069243000
+antimony_128          127.9091460000
+antimony_129          128.9091470000
+antimony_130          129.9116620000
+antimony_131          130.9119888000
+antimony_132          131.9145077000
+antimony_133          132.9152732000
+antimony_134          133.9205357000
+antimony_135          134.9251851000
+antimony_136          135.9307459000
+antimony_137          136.9355500000
+antimony_138          137.9414500000
+antimony_139          138.9465500000
+antimony_140          139.9528300000
+antimony          0.57210000 antimony_121 \
+                + 0.42790000 antimony_123
+
+# tellurium: Te (52)  std atomic weight: 127.60(3)
+tellurium_105         104.9433000000
+tellurium_106         105.9375000000
+tellurium_107         106.9350120000
+tellurium_108         107.9293805000
+tellurium_109         108.9273045000
+tellurium_110         109.9224581000
+tellurium_111         110.9210006000
+tellurium_112         111.9167279000
+tellurium_113         112.9158910000
+tellurium_114         113.9120890000
+tellurium_115         114.9119020000
+tellurium_116         115.9084600000
+tellurium_117         116.9086460000
+tellurium_118         117.9058540000
+tellurium_119         118.9064071000
+tellurium_120         119.9040593000   # 0.00090000
+tellurium_121         120.9049440000
+tellurium_122         121.9030435000   # 0.02550000
+tellurium_123         122.9042698000   # 0.00890000
+tellurium_124         123.9028171000   # 0.04740000
+tellurium_125         124.9044299000   # 0.07070000
+tellurium_126         125.9033109000   # 0.18840000
+tellurium_127         126.9052257000
+tellurium_128         127.9044612800   # 0.31740000
+tellurium_129         128.9065964600
+tellurium_130         129.9062227480   # 0.34080000
+tellurium_131         130.9085222130
+tellurium_132         131.9085467000
+tellurium_133         132.9109688000
+tellurium_134         133.9113940000
+tellurium_135         134.9165557000
+tellurium_136         135.9201006000
+tellurium_137         136.9255989000
+tellurium_138         137.9294722000
+tellurium_139         138.9353672000
+tellurium_140         139.9394990000
+tellurium_141         140.9458000000
+tellurium_142         141.9502200000
+tellurium_143         142.9567600000
+tellurium         0.00090000 tellurium_120 \
+                + 0.02550000 tellurium_122 \
+                + 0.00890000 tellurium_123 \
+                + 0.04740000 tellurium_124 \
+                + 0.07070000 tellurium_125 \
+                + 0.18840000 tellurium_126 \
+                + 0.31740000 tellurium_128 \
+                + 0.34080000 tellurium_130
+
+# iodine: I (53)  std atomic weight: 126.90447(3)
+iodine_107            106.9467800000
+iodine_108            107.9434800000
+iodine_109            108.9380853000
+iodine_110            109.9350890000
+iodine_111            110.9302692000
+iodine_112            111.9280050000
+iodine_113            112.9236501000
+iodine_114            113.9218500000
+iodine_115            114.9180480000
+iodine_116            115.9168100000
+iodine_117            116.9136480000
+iodine_118            117.9130740000
+iodine_119            118.9100740000
+iodine_120            119.9100870000
+iodine_121            120.9074051000
+iodine_122            121.9075888000
+iodine_123            122.9055885000
+iodine_124            123.9062090000
+iodine_125            124.9046294000
+iodine_126            125.9056233000
+iodine_127            126.9044719000   # 1.00000000
+iodine_128            127.9058086000
+iodine_129            128.9049837000
+iodine_130            129.9066702000
+iodine_131            130.9061263000
+iodine_132            131.9079935000
+iodine_133            132.9077970000
+iodine_134            133.9097588000
+iodine_135            134.9100488000
+iodine_136            135.9146040000
+iodine_137            136.9180282000
+iodine_138            137.9227264000
+iodine_139            138.9265060000
+iodine_140            139.9317300000
+iodine_141            140.9356900000
+iodine_142            141.9412000000
+iodine_143            142.9456500000
+iodine_144            143.9513900000
+iodine_145            144.9560500000
+iodine                iodine_127
+
+# xenon: Xe (54)  std atomic weight: 131.293(6)
+xenon_109             108.9504300000
+xenon_110             109.9442600000
+xenon_111             110.9416070000
+xenon_112             111.9355590000
+xenon_113             112.9332217000
+xenon_114             113.9279800000
+xenon_115             114.9262940000
+xenon_116             115.9215810000
+xenon_117             116.9203590000
+xenon_118             117.9161790000
+xenon_119             118.9154110000
+xenon_120             119.9117840000
+xenon_121             120.9114530000
+xenon_122             121.9083680000
+xenon_123             122.9084820000
+xenon_124             123.9058920000   # 0.00095200
+xenon_125             124.9063944000
+xenon_126             125.9042983000   # 0.00089000
+xenon_127             126.9051829000
+xenon_128             127.9035310000   # 0.01910200
+xenon_129             128.9047808611   # 0.26400600
+xenon_130             129.9035093490   # 0.04071000
+xenon_131             130.9050840600   # 0.21232400
+xenon_132             131.9041550856   # 0.26908600
+xenon_133             132.9059108000
+xenon_134             133.9053946600   # 0.10435700
+xenon_135             134.9072278000
+xenon_136             135.9072144840   # 0.08857300
+xenon_137             136.9115577800
+xenon_138             137.9141463000
+xenon_139             138.9187922000
+xenon_140             139.9216458000
+xenon_141             140.9267872000
+xenon_142             141.9299731000
+xenon_143             142.9353696000
+xenon_144             143.9389451000
+xenon_145             144.9447200000
+xenon_146             145.9485180000
+xenon_147             146.9542600000
+xenon_148             147.9581300000
+xenon             0.00095200 xenon_124 \
+                + 0.00089000 xenon_126 \
+                + 0.01910200 xenon_128 \
+                + 0.26400600 xenon_129 \
+                + 0.04071000 xenon_130 \
+                + 0.21232400 xenon_131 \
+                + 0.26908600 xenon_132 \
+                + 0.10435700 xenon_134 \
+                + 0.08857300 xenon_136
+
+# caesium: Cs (55)  std atomic weight: 132.90545196(6)
+# IUPAC spelling
+caesium_112           111.9503090000
+caesium_113           112.9444291000
+caesium_114           113.9412960000
+caesium_115           114.9359100000
+caesium_116           115.9333700000
+caesium_117           116.9286170000
+caesium_118           117.9265600000
+caesium_119           118.9223770000
+caesium_120           119.9206770000
+caesium_121           120.9172270000
+caesium_122           121.9161080000
+caesium_123           122.9129960000
+caesium_124           123.9122578000
+caesium_125           124.9097280000
+caesium_126           125.9094460000
+caesium_127           126.9074174000
+caesium_128           127.9077487000
+caesium_129           128.9060657000
+caesium_130           129.9067093000
+caesium_131           130.9054649000
+caesium_132           131.9064339000
+caesium_133           132.9054519610   # 1.00000000
+caesium_134           133.9067185030
+caesium_135           134.9059770000
+caesium_136           135.9073114000
+caesium_137           136.9070892300
+caesium_138           137.9110171000
+caesium_139           138.9133638000
+caesium_140           139.9172831000
+caesium_141           140.9200455000
+caesium_142           141.9242960000
+caesium_143           142.9273490000
+caesium_144           143.9320760000
+caesium_145           144.9355270000
+caesium_146           145.9403440000
+caesium_147           146.9441560000
+caesium_148           147.9492300000
+caesium_149           148.9530200000
+caesium_150           149.9583300000
+caesium_151           150.9625800000
+caesium               caesium_133
+# American spelling
+cesium_112            111.9503090000
+cesium_113            112.9444291000
+cesium_114            113.9412960000
+cesium_115            114.9359100000
+cesium_116            115.9333700000
+cesium_117            116.9286170000
+cesium_118            117.9265600000
+cesium_119            118.9223770000
+cesium_120            119.9206770000
+cesium_121            120.9172270000
+cesium_122            121.9161080000
+cesium_123            122.9129960000
+cesium_124            123.9122578000
+cesium_125            124.9097280000
+cesium_126            125.9094460000
+cesium_127            126.9074174000
+cesium_128            127.9077487000
+cesium_129            128.9060657000
+cesium_130            129.9067093000
+cesium_131            130.9054649000
+cesium_132            131.9064339000
+cesium_133            132.9054519610   # 1.00000000
+cesium_134            133.9067185030
+cesium_135            134.9059770000
+cesium_136            135.9073114000
+cesium_137            136.9070892300
+cesium_138            137.9110171000
+cesium_139            138.9133638000
+cesium_140            139.9172831000
+cesium_141            140.9200455000
+cesium_142            141.9242960000
+cesium_143            142.9273490000
+cesium_144            143.9320760000
+cesium_145            144.9355270000
+cesium_146            145.9403440000
+cesium_147            146.9441560000
+cesium_148            147.9492300000
+cesium_149            148.9530200000
+cesium_150            149.9583300000
+cesium_151            150.9625800000
+cesium                cesium_133
+
+# barium: Ba (56)  std atomic weight: 137.327(7)
+barium_114            113.9506600000
+barium_115            114.9473700000
+barium_116            115.9412800000
+barium_117            116.9381400000
+barium_118            117.9330600000
+barium_119            118.9306600000
+barium_120            119.9260500000
+barium_121            120.9240500000
+barium_122            121.9199040000
+barium_123            122.9187810000
+barium_124            123.9150940000
+barium_125            124.9144720000
+barium_126            125.9112500000
+barium_127            126.9110910000
+barium_128            127.9083420000
+barium_129            128.9086810000
+barium_130            129.9063207000   # 0.00106000
+barium_131            130.9069410000
+barium_132            131.9050611000   # 0.00101000
+barium_133            132.9060074000
+barium_134            133.9045081800   # 0.02417000
+barium_135            134.9056883800   # 0.06592000
+barium_136            135.9045757300   # 0.07854000
+barium_137            136.9058271400   # 0.11232000
+barium_138            137.9052470000   # 0.71698000
+barium_139            138.9088411000
+barium_140            139.9106057000
+barium_141            140.9144033000
+barium_142            141.9164324000
+barium_143            142.9206253000
+barium_144            143.9229549000
+barium_145            144.9275184000
+barium_146            145.9302840000
+barium_147            146.9353040000
+barium_148            147.9381710000
+barium_149            148.9430800000
+barium_150            149.9460500000
+barium_151            150.9512700000
+barium_152            151.9548100000
+barium_153            152.9603600000
+barium            0.00106000 barium_130 \
+                + 0.00101000 barium_132 \
+                + 0.02417000 barium_134 \
+                + 0.06592000 barium_135 \
+                + 0.07854000 barium_136 \
+                + 0.11232000 barium_137 \
+                + 0.71698000 barium_138
+
+# lanthanum: La (57)  std atomic weight: 138.90547(7)
+lanthanum_116         115.9563000000
+lanthanum_117         116.9499900000
+lanthanum_118         117.9467300000
+lanthanum_119         118.9409900000
+lanthanum_120         119.9380700000
+lanthanum_121         120.9331500000
+lanthanum_122         121.9307100000
+lanthanum_123         122.9263000000
+lanthanum_124         123.9245740000
+lanthanum_125         124.9208160000
+lanthanum_126         125.9195130000
+lanthanum_127         126.9163750000
+lanthanum_128         127.9155920000
+lanthanum_129         128.9126940000
+lanthanum_130         129.9123690000
+lanthanum_131         130.9100700000
+lanthanum_132         131.9101190000
+lanthanum_133         132.9082180000
+lanthanum_134         133.9085140000
+lanthanum_135         134.9069840000
+lanthanum_136         135.9076350000
+lanthanum_137         136.9064504000
+lanthanum_138         137.9071149000   # 0.00088810
+lanthanum_139         138.9063563000   # 0.99911190
+lanthanum_140         139.9094806000
+lanthanum_141         140.9109660000
+lanthanum_142         141.9140909000
+lanthanum_143         142.9160795000
+lanthanum_144         143.9196460000
+lanthanum_145         144.9218080000
+lanthanum_146         145.9258750000
+lanthanum_147         146.9284180000
+lanthanum_148         147.9326790000
+lanthanum_149         148.9353500000
+lanthanum_150         149.9394700000
+lanthanum_151         150.9423200000
+lanthanum_152         151.9468200000
+lanthanum_153         152.9503600000
+lanthanum_154         153.9551700000
+lanthanum_155         154.9590100000
+lanthanum         0.00088810 lanthanum_138 \
+                + 0.99911190 lanthanum_139
+
+# cerium: Ce (58)  std atomic weight: 140.116(1)
+cerium_119            118.9527100000
+cerium_120            119.9465400000
+cerium_121            120.9433500000
+cerium_122            121.9378700000
+cerium_123            122.9352800000
+cerium_124            123.9303100000
+cerium_125            124.9284400000
+cerium_126            125.9239710000
+cerium_127            126.9227270000
+cerium_128            127.9189110000
+cerium_129            128.9181020000
+cerium_130            129.9147360000
+cerium_131            130.9144290000
+cerium_132            131.9114640000
+cerium_133            132.9115200000
+cerium_134            133.9089280000
+cerium_135            134.9091610000
+cerium_136            135.9071292100   # 0.00185000
+cerium_137            136.9077623600
+cerium_138            137.9059910000   # 0.00251000
+cerium_139            138.9066551000
+cerium_140            139.9054431000   # 0.88450000
+cerium_141            140.9082807000
+cerium_142            141.9092504000   # 0.11114000
+cerium_143            142.9123921000
+cerium_144            143.9136529000
+cerium_145            144.9172650000
+cerium_146            145.9188020000
+cerium_147            146.9226899000
+cerium_148            147.9244240000
+cerium_149            148.9284270000
+cerium_150            149.9303840000
+cerium_151            150.9342720000
+cerium_152            151.9366000000
+cerium_153            152.9409300000
+cerium_154            153.9438000000
+cerium_155            154.9485500000
+cerium_156            155.9518300000
+cerium_157            156.9570500000
+cerium            0.00185000 cerium_136 \
+                + 0.00251000 cerium_138 \
+                + 0.88450000 cerium_140 \
+                + 0.11114000 cerium_142
+
+# praseodymium: Pr (59)  std atomic weight: 140.90766(2)
+praseodymium_121      120.9553200000
+praseodymium_122      121.9517500000
+praseodymium_123      122.9459600000
+praseodymium_124      123.9429400000
+praseodymium_125      124.9377000000
+praseodymium_126      125.9352400000
+praseodymium_127      126.9307100000
+praseodymium_128      127.9287910000
+praseodymium_129      128.9250950000
+praseodymium_130      129.9235900000
+praseodymium_131      130.9202350000
+praseodymium_132      131.9192550000
+praseodymium_133      132.9163310000
+praseodymium_134      133.9156970000
+praseodymium_135      134.9131120000
+praseodymium_136      135.9126770000
+praseodymium_137      136.9106792000
+praseodymium_138      137.9107540000
+praseodymium_139      138.9089408000
+praseodymium_140      139.9090803000
+praseodymium_141      140.9076576000   # 1.00000000
+praseodymium_142      141.9100496000
+praseodymium_143      142.9108228000
+praseodymium_144      143.9133109000
+praseodymium_145      144.9145182000
+praseodymium_146      145.9176800000
+praseodymium_147      146.9190080000
+praseodymium_148      147.9221300000
+praseodymium_149      148.9237360000
+praseodymium_150      149.9266765000
+praseodymium_151      150.9283090000
+praseodymium_152      151.9315530000
+praseodymium_153      152.9339040000
+praseodymium_154      153.9375300000
+praseodymium_155      154.9405090000
+praseodymium_156      155.9446400000
+praseodymium_157      156.9478900000
+praseodymium_158      157.9524100000
+praseodymium_159      158.9558900000
+praseodymium          praseodymium_141
+
+# neodymium: Nd (60)  std atomic weight: 144.242(3)
+neodymium_124         123.9522000000
+neodymium_125         124.9489000000
+neodymium_126         125.9431100000
+neodymium_127         126.9403800000
+neodymium_128         127.9352500000
+neodymium_129         128.9331000000
+neodymium_130         129.9285060000
+neodymium_131         130.9272480000
+neodymium_132         131.9233210000
+neodymium_133         132.9223480000
+neodymium_134         133.9187900000
+neodymium_135         134.9181810000
+neodymium_136         135.9149760000
+neodymium_137         136.9145620000
+neodymium_138         137.9119500000
+neodymium_139         138.9119540000
+neodymium_140         139.9095500000
+neodymium_141         140.9096147000
+neodymium_142         141.9077290000   # 0.27152000
+neodymium_143         142.9098200000   # 0.12174000
+neodymium_144         143.9100930000   # 0.23798000
+neodymium_145         144.9125793000   # 0.08293000
+neodymium_146         145.9131226000   # 0.17189000
+neodymium_147         146.9161061000
+neodymium_148         147.9168993000   # 0.05756000
+neodymium_149         148.9201548000
+neodymium_150         149.9209022000   # 0.05638000
+neodymium_151         150.9238403000
+neodymium_152         151.9246920000
+neodymium_153         152.9277180000
+neodymium_154         153.9294800000
+neodymium_155         154.9331357000
+neodymium_156         155.9350800000
+neodymium_157         156.9393860000
+neodymium_158         157.9419700000
+neodymium_159         158.9465300000
+neodymium_160         159.9494000000
+neodymium_161         160.9542800000
+neodymium         0.27152000 neodymium_142 \
+                + 0.12174000 neodymium_143 \
+                + 0.23798000 neodymium_144 \
+                + 0.08293000 neodymium_145 \
+                + 0.17189000 neodymium_146 \
+                + 0.05756000 neodymium_148 \
+                + 0.05638000 neodymium_150
+
+# promethium: Pm (61)  std atomic weight: [145]
+promethium_126        125.9579200000
+promethium_127        126.9519200000
+promethium_128        127.9487000000
+promethium_129        128.9432300000
+promethium_130        129.9405300000
+promethium_131        130.9356700000
+promethium_132        131.9338400000
+promethium_133        132.9297820000
+promethium_134        133.9283530000
+promethium_135        134.9248230000
+promethium_136        135.9235850000
+promethium_137        136.9204800000
+promethium_138        137.9195480000
+promethium_139        138.9168000000
+promethium_140        139.9160400000
+promethium_141        140.9135550000
+promethium_142        141.9128900000
+promethium_143        142.9109383000
+promethium_144        143.9125964000
+promethium_145        144.9127559000
+promethium_146        145.9147024000
+promethium_147        146.9151450000
+promethium_148        147.9174819000
+promethium_149        148.9183423000
+promethium_150        149.9209910000
+promethium_151        150.9212175000
+promethium_152        151.9235060000
+promethium_153        152.9241567000
+promethium_154        153.9264720000
+promethium_155        154.9281370000
+promethium_156        155.9311175000
+promethium_157        156.9331214000
+promethium_158        157.9365650000
+promethium_159        158.9392870000
+promethium_160        159.9431000000
+promethium_161        160.9460700000
+promethium_162        161.9502200000
+promethium_163        162.9535700000
+promethium            promethium_145   # most stable
+
+# samarium: Sm (62)  std atomic weight: 150.36(2)
+samarium_128          127.9584200000
+samarium_129          128.9547600000
+samarium_130          129.9490000000
+samarium_131          130.9461800000
+samarium_132          131.9408700000
+samarium_133          132.9385600000
+samarium_134          133.9341100000
+samarium_135          134.9325200000
+samarium_136          135.9282760000
+samarium_137          136.9269710000
+samarium_138          137.9232440000
+samarium_139          138.9222970000
+samarium_140          139.9189950000
+samarium_141          140.9184816000
+samarium_142          141.9152044000
+samarium_143          142.9146353000
+samarium_144          143.9120065000   # 0.03070000
+samarium_145          144.9134173000
+samarium_146          145.9130470000
+samarium_147          146.9149044000   # 0.14990000
+samarium_148          147.9148292000   # 0.11240000
+samarium_149          148.9171921000   # 0.13820000
+samarium_150          149.9172829000   # 0.07380000
+samarium_151          150.9199398000
+samarium_152          151.9197397000   # 0.26750000
+samarium_153          152.9221047000
+samarium_154          153.9222169000   # 0.22750000
+samarium_155          154.9246477000
+samarium_156          155.9255360000
+samarium_157          156.9284187000
+samarium_158          157.9299510000
+samarium_159          158.9332172000
+samarium_160          159.9353353000
+samarium_161          160.9391602000
+samarium_162          161.9414600000
+samarium_163          162.9455500000
+samarium_164          163.9483600000
+samarium_165          164.9529700000
+samarium          0.03070000 samarium_144 \
+                + 0.14990000 samarium_147 \
+                + 0.11240000 samarium_148 \
+                + 0.13820000 samarium_149 \
+                + 0.07380000 samarium_150 \
+                + 0.26750000 samarium_152 \
+                + 0.22750000 samarium_154
+
+# europium: Eu (63)  std atomic weight: 151.964(1)
+europium_130          129.9636900000
+europium_131          130.9578400000
+europium_132          131.9546700000
+europium_133          132.9492900000
+europium_134          133.9464000000
+europium_135          134.9418700000
+europium_136          135.9396200000
+europium_137          136.9354600000
+europium_138          137.9337090000
+europium_139          138.9297920000
+europium_140          139.9280880000
+europium_141          140.9249320000
+europium_142          141.9234420000
+europium_143          142.9202990000
+europium_144          143.9188200000
+europium_145          144.9162726000
+europium_146          145.9172110000
+europium_147          146.9167527000
+europium_148          147.9180890000
+europium_149          148.9179378000
+europium_150          149.9197077000
+europium_151          150.9198578000   # 0.47810000
+europium_152          151.9217522000
+europium_153          152.9212380000   # 0.52190000
+europium_154          153.9229870000
+europium_155          154.9229011000
+europium_156          155.9247605000
+europium_157          156.9254334000
+europium_158          157.9277990000
+europium_159          158.9291001000
+europium_160          159.9318510000
+europium_161          160.9336640000
+europium_162          161.9369890000
+europium_163          162.9391960000
+europium_164          163.9427400000
+europium_165          164.9455900000
+europium_166          165.9496200000
+europium_167          166.9528900000
+europium          0.47810000 europium_151 \
+                + 0.52190000 europium_153
+
+# gadolinium: Gd (64)  std atomic weight: 157.25(3)
+gadolinium_133        132.9613300000
+gadolinium_134        133.9556600000
+gadolinium_135        134.9524500000
+gadolinium_136        135.9473000000
+gadolinium_137        136.9450200000
+gadolinium_138        137.9402500000
+gadolinium_139        138.9381300000
+gadolinium_140        139.9336740000
+gadolinium_141        140.9321260000
+gadolinium_142        141.9281160000
+gadolinium_143        142.9267500000
+gadolinium_144        143.9229630000
+gadolinium_145        144.9217130000
+gadolinium_146        145.9183188000
+gadolinium_147        146.9191014000
+gadolinium_148        147.9181215000
+gadolinium_149        148.9193481000
+gadolinium_150        149.9186644000
+gadolinium_151        150.9203560000
+gadolinium_152        151.9197995000   # 0.00200000
+gadolinium_153        152.9217580000
+gadolinium_154        153.9208741000   # 0.02180000
+gadolinium_155        154.9226305000   # 0.14800000
+gadolinium_156        155.9221312000   # 0.20470000
+gadolinium_157        156.9239686000   # 0.15650000
+gadolinium_158        157.9241123000   # 0.24840000
+gadolinium_159        158.9263970000
+gadolinium_160        159.9270624000   # 0.21860000
+gadolinium_161        160.9296775000
+gadolinium_162        161.9309930000
+gadolinium_163        162.9341769000
+gadolinium_164        163.9358300000
+gadolinium_165        164.9393600000
+gadolinium_166        165.9414600000
+gadolinium_167        166.9454500000
+gadolinium_168        167.9480800000
+gadolinium_169        168.9526000000
+gadolinium        0.00200000 gadolinium_152 \
+                + 0.02180000 gadolinium_154 \
+                + 0.14800000 gadolinium_155 \
+                + 0.20470000 gadolinium_156 \
+                + 0.15650000 gadolinium_157 \
+                + 0.24840000 gadolinium_158 \
+                + 0.21860000 gadolinium_160
+
+# terbium: Tb (65)  std atomic weight: 158.92535(2)
+terbium_135           134.9647600000
+terbium_136           135.9612900000
+terbium_137           136.9560200000
+terbium_138           137.9531200000
+terbium_139           138.9483300000
+terbium_140           139.9458100000
+terbium_141           140.9414500000
+terbium_142           141.9392800000
+terbium_143           142.9351370000
+terbium_144           143.9330450000
+terbium_145           144.9288200000
+terbium_146           145.9272530000
+terbium_147           146.9240548000
+terbium_148           147.9242820000
+terbium_149           148.9232535000
+terbium_150           149.9236649000
+terbium_151           150.9231096000
+terbium_152           151.9240830000
+terbium_153           152.9234424000
+terbium_154           153.9246850000
+terbium_155           154.9235110000
+terbium_156           155.9247552000
+terbium_157           156.9240330000
+terbium_158           157.9254209000
+terbium_159           158.9253547000   # 1.00000000
+terbium_160           159.9271756000
+terbium_161           160.9275778000
+terbium_162           161.9294950000
+terbium_163           162.9306547000
+terbium_164           163.9333600000
+terbium_165           164.9349800000
+terbium_166           165.9378600000
+terbium_167           166.9399600000
+terbium_168           167.9434000000
+terbium_169           168.9459700000
+terbium_170           169.9498400000
+terbium_171           170.9527300000
+terbium               terbium_159
+
+# dysprosium: Dy (66)  std atomic weight: 162.500(1)
+dysprosium_138        137.9625000000
+dysprosium_139        138.9595900000
+dysprosium_140        139.9540200000
+dysprosium_141        140.9512800000
+dysprosium_142        141.9461900000
+dysprosium_143        142.9439940000
+dysprosium_144        143.9392695000
+dysprosium_145        144.9374740000
+dysprosium_146        145.9328445000
+dysprosium_147        146.9310827000
+dysprosium_148        147.9271570000
+dysprosium_149        148.9273220000
+dysprosium_150        149.9255933000
+dysprosium_151        150.9261916000
+dysprosium_152        151.9247253000
+dysprosium_153        152.9257724000
+dysprosium_154        153.9244293000
+dysprosium_155        154.9257590000
+dysprosium_156        155.9242847000   # 0.00056000
+dysprosium_157        156.9254707000
+dysprosium_158        157.9244159000   # 0.00095000
+dysprosium_159        158.9257470000
+dysprosium_160        159.9252046000   # 0.02329000
+dysprosium_161        160.9269405000   # 0.18889000
+dysprosium_162        161.9268056000   # 0.25475000
+dysprosium_163        162.9287383000   # 0.24896000
+dysprosium_164        163.9291819000   # 0.28260000
+dysprosium_165        164.9317105000
+dysprosium_166        165.9328139000
+dysprosium_167        166.9356610000
+dysprosium_168        167.9371300000
+dysprosium_169        168.9403100000
+dysprosium_170        169.9423900000
+dysprosium_171        170.9461200000
+dysprosium_172        171.9484600000
+dysprosium_173        172.9528300000
+dysprosium        0.00056000 dysprosium_156 \
+                + 0.00095000 dysprosium_158 \
+                + 0.02329000 dysprosium_160 \
+                + 0.18889000 dysprosium_161 \
+                + 0.25475000 dysprosium_162 \
+                + 0.24896000 dysprosium_163 \
+                + 0.28260000 dysprosium_164
+
+# holmium: Ho (67)  std atomic weight: 164.93033(2)
+holmium_140           139.9685900000
+holmium_141           140.9631100000
+holmium_142           141.9600100000
+holmium_143           142.9548600000
+holmium_144           143.9521097000
+holmium_145           144.9472674000
+holmium_146           145.9449935000
+holmium_147           146.9401423000
+holmium_148           147.9377440000
+holmium_149           148.9338030000
+holmium_150           149.9334980000
+holmium_151           150.9316983000
+holmium_152           151.9317240000
+holmium_153           152.9302064000
+holmium_154           153.9306068000
+holmium_155           154.9291040000
+holmium_156           155.9297060000
+holmium_157           156.9282540000
+holmium_158           157.9289460000
+holmium_159           158.9277197000
+holmium_160           159.9287370000
+holmium_161           160.9278615000
+holmium_162           161.9291023000
+holmium_163           162.9287410000
+holmium_164           163.9302403000
+holmium_165           164.9303288000   # 1.00000000
+holmium_166           165.9322909000
+holmium_167           166.9331385000
+holmium_168           167.9355220000
+holmium_169           168.9368780000
+holmium_170           169.9396250000
+holmium_171           170.9414700000
+holmium_172           171.9447300000
+holmium_173           172.9470200000
+holmium_174           173.9509500000
+holmium_175           174.9536200000
+holmium               holmium_165
+
+# erbium: Er (68)  std atomic weight: 167.259(3)
+erbium_142            141.9701000000
+erbium_143            142.9666200000
+erbium_144            143.9607000000
+erbium_145            144.9580500000
+erbium_146            145.9524184000
+erbium_147            146.9499640000
+erbium_148            147.9447350000
+erbium_149            148.9423060000
+erbium_150            149.9379160000
+erbium_151            150.9374490000
+erbium_152            151.9350570000
+erbium_153            152.9350800000
+erbium_154            153.9327908000
+erbium_155            154.9332159000
+erbium_156            155.9310670000
+erbium_157            156.9319490000
+erbium_158            157.9298930000
+erbium_159            158.9306918000
+erbium_160            159.9290770000
+erbium_161            160.9300046000
+erbium_162            161.9287884000   # 0.00139000
+erbium_163            162.9300408000
+erbium_164            163.9292088000   # 0.01601000
+erbium_165            164.9307345000
+erbium_166            165.9302995000   # 0.33503000
+erbium_167            166.9320546000   # 0.22869000
+erbium_168            167.9323767000   # 0.26978000
+erbium_169            168.9345968000
+erbium_170            169.9354702000   # 0.14910000
+erbium_171            170.9380357000
+erbium_172            171.9393619000
+erbium_173            172.9424000000
+erbium_174            173.9442300000
+erbium_175            174.9477700000
+erbium_176            175.9499400000
+erbium_177            176.9539900000
+erbium            0.00139000 erbium_162 \
+                + 0.01601000 erbium_164 \
+                + 0.33503000 erbium_166 \
+                + 0.22869000 erbium_167 \
+                + 0.26978000 erbium_168 \
+                + 0.14910000 erbium_170
+
+# thulium: Tm (69)  std atomic weight: 168.93422(2)
+thulium_144           143.9762800000
+thulium_145           144.9703900000
+thulium_146           145.9668400000
+thulium_147           146.9613799000
+thulium_148           147.9583840000
+thulium_149           148.9528900000
+thulium_150           149.9500900000
+thulium_151           150.9454880000
+thulium_152           151.9444220000
+thulium_153           152.9420400000
+thulium_154           153.9415700000
+thulium_155           154.9392100000
+thulium_156           155.9389920000
+thulium_157           156.9369440000
+thulium_158           157.9369800000
+thulium_159           158.9349750000
+thulium_160           159.9352630000
+thulium_161           160.9335490000
+thulium_162           161.9340020000
+thulium_163           162.9326592000
+thulium_164           163.9335440000
+thulium_165           164.9324431000
+thulium_166           165.9335610000
+thulium_167           166.9328562000
+thulium_168           167.9341774000
+thulium_169           168.9342179000   # 1.00000000
+thulium_170           169.9358060000
+thulium_171           170.9364339000
+thulium_172           171.9384055000
+thulium_173           172.9396084000
+thulium_174           173.9421730000
+thulium_175           174.9438410000
+thulium_176           175.9470000000
+thulium_177           176.9490400000
+thulium_178           177.9526400000
+thulium_179           178.9553400000
+thulium               thulium_169
+
+# ytterbium: Yb (70)  std atomic weight: 173.054(5)
+ytterbium_148         147.9675800000
+ytterbium_149         148.9643600000
+ytterbium_150         149.9585200000
+ytterbium_151         150.9554000000
+ytterbium_152         151.9502700000
+ytterbium_153         152.9493200000
+ytterbium_154         153.9463960000
+ytterbium_155         154.9457830000
+ytterbium_156         155.9428250000
+ytterbium_157         156.9426450000
+ytterbium_158         157.9398705000
+ytterbium_159         158.9400550000
+ytterbium_160         159.9375570000
+ytterbium_161         160.9379070000
+ytterbium_162         161.9357740000
+ytterbium_163         162.9363400000
+ytterbium_164         163.9344950000
+ytterbium_165         164.9352700000
+ytterbium_166         165.9338747000
+ytterbium_167         166.9349530000
+ytterbium_168         167.9338896000   # 0.00123000
+ytterbium_169         168.9351825000
+ytterbium_170         169.9347664000   # 0.02982000
+ytterbium_171         170.9363302000   # 0.14090000
+ytterbium_172         171.9363859000   # 0.21680000
+ytterbium_173         172.9382151000   # 0.16103000
+ytterbium_174         173.9388664000   # 0.32026000
+ytterbium_175         174.9412808000
+ytterbium_176         175.9425764000   # 0.12996000
+ytterbium_177         176.9452656000
+ytterbium_178         177.9466510000
+ytterbium_179         178.9500400000
+ytterbium_180         179.9521200000
+ytterbium_181         180.9558900000
+ytterbium         0.00123000 ytterbium_168 \
+                + 0.02982000 ytterbium_170 \
+                + 0.14090000 ytterbium_171 \
+                + 0.21680000 ytterbium_172 \
+                + 0.16103000 ytterbium_173 \
+                + 0.32026000 ytterbium_174 \
+                + 0.12996000 ytterbium_176
+
+# lutetium: Lu (71)  std atomic weight: 174.9668(1)
+lutetium_150          149.9735500000
+lutetium_151          150.9676800000
+lutetium_152          151.9641200000
+lutetium_153          152.9587500000
+lutetium_154          153.9573600000
+lutetium_155          154.9543210000
+lutetium_156          155.9530330000
+lutetium_157          156.9501270000
+lutetium_158          157.9493160000
+lutetium_159          158.9466360000
+lutetium_160          159.9460330000
+lutetium_161          160.9435720000
+lutetium_162          161.9432830000
+lutetium_163          162.9411790000
+lutetium_164          163.9413390000
+lutetium_165          164.9394070000
+lutetium_166          165.9398590000
+lutetium_167          166.9382700000
+lutetium_168          167.9387360000
+lutetium_169          168.9376441000
+lutetium_170          169.9384780000
+lutetium_171          170.9379170000
+lutetium_172          171.9390891000
+lutetium_173          172.9389340000
+lutetium_174          173.9403409000
+lutetium_175          174.9407752000   # 0.97401000
+lutetium_176          175.9426897000   # 0.02599000
+lutetium_177          176.9437615000
+lutetium_178          177.9459580000
+lutetium_179          178.9473309000
+lutetium_180          179.9498880000
+lutetium_181          180.9519100000
+lutetium_182          181.9550400000
+lutetium_183          182.9573630000
+lutetium_184          183.9609100000
+lutetium_185          184.9636200000
+lutetium          0.97401000 lutetium_175 \
+                + 0.02599000 lutetium_176
+
+# hafnium: Hf (72)  std atomic weight: 178.49(2)
+hafnium_153           152.9706900000
+hafnium_154           153.9648600000
+hafnium_155           154.9631100000
+hafnium_156           155.9593500000
+hafnium_157           156.9582400000
+hafnium_158           157.9548010000
+hafnium_159           158.9539960000
+hafnium_160           159.9506910000
+hafnium_161           160.9502780000
+hafnium_162           161.9472148000
+hafnium_163           162.9471130000
+hafnium_164           163.9443710000
+hafnium_165           164.9445670000
+hafnium_166           165.9421800000
+hafnium_167           166.9426000000
+hafnium_168           167.9405680000
+hafnium_169           168.9412590000
+hafnium_170           169.9396090000
+hafnium_171           170.9404920000
+hafnium_172           171.9394500000
+hafnium_173           172.9405130000
+hafnium_174           173.9400461000   # 0.00160000
+hafnium_175           174.9415092000
+hafnium_176           175.9414076000   # 0.05260000
+hafnium_177           176.9432277000   # 0.18600000
+hafnium_178           177.9437058000   # 0.27280000
+hafnium_179           178.9458232000   # 0.13620000
+hafnium_180           179.9465570000   # 0.35080000
+hafnium_181           180.9491083000
+hafnium_182           181.9505612000
+hafnium_183           182.9535300000
+hafnium_184           183.9554460000
+hafnium_185           184.9588620000
+hafnium_186           185.9608970000
+hafnium_187           186.9647700000
+hafnium_188           187.9668500000
+hafnium_189           188.9708400000
+hafnium           0.00160000 hafnium_174 \
+                + 0.05260000 hafnium_176 \
+                + 0.18600000 hafnium_177 \
+                + 0.27280000 hafnium_178 \
+                + 0.13620000 hafnium_179 \
+                + 0.35080000 hafnium_180
+
+# tantalum: Ta (73)  std atomic weight: 180.94788(2)
+tantalum_155          154.9742400000
+tantalum_156          155.9720300000
+tantalum_157          156.9681800000
+tantalum_158          157.9665400000
+tantalum_159          158.9630230000
+tantalum_160          159.9614880000
+tantalum_161          160.9584520000
+tantalum_162          161.9572940000
+tantalum_163          162.9543370000
+tantalum_164          163.9535340000
+tantalum_165          164.9507810000
+tantalum_166          165.9505120000
+tantalum_167          166.9480930000
+tantalum_168          167.9480470000
+tantalum_169          168.9460110000
+tantalum_170          169.9461750000
+tantalum_171          170.9444760000
+tantalum_172          171.9448950000
+tantalum_173          172.9437500000
+tantalum_174          173.9444540000
+tantalum_175          174.9437370000
+tantalum_176          175.9448570000
+tantalum_177          176.9444795000
+tantalum_178          177.9456780000
+tantalum_179          178.9459366000
+tantalum_180          179.9474648000   # 0.00012010
+tantalum_181          180.9479958000   # 0.99987990
+tantalum_182          181.9501519000
+tantalum_183          182.9513726000
+tantalum_184          183.9540080000
+tantalum_185          184.9555590000
+tantalum_186          185.9585510000
+tantalum_187          186.9603860000
+tantalum_188          187.9639160000
+tantalum_189          188.9658300000
+tantalum_190          189.9693900000
+tantalum_191          190.9715600000
+tantalum_192          191.9751400000
+tantalum          0.00012010 tantalum_180 \
+                + 0.99987990 tantalum_181
+
+# tungsten: W (74)  std atomic weight: 183.84(1)
+tungsten_157          156.9788400000
+tungsten_158          157.9745600000
+tungsten_159          158.9726400000
+tungsten_160          159.9684600000
+tungsten_161          160.9672000000
+tungsten_162          161.9634990000
+tungsten_163          162.9625240000
+tungsten_164          163.9589610000
+tungsten_165          164.9582810000
+tungsten_166          165.9550310000
+tungsten_167          166.9548050000
+tungsten_168          167.9518060000
+tungsten_169          168.9517790000
+tungsten_170          169.9492320000
+tungsten_171          170.9494510000
+tungsten_172          171.9472920000
+tungsten_173          172.9476890000
+tungsten_174          173.9460790000
+tungsten_175          174.9467170000
+tungsten_176          175.9456340000
+tungsten_177          176.9466430000
+tungsten_178          177.9458830000
+tungsten_179          178.9470770000
+tungsten_180          179.9467108000   # 0.00120000
+tungsten_181          180.9481978000
+tungsten_182          181.9482039400   # 0.26500000
+tungsten_183          182.9502227500   # 0.14310000
+tungsten_184          183.9509309200   # 0.30640000
+tungsten_185          184.9534189700
+tungsten_186          185.9543628000   # 0.28430000
+tungsten_187          186.9571588000
+tungsten_188          187.9584862000
+tungsten_189          188.9617630000
+tungsten_190          189.9630910000
+tungsten_191          190.9665310000
+tungsten_192          191.9681700000
+tungsten_193          192.9717800000
+tungsten_194          193.9736700000
+tungsten          0.00120000 tungsten_180 \
+                + 0.26500000 tungsten_182 \
+                + 0.14310000 tungsten_183 \
+                + 0.30640000 tungsten_184 \
+                + 0.28430000 tungsten_186
+
+# rhenium: Re (75)  std atomic weight: 186.207(1)
+rhenium_159           158.9841800000
+rhenium_160           159.9818200000
+rhenium_161           160.9775700000
+rhenium_162           161.9758400000
+rhenium_163           162.9720800000
+rhenium_164           163.9704530000
+rhenium_165           164.9671030000
+rhenium_166           165.9657610000
+rhenium_167           166.9625950000
+rhenium_168           167.9615730000
+rhenium_169           168.9587660000
+rhenium_170           169.9582200000
+rhenium_171           170.9557160000
+rhenium_172           171.9554200000
+rhenium_173           172.9532430000
+rhenium_174           173.9531150000
+rhenium_175           174.9513810000
+rhenium_176           175.9516230000
+rhenium_177           176.9503280000
+rhenium_178           177.9509890000
+rhenium_179           178.9499890000
+rhenium_180           179.9507920000
+rhenium_181           180.9500580000
+rhenium_182           181.9512100000
+rhenium_183           182.9508196000
+rhenium_184           183.9525228000
+rhenium_185           184.9529545000   # 0.37400000
+rhenium_186           185.9549856000
+rhenium_187           186.9557501000   # 0.62600000
+rhenium_188           187.9581115000
+rhenium_189           188.9592260000
+rhenium_190           189.9617440000
+rhenium_191           190.9631220000
+rhenium_192           191.9660880000
+rhenium_193           192.9675410000
+rhenium_194           193.9707600000
+rhenium_195           194.9725400000
+rhenium_196           195.9758000000
+rhenium_197           196.9779900000
+rhenium_198           197.9816000000
+rhenium           0.37400000 rhenium_185 \
+                + 0.62600000 rhenium_187
+
+# osmium: Os (76)  std atomic weight: 190.23(3)
+osmium_161            160.9890300000
+osmium_162            161.9844300000
+osmium_163            162.9824100000
+osmium_164            163.9780200000
+osmium_165            164.9766000000
+osmium_166            165.9726920000
+osmium_167            166.9715490000
+osmium_168            167.9678080000
+osmium_169            168.9670180000
+osmium_170            169.9635780000
+osmium_171            170.9631740000
+osmium_172            171.9600170000
+osmium_173            172.9598080000
+osmium_174            173.9570640000
+osmium_175            174.9569450000
+osmium_176            175.9548060000
+osmium_177            176.9549660000
+osmium_178            177.9532540000
+osmium_179            178.9538170000
+osmium_180            179.9523750000
+osmium_181            180.9532470000
+osmium_182            181.9521100000
+osmium_183            182.9531250000
+osmium_184            183.9524885000   # 0.00020000
+osmium_185            184.9540417000
+osmium_186            185.9538350000   # 0.01590000
+osmium_187            186.9557474000   # 0.01960000
+osmium_188            187.9558352000   # 0.13240000
+osmium_189            188.9581442000   # 0.16150000
+osmium_190            189.9584437000   # 0.26260000
+osmium_191            190.9609264000
+osmium_192            191.9614770000   # 0.40780000
+osmium_193            192.9641479000
+osmium_194            193.9651772000
+osmium_195            194.9683180000
+osmium_196            195.9696410000
+osmium_197            196.9728300000
+osmium_198            197.9744100000
+osmium_199            198.9780100000
+osmium_200            199.9798400000
+osmium_201            200.9836400000
+osmium_202            201.9859500000
+osmium            0.00020000 osmium_184 \
+                + 0.01590000 osmium_186 \
+                + 0.01960000 osmium_187 \
+                + 0.13240000 osmium_188 \
+                + 0.16150000 osmium_189 \
+                + 0.26260000 osmium_190 \
+                + 0.40780000 osmium_192
+
+# iridium: Ir (77)  std atomic weight: 192.217(3)
+iridium_164           163.9919100000
+iridium_165           164.9875000000
+iridium_166           165.9856600000
+iridium_167           166.9816660000
+iridium_168           167.9799070000
+iridium_169           168.9762980000
+iridium_170           169.9749220000
+iridium_171           170.9716400000
+iridium_172           171.9706070000
+iridium_173           172.9675060000
+iridium_174           173.9668610000
+iridium_175           174.9641500000
+iridium_176           175.9636500000
+iridium_177           176.9613010000
+iridium_178           177.9610820000
+iridium_179           178.9591200000
+iridium_180           179.9592290000
+iridium_181           180.9576250000
+iridium_182           181.9580760000
+iridium_183           182.9568400000
+iridium_184           183.9574760000
+iridium_185           184.9566980000
+iridium_186           185.9579440000
+iridium_187           186.9575420000
+iridium_188           187.9588280000
+iridium_189           188.9587150000
+iridium_190           189.9605412000
+iridium_191           190.9605893000   # 0.37300000
+iridium_192           191.9626002000
+iridium_193           192.9629216000   # 0.62700000
+iridium_194           193.9650735000
+iridium_195           194.9659747000
+iridium_196           195.9683970000
+iridium_197           196.9696550000
+iridium_198           197.9722800000
+iridium_199           198.9738050000
+iridium_200           199.9768000000
+iridium_201           200.9786400000
+iridium_202           201.9819900000
+iridium_203           202.9842300000
+iridium_204           203.9896000000
+iridium           0.37300000 iridium_191 \
+                + 0.62700000 iridium_193
+
+# platinum: Pt (78)  std atomic weight: 195.084(9)
+platinum_166          165.9948600000
+platinum_167          166.9926900000
+platinum_168          167.9881300000
+platinum_169          168.9865700000
+platinum_170          169.9824960000
+platinum_171          170.9812450000
+platinum_172          171.9773510000
+platinum_173          172.9764430000
+platinum_174          173.9728200000
+platinum_175          174.9724100000
+platinum_176          175.9689380000
+platinum_177          176.9684700000
+platinum_178          177.9656500000
+platinum_179          178.9653590000
+platinum_180          179.9630320000
+platinum_181          180.9630980000
+platinum_182          181.9611720000
+platinum_183          182.9615970000
+platinum_184          183.9599150000
+platinum_185          184.9606140000
+platinum_186          185.9593510000
+platinum_187          186.9606170000
+platinum_188          187.9593889000
+platinum_189          188.9608310000
+platinum_190          189.9599297000   # 0.00012000
+platinum_191          190.9616729000
+platinum_192          191.9610387000   # 0.00782000
+platinum_193          192.9629824000
+platinum_194          193.9626809000   # 0.32860000
+platinum_195          194.9647917000   # 0.33780000
+platinum_196          195.9649520900   # 0.25210000
+platinum_197          196.9673406900
+platinum_198          197.9678949000   # 0.07356000
+platinum_199          198.9705952000
+platinum_200          199.9714430000
+platinum_201          200.9745130000
+platinum_202          201.9756390000
+platinum_203          202.9789300000
+platinum_204          203.9807600000
+platinum_205          204.9860800000
+platinum_206          205.9896600000
+platinum          0.00012000 platinum_190 \
+                + 0.00782000 platinum_192 \
+                + 0.32860000 platinum_194 \
+                + 0.33780000 platinum_195 \
+                + 0.25210000 platinum_196 \
+                + 0.07356000 platinum_198
+
+# gold: Au (79)  std atomic weight: 196.966569(5)
+gold_169              168.9980800000
+gold_170              169.9959700000
+gold_171              170.9918760000
+gold_172              171.9899420000
+gold_173              172.9862410000
+gold_174              173.9847170000
+gold_175              174.9813040000
+gold_176              175.9802500000
+gold_177              176.9768700000
+gold_178              177.9760320000
+gold_179              178.9731740000
+gold_180              179.9725230000
+gold_181              180.9700790000
+gold_182              181.9696180000
+gold_183              182.9675910000
+gold_184              183.9674520000
+gold_185              184.9657900000
+gold_186              185.9659530000
+gold_187              186.9645430000
+gold_188              187.9653490000
+gold_189              188.9639480000
+gold_190              189.9646980000
+gold_191              190.9637020000
+gold_192              191.9648140000
+gold_193              192.9641373000
+gold_194              193.9654178000
+gold_195              194.9650352000
+gold_196              195.9665699000
+gold_197              196.9665687900   # 1.00000000
+gold_198              197.9682424200
+gold_199              198.9687652800
+gold_200              199.9707560000
+gold_201              200.9716575000
+gold_202              201.9738560000
+gold_203              202.9751544000
+gold_204              203.9778300000
+gold_205              204.9798500000
+gold_206              205.9847400000
+gold_207              206.9884000000
+gold_208              207.9934500000
+gold_209              208.9973500000
+gold_210              210.0025000000
+gold                  gold_197
+
+# mercury: Hg (80)  std atomic weight: 200.592(3)
+mercury_171           171.0035300000
+mercury_172           171.9988100000
+mercury_173           172.9970900000
+mercury_174           173.9928650000
+mercury_175           174.9914410000
+mercury_176           175.9873610000
+mercury_177           176.9862770000
+mercury_178           177.9824840000
+mercury_179           178.9818310000
+mercury_180           179.9782600000
+mercury_181           180.9778190000
+mercury_182           181.9746890000
+mercury_183           182.9744448000
+mercury_184           183.9717140000
+mercury_185           184.9718990000
+mercury_186           185.9693620000
+mercury_187           186.9698140000
+mercury_188           187.9675670000
+mercury_189           188.9681950000
+mercury_190           189.9663230000
+mercury_191           190.9671570000
+mercury_192           191.9656350000
+mercury_193           192.9666530000
+mercury_194           193.9654491000
+mercury_195           194.9667210000
+mercury_196           195.9658326000   # 0.00150000
+mercury_197           196.9672128000
+mercury_198           197.9667686000   # 0.09970000
+mercury_199           198.9682806400   # 0.16870000
+mercury_200           199.9683265900   # 0.23100000
+mercury_201           200.9703028400   # 0.13180000
+mercury_202           201.9706434000   # 0.29860000
+mercury_203           202.9728728000
+mercury_204           203.9734939800   # 0.06870000
+mercury_205           204.9760734000
+mercury_206           205.9775140000
+mercury_207           206.9823000000
+mercury_208           207.9857590000
+mercury_209           208.9907200000
+mercury_210           209.9942400000
+mercury_211           210.9993300000
+mercury_212           212.0029600000
+mercury_213           213.0082300000
+mercury_214           214.0120000000
+mercury_215           215.0174000000
+mercury_216           216.0213200000
+mercury           0.00150000 mercury_196 \
+                + 0.09970000 mercury_198 \
+                + 0.16870000 mercury_199 \
+                + 0.23100000 mercury_200 \
+                + 0.13180000 mercury_201 \
+                + 0.29860000 mercury_202 \
+                + 0.06870000 mercury_204
+
+# thallium: Tl (81)  std atomic weight: [204.382,204.385]
+thallium_176          176.0006240000
+thallium_177          176.9964310000
+thallium_178          177.9948500000
+thallium_179          178.9911110000
+thallium_180          179.9900570000
+thallium_181          180.9862600000
+thallium_182          181.9857130000
+thallium_183          182.9821930000
+thallium_184          183.9818860000
+thallium_185          184.9787890000
+thallium_186          185.9786510000
+thallium_187          186.9759063000
+thallium_188          187.9760210000
+thallium_189          188.9735880000
+thallium_190          189.9738280000
+thallium_191          190.9717842000
+thallium_192          191.9722250000
+thallium_193          192.9705020000
+thallium_194          193.9710810000
+thallium_195          194.9697740000
+thallium_196          195.9704810000
+thallium_197          196.9695760000
+thallium_198          197.9704830000
+thallium_199          198.9698770000
+thallium_200          199.9709633000
+thallium_201          200.9708220000
+thallium_202          201.9721020000
+thallium_203          202.9723446000   # 0.29520000
+thallium_204          203.9738639000
+thallium_205          204.9744278000   # 0.70480000
+thallium_206          205.9761106000
+thallium_207          206.9774197000
+thallium_208          207.9820190000
+thallium_209          208.9853594000
+thallium_210          209.9900740000
+thallium_211          210.9934750000
+thallium_212          211.9983400000
+thallium_213          213.0019150000
+thallium_214          214.0069400000
+thallium_215          215.0106400000
+thallium_216          216.0158000000
+thallium_217          217.0196600000
+thallium_218          218.0247900000
+thallium          0.29520000 thallium_203 \
+                + 0.70480000 thallium_205
+
+# lead: Pb (82)  std atomic weight: 207.2(1)
+lead_178              178.0038310000
+lead_179              179.0022010000
+lead_180              179.9979280000
+lead_181              180.9966530000
+lead_182              181.9926720000
+lead_183              182.9918720000
+lead_184              183.9881360000
+lead_185              184.9876100000
+lead_186              185.9842380000
+lead_187              186.9839109000
+lead_188              187.9808750000
+lead_189              188.9808070000
+lead_190              189.9780820000
+lead_191              190.9782760000
+lead_192              191.9757750000
+lead_193              192.9761730000
+lead_194              193.9740120000
+lead_195              194.9745430000
+lead_196              195.9727740000
+lead_197              196.9734312000
+lead_198              197.9720340000
+lead_199              198.9729130000
+lead_200              199.9718190000
+lead_201              200.9728830000
+lead_202              201.9721520000
+lead_203              202.9733911000
+lead_204              203.9730440000   # 0.01400000
+lead_205              204.9744822000
+lead_206              205.9744657000   # 0.24100000
+lead_207              206.9758973000   # 0.22100000
+lead_208              207.9766525000   # 0.52400000
+lead_209              208.9810905000
+lead_210              209.9841889000
+lead_211              210.9887371000
+lead_212              211.9918977000
+lead_213              212.9965629000
+lead_214              213.9998059000
+lead_215              215.0047400000
+lead_216              216.0080300000
+lead_217              217.0131400000
+lead_218              218.0165900000
+lead_219              219.0217700000
+lead_220              220.0254100000
+lead              0.01400000 lead_204 \
+                + 0.24100000 lead_206 \
+                + 0.22100000 lead_207 \
+                + 0.52400000 lead_208
+
+# bismuth: Bi (83)  std atomic weight: 208.98040(1)
+bismuth_184           184.0012750000
+bismuth_185           184.9976000000
+bismuth_186           185.9966440000
+bismuth_187           186.9931470000
+bismuth_188           187.9922870000
+bismuth_189           188.9891950000
+bismuth_190           189.9886220000
+bismuth_191           190.9857866000
+bismuth_192           191.9854690000
+bismuth_193           192.9829600000
+bismuth_194           193.9827850000
+bismuth_195           194.9806488000
+bismuth_196           195.9806670000
+bismuth_197           196.9788651000
+bismuth_198           197.9792060000
+bismuth_199           198.9776730000
+bismuth_200           199.9781310000
+bismuth_201           200.9770100000
+bismuth_202           201.9777340000
+bismuth_203           202.9768930000
+bismuth_204           203.9778361000
+bismuth_205           204.9773867000
+bismuth_206           205.9784993000
+bismuth_207           206.9784710000
+bismuth_208           207.9797425000
+bismuth_209           208.9803991000   # 1.00000000
+bismuth_210           209.9841207000
+bismuth_211           210.9872697000
+bismuth_212           211.9912860000
+bismuth_213           212.9943851000
+bismuth_214           213.9987120000
+bismuth_215           215.0017700000
+bismuth_216           216.0063060000
+bismuth_217           217.0093720000
+bismuth_218           218.0141880000
+bismuth_219           219.0174800000
+bismuth_220           220.0223500000
+bismuth_221           221.0258700000
+bismuth_222           222.0307800000
+bismuth_223           223.0345000000
+bismuth_224           224.0394700000
+bismuth               bismuth_209
+
+# polonium: Po (84)  std atomic weight: [209]
+polonium_186          186.0043930000
+polonium_187          187.0030410000
+polonium_188          187.9994160000
+polonium_189          188.9984730000
+polonium_190          189.9951010000
+polonium_191          190.9945585000
+polonium_192          191.9913360000
+polonium_193          192.9910260000
+polonium_194          193.9881860000
+polonium_195          194.9881260000
+polonium_196          195.9855260000
+polonium_197          196.9856600000
+polonium_198          197.9833890000
+polonium_199          198.9836670000
+polonium_200          199.9817990000
+polonium_201          200.9822598000
+polonium_202          201.9807580000
+polonium_203          202.9814161000
+polonium_204          203.9803100000
+polonium_205          204.9812030000
+polonium_206          205.9804740000
+polonium_207          206.9815938000
+polonium_208          207.9812461000
+polonium_209          208.9824308000
+polonium_210          209.9828741000
+polonium_211          210.9866536000
+polonium_212          211.9888684000
+polonium_213          212.9928576000
+polonium_214          213.9952017000
+polonium_215          214.9994201000
+polonium_216          216.0019152000
+polonium_217          217.0063182000
+polonium_218          218.0089735000
+polonium_219          219.0136140000
+polonium_220          220.0163860000
+polonium_221          221.0212280000
+polonium_222          222.0241400000
+polonium_223          223.0290700000
+polonium_224          224.0321100000
+polonium_225          225.0370700000
+polonium_226          226.0403100000
+polonium_227          227.0453900000
+polonium              polonium_209     # most stable
+
+# astatine: At (85)  std atomic weight: [210]
+astatine_191          191.0041480000
+astatine_192          192.0031520000
+astatine_193          192.9999270000
+astatine_194          193.9992360000
+astatine_195          194.9962685000
+astatine_196          195.9958000000
+astatine_197          196.9931890000
+astatine_198          197.9927840000
+astatine_199          198.9905277000
+astatine_200          199.9903510000
+astatine_201          200.9884171000
+astatine_202          201.9886300000
+astatine_203          202.9869430000
+astatine_204          203.9872510000
+astatine_205          204.9860760000
+astatine_206          205.9866570000
+astatine_207          206.9858000000
+astatine_208          207.9866133000
+astatine_209          208.9861702000
+astatine_210          209.9871479000
+astatine_211          210.9874966000
+astatine_212          211.9907377000
+astatine_213          212.9929370000
+astatine_214          213.9963721000
+astatine_215          214.9986528000
+astatine_216          216.0024236000
+astatine_217          217.0047192000
+astatine_218          218.0086950000
+astatine_219          219.0111618000
+astatine_220          220.0154330000
+astatine_221          221.0180170000
+astatine_222          222.0224940000
+astatine_223          223.0251510000
+astatine_224          224.0297490000
+astatine_225          225.0326300000
+astatine_226          226.0371600000
+astatine_227          227.0402400000
+astatine_228          228.0447500000
+astatine_229          229.0481200000
+astatine              astatine_210     # most stable
+
+# radon: Rn (86)  std atomic weight: [222]
+radon_193             193.0097080000
+radon_194             194.0061440000
+radon_195             195.0054220000
+radon_196             196.0021160000
+radon_197             197.0015850000
+radon_198             197.9986790000
+radon_199             198.9983900000
+radon_200             199.9956900000
+radon_201             200.9956280000
+radon_202             201.9932640000
+radon_203             202.9933880000
+radon_204             203.9914300000
+radon_205             204.9917190000
+radon_206             205.9902140000
+radon_207             206.9907303000
+radon_208             207.9896350000
+radon_209             208.9904150000
+radon_210             209.9896891000
+radon_211             210.9906011000
+radon_212             211.9907039000
+radon_213             212.9938831000
+radon_214             213.9953630000
+radon_215             214.9987459000
+radon_216             216.0002719000
+radon_217             217.0039280000
+radon_218             218.0056016000
+radon_219             219.0094804000
+radon_220             220.0113941000
+radon_221             221.0155371000
+radon_222             222.0175782000
+radon_223             223.0218893000
+radon_224             224.0240960000
+radon_225             225.0284860000
+radon_226             226.0308610000
+radon_227             227.0353040000
+radon_228             228.0378350000
+radon_229             229.0422570000
+radon_230             230.0451400000
+radon_231             231.0498700000
+radon                 radon_222        # most stable
+
+# francium: Fr (87)  std atomic weight: [223]
+francium_199          199.0072590000
+francium_200          200.0065860000
+francium_201          201.0038670000
+francium_202          202.0033200000
+francium_203          203.0009407000
+francium_204          204.0006520000
+francium_205          204.9985939000
+francium_206          205.9986660000
+francium_207          206.9969460000
+francium_208          207.9971380000
+francium_209          208.9959550000
+francium_210          209.9964220000
+francium_211          210.9955560000
+francium_212          211.9962257000
+francium_213          212.9961860000
+francium_214          213.9989713000
+francium_215          215.0003418000
+francium_216          216.0031899000
+francium_217          217.0046323000
+francium_218          218.0075787000
+francium_219          219.0092524000
+francium_220          220.0123277000
+francium_221          221.0142552000
+francium_222          222.0175520000
+francium_223          223.0197360000
+francium_224          224.0233980000
+francium_225          225.0255730000
+francium_226          226.0295660000
+francium_227          227.0318690000
+francium_228          228.0358230000
+francium_229          229.0382980000
+francium_230          230.0424160000
+francium_231          231.0451580000
+francium_232          232.0493700000
+francium_233          233.0526400000
+francium              francium_223     # most stable
+
+# radium: Ra (88)  std atomic weight: [226]
+radium_201            201.0127100000
+radium_202            202.0097600000
+radium_203            203.0093040000
+radium_204            204.0064920000
+radium_205            205.0062680000
+radium_206            206.0038280000
+radium_207            207.0037990000
+radium_208            208.0018410000
+radium_209            209.0019900000
+radium_210            210.0004940000
+radium_211            211.0008932000
+radium_212            211.9997870000
+radium_213            213.0003840000
+radium_214            214.0000997000
+radium_215            215.0027204000
+radium_216            216.0035334000
+radium_217            217.0063207000
+radium_218            218.0071410000
+radium_219            219.0100855000
+radium_220            220.0110259000
+radium_221            221.0139177000
+radium_222            222.0153748000
+radium_223            223.0185023000
+radium_224            224.0202120000
+radium_225            225.0236119000
+radium_226            226.0254103000
+radium_227            227.0291783000
+radium_228            228.0310707000
+radium_229            229.0349420000
+radium_230            230.0370550000
+radium_231            231.0410270000
+radium_232            232.0434753000
+radium_233            233.0475820000
+radium_234            234.0503420000
+radium_235            235.0549700000
+radium                radium_226       # most stable
+
+# actinium: Ac (89)  std atomic weight: [227]
+actinium_206          206.0144520000
+actinium_207          207.0119660000
+actinium_208          208.0115500000
+actinium_209          209.0094950000
+actinium_210          210.0094360000
+actinium_211          211.0077320000
+actinium_212          212.0078130000
+actinium_213          213.0066090000
+actinium_214          214.0069180000
+actinium_215          215.0064750000
+actinium_216          216.0087430000
+actinium_217          217.0093440000
+actinium_218          218.0116420000
+actinium_219          219.0124210000
+actinium_220          220.0147549000
+actinium_221          221.0155920000
+actinium_222          222.0178442000
+actinium_223          223.0191377000
+actinium_224          224.0217232000
+actinium_225          225.0232300000
+actinium_226          226.0260984000
+actinium_227          227.0277523000
+actinium_228          228.0310215000
+actinium_229          229.0329560000
+actinium_230          230.0363270000
+actinium_231          231.0383930000
+actinium_232          232.0420340000
+actinium_233          233.0443460000
+actinium_234          234.0481390000
+actinium_235          235.0508400000
+actinium_236          236.0549880000
+actinium_237          237.0582700000
+actinium              actinium_227     # most stable
+
+# thorium: Th (90)  std atomic weight: 232.0377(4)
+thorium_208           208.0179000000
+thorium_209           209.0177530000
+thorium_210           210.0150940000
+thorium_211           211.0149290000
+thorium_212           212.0129880000
+thorium_213           213.0130090000
+thorium_214           214.0115000000
+thorium_215           215.0117248000
+thorium_216           216.0110560000
+thorium_217           217.0131170000
+thorium_218           218.0132760000
+thorium_219           219.0155370000
+thorium_220           220.0157480000
+thorium_221           221.0181840000
+thorium_222           222.0184690000
+thorium_223           223.0208119000
+thorium_224           224.0214640000
+thorium_225           225.0239514000
+thorium_226           226.0249034000
+thorium_227           227.0277042000
+thorium_228           228.0287413000
+thorium_229           229.0317627000
+thorium_230           230.0331341000
+thorium_231           231.0363046000
+thorium_232           232.0380558000   # 1.00000000
+thorium_233           233.0415823000
+thorium_234           234.0436014000
+thorium_235           235.0472550000
+thorium_236           236.0496570000
+thorium_237           237.0536290000
+thorium_238           238.0565000000
+thorium_239           239.0607700000
+thorium               thorium_232
+
+# protactinium: Pa (91)  std atomic weight: 231.03588(2)
+protactinium_212      212.0232030000
+protactinium_213      213.0211090000
+protactinium_214      214.0209180000
+protactinium_215      215.0191830000
+protactinium_216      216.0191090000
+protactinium_217      217.0183250000
+protactinium_218      218.0200590000
+protactinium_219      219.0199040000
+protactinium_220      220.0217050000
+protactinium_221      221.0218750000
+protactinium_222      222.0237840000
+protactinium_223      223.0239630000
+protactinium_224      224.0256176000
+protactinium_225      225.0261310000
+protactinium_226      226.0279480000
+protactinium_227      227.0288054000
+protactinium_228      228.0310517000
+protactinium_229      229.0320972000
+protactinium_230      230.0345410000
+protactinium_231      231.0358842000   # 1.00000000
+protactinium_232      232.0385917000
+protactinium_233      233.0402472000
+protactinium_234      234.0433072000
+protactinium_235      235.0453990000
+protactinium_236      236.0486680000
+protactinium_237      237.0510230000
+protactinium_238      238.0546370000
+protactinium_239      239.0572600000
+protactinium_240      240.0609800000
+protactinium_241      241.0640800000
+protactinium          protactinium_231
+
+# uranium: U (92)  std atomic weight: 238.02891(3)
+uranium_217           217.0246600000
+uranium_218           218.0235230000
+uranium_219           219.0249990000
+uranium_220           220.0246200000
+uranium_221           221.0262800000
+uranium_222           222.0260000000
+uranium_223           223.0277390000
+uranium_224           224.0276050000
+uranium_225           225.0293910000
+uranium_226           226.0293390000
+uranium_227           227.0311570000
+uranium_228           228.0313710000
+uranium_229           229.0335063000
+uranium_230           230.0339401000
+uranium_231           231.0362939000
+uranium_232           232.0371563000
+uranium_233           233.0396355000
+uranium_234           234.0409523000   # 0.00005400
+uranium_235           235.0439301000   # 0.00720400
+uranium_236           236.0455682000
+uranium_237           237.0487304000
+uranium_238           238.0507884000   # 0.99274200
+uranium_239           239.0542935000
+uranium_240           240.0565934000
+uranium_241           241.0603300000
+uranium_242           242.0629300000
+uranium_243           243.0669900000
+uranium           0.00005400 uranium_234 \
+                + 0.00720400 uranium_235 \
+                + 0.99274200 uranium_238
+
+# neptunium: Np (93)  std atomic weight: [237]
+neptunium_219         219.0314300000
+neptunium_220         220.0325400000
+neptunium_221         221.0320400000
+neptunium_222         222.0333000000
+neptunium_223         223.0328500000
+neptunium_224         224.0342200000
+neptunium_225         225.0339110000
+neptunium_226         226.0351880000
+neptunium_227         227.0349570000
+neptunium_228         228.0360670000
+neptunium_229         229.0362640000
+neptunium_230         230.0378280000
+neptunium_231         231.0382450000
+neptunium_232         232.0401100000
+neptunium_233         233.0407410000
+neptunium_234         234.0428953000
+neptunium_235         235.0440635000
+neptunium_236         236.0465700000
+neptunium_237         237.0481736000
+neptunium_238         238.0509466000
+neptunium_239         239.0529392000
+neptunium_240         240.0561650000
+neptunium_241         241.0582530000
+neptunium_242         242.0616400000
+neptunium_243         243.0642800000
+neptunium_244         244.0678500000
+neptunium_245         245.0708000000
+neptunium             neptunium_237    # most stable
+
+# plutonium: Pu (94)  std atomic weight: [244]
+plutonium_228         228.0387320000
+plutonium_229         229.0401440000
+plutonium_230         230.0396500000
+plutonium_231         231.0411020000
+plutonium_232         232.0411850000
+plutonium_233         233.0429980000
+plutonium_234         234.0433174000
+plutonium_235         235.0452860000
+plutonium_236         236.0460581000
+plutonium_237         237.0484098000
+plutonium_238         238.0495601000
+plutonium_239         239.0521636000
+plutonium_240         240.0538138000
+plutonium_241         241.0568517000
+plutonium_242         242.0587428000
+plutonium_243         243.0620036000
+plutonium_244         244.0642053000
+plutonium_245         245.0678260000
+plutonium_246         246.0702050000
+plutonium_247         247.0741900000
+plutonium             plutonium_244    # most stable
+
+# americium: Am (95)
+americium_230         230.0460900000
+americium_231         231.0455600000
+americium_232         232.0464500000
+americium_233         233.0464400000
+americium_234         234.0477300000
+americium_235         235.0479080000
+americium_236         236.0494300000
+americium_237         237.0499960000
+americium_238         238.0519850000
+americium_239         239.0530247000
+americium_240         240.0553000000
+americium_241         241.0568293000
+americium_242         242.0595494000
+americium_243         243.0613813000
+americium_244         244.0642851000
+americium_245         245.0664548000
+americium_246         246.0697750000
+americium_247         247.0720900000
+americium_248         248.0757500000
+americium_249         249.0784800000
+
+# curium: Cm (96)
+curium_232            232.0498200000
+curium_233            233.0507700000
+curium_234            234.0501600000
+curium_235            235.0515400000
+curium_236            236.0513740000
+curium_237            237.0528690000
+curium_238            238.0530810000
+curium_239            239.0549100000
+curium_240            240.0555297000
+curium_241            241.0576532000
+curium_242            242.0588360000
+curium_243            243.0613893000
+curium_244            244.0627528000
+curium_245            245.0654915000
+curium_246            246.0672238000
+curium_247            247.0703541000
+curium_248            248.0723499000
+curium_249            249.0759548000
+curium_250            250.0783580000
+curium_251            251.0822860000
+curium_252            252.0848700000
+
+# berkelium: Bk (97)
+berkelium_234         234.0572700000
+berkelium_235         235.0565800000
+berkelium_236         236.0574800000
+berkelium_237         237.0571000000
+berkelium_238         238.0582000000
+berkelium_239         239.0582400000
+berkelium_240         240.0597600000
+berkelium_241         241.0601600000
+berkelium_242         242.0619800000
+berkelium_243         243.0630078000
+berkelium_244         244.0651810000
+berkelium_245         245.0663618000
+berkelium_246         246.0686730000
+berkelium_247         247.0703073000
+berkelium_248         248.0730880000
+berkelium_249         249.0749877000
+berkelium_250         250.0783167000
+berkelium_251         251.0807620000
+berkelium_252         252.0843100000
+berkelium_253         253.0868800000
+berkelium_254         254.0906000000
+
+# californium: Cf (98)
+californium_237       237.0621980000
+californium_238       238.0614900000
+californium_239       239.0625300000
+californium_240       240.0622560000
+californium_241       241.0636900000
+californium_242       242.0637540000
+californium_243       243.0654800000
+californium_244       244.0660008000
+californium_245       245.0680487000
+californium_246       246.0688055000
+californium_247       247.0709650000
+californium_248       248.0721851000
+californium_249       249.0748539000
+californium_250       250.0764062000
+californium_251       251.0795886000
+californium_252       252.0816272000
+californium_253       253.0851345000
+californium_254       254.0873240000
+californium_255       255.0910500000
+californium_256       256.0934400000
+
+# einsteinium: Es (99)
+einsteinium_239       239.0682300000
+einsteinium_240       240.0689200000
+einsteinium_241       241.0685600000
+einsteinium_242       242.0695700000
+einsteinium_243       243.0695100000
+einsteinium_244       244.0708800000
+einsteinium_245       245.0712500000
+einsteinium_246       246.0729000000
+einsteinium_247       247.0736220000
+einsteinium_248       248.0754710000
+einsteinium_249       249.0764110000
+einsteinium_250       250.0786100000
+einsteinium_251       251.0799936000
+einsteinium_252       252.0829800000
+einsteinium_253       253.0848257000
+einsteinium_254       254.0880222000
+einsteinium_255       255.0902750000
+einsteinium_256       256.0936000000
+einsteinium_257       257.0959800000
+einsteinium_258       258.0995200000
+
+# fermium: Fm (100)
+fermium_241           241.0742100000
+fermium_242           242.0734300000
+fermium_243           243.0744600000
+fermium_244           244.0740400000
+fermium_245           245.0753500000
+fermium_246           246.0753500000
+fermium_247           247.0769400000
+fermium_248           248.0771865000
+fermium_249           249.0789275000
+fermium_250           250.0795210000
+fermium_251           251.0815400000
+fermium_252           252.0824671000
+fermium_253           253.0851846000
+fermium_254           254.0868544000
+fermium_255           255.0899640000
+fermium_256           256.0917745000
+fermium_257           257.0951061000
+fermium_258           258.0970800000
+fermium_259           259.1006000000
+fermium_260           260.1028100000
+
+# mendelevium: Md (101)
+mendelevium_245       245.0808100000
+mendelevium_246       246.0817100000
+mendelevium_247       247.0815200000
+mendelevium_248       248.0828200000
+mendelevium_249       249.0829100000
+mendelevium_250       250.0844100000
+mendelevium_251       251.0847740000
+mendelevium_252       252.0864300000
+mendelevium_253       253.0871440000
+mendelevium_254       254.0895900000
+mendelevium_255       255.0910841000
+mendelevium_256       256.0938900000
+mendelevium_257       257.0955424000
+mendelevium_258       258.0984315000
+mendelevium_259       259.1005100000
+mendelevium_260       260.1036500000
+mendelevium_261       261.1058300000
+mendelevium_262       262.1091000000
+
+# nobelium: No (102)
+nobelium_248          248.0865500000
+nobelium_249          249.0878000000
+nobelium_250          250.0875600000
+nobelium_251          251.0889400000
+nobelium_252          252.0889670000
+nobelium_253          253.0905641000
+nobelium_254          254.0909560000
+nobelium_255          255.0931910000
+nobelium_256          256.0942829000
+nobelium_257          257.0968878000
+nobelium_258          258.0982100000
+nobelium_259          259.1010300000
+nobelium_260          260.1026400000
+nobelium_261          261.1057000000
+nobelium_262          262.1074600000
+nobelium_263          263.1107100000
+nobelium_264          264.1127300000
+
+# lawrencium: Lr (103)
+lawrencium_251        251.0941800000
+lawrencium_252        252.0952600000
+lawrencium_253        253.0950900000
+lawrencium_254        254.0964800000
+lawrencium_255        255.0965620000
+lawrencium_256        256.0984940000
+lawrencium_257        257.0994180000
+lawrencium_258        258.1017600000
+lawrencium_259        259.1029020000
+lawrencium_260        260.1055000000
+lawrencium_261        261.1068800000
+lawrencium_262        262.1096100000
+lawrencium_263        263.1113600000
+lawrencium_264        264.1142000000
+lawrencium_265        265.1161900000
+lawrencium_266        266.1198300000
+
+# rutherfordium: Rf (104)
+rutherfordium_253     253.1004400000
+rutherfordium_254     254.1000500000
+rutherfordium_255     255.1012700000
+rutherfordium_256     256.1011520000
+rutherfordium_257     257.1029180000
+rutherfordium_258     258.1034280000
+rutherfordium_259     259.1055960000
+rutherfordium_260     260.1064400000
+rutherfordium_261     261.1087730000
+rutherfordium_262     262.1099200000
+rutherfordium_263     263.1124900000
+rutherfordium_264     264.1138800000
+rutherfordium_265     265.1166800000
+rutherfordium_266     266.1181700000
+rutherfordium_267     267.1217900000
+rutherfordium_268     268.1239700000
+
+# dubnium: Db (105)
+dubnium_255           255.1070700000
+dubnium_256           256.1078900000
+dubnium_257           257.1075800000
+dubnium_258           258.1092800000
+dubnium_259           259.1094920000
+dubnium_260           260.1113000000
+dubnium_261           261.1119200000
+dubnium_262           262.1140700000
+dubnium_263           263.1149900000
+dubnium_264           264.1174100000
+dubnium_265           265.1186100000
+dubnium_266           266.1210300000
+dubnium_267           267.1224700000
+dubnium_268           268.1256700000
+dubnium_269           269.1279100000
+dubnium_270           270.1313600000
+
+# seaborgium: Sg (106)
+seaborgium_258        258.1129800000
+seaborgium_259        259.1144000000
+seaborgium_260        260.1143840000
+seaborgium_261        261.1159490000
+seaborgium_262        262.1163370000
+seaborgium_263        263.1182900000
+seaborgium_264        264.1189300000
+seaborgium_265        265.1210900000
+seaborgium_266        266.1219800000
+seaborgium_267        267.1243600000
+seaborgium_268        268.1253900000
+seaborgium_269        269.1286300000
+seaborgium_270        270.1304300000
+seaborgium_271        271.1339300000
+seaborgium_272        272.1358900000
+seaborgium_273        273.1395800000
+
+# bohrium: Bh (107)
+bohrium_260           260.1216600000
+bohrium_261           261.1214500000
+bohrium_262           262.1229700000
+bohrium_263           263.1229200000
+bohrium_264           264.1245900000
+bohrium_265           265.1249100000
+bohrium_266           266.1267900000
+bohrium_267           267.1275000000
+bohrium_268           268.1296900000
+bohrium_269           269.1304200000
+bohrium_270           270.1333600000
+bohrium_271           271.1352600000
+bohrium_272           272.1382600000
+bohrium_273           273.1402400000
+bohrium_274           274.1435500000
+bohrium_275           275.1456700000
+
+# hassium: Hs (108)
+hassium_263           263.1285200000
+hassium_264           264.1283570000
+hassium_265           265.1297930000
+hassium_266           266.1300460000
+hassium_267           267.1316700000
+hassium_268           268.1318600000
+hassium_269           269.1337500000
+hassium_270           270.1342900000
+hassium_271           271.1371700000
+hassium_272           272.1385000000
+hassium_273           273.1416800000
+hassium_274           274.1433000000
+hassium_275           275.1466700000
+hassium_276           276.1484600000
+hassium_277           277.1519000000
+
+# meitnerium: Mt (109)
+meitnerium_265        265.1360000000
+meitnerium_266        266.1373700000
+meitnerium_267        267.1371900000
+meitnerium_268        268.1386500000
+meitnerium_269        269.1388200000
+meitnerium_270        270.1403300000
+meitnerium_271        271.1407400000
+meitnerium_272        272.1434100000
+meitnerium_273        273.1444000000
+meitnerium_274        274.1472400000
+meitnerium_275        275.1488200000
+meitnerium_276        276.1515900000
+meitnerium_277        277.1532700000
+meitnerium_278        278.1563100000
+meitnerium_279        279.1580800000
+
+# darmstadtium: Ds (110)
+darmstadtium_267      267.1437700000
+darmstadtium_268      268.1434800000
+darmstadtium_269      269.1447520000
+darmstadtium_270      270.1445840000
+darmstadtium_271      271.1459500000
+darmstadtium_272      272.1460200000
+darmstadtium_273      273.1485600000
+darmstadtium_274      274.1494100000
+darmstadtium_275      275.1520300000
+darmstadtium_276      276.1530300000
+darmstadtium_277      277.1559100000
+darmstadtium_278      278.1570400000
+darmstadtium_279      279.1601000000
+darmstadtium_280      280.1613100000
+darmstadtium_281      281.1645100000
+
+# roentgenium: Rg (111)
+roentgenium_272       272.1532700000
+roentgenium_273       273.1531300000
+roentgenium_274       274.1552500000
+roentgenium_275       275.1559400000
+roentgenium_276       276.1583300000
+roentgenium_277       277.1590700000
+roentgenium_278       278.1614900000
+roentgenium_279       279.1627200000
+roentgenium_280       280.1651400000
+roentgenium_281       281.1663600000
+roentgenium_282       282.1691200000
+roentgenium_283       283.1705400000
+
+# copernicium: Cn (112)
+copernicium_276       276.1614100000
+copernicium_277       277.1636400000
+copernicium_278       278.1641600000
+copernicium_279       279.1665400000
+copernicium_280       280.1671500000
+copernicium_281       281.1697500000
+copernicium_282       282.1705000000
+copernicium_283       283.1732700000
+copernicium_284       284.1741600000
+copernicium_285       285.1771200000
+
+# nihonium: Nh (113)
+nihonium_278          278.1705800000
+nihonium_279          279.1709500000
+nihonium_280          280.1729300000
+nihonium_281          281.1734800000
+nihonium_282          282.1756700000
+nihonium_283          283.1765700000
+nihonium_284          284.1787300000
+nihonium_285          285.1797300000
+nihonium_286          286.1822100000
+nihonium_287          287.1833900000
+
+# flerovium: Fl (114)
+flerovium_285         285.1836400000
+flerovium_286         286.1842300000
+flerovium_287         287.1867800000
+flerovium_288         288.1875700000
+flerovium_289         289.1904200000
+
+# moscovium: Uup (115)
+moscovium_287         287.1907000000
+moscovium_288         288.1927400000
+moscovium_289         289.1936300000
+moscovium_290         290.1959800000
+moscovium_291         291.1970700000
+
+# livermorium: Lv (116)
+livermorium_289       289.1981600000
+livermorium_290       290.1986400000
+livermorium_291       291.2010800000
+livermorium_292       292.2017400000
+livermorium_293       293.2044900000
+
+# tennessine: Uus (117)
+tennessine_291        291.2055300000
+tennessine_292        292.2074600000
+tennessine_293        293.2082400000
+tennessine_294        294.2104600000
+
+# oganesson: Og (118)
+oganesson_293         293.2135600000
+oganesson_294         294.2139200000
+oganesson_295         295.2162400000
+

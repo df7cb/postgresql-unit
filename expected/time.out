@@ -166,8 +166,8 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  plancktime          | 5.3912464483136e-44 s                         | hbar / planckenergy
  t_P                 | 5.3912464483136e-44 s                         | plancktime
  plancktime_red      | 2.70277015656937e-43 s                        | hbar / planckenergy_red
- atomictime          | 24.1888432658572 as                           | atomicaction / atomicenergy
- natural_time        | 658.211956950907 as                           | hbar / natural_energy
+ atomictime          | 24.1888432658633 as                           | atomicaction / atomicenergy
+ natural_time        | 658.211956950907 as                           | natural_action / natural_energy
  svedberg            | 100 fs                                        | 1e-13 s
  ㎰                  | 1 ps                                          | ps
  ㎱                  | 1 ns                                          | ns
@@ -263,8 +263,8 @@ SELECT name, unit, definition FROM unit_units WHERE dimension(unit) = 'TIME' ORD
  tropicalyear        | 1 commonyear + 05:48:45.9746784 s             | 365.242198781 day
  year                | 1 commonyear + 05:48:45.9746784 s             | tropicalyear
  yr                  | 1 commonyear + 05:48:45.9746784 s             | year
- gregorianyear       | 1 commonyear + 05:49:12 s                     | 365.2425 day
- julianyear          | 1 commonyear + 06:00:00 s                     | 365.25 day
+ gregorianyear       | 1 commonyear + 05:49:12 s                     | 365.2425 days
+ julianyear          | 1 commonyear + 06:00:00 s                     | 365.25 days
  earthyear           | 1 commonyear + 06:09:09.5400288 s             | siderealyear
  siderealyear        | 1 commonyear + 06:09:09.5400288 s             | 365.256360417 day
  gaussianyear        | 1 commonyear + 06:09:56.0153947 s             | (2 pi / gauss_k) days
