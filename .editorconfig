@@ -1,0 +1,47 @@
+root = true
+
+[*]
+indent_size = tab
+
+[*]
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = unset
+tab_width = unset
+
+[*.[chly]]
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = tab
+tab_width = 4
+
+[*.cpp]
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = tab
+tab_width = 4
+
+[*.pl]
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = tab
+tab_width = 4
+
+[*.po]
+trim_trailing_whitespace = true
+insert_final_newline = unset
+indent_style = space
+tab_width = unset
+
+[*.py]
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = space
+tab_width = unset
+indent_size = 4
+
+[*.out]
+indent_style = unset
+indent_size = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
