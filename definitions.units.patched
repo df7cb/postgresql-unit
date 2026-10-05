@@ -1,11 +1,16 @@
+test[micron*pi] \
+        1.234432432 1815.324278432 \
+        2  1200 \
+        3.132443242 1111.1238287483
+
 #
 # This file is the units database for use with GNU units, a units conversion
 # program by Adrian Mariano adrianm@gnu.org
 #
-# Version 3.22
-# last updated 22 November 2024
+# Version 3.26
+# Last updated 25 Febuary 2026
 #
-# Copyright (C) 1996-2002, 2004-2020, 2022, 2024
+# Copyright (C) 1996-2002, 2004-2020, 2022, 2024, 2026
 # Free Software Foundation, Inc
 #
 # This program is free software; you can redistribute it and/or modify
@@ -797,7 +802,8 @@ WORK                    FORCE DISTANCE
 DENSITY                 MASS / VOLUME
 LINEAR_DENSITY          MASS / LENGTH
 SPECIFIC_ENERGY         ENERGY / MASS
-VISCOSITY               FORCE TIME / AREA
+VISCOSITY               DYNAMIC_VISCOSITY
+DYNAMIC_VISCOSITY       FORCE TIME / AREA
 KINEMATIC_VISCOSITY     VISCOSITY / DENSITY
 CURRENT                 ampere
 CHARGE                  coulomb
@@ -943,6 +949,12 @@ solarirradiance         solarluminosity / (4 pi sundist^2)
 solarconstant           solarirradiance
 TSI                     solarirradiance         # total solar irradiance
 
+foe                     1e51 erg   # Amount of energy released by a supernova
+bethe                   1e51 erg   #   Short for ten to the Fifty One Ergs.
+                                   #   Introduced by Gerald Brown in his work
+                                   #   with Hans Bethe. The bethe, was
+                                   #   introduced by Stephen Weinberg in 2006.
+                                   #   http://en.wikipedia.org/wiki/Foe_(unit)
 #
 # Land Area
 #
@@ -1060,6 +1072,7 @@ circumference()                             circum
 circumference_d()                           circum_d
 square(x)                        range=[0,) x^2 ; sqrt(square)
 cube(x)                          range=[0,) x^3 ; cube^(1|3)
+hypot(x,y)                                  sqrt(x*x+y*y)
 
 #
 # Solid angle measure
@@ -1240,27 +1253,76 @@ beaufort_WMO1100(B) units=[1;m/s] domain=[0,17] range=[0,) \
 beaufort(B) units=[1;m/s] domain=[0,17] range=[0,) \
             beaufort_WMO1100(B); ~beaufort_WMO1100(beaufort)
 
-# Units cannot handle wind chill or heat index because they are two-variable
-# functions, but they are included here for your edification.  Clearly these
-# equations are the result of a model fitting operation.
-#
-# wind chill index (WCI) a measurement of the combined cooling effect of low
-#      air temperature and wind on the human body. The index was first defined
-#      by the American Antarctic explorer Paul Siple in 1939. As currently used
-#      by U.S. meteorologists, the wind chill index is computed from the
-#      temperature T (in  deg F) and wind speed V (in mi/hr) using the formula:
-#          WCI = 0.0817(3.71 sqrt(V) + 5.81 - 0.25V)(T - 91.4) + 91.4.
-#      For very low wind speeds, below 4 mi/hr, the WCI is actually higher than
-#      the air temperature, but for higher wind speeds it is lower than the air
-#      temperature.
-#
-# heat index (HI or HX) a measure of the combined effect of heat and
-#      humidity on the human body. U.S. meteorologists compute the index
-#      from the temperature T (in  deg F) and the relative humidity H (as a
-#      value from 0 to 1).
-#        HI = -42.379 + 2.04901523 T + 1014.333127 H - 22.475541 TH
-#             - .00683783 T^2 - 548.1717 H^2 + 0.122874 T^2 H + 8.5282 T H^2
-#             - 0.0199 T^2 H^2.
+# Wind Chill Index, a measure of the combined cooling effect of low
+# air temperature and wind on the human body. The index was first defined
+# by the American Antarctic explorer Paul Siple in 1939. At first it
+# was defined as the equivalent to the temperature in the complete
+# absence of wind, but Charles Eagen realized that people and air are
+# rarely still, so he defined the absence of wind to be an air speed
+# of 4 mph.  The formula currently in use was implemented in 2001 based
+# on a model of skin temperature under various conditions.  It is
+# defined for temperatures below 50 degrees Fahrenheit (20 Celsius)
+# and wind speed above 3 mph.
+# https://en.wikipedia.org/wiki/Wind_chill
+# https://www.weather.gov/epz/wxcalc_windchill
+
+windchill(T,speed) units=[K,mph] domain=[170,283.15],[3,) \
+                   tempF( \
+                         35.74 + 0.6215 ~tempF(T) + \
+                       - 35.75 (speed/mph)^0.16 \
+                       + 0.4275 ~tempF(T) (speed/mph)^0.16 \
+                   )
+
+# This formulation specifies the rate of power loss per surface area
+# as a result of the wind and temperature.  
+
+windchillpower(T,speed) units=[K,mph] domain=[170,283.15],[3,) \
+                 (12.1452 + 11.6222 sqrt(speed/(m/s)) +- 1.1622 speed/(m/s)) \
+                   * (33 +- ~tempC(T)) W/m^2
+
+# Heat Index, a measure of the combined effect of heat and
+# humidity on the human body.  Steadman's "Apparent Temperature"
+# developed in the late 1970s provides the basis for many heat
+# advisories in the US.  It translates current air temperatures into
+# the air temperature that would "feel" the same to humans if the dew
+# point temperature were 14 C / 57.2 F.  Steadman's calculations are
+# complicated and must be looked up in large tables, so various
+# algorithms have been developed to approximate those original tables.  
+# https://pmc.ncbi.nlm.nih.gov/articles/PMC3801457/ goes into more
+# detail and describes the accuracy of many such algorithms,
+# concluding that the algorithm used by the US National Weather
+# Service is the most accurate.  It is described in the above
+# reference and also at 
+#    https://www.wpc.ncep.noaa.gov/html/heatindex.shtml
+# The calculation here implements the Rothfusz equation, which
+# is the core calculation used by the Weather Service, but without
+# corrections and handling of inputs that are out of bounds.
+# The inputs are absolute temperature and relative humidity as a value
+# between 0 and 1. If you have temperature in Fahrenheit specify
+# e.g., tempF(97) and for a value in percent write "%" explicitly,
+# e.g., 78%.  Convert the result to the desired temperature scale
+# such as tempF or tempC.  
+
+heatindex(T,H) units=[K,1] domain=[0,),[0,1] \
+                       tempF(-42.379 + 1014.333127 H +- 548.1717 H^2 \
+                     + (2.04901523 +- 22.475541 H + 8.5282 H^2) ~tempF(T) \
+                     + (-0.00683783 + 0.122874 H +- 0.0199 H^2) ~tempF(T)^2)
+
+# Body mass index, a rule of thumb for categorizing people based on
+# mass and height.  Adults are classified based on bmi in kg/m^2 as
+#    underweight   < 18.5
+#    normal weight in [18.5, 25)
+#    overweight    in [25, 30)
+#    obese         >= 30
+# Various studies have found relationships between BMI and mortality
+# risk. However, BMI was originally designed for European men.  It
+# depends on the square of height but mass increases cubically with
+# length.  Taller individuals with exactly the same body shape have a
+# larger BMI.  The index overestimates fatness on athletes who have
+# more musicle tissue.  It has been argued that BMI more useful for assessing
+# populations than individuals.
+
+bmi(height,weight) units=[m,kg] domain=(0,)(0,) (weight/kg) / (height/m)^2
 
 #
 # Physical constants
@@ -1268,7 +1330,6 @@ beaufort(B) units=[1;m/s] domain=[0,17] range=[0,) \
 
 # Basic constants
 
-#pi                      3.14159265358979323846 # More digits than double
 tau                     2 pi                   #   precision can handle
 phi                     (sqrt(5)+1)/2
 light                   c
@@ -1535,13 +1596,13 @@ m_h                     helionmass          #   and one neutron
 electronwavelength      h / m_e c
 lambda_C                electronwavelength
 protonwavelength        h / m_p c
-lambda_C,p              protonwavelength
+lambda_C_p              protonwavelength
 neutronwavelength       h / m_n c
-lambda_C,n              neutronwavelength
+lambda_C_n              neutronwavelength
 muonwavelength          h / m_mu c
-lambda_C,mu             muonwavelength
+lambda_C_mu             muonwavelength
 tauwavelength           h / m_tau c
-lambda_C,tau            tauwavelength
+lambda_C_tau            tauwavelength
 
 # The g-factor or dimensionless magnetic moment is a quantity that
 # characterizes the magnetic moment of a particle.  The electron g-factor is
@@ -2188,7 +2249,7 @@ skot                    1e-3 apostilb # measurements relating to dark adapted
                                       # eyes.
 # Luminance measures
 
-LUMINANCE               nit
+LUMINANCE               cd/m^2
 
 nit                     cd/m^2        # Luminance: the intensity per projected
 stilb                   cd / cm^2     # area of an extended luminous source.
@@ -3455,10 +3516,12 @@ goliath                 18 magnum
 melchizedek             20 magnum
 midas                   20 magnum
 
-# The wine glass doesn't seem to have an official standard, but the same value
-# is suggested by several sources in the US.
+# The wine glass doesn't seem to have an official standard.  Values vary
+# considerably among countries and even more so among establishments.
+# The value below is suggested by several sources in the US.  This gives
+# five glasses per 750 ml bottle.
 
-wineglass               150 mL
+wineglass               150 ml
 
 # In the UK, serving size offerings legally mandated by The Weights and
 # Measures (Specified Quantities) (Unwrapped Bread and Intoxicating
@@ -3467,15 +3530,17 @@ wineglass               150 mL
 # thereof, but other sizes can be provided at the express request of a
 # buyer.
 
-smallwineglass          125 mL
-mediumwineglass         175 mL
+smallwineglass          125 ml
+mediumwineglass         175 ml
 
-# Values vary considerably among countries and even more so in practice.  The
-# "standard" US value gives 5 glasses per standard 750 ml bottle.  Old practice
-# in the UK was 125 ml per glass, or 6 glasses per bottle. Some sources suggest
-# a more recent common value of 250 ml per glass, or 3 glasses per
-# bottle; as a multiple of 125 ml, this would be a lawful serving size offering.
-#
+# Old practice in the UK was 125 ml per glass, or 6 glasses per bottle.
+# Some sources suggest a more recent common value of 250 ml per glass,
+# or 3 glasses per bottle; as a multiple of 125 ml, this would be a
+# lawful serving size offering.  Some establishments in the US also
+# offer this size.
+
+largewineglass          250 ml
+
 # The value refers to the size of the serving, not the total volume of the
 # glass, which is typically not filled above the height of its greatest
 # diameter.
@@ -3496,7 +3561,7 @@ alcoholunitau           10 g   / ethanoldensity
 # illustrated by US examples for wine (12% Alcohol By Volume), beer (5% ABV),
 # and spirits (80 proof).
 #
-# alcoholunitus / 12% = 147.8 mL, close to the "standard" serving of 150 mL.
+# alcoholunitus / 12% = 147.8 ml, close to the "standard" serving of 150 ml.
 # alcoholunitus / 5% = 11.995346 floz, close to a standard 12 floz bottle or can
 # alcoholunitus / 80 proof = 1.4994182 floz, close to a standard "shot" or jigger
 
@@ -4724,7 +4789,7 @@ cylinderinch         circleinch inch # Cylinder h inch tall, d inches diameter
                                      #    has volume d^2 h cylinder inches
 circularmil             1|4 pi mil^2 # area of one-mil diameter circle
 cmil                    circularmil
-MCM                     kcmil        # older initialism for thousand circular mills
+MCM                     kcmil        # older initialism for thousand circular mils
 cental                  100 pound
 centner                 cental
 
@@ -5889,6 +5954,8 @@ UKP                     GBP        # Not an ISO code, but looks like one, and
                                    # sometimes used on usenet.
 
 !include currency.units
+!include crypto.units
+!include metal_prices.units
 
 # Money on the gold standard, used in the late 19th century and early
 # 20th century.
@@ -6059,6 +6126,8 @@ lbcut               poundcut
 #
 
 FLUID_FLOW              VOLUME / TIME
+FLOW                    FLUID_FLOW
+MASS_FLOW               MASS / TIME
 
 # Some obvious volumetric gas flow units (cu is short for cubic)
 
@@ -6087,6 +6156,54 @@ lfm                     ft/min     # Used to report air flow produced by fans.
 pru                     mmHg / (ml/min)  # peripheral resistance unit, used in
                                          # medicine to assess blood flow in
                                          # the capillaries.
+
+# Viscosity values from https://en.wikipedia.org/wiki/Viscosity
+#
+# For water a value with temperature is estimated using the
+# semi-empirical Vogel-Fulcher-Tammann equation.  For air an
+# approximate formula is given valid from -20 C to 400 C.
+# A few other common substances are given at one temperature.  
+
+viscosity_air(T) units=[K;Pa s] domain=[253.15,673.15] range=(0,) \
+                 (2.791e-7 (T/K)^(0.7355)) Pa s; \
+                 (((viscosity_air/(Pa s)) / 2.791e-7)^(1|0.7355)) K
+
+viscosity_water(T) units=[K;mPa s] domain=[0,) range=(0,) \
+                  0.02939 exp((507.88 K) / (T - 149.3 K)) mPa s; \
+                  149.3 K + (507.88 K) / ln(viscosity_water / (0.02939 mPa s))
+
+viscosity_mercury       1.526 mPa s     # At 25 C
+viscosity_milk          2.12  mPa s     # Whole milk at 20 C
+viscosity_oliveoil      56.2 mPa s      # At 26 C
+
+# The Reynolds number helps predict fluid flow patterns.  At low
+# values flow tends to be laminar while at high numbers it tends to be
+# turbulent.  The calculation requires the density of the fluid, its
+# speed, the diameter, and the (dynamic) viscosity of the fluid.
+# For flow in a pipe, or a sphere moving in a fluid, diameter is
+# obvious, but for other circumstances, an equivalent diameter is used.
+
+reynolds(density,speed,diam,visc) units=[DENSITY,SPEED,LENGTH,VISCOSITY] \
+                     domain=(0,),[0,),(0,),(0,) density speed diam / visc
+
+# Sometimes it is helpful to calculate Reynolds number based on
+# flow rather than velocity.  
+
+# Reynolds number for liquid flow (based on volumetric flow)
+
+re_liquid(density,flow,diam,visc) units=[DENSITY,FLUID_FLOW,LENGTH,VISCOSITY] \
+    domain=(0,),[0,),(0,),(0,) \
+    (4/pi) (density / visc) (flow / diam)
+
+# Reynolds number for gas flow.  For gases, it can be more convenient
+# to work with molecular mass--which is independent of pressure and
+# temperature--rather than density.
+#
+# Assumes standard temperature of 70 deg. F (530 deg. R)
+
+re_gas(molec_mass,flow,diam,visc) units=[MASS,GAS_FLOW,LENGTH,VISCOSITY] \
+    domain=(0,),[0,),(0,),(0,) \
+    (4/pi) (molec_mass / (k 530 degR)) (1 / visc) (flow / diam)
 
 # Miner's inch:  This is an old historic unit used in the Western  United
 # States.  It is generally defined as the rate of flow through a one square
@@ -6352,7 +6469,7 @@ fsw                  foot seawater
 # with a series of smaller holes.  Generally larger gauges mean smaller wires.
 # The gauges often have values such as "00" and "000" which are larger sizes
 # than simply "0" gauge.  In the tables that appear below, these gauges must be
-# specified as negative numbers (e.g. "00" is -1, "000" is -2, etc).
+# specified as negative numbers (e.g., "00" is -1, "000" is -2, etc).
 # Alternatively, you can use the following units:
 #
 
@@ -6500,6 +6617,8 @@ zincgauge[in]    \
 #
 # Imperial drill bit sizes are reported in inches or in a numerical or
 # letter gauge.
+# source (1-97):   ANSI/ASTM B94-11M-1993, Table 1
+#        (98-107): https://en.wikipedia.org/wiki/List_of_drill_and_tap_sizes
 #
 
 drillgauge[in] \
@@ -6523,6 +6642,7 @@ drillgauge[in] \
       18  0.1695 \
       19  0.1660 \
       20  0.1610 \
+      21  0.1590 \
       22  0.1570 \
       23  0.1540 \
       24  0.1520 \
@@ -6547,7 +6667,10 @@ drillgauge[in] \
       44  0.0860 \
       45  0.0820 \
       46  0.0810 \
+      47  0.0785 \
       48  0.0760 \
+      49  0.0730 \
+      50  0.0700 \
       51  0.0670 \
       52  0.0635 \
       53  0.0595 \
@@ -6555,22 +6678,58 @@ drillgauge[in] \
       55  0.0520 \
       56  0.0465 \
       57  0.0430 \
+      58  0.0420 \
+      59  0.0410 \
+      60  0.0400 \
+      61  0.0390 \
+      62  0.0380 \
+      63  0.0370 \
+      64  0.0360 \
       65  0.0350 \
       66  0.0330 \
+      67  0.0320 \
       68  0.0310 \
       69  0.0292 \
       70  0.0280 \
       71  0.0260 \
+      72  0.0250 \
       73  0.0240 \
       74  0.0225 \
       75  0.0210 \
       76  0.0200 \
+      77  0.0180 \
       78  0.0160 \
       79  0.0145 \
       80  0.0135 \
+      81  0.0130 \
+      82  0.0125 \
+      83  0.0120 \
+      84  0.0115 \
+      85  0.0110 \
+      86  0.0105 \
+      87  0.0100 \
       88  0.0095 \
-      104 0.0031
+      89  0.0091 \
+      90  0.0087 \
+      91  0.0083 \
+      92  0.0079 \
+      93  0.0075 \
+      94  0.0071 \
+      95  0.0067 \
+      96  0.0063 \
+      97  0.0059 \
+      98  0.0055 \
+      99  0.0051 \
+      100 0.0047 \
+      101 0.0043 \
+      102 0.0039 \
+      103 0.0035 \
+      104 0.0031 \
+      105 0.0027 \
+      106 0.0023 \
+      107 0.0019
 
+# source: ANSI/ASTM B94-11M-1993, Table 1
 drillA    0.234 in
 drillB    0.238 in
 drillC    0.242 in
@@ -7168,7 +7327,7 @@ jisgrit[micron] \
      6000 2 \
      8000 1.2
 
-# The "Finishing Scale" marked with an A (e.g. A75).  This information
+# The "Finishing Scale" marked with an A (e.g., A75).  This information
 # is from the web page of the sand paper manufacturer Klingspor
 # https://www.klingspor.com/ctemplate1.aspx?page=default/html/gritGradingSystems_en-US.html
 #
@@ -8037,7 +8196,7 @@ famn                    3 aln
 #
 # If you would like to help expand this section and understand
 # cyrillic transliteration, let me know.  These measures are meant to
-# reflect common usage, e.g. in translated literature.
+# reflect common usage, e.g., in translated literature.
 #
 
 dessiatine              2400 sazhen^2    # Land measure
@@ -8745,7 +8904,7 @@ R_∞                     Rinfinity
 ㎓                      GHz
 ㎔                      THz
 ㎕                      µL
-㎖                      mL
+㎖                      ml
 ㎗                      dL
 ㎘                      kL
 ㎙                      fm
@@ -8833,6 +8992,8 @@ R_∞                     Rinfinity
 !unitlist time year;day;hr;min;sec
 !unitlist dms deg;arcmin;arcsec
 !unitlist ftin        ft;in;1|8 in
+!unitlist ftin1       ft;in
+!unitlist ftin2       ft;in;1|2 in
 !unitlist ftin4       ft;in;1|4 in
 !unitlist ftin8       ft;in;1|8 in
 !unitlist ftin16      ft;in;1|16 in
@@ -8871,9 +9032,6 @@ R_∞                     Rinfinity
 #
 # Conversions between different calendar systems used in different countries or
 # different historical periods are out of scope for units and will not be added.
-#
-# Wind chill and heat index cannot be handled because they are bivarite,
-# with dependence on both the temperature and wind speed or humidity.
 #
 # Plain english text output like "one hectare is equivalent to one hundred
 # million square centimeters" is out of scope.

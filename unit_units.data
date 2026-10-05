@@ -479,13 +479,13 @@ m_h	5.00641278617734671e-27 kg	\N	helionmass	\N
 electronwavelength	2.42631023537416938e-12 m	\N	h / m_e c	\N
 lambda_C	2.42631023537416938e-12 m	\N	electronwavelength	\N
 protonwavelength	1.32140985359759852e-15 m	\N	h / m_p c	\N
-lambda_C,p	1.32140985359759852e-15 m	\N	protonwavelength	\N
+lambda_C_p	1.32140985359759852e-15 m	\N	protonwavelength	\N
 neutronwavelength	1.31959090381919774e-15 m	\N	h / m_n c	\N
-lambda_C,n	1.31959090381919774e-15 m	\N	neutronwavelength	\N
+lambda_C_n	1.31959090381919774e-15 m	\N	neutronwavelength	\N
 muonwavelength	1.17344411050375549e-14 m	\N	h / m_mu c	\N
-lambda_C,mu	1.17344411050375549e-14 m	\N	muonwavelength	\N
+lambda_C_mu	1.17344411050375549e-14 m	\N	muonwavelength	\N
 tauwavelength	6.97770452118608643e-16 m	\N	h / m_tau c	\N
-lambda_C,tau	6.97770452118608643e-16 m	\N	tauwavelength	\N
+lambda_C_tau	6.97770452118608643e-16 m	\N	tauwavelength	\N
 g_d	0.857438233500000035	\N	0.8574382335	\N
 g_e	-2.00231930436091998	\N	-2.00231930436092	\N
 g_h	-4.25525069950000034	\N	-4.2552506995	\N
@@ -638,6 +638,7 @@ footcandle	10.7639104167097219 cd/m^2	\N	lumen/ft^2	\N
 metercandle	1 cd/m^2	\N	lumen/m^2	\N
 mcs	1 s*cd/m^2	\N	metercandle s	\N
 nox	0.00100000000000000002 cd/m^2	\N	1e-3 lux	\N
+LUMINANCE	1 cd/m^2	\N	cd/m^2	\N
 nit	1 cd/m^2	\N	cd/m^2	\N
 stilb	10000 cd/m^2	\N	cd / cm^2	\N
 sb	10000 cd/m^2	\N	stilb	\N
@@ -989,9 +990,10 @@ primat	0.0270000000000000101 m^3	\N	18 magnum	\N
 goliath	0.0270000000000000101 m^3	\N	18 magnum	\N
 melchizedek	0.0300000000000000093 m^3	\N	20 magnum	\N
 midas	0.0300000000000000093 m^3	\N	20 magnum	\N
-wineglass	0.000150000000000000014 m^3	\N	150 mL	\N
-smallwineglass	0.00012500000000000003 m^3	\N	125 mL	\N
-mediumwineglass	0.000175000000000000025 m^3	\N	175 mL	\N
+wineglass	0.000150000000000000014 m^3	\N	150 ml	\N
+smallwineglass	0.00012500000000000003 m^3	\N	125 ml	\N
+mediumwineglass	0.000175000000000000025 m^3	\N	175 ml	\N
+largewineglass	0.000250000000000000059 m^3	\N	250 ml	\N
 coffeeratio	54.9999999999999858 kg/m^3	\N	55 g/L	\N
 gpg	0.0171180610452709436 kg/m^3	\N	grains/usgallon	\N
 shoeiron	0.000529166666666666717 m	\N	1|48 inch	\N
@@ -2021,6 +2023,8 @@ splitdeal	0.0162231933600000024 m^3	\N	12 ft 11 in 5|8 in	\N
 poundcut	119.826427316896584 kg/m^3	\N	pound / gallon	\N
 lbcut	119.826427316896584 kg/m^3	\N	poundcut	\N
 FLUID_FLOW	1 m^3/s	\N	VOLUME / TIME	\N
+FLOW	1 m^3/s	\N	FLUID_FLOW	\N
+MASS_FLOW	1 kg/s	\N	MASS / TIME	\N
 cumec	1 m^3/s	\N	m^3/s	\N
 cusec	0.0283168465920000043 m^3/s	\N	ft^3/s	\N
 gph	1.05150327333333364e-06 m^3/s	\N	gal/hr	\N
@@ -2036,6 +2040,9 @@ cfm	0.000471947443200000096 m^3/s	\N	ft^3/min	\N
 lpm	1.66666666666666709e-05 m^3/s	\N	liter/min	\N
 lfm	0.00508000000000000031 m/s	\N	ft/min	\N
 pru	7999343244.89999676 kg/m^4*s	\N	mmHg / (ml/min)	\N
+viscosity_mercury	0.00152600000000000001 kg/m*s	\N	1.526 mPa s	\N
+viscosity_milk	0.00212000000000000036 kg/m*s	\N	2.12  mPa s	\N
+viscosity_oliveoil	0.0562000000000000069 kg/m*s	\N	56.2 mPa s	\N
 minersinchAZ	0.000707921164800000063 m^3/s	\N	1.5 ft^3/min	\N
 minersinchCA	0.000707921164800000063 m^3/s	\N	1.5 ft^3/min	\N
 minersinchMT	0.000707921164800000063 m^3/s	\N	1.5 ft^3/min	\N
@@ -2743,7 +2750,7 @@ R_∞	10973731.5681570563 m^-1	\N	Rinfinity	\N
 ㎓	1000000000 s^-1	\N	GHz	\N
 ㎔	1000000000000 s^-1	\N	THz	\N
 ㎕	1.00000000000000027e-09 m^3	\N	µL	\N
-㎖	1.00000000000000017e-06 m^3	\N	mL	\N
+㎖	1.00000000000000017e-06 m^3	\N	ml	\N
 ㎗	0.000100000000000000032 m^3	\N	dL	\N
 ㎘	1.00000000000000022 m^3	\N	kL	\N
 ㎙	1.00000000000000008e-15 m	\N	fm	\N
@@ -6333,8 +6340,7 @@ SPEED	1 m/s	\N	DISTANCE / TIME	\N
 ACCELERATION	1 m/s^2	\N	VELOCITY / TIME	\N
 MOMENTUM	1 m*kg/s	\N	MASS VELOCITY	\N
 IMPULSE	1 m*kg/s	\N	FORCE TIME	\N
-VISCOSITY	1 kg/m*s	\N	FORCE TIME / AREA	\N
-KINEMATIC_VISCOSITY	1 m^2/s	\N	VISCOSITY / DENSITY	\N
+DYNAMIC_VISCOSITY	1 kg/m*s	\N	FORCE TIME / AREA	\N
 E_FIELD	1 m*kg/s^3*A	\N	ELECTRIC_POTENTIAL / LENGTH	\N
 MAGNETIC_DIPOLE_MOMENT	1 m^2*A	\N	TORQUE / B_FIELD	\N
 MAGNETIZATION	1 A/m	\N	MAGNETIC_DIPOLE_MOMENT / VOLUME	\N
@@ -6349,6 +6355,8 @@ kat	1 mol/s	\N	katal	\N
 solarirradiance	1361.16369462234866 kg/s^3	\N	solarluminosity / (4 pi sundist^2)	\N
 solarconstant	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
 TSI	1361.16369462234866 kg/s^3	\N	solarirradiance	\N
+foe	1.00000000000000009e+44 m^2*kg/s^2	\N	1e51 erg	\N
+bethe	1.00000000000000009e+44 m^2*kg/s^2	\N	1e51 erg	\N
 stremma	1000 m^2	\N	decare	\N
 dunam	1000 m^2	\N	decare	\N
 dulum	1000 m^2	\N	decare	\N
@@ -6446,7 +6454,6 @@ LUMINOUS_ENERGY	1 s*cd	\N	talbot	\N
 ILLUMINANCE	1 cd/m^2	\N	lux	\N
 EXITANCE	1 cd/m^2	\N	lux	\N
 skot	0.000318309886183790701 cd/m^2	\N	1e-3 apostilb	\N
-LUMINANCE	1 cd/m^2	\N	nit	\N
 saros	568971744.399999976 s	\N	223 synodicmonth	\N
 mercuryday	5067360 s	\N	mercuryday_sidereal	\N
 venusday	20997360 s	\N	venusday_sidereal	\N
@@ -6710,6 +6717,8 @@ n₀	2.68678011179844392e+25 m^-3	\N	n0	\N
 ν_133Cs	9192631770 s^-1	\N	nu_133Cs	\N
 ㎈	4.18400000000000016 m^2*kg/s^2	\N	cal	\N
 ㎉	4184 m^2*kg/s^2	\N	kcal	\N
+VISCOSITY	1 kg/m*s	\N	DYNAMIC_VISCOSITY	\N
+KINEMATIC_VISCOSITY	1 m^2/s	\N	VISCOSITY / DENSITY	\N
 ELECTRIC_PERMITTIVITY	1 s^4*A^2/m^3*kg	\N	epsilon0 / epsilon0_SI	\N
 MAGNETIC_PERMEABILITY	1 m*kg/s^2*A^2	\N	mu0 / mu0_SI	\N
 D_FIELD	1 s*A/m^2	\N	E_FIELD ELECTRIC_PERMITTIVITY	\N

@@ -4553,6 +4553,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  planckBfield_red              | 3.03594380356763e+52 T              | planckEfield_red /c
  planckBfield                  | 7.63015899999962e+53 T              | planckEfield / c
  mechanicalohm                 | 1 g/s                               | dyn s / cm
+ MASS_FLOW                     | 1 kg/s                              | MASS / TIME
  mobileohm                     | 1 ks/kg                             | cm / dyn s
  roentgen                      | 0.000258 s*A/kg                     | 2.58e-4 C / kg
  rontgen                       | 0.000258 s*A/kg                     | roentgen
@@ -4568,19 +4569,19 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  l_P                           | 1.61625502442371e-35 m              | plancklength
  plancklength                  | 1.61625502442371e-35 m              | plancktime c
  plancklength_red              | 8.10270108646976e-35 m              | plancktime_red c
- lambda_C,tau                  | 697.770452118609 am                 | tauwavelength
+ lambda_C_tau                  | 697.770452118609 am                 | tauwavelength
  tauwavelength                 | 697.770452118609 am                 | h / m_tau c
  protonchargeradius            | 840.75 am                           | 8.4075e-16 m
  fermi                         | 1 fm                                | 1e-15 m
  ㎙                            | 1 fm                                | fm
- lambda_C,n                    | 1.3195909038192 fm                  | neutronwavelength
+ lambda_C_n                    | 1.3195909038192 fm                  | neutronwavelength
  neutronwavelength             | 1.3195909038192 fm                  | h / m_n c
- lambda_C,p                    | 1.3214098535976 fm                  | protonwavelength
+ lambda_C_p                    | 1.3214098535976 fm                  | protonwavelength
  protonwavelength              | 1.3214098535976 fm                  | h / m_p c
  alphachargeradius             | 1.6785 fm                           | 1.6785e-15 m
  deuteronchargeradius          | 2.12778 fm                          | 2.12778e-15 m
  electronradius                | 2.8179403204396 fm                  | alpha^2 bohrradius
- lambda_C,mu                   | 11.7344411050376 fm                 | muonwavelength
+ lambda_C_mu                   | 11.7344411050376 fm                 | muonwavelength
  muonwavelength                | 11.7344411050376 fm                 | h / m_mu c
  siegbahn                      | 100.207697 fm                       | xunit
  xunit                         | 100.207697 fm                       | xunit_cu
@@ -5953,6 +5954,8 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  castlebravo                   | 62.76 PJ                            | 15 megaton tnt
  tsarbomba                     | 209.2 PJ                            | 50 megaton tnt
  quad                          | 1.05505585262 EJ                    | quadrillion btu
+ bethe                         | 1e+44 J                             | 1e51 erg
+ foe                           | 1e+44 J                             | 1e51 erg
  thermalfarad                  | 1 m^2*kg/s^2*K^2                    | J/K^2
  boltzmann                     | 1.380649e-23 m^2*kg/s^2*K           | 1.380649e-23 (m^2*kg/s^2)/K
  k                             | 1.380649e-23 m^2*kg/s^2*K           | boltzmann
@@ -6004,7 +6007,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  minim                         | 6.1611519921875e-08 m^3             | minimvolume
  minimvolume                   | 6.1611519921875e-08 m^3             | 1|60 fluiddram
  cc                            | 1e-06 m^3                           | cm^3
- ㎖                            | 1e-06 m^3                           | mL
+ ㎖                            | 1e-06 m^3                           | ml
  ㎤                            | 1e-06 m^3                           | cm^3
  ㏄                            | 1e-06 m^3                           | cc
  brscruple                     | 1.18387760416667e-06 m^3            | 1|3 brdram
@@ -6075,14 +6078,14 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  irishnoggin                   | 0.000111431453911851 m^3            | 1|4 irishpint
  gill                          | 0.00011829411825 m^3                | 1|4 pint
  usgill                        | 0.00011829411825 m^3                | 1|4 uspint
- smallwineglass                | 0.000125 m^3                        | 125 mL
+ smallwineglass                | 0.000125 m^3                        | 125 ml
  brgill                        | 0.0001420653125 m^3                 | 1|4 brpint
  imperialgill                  | 0.0001420653125 m^3                 | brgill
  noggin                        | 0.0001420653125 m^3                 | brgill
  quartaria                     | 0.0001450255164 m^3                 | 1|4 sextarius
  quartarius                    | 0.0001450255164 m^3                 | quartaria
- wineglass                     | 0.00015 m^3                         | 150 mL
- mediumwineglass               | 0.000175 m^3                        | 175 mL
+ wineglass                     | 0.00015 m^3                         | 150 ml
+ mediumwineglass               | 0.000175 m^3                        | 175 ml
  gou                           | 0.000180390683696469 m^3            | gou_volume
  gou_volume                    | 0.000180390683696469 m^3            | 1|10 shou
  winesplit                     | 0.0001875 m^3                       | 1|4 winebottle
@@ -6092,6 +6095,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cup                           | 0.0002365882365 m^3                 | uscup
  uscup                         | 0.0002365882365 m^3                 | 8 usfloz
  legalcup                      | 0.00024 m^3                         | 240 ml
+ largewineglass                | 0.00025 m^3                         | 250 ml
  metriccup                     | 0.00025 m^3                         | 250 ml
  ollock                        | 0.00025 m^3                         | 1|4 liter
  greekkotyle                   | 0.00027 m^3                         | 270 ml
@@ -6361,6 +6365,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  cfs                           | 0.028316846592 m^3/s                | ft^3/s
  cusec                         | 0.028316846592 m^3/s                | ft^3/s
  mgd                           | 0.0438126363888889 m^3/s            | megagal/day
+ FLOW                          | 1 m^3/s                             | FLUID_FLOW
  FLUID_FLOW                    | 1 m^3/s                             | VOLUME / TIME
  cumec                         | 1 m^3/s                             | m^3/s
  sverdrup                      | 1000000 m^3/s                       | 1e6 m^3 / sec
@@ -6624,7 +6629,7 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  equivalentlux                 | 318.309886183791 mlx                | cd / pi m^2
  EXITANCE                      | 1 lx                                | lux
  ILLUMINANCE                   | 1 lx                                | lux
- LUMINANCE                     | 1 lx                                | nit
+ LUMINANCE                     | 1 lx                                | cd/m^2
  lux                           | 1 lx                                | lm/m^2
  lx                            | 1 lx                                | lux
  metercandle                   | 1 lx                                | lumen/m^2
@@ -6899,16 +6904,20 @@ SELECT name, unit, definition FROM unit_units ORDER BY dimension(unit), unit, na
  diesel                        | 36.3724732270527 GPa                | 130500 btu/usgallon
  heating                       | 37.3 GPa                            | 37.3 MJ/liter
  fueloil                       | 39.7 GPa                            | 39.7 MJ/liter
+ viscosity_mercury             | 1.526 g/m*s                         | 1.526 mPa s
+ viscosity_milk                | 2.12 g/m*s                          | 2.12  mPa s
+ viscosity_oliveoil            | 56.2 g/m*s                          | 56.2 mPa s
  P                             | 100 g/m*s                           | poise
  poise                         | 100 g/m*s                           | gram / cm s
- VISCOSITY                     | 1 kg/m*s                            | FORCE TIME / AREA
+ DYNAMIC_VISCOSITY             | 1 kg/m*s                            | FORCE TIME / AREA
+ VISCOSITY                     | 1 kg/m*s                            | DYNAMIC_VISCOSITY
  poiseuille                    | 1 kg/m*s                            | N s / m^2
  reyn                          | 6.89475729316836 Mg/m*s             | psi sec
  MPGe                          | 1.32640330058567e-05 s^2/m*kg       | mpg_e
  mpg_e                         | 1.32640330058567e-05 s^2/m*kg       | miles / gallon gasoline_LHV
  lorentz                       | 46.6864477193716 s^2*A/m*kg         | bohrmagneton / h c
  THERMAL_RESISTIVITY           | 1 s^3*K/m*kg                        | 1/THERMAL_CONDUCTIVITY
-(6772 rows)
+(6781 rows)
 
 -- units that do not conform to their original definition
 SELECT name, unit, definition, definition::unit AS parsed_definition, unit / definition::unit AS deviation
