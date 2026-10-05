@@ -38,6 +38,12 @@ SELECT '-1 m/s'::unit;
 SELECT '10 dm^3'::unit, '10l'::unit;
 SELECT '9.81 kg*m/s^2'::unit, '9.81 kg*m/s*s'::unit, '9.81 kg*m/s/s'::unit;
 SELECT '1 foobar'::unit AS error;
+SELECT '1.'::unit, '.1'::unit;
+SELECT '10_000'::unit, '1.000_001'::unit, '1_000.000_1e+1_0'::unit;
+SELECT '_001'::unit AS error;
+SELECT '100_'::unit AS error;
+SELECT '10__0'::unit AS error;
+SELECT '.'::unit AS error;
 
 -- special values
 SELECT '-0'::unit, -'0'::unit, '-0 m'::unit, -'0 m'::unit;

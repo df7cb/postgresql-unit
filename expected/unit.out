@@ -178,6 +178,34 @@ SELECT '1 foobar'::unit AS error;
 ERROR:  unit "foobar" is not known
 LINE 1: SELECT '1 foobar'::unit AS error;
                ^
+SELECT '1.'::unit, '.1'::unit;
+ unit | unit 
+------+------
+ 1    | 0.1
+(1 row)
+
+SELECT '10_000'::unit, '1.000_001'::unit, '1_000.000_1e+1_0'::unit;
+ unit  |   unit   |      unit      
+-------+----------+----------------
+ 10000 | 1.000001 | 10000001000000
+(1 row)
+
+SELECT '_001'::unit AS error;
+ERROR:  unit "_001" is not known
+LINE 1: SELECT '_001'::unit AS error;
+               ^
+SELECT '100_'::unit AS error;
+ERROR:  unit "_" is not known
+LINE 1: SELECT '100_'::unit AS error;
+               ^
+SELECT '10__0'::unit AS error;
+ERROR:  unit "__0" is not known
+LINE 1: SELECT '10__0'::unit AS error;
+               ^
+SELECT '.'::unit AS error;
+ERROR:  invalid input syntax for unit: ".", syntax error, unexpected ERR
+LINE 1: SELECT '.'::unit AS error;
+               ^
 -- special values
 SELECT '-0'::unit, -'0'::unit, '-0 m'::unit, -'0 m'::unit;
  unit | ?column? | unit | ?column? 

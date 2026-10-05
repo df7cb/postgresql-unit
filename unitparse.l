@@ -49,7 +49,8 @@ UTF8    {U2_1}|{U2_2}|{U2_3}|{U2_4}|{U3_1}|{U3_2}|{U3_3}|{U3_4}|{U3_5}|{U3_6}|{U
 ALPHA   [a-zA-Z$%'"_]|{UTF8}
 ALNUM   [a-zA-Z$%'"_0-9]|{UTF8}
 
-DOUBLE_R [0-9]*\.?[0-9]+([eE][\-+]?[0-9]+)?
+INT_R    [0-9](_?[0-9])*
+DOUBLE_R ({INT_R}(\.{INT_R}?)?|\.{INT_R})([eE][\-+]?{INT_R})?
 TIME_R   [0-9]+:[0-9]+:[0-9]+(\.[0-9]+)?
 UNIT_R   {ALPHA}{ALNUM}*
 EXP_R    \^[\-+]?[0-9]+
@@ -70,6 +71,16 @@ SUPER_9     \xe2\x81\xb9
 %%
 
 {DOUBLE_R} {
+	char	   *src = yytext;
+	char	   *dst = yytext;
+
+	while (*src)
+	{
+		if (*src != '_')
+			*dst++ = *src;
+		src++;
+	}
+	*dst = '\0';
 	yyunitlval.DOUBLE = atof(yytext);
 	return DOUBLE;
 }
