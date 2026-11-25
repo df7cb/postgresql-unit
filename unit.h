@@ -83,6 +83,10 @@ typedef struct unit_dimensions_t {
 
 /* parser interface */
 
+/* globals defined by the bison-generated parser */
+extern int yyunitchar;
+extern int yyunitnerrs;
+
 int unit_parse (char *s, UnitShift *unit); /* in unit.y */
 
 char *unit_cstring (Unit *unit);

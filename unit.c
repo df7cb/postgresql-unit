@@ -529,7 +529,7 @@ unit_cstring (Unit *unit)
 
 /* input and output */
 
-char *yyerrstr; /* copy of error catched by yyuniterror() */
+static char *yyerrstr; /* copy of error catched by yyuniterror() */
 
 void yyuniterror (char *s);
 

@@ -10,8 +10,7 @@ DATA_built = unit--2--3.sql unit--3.sql \
 			 unit--5--6.sql unit--6.sql \
 			 unit--6--7.sql unit--7.sql
 REGRESS = extension tables unit binary unicode prefix units time temperature functions language_functions round derived compare aggregate iec custom
-# Jessie's and trusty's bison (3.0.2) is buggy, ship pregenerated .tab files
-EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump # unitparse.tab.*
+EXTRA_CLEAN = unitparse.yy.* powers powers.o unit-*.dump unitparse.tab.*
 
 # avoid add/mult contraction so '-459.67 °F' is really '0 K'
 # problem visible on ppc64el Ubuntu trusty..zesty (Debian unaffected)
