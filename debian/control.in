@@ -8,7 +8,7 @@ Build-Depends:
  bison,
  flex,
  postgresql-server-dev-all (>= 217~),
-Standards-Version: 4.7.2
+Standards-Version: 4.7.4
 Vcs-Git: https://github.com/df7cb/postgresql-unit.git
 Vcs-Browser: https://github.com/df7cb/postgresql-unit
 Homepage: https://github.com/df7cb/postgresql-unit

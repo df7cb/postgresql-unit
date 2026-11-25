@@ -31,7 +31,7 @@ jobs:
 
     steps:
     - name: checkout
-      uses: actions/checkout@latest
+      uses: actions/checkout@main
 
     - name: install pg
       run: |

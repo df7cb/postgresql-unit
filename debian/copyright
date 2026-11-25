@@ -1,18 +1,36 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: postgresql-unit
+Source: https://github.com/df7cb/postgresql-unit
 
 Files: *
-Copyright: (C) 2016-2018 Christoph Berg
+Copyright: 2016-2023 Christoph Berg <myon@debian.org>
+License: GPL-2+
+
+Files: definitions.units
+       definitions.units.patch
+       definitions.units.patched
+Copyright: 1996-2002, 2004-2020, 2022, 2024, 2026
+           Free Software Foundation, Inc.
 License: GPL-3+
 
-Files: definitions.units*
-Copyright: (C) 1996-2002, 2004-2017
-           Free Software Foundation, Inc
+Files: elements.units
+Copyright: 2024 Free Software Foundation, Inc.
 License: GPL-3+
 
-License: GPL-3+
+Files: unitparse.tab.c
+       unitparse.tab.h
+Copyright: 1984, 1989-1990, 2000-2015, 2018-2021
+           Free Software Foundation, Inc.
+License: GPL-3+ with Bison-2.2 exception
+
+Files: debian/*
+Copyright: 2016-2026 Christoph Berg <myon@debian.org>
+License: GPL-2+
+
+License: GPL-2+
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
+ the Free Software Foundation; either version 2 of the License, or
  (at your option) any later version.
  .
  This program is distributed in the hope that it will be useful,
@@ -20,5 +38,52 @@ License: GPL-3+
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
  .
- The full text of the GPL 3 is distributed as in
- /usr/share/common-licenses/GPL-3 on Debian systems.
+ On Debian GNU/Linux systems, the complete text of the GNU General
+ Public License version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian GNU/Linux systems, the complete text of the GNU General
+ Public License version 3 can be found in `/usr/share/common-licenses/GPL-3'.
+
+License: GPL-3+ with Bison-2.2 exception
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian GNU/Linux systems, the complete text of the GNU General
+ Public License version 3 can be found in `/usr/share/common-licenses/GPL-3'.
+ .
+ As a special exception, you may create a larger work that contains
+ part or all of the Bison parser skeleton and distribute that work
+ under terms of your choice, so long as that work isn't itself a
+ parser generator using the skeleton or a modified version thereof
+ as a parser skeleton.  Alternatively, if you modify or redistribute
+ the parser skeleton itself, you may (at your option) remove this
+ special exception, which will cause the skeleton and the resulting
+ Bison output files to be licensed under the GNU General Public
+ License without this special exception.
+ .
+ This special exception was added by the Free Software Foundation in
+ version 2.2 of Bison.

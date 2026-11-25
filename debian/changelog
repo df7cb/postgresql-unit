@@ -2,8 +2,9 @@ postgresql-unit (7.11-1) unstable; urgency=medium
 
   * Update to definitions.units 3.26.
   * Accept _ in numeric literals. (#46 by Ken Harris, thanks!)
+  * Upload for PostgreSQL 19.
 
- -- Christoph Berg <myon@debian.org>  Mon, 05 Oct 2026 21:25:02 +0200
+ -- Christoph Berg <myon@debian.org>  Wed, 25 Nov 2026 18:01:23 +0100
 
 postgresql-unit (7.10-2) unstable; urgency=medium
 
