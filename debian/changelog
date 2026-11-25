@@ -1,3 +1,10 @@
+postgresql-unit (7.11-2) UNRELEASED; urgency=medium
+
+  * float8out_unit.h: Add PGDG and UCB as copyright holders.
+  * unit_prefixes.data and unit_units.data are derived from GNU units.
+
+ -- Christoph Berg <myon@debian.org>  Wed, 25 Nov 2026 20:56:07 +0100
+
 postgresql-unit (7.11-1) unstable; urgency=medium
 
   * Update to definitions.units 3.26.
